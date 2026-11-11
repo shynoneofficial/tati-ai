@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>People - Tati</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#f6f3ee;padding:12px;padding-bottom:30px}
+a.back{color:#0a192f;text-decoration:none;font-weight:800;font-size:14px}
+h1{font-size:22px;margin:12px 0 4px}
+p.sub{color:#667781;font-size:13px;margin-bottom:12px;line-height:1.4}
+.tabs{display:flex;background:#fff;padding:4px;border-radius:12px;gap:4px;margin-bottom:14px}
+.tabs button{flex:1;padding:11px;border:none;border-radius:9px;font-weight:800;font-size:14px;background:transparent;cursor:pointer}
+.tabs button.on{background:#0a192f;color:#fff}
+.tabs button:disabled{opacity:.4}
+.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card h2{font-size:16px;margin-bottom:8px}
+label{font-size:12px;font-weight:800;color:#667781;display:block;margin:10px 0 4px}
+input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;text-align:center;text-decoration:none;margin-top:12px}
+.btn-green{background:#00a884;color:#fff}
+.btn-dark{background:#0a192f;color:#fff}
+.btn-grey{background:#f0f2f5;color:#111}
+.avatarBox{width:90px;height:90px;border-radius:50%;overflow:hidden;background:#eee;margin:0 auto;display:flex;align-items:center;justify-content:center;border:3px solid #00a884}
+.avatarBox img{width:100%;height:100%;object-fit:cover;display:none}
+.photoBox{width:100%;height:150px;border-radius:12px;overflow:hidden;background:#eee;display:flex;align-items:center;justify-content:center}
+.photoBox img{width:100%;height:100%;object-fit:cover;display:none}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;margin-top:6px}
+.badge.ok{background:#d9fdd3;color:#075e54}
+.badge.no{background:#ffe0e0;color:#b00020}
+.badge.warn{background:#fff3cd;color:#856404}
+.notice{font-size:12px;line-height:1.4;color:#667781;margin-top:6px}
+.notice b{color:#111}
+.row{display:flex;gap:10px;align-items:center}
+.row img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee}
+.row .info{flex:1}
+.row .info b{font-size:15px;display:block}
+.row .info span{font-size:12px;color:#667781}
+.smallBtn{padding:9px 12px;border-radius:999px;border:none;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
+.reqPhotos{display:flex;gap:8px;margin:10px 0}
+.reqPhotos img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee;border:2px solid #00a884}
+.reqPhotos img.cover{border-radius:10px;width:90px;height:48px;border-color:#ddd}
+.accBtn{flex:1;padding:11px;border:none;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.lockBox{background:#fff3cd;border:2px solid #ffcc00;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center}
+.lockBox h2{font-size:17px;margin-bottom:6px}
+.step{font-size:12px;font-weight:800;color:#856404}
+.hidden{display:none!important}
+</style></head><body>
+<a class="back" href="./index.html">← Back to Tati</a>
+<h1>👥 People</h1>
+<p class="sub">Before you talk to people, YOU must register first. Your name + number + your selfies. Then you are good to go.</p>
+
+<!-- SETUP GATE - SHOWS FIRST IF NOT REGISTERED -->
+<div id="setupGate" class="lockBox">
+<h2>🔒 Finish YOUR Setup First</h2>
+<p class="notice" style="color:#111;font-size:13px">You cannot talk to people until YOU register.<br>1. Your Name + Number<br>2. Your Profile Selfie - camera<br>3. Your Cover Photo<br>Then you are good to go!</p>
+<p class="notice" id="setupProgress">⏳ Setup: 0 / 3 done</p>
+</div>
+
+<div class="tabs">
+<button id="tabProfile" class="on" onclick="showTab('profile')">My Profile - Setup</button>
+<button id="tabAdd" onclick="tryShowTab('add')">Add People</button>
+<button id="tabList" onclick="tryShowTab('list')">My People</button>
+</div>
+
+<div id="view-profile">
+<div class="card">
+<h2>1️⃣ YOUR NAME + NUMBER - Required</h2>
+<label>YOUR NAME *</label><input id="myName" placeholder="Ex: Jemi">
+<label>YOUR NUMBER *</label><input id="myNumber" placeholder="Ex: +258 84 000 0000" inputmode="tel">
+<label>ABOUT ME</label><input id="myAbout" placeholder="Ex: I love music">
+<button class="btn btn-dark" onclick="saveProfile()">💾 Save Name + Number</button>
+<p class="notice" id="saveMsg"></p>
+</div>
+
+<div class="card">
+<h2>2️⃣ PROFILE SELFIE - Take It Yourself - Required</h2>
+<div class="avatarBox" onclick="document.getElementById('selfieInput').click()"><img id="selfiePreview"><span id="selfieIcon">📸</span></div>
+<div style="text-align:center"><span id="selfieBadge" class="badge warn">⚠️ NOT VERIFIED - No selfie yet</span><p class="notice" id="selfieNotice">Take a selfie with camera to prove YOU are a real person. <b>If you only upload a photo, we show NOT VERIFIED.</b></p></div>
+<input type="file" id="selfieInput" accept="image/*" capture="user" class="hidden">
+<button class="btn btn-green" onclick="document.getElementById('selfieInput').click()">📸 Take Selfie - Face + Chest - YOURSELF</button>
+<button class="btn btn-grey" onclick="document.getElementById('uploadInput').click()">🖼️ Upload Photo Instead - Shows NOT VERIFIED</button>
+<input type="file" id="uploadInput" accept="image/*" class="hidden">
+<p class="notice">Selfie tip: Look at camera, smile, show face + chest. So people know it is really YOU.</p>
+</div>
+
+<div class="card">
+<h2>3️⃣ COVER PHOTO - Required</h2>
+<div class="photoBox" onclick="document.getElementById('coverInput').click()"><img id="coverPreview"><span id="coverIcon">🖼️ Tap to add cover</span></div>
+<input type="file" id="coverInput" accept="image/*" class="hidden">
+<div style="display:flex;gap:8px"><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverInput').click()">Upload Cover</button><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverSelfieInput').click()">📸 Take Selfie</button></div>
+<input type="file" id="coverSelfieInput" accept="image/*" capture="user" class="hidden">
+<p class="notice">Cover can be upload OR selfie - both okay.</p>
+</div>
+
+<div class="card" id="finishCard">
+<h2>✅ Finish Setup</h2>
+<p class="notice" id="finishMsg">Fill Name + Number, take Profile Selfie, add Cover. Then tap below.</p>
+<button class="btn btn-green" onclick="finishSetup()">✅ I Am Done - I Am Good To Go →</button>
+</div>
+</div>
+
+<div id="view-add" class="hidden">
+<div class="card">
+<h2>➕ Add Person by Number</h2>
+<p class="notice">You only need the number. Name is optional if you don't know it.</p>
+<label>PERSON'S NUMBER *</label><input id="addNumber" placeholder="Ex: +258 84 000 0000" inputmode="tel">
+<label>PERSON'S NAME (if you know it)</label><input id="addName" placeholder="Ex: Mama / Thabo / Leave empty">
+<button class="btn btn-green" onclick="sendRequest()">📩 Send Request</button>
+<p class="notice" id="addMsg"></p>
+</div>
+<div class="card">
+<h2>📩 Sent Requests</h2>
+<div id="sentList"><p class="notice">No requests sent yet.</p></div>
+</div>
+<div class="card">
+<h2>🔔 Requests For You - Do You Know Them?</h2>
+<p class="notice">When someone sends you a request, it shows here. Check face + name. If you know them, Accept. If not, Deny.</p>
+<div id="incomingList"><p class="notice">No new requests.</p></div>
+<button class="btn btn-grey" onclick="demoIncoming()">👀 Test: Show me how a request looks</button>
+</div>
+</div>
+
+<div id="view-list" class="hidden">
+<div class="card"><h2>👥 My People <span id="peopleCount"></span></h2><div id="peopleList"><p class="notice">No people yet.</p></div></div>
+</div>
+
+<script>
+function isSetupDone(){
+  try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
+    return !!(p.name && p.number && p.selfieVerified && p.cover && p.setupDone);
+  }catch(e){ return false; }
+}
+function updateGate(){
+  var done=isSetupDone();
+  document.getElementById('setupGate').style.display = done ? 'none' : 'block';
+  try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
+    var c=0; if(p.name && p.number) c++; if(p.selfieVerified) c++; if(p.cover) c++;
+    document.getElementById('setupProgress').textContent='⏳ Setup: '+c+' / 3 done'+(done?' - ✅ YOU ARE GOOD TO GO!':'');
+    document.getElementById('finishMsg').innerHTML = done ? '✅ Setup Complete! You can now talk to people.' : 'Fill Name + Number, take Profile Selfie, add Cover. Then tap below.';
+  }catch(e){}
+}
+function tryShowTab(t){
+  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first!\n\n1. Your Name + Number\n2. Your Profile Selfie - take it yourself\n3. Your Cover Photo\n\nThen you are good to go!'); showTab('profile'); return; }
+  showTab(t);
+}
+function showTab(t){ ['profile','add','list'].forEach(function(x){ document.getElementById('view-'+x).classList.toggle('hidden', x!==t); document.getElementById('tab'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on', x===t); }); }
+try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(p.name) document.getElementById('myName').value=p.name; if(p.number) document.getElementById('myNumber').value=p.number; if(p.about) document.getElementById('myAbout').value=p.about; if(p.selfie){ var im=document.getElementById('selfiePreview'); im.src=p.selfie; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; } if(p.selfieVerified) setVerified(true); if(p.selfieUploaded) setVerified(false); if(p.cover){ var c=document.getElementById('coverPreview'); c.src=p.cover; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; } }catch(e){}
+function setVerified(isSelfie){ var b=document.getElementById('selfieBadge'); if(isSelfie){ b.className='badge ok'; b.textContent='✅ VERIFIED - Real Person - Selfie taken'; document.getElementById('selfieNotice').innerHTML='Great! You took a selfie YOURSELF. People can trust you are real.'; } else { b.className='badge no'; b.textContent='⚠️ NOT VERIFIED - Uploaded photo, not selfie'; document.getElementById('selfieNotice').innerHTML='<b>Not Verified.</b> You uploaded a photo, you did not prove YOU are real with selfie. Take a selfie yourself to become Verified.'; } }
+function readFile(input,cb){ var f=input.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ cb(r.result); }; r.readAsDataURL(f); }
+document.getElementById('selfieInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('selfiePreview'); im.src=d; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; setVerified(true); saveField('selfie',d); saveField('selfieVerified',true); saveField('selfieUploaded',false); updateGate(); }); };
+document.getElementById('uploadInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('selfiePreview'); im.src=d; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; setVerified(false); saveField('selfie',d); saveField('selfieVerified',false); saveField('selfieUploaded',true); updateGate(); }); };
+document.getElementById('coverInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('coverPreview'); im.src=d; im.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',d); updateGate(); }); };
+document.getElementById('coverSelfieInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('coverPreview'); im.src=d; im.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',d); updateGate(); }); };
+function saveField(k,v){ try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); p[k]=v; localStorage.setItem('tati_my_profile', JSON.stringify(p)); }catch(e){} }
+function saveProfile(){ var name=document.getElementById('myName').value.trim(); var num=document.getElementById('myNumber').value.trim(); if(!name||!num){ document.getElementById('saveMsg').innerHTML='<b>Please fill YOUR Name + YOUR Number.</b>'; return; } saveField('name',name); saveField('number',num); saveField('about', document.getElementById('myAbout').value.trim()); document.getElementById('saveMsg').textContent='✅ Saved! Now take your selfie.'; updateGate(); }
+function finishSetup(){
+  try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
+    if(!p.name || !p.number){ alert('❌ Missing: YOUR Name + Number. Fill them first.'); return; }
+    if(!p.selfieVerified){ alert('❌ Missing: YOUR Profile Selfie. You must take it YOURSELF with camera. Upload does NOT count - it shows NOT VERIFIED.'); return; }
+    if(!p.cover){ alert('❌ Missing: YOUR Cover Photo. Add cover first.'); return; }
+    p.setupDone=true; localStorage.setItem('tati_my_profile', JSON.stringify(p));
+    alert('✅ SETUP DONE! You are good to go! Now you can Add People and Talk to people.');
+    updateGate(); showTab('add');
+  }catch(e){}
+}
+function getReq(){ try{ return JSON.parse(localStorage.getItem('tati_requests')||'[]'); }catch(e){ return []; } }
+function getInc(){ try{ return JSON.parse(localStorage.getItem('tati_incoming')||'[]'); }catch(e){ return []; } }
+function renderAll(){
+  var list=getReq(); var box=document.getElementById('sentList');
+  if(!list.length){ box.innerHTML='<p class="notice">No requests sent yet.</p>'; }
+  else { box.innerHTML=list.map(function(r){ var st=r.status||'pending'; var label=st==='accepted'?'✅ Request Accepted - Chat Open':st==='denied'?'❌ Request Denied':'⏳ Request Sent - Waiting'; var btn=st==='accepted'?'<a class="smallBtn" style="background:#00a884;color:#fff;text-decoration:none" href="./index.html?chat='+encodeURIComponent(r.number)+'">💬 Open Chat</a>':'<button class="smallBtn" style="background:#f0f2f5" disabled>'+label+'</button>'; return '<div style="margin-bottom:12px"><div class="row"><img src="'+(r.photo||'')+'"><div class="info"><b>'+(r.name||r.number)+'</b><span>'+r.number+'</span></div></div><div style="margin-top:6px">'+btn+'</div></div>'; }).join(''); }
+  var inc=getInc(); var ibox=document.getElementById('incomingList');
+  if(!inc.length){ ibox.innerHTML='<p class="notice">No new requests.</p>'; }
+  else { ibox.innerHTML=inc.map(function(r,i){ if(r.status!=='pending') return '<div style="margin-bottom:10px"><b>'+(r.name||r.number)+'</b> - '+(r.status==='accepted'?'✅ You Accepted - Chat Open':'❌ You Denied')+'</div>'; return '<div style="border:1px solid #ddd;border-radius:12px;padding:12px;margin-bottom:12px"><div class="row"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><div class="info"><b>'+(r.name||'Unknown')+'</b><span>'+r.number+'</span></div></div><div class="reqPhotos"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><img class="cover" src="'+(r.cover||'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400')+'"></div><p class="notice"><b>Do you know this person? Do you recognise this face?</b><br>If YES, tap Accept. If NO, tap Deny. This keeps Tati safe.</p><div style="display:flex;gap:8px;margin-top:10px"><button class="accBtn" style="background:#00a884;color:#fff" onclick="answerIncoming('+i+',\'accepted\')">✅ Accept</button><button class="accBtn" style="background:#ffe0e0;color:#b00020" onclick="answerIncoming('+i+',\'denied\')">❌ Deny</button></div></div>'; }).join(''); }
+  var ppl=getReq().filter(function(r){ return r.status==='accepted'; }).concat(getInc().filter(function(r){ return r.status==='accepted'; }));
+  document.getElementById('peopleCount').textContent='('+ppl.length+')';
+  var plist=document.getElementById('peopleList');
+  if(!ppl.length){ plist.innerHTML='<p class="notice">No people yet. When someone accepts you, they appear here and you can chat.</p>'; }
+  else { plist.innerHTML=ppl.map(function(r){ return '<div class="row" style="margin-bottom:12px"><img src="'+(r.photo||'')+'"><div class="info"><b>'+(r.name||r.number)+'</b><span>'+r.number+' • ✅ Accepted</span></div><a class="smallBtn" style="background:#00a884;color:#fff;text-decoration:none" href="./index.html?chat='+encodeURIComponent(r.number)+'">💬 Chat</a></div>'; }).join(''); }
+}
+function sendRequest(){
+  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first! Your Name + Number + Your Selfies. Then you can send requests.'); showTab('profile'); return; }
+  var num=document.getElementById('addNumber').value.trim(); var name=document.getElementById('addName').value.trim(); if(!num){ document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>'; return; } var list=getReq(); list.push({number:num,name:name||'',status:'pending',date:new Date().toLocaleString()}); localStorage.setItem('tati_requests', JSON.stringify(list)); document.getElementById('addMsg').innerHTML='✅ Request Sent to '+num+'! When they Accept, it will say <b>Request Accepted</b> and chat will open.'; document.getElementById('addNumber').value=''; document.getElementById('addName').value=''; renderAll(); }
+function answerIncoming(i,ans){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first before you Accept / Deny.'); showTab('profile'); return; } var inc=getInc(); inc[i].status=ans; localStorage.setItem('tati_incoming', JSON.stringify(inc)); if(ans==='accepted'){ var n=JSON.parse(localStorage.getItem('tati_notifications')||'[]'); n.unshift({type:'accepted',name:inc[i].name||inc[i].number,number:inc[i].number,date:new Date().toLocaleString(),text:'Accepted your request - Chat is now open'}); localStorage.setItem('tati_notifications', JSON.stringify(n)); } renderAll(); alert(ans==='accepted'?'✅ You Accepted! Chat is now open for you two.':'❌ You Denied. Request removed.'); }
+function demoIncoming(){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first to test.'); showTab('profile'); return; } var inc=getInc(); inc.unshift({name:'Thabo M.',number:'+258 84 123 4567',status:'pending',photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',cover:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400'}); localStorage.setItem('tati_incoming', JSON.stringify(inc)); renderAll(); showTab('add'); }
+updateGate(); renderAll();
+</script>
+</body></html>
