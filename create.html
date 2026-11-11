@@ -1,266 +1,352 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>CREATE - Tati AI Studio</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TATI - Create</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-body{background:#f6f3ee;padding:12px;padding-bottom:40px}
-.wrap{max-width:480px;margin:0 auto}
-a.back{color:#0a192f;text-decoration:none;font-weight:800;font-size:14px}
-h1{font-size:24px;margin:12px 0 4px}
-p.sub{color:#667781;font-size:13px;margin-bottom:14px;line-height:1.5}
-.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.card h2{font-size:17px;margin-bottom:6px}
-label{font-size:12px;font-weight:800;color:#667781;display:block;margin:12px 0 5px}
-input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none}
-textarea{min-height:70px;resize:vertical}
-.tabs{display:flex;background:#fff;padding:4px;border-radius:12px;gap:4px;margin-bottom:14px}
-.tabs button{flex:1;padding:11px 4px;border:none;border-radius:9px;font-weight:800;font-size:12px;background:transparent;cursor:pointer}
-.tabs button.on{background:#0a192f;color:#fff}
-.btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;text-align:center;margin-top:12px;text-decoration:none}
-.btn-green{background:#00a884;color:#fff}
-.btn-dark{background:#0a192f;color:#fff}
-.btn-grey{background:#f0f2f5;color:#111}
-.notice{font-size:12px;line-height:1.5;color:#667781;margin-top:8px}
-.notice b{color:#111}
-.hidden{display:none!important}
-.preview{width:100%;border-radius:12px;margin-top:10px;display:block;background:#eee;min-height:180px;object-fit:cover}
-.chip{display:inline-block;padding:8px 12px;background:#f0f2f5;border-radius:999px;font-size:12px;font-weight:700;margin:4px 4px 0 0;cursor:pointer}
-.chip.on{background:#0a192f;color:#fff}
-.voiceBox{background:#fff8e1;border:2px dashed #ffcc00;border-radius:14px;padding:14px;text-align:center;margin-top:10px}
-#videoStage{position:relative;width:100%;aspect-ratio:9/16;background:#111;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:12px}
-#videoStage img{width:100%;height:100%;object-fit:cover}
-#videoStage .talking{animation:talk 0.6s infinite alternate}
-@keyframes talk{from{transform:scale(1)}to{transform:scale(1.03)}}
-#videoCaption{position:absolute;bottom:12px;left:10px;right:10px;background:rgba(0,0,0,.7);color:#fff;padding:10px;border-radius:10px;font-size:14px;font-weight:700;text-align:center}
-@media(min-width:800px){
-  body{padding:0}
-  .wrap{max-width:1180px;padding:20px 28px}
-  h1{font-size:34px}
-  p.sub{font-size:15px}
-  .tabs{max-width:700px;margin:0 auto 20px auto}
-  .tabs button{font-size:15px;padding:14px}
-  .studio-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:20px;align-items:start}
-  .studio-grid .card{margin-bottom:0}
-  .card{padding:22px;border-radius:20px}
-  .card h2{font-size:21px}
-  #tab-img .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  #tab-img .preview{min-height:320px}
-  #tab-vid .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  #tab-vid #videoStage{margin-top:0;min-height:520px}
-  #tab-other .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .ideas-wide{margin-top:20px}
-}
-</style></head><body>
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0b0b10;color:#fff;min-height:100vh}
+  .top{padding:16px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-weight:900;font-size:26px;letter-spacing:2px} .logo span{color:#ff2d78}
+  .wrap{max-width:520px;margin:0 auto;padding:10px 16px 40px}
+  h1{font-size:28px;margin:6px 0 4px} p.sub{color:#aaa;margin:0 0 16px}
+  textarea{width:100%;min-height:90px;border-radius:14px;border:1px solid #333;background:#17171f;color:#fff;padding:12px;font-size:16px;outline:none}
+  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .chip{padding:8px 12px;border-radius:999px;background:#222;border:1px solid #333;color:#ddd;font-size:13px;cursor:pointer}
+  .chip.active{background:#ff2d78;border-color:#ff2d78;color:#fff}
+  button.gen{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:#ff2d78;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
+  button.gen:disabled{opacity:.6}
+  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative}
+  .box img{width:100%;display:block}
+  .box .ph{color:#777;text-align:center;padding:20px}
+  .actions{display:flex;gap:10px;margin-top:12px}
+  .actions button{flex:1;padding:12px;border-radius:12px;border:1px solid #333;background:#222;color:#fff;font-weight:700;cursor:pointer}
+  .actions button.primary{background:#fff;color:#000;border-color:#fff}
+  #status{margin-top:10px;color:#ffb3cd;font-size:14px;text-align:center;min-height:20px}
+</style>
+</head>
+<body>
+<div class="top"><div class="logo">TATI<span>.</span></div><a href="index.html" style="color:#fff;text-decoration:none">← Back</a></div>
 <div class="wrap">
-<a class="back" href="./index.html">← Back to Tati</a>
-<h1>✨ CREATE - Tati AI Studio</h1>
-<p class="sub">Create ANYTHING with our AI. Just describe it. No skill needed.<br><b>Images • Videos • Voice • Songs • Posters • Stories</b></p>
-<div class="tabs">
-<button id="tImg" class="on" onclick="showTab('img')">🖼️ Image</button>
-<button id="tVid" onclick="showTab('vid')">🎥 Video</button>
-<button id="tVoice" onclick="showTab('voice')">🎤 My Voice</button>
-<button id="tOther" onclick="showTab('other')">✍️ Anything</button>
-</div>
-
-<div id="tab-img">
-<div class="studio-grid">
-<div class="card">
-<h2>🖼️ Create An Image</h2>
-<p class="notice">Describe any image. Ex: <i>"Me standing in Maputo, wearing a red jacket, sunset, smiling"</i></p>
-<label>DESCRIBE YOUR IMAGE</label>
-<textarea id="imgPrompt" placeholder="Ex: A young man in Maputo, wearing a black suit, smiling, sunset behind him, professional photo"></textarea>
-<label>STYLE</label>
-<div id="styleChips">
-<span class="chip on" onclick="pickChip(this,'style')">📸 Real Photo</span>
-<span class="chip" onclick="pickChip(this,'style')">🎨 Cartoon</span>
-<span class="chip" onclick="pickChip(this,'style')">✨ 3D Pixar</span>
-<span class="chip" onclick="pickChip(this,'style')">🎵 Music Poster</span>
-<span class="chip" onclick="pickChip(this,'style')">👕 Fashion</span>
-</div>
-<label>OR UPLOAD A PHOTO TO CHANGE IT (Optional)</label>
-<input type="file" id="imgUpload" accept="image/*">
-<img id="imgUploadPrev" class="preview hidden">
-<button class="btn btn-green" onclick="makeImage()">✨ Create My Image →</button>
-<p class="notice" id="imgMsg"></p>
-</div>
-<div class="card">
-<h2>👀 Your Image Will Appear Here</h2>
-<p class="notice">If first server is full, Tati automatically tries backup server. No yellow limit page anymore.</p>
-<img id="imgResult" class="preview" style="min-height:280px">
-<a id="imgDownload" class="btn btn-dark hidden" download="tati-image.jpg">⬇️ Download My Image</a>
-<button class="btn btn-grey hidden" id="imgShareBtn" onclick="shareImage()">📤 Share Image</button>
-<p class="notice" id="imgError" style="color:#d32f2f;font-weight:700"></p>
-</div>
-</div>
-</div>
-
-<div id="tab-vid" class="hidden">
-<div class="card">
-<h2>🎥 Create A Video - With YOU In It</h2>
-<div class="split">
-<div>
-<label>1. UPLOAD 1 PHOTO OF YOURSELF</label>
-<input type="file" id="vidPhoto" accept="image/*">
-<label>2. WHAT DO YOU WANT TO DO IN VIDEO?</label>
-<textarea id="vidAction" placeholder="Ex: I am walking on the beach, smiling, waving, dancing slowly"></textarea>
-<label>CHANGE OUTFIT? (Optional)</label>
-<input id="vidOutfit" placeholder="Ex: Change my outfit to red jacket + black jeans + sunglasses">
-<label>3. WHAT DO YOU WANT TO SAY IN VIDEO? Type it</label>
-<textarea id="vidScript" placeholder="Ex: Hi guys! This is Shynone. New music coming soon. Stay tuned!"></textarea>
-<label>4. YOUR VOICE - Upload your voice (10-20 seconds) - Optional</label>
-<div class="voiceBox">
-<input type="file" id="voiceFile" accept="audio/*">
-<p class="notice">Upload a voice note. Or tap Record below.</p>
-<button class="btn btn-grey" onclick="recordVoice()">🎤 Record My Voice Now</button>
-<p class="notice" id="voiceStatus">No voice uploaded yet. AI will use normal voice if you skip this.</p>
-<audio id="voicePlayer" controls class="hidden" style="width:100%;margin-top:8px"></audio>
-</div>
-<label>VIDEO STYLE</label>
-<select id="vidStyle"><option>📱 TikTok / Reels - Vertical</option><option>🎵 Music Video</option><option>📢 Announcement / Promo</option><option>😂 Funny</option><option>❤️ Love / Emotional</option></select>
-<button class="btn btn-green" onclick="makeVideo()">🎥 Create My Video →</button>
-<p class="notice" id="vidMsg"></p>
-</div>
-<div>
-<div id="videoStage"><img id="videoImg" src=""><div id="videoCaption"></div></div>
-<button class="btn btn-dark hidden" id="playVideoBtn" onclick="playVideo()">▶️ Play My Video With Voice</button>
-<button class="btn btn-grey hidden" id="stopVideoBtn" onclick="stopVideo()">⏹️ Stop</button>
-</div>
-</div>
-</div>
-</div>
-
-<div id="tab-voice" class="hidden">
-<div class="studio-grid">
-<div class="card">
-<h2>🎤 Clone My Voice - Save It</h2>
-<p class="notice">Upload your voice for 10-20 seconds, talking clearly.</p>
-<input type="file" id="voiceCloneFile" accept="audio/*">
-<button class="btn btn-green" onclick="saveVoiceClone()">💾 Save My Voice Clone</button>
-<p class="notice" id="cloneMsg"></p>
-</div>
-<div class="card">
-<label>OR TYPE SOMETHING - HEAR IT IN YOUR VOICE STYLE</label>
-<textarea id="cloneText" placeholder="Ex: Hello everyone, welcome to Shynone Music!"></textarea>
-<button class="btn btn-dark" onclick="speakClone()">🔊 Speak With My Voice</button>
-</div>
-</div>
-</div>
-
-<div id="tab-other" class="hidden">
-<div class="card">
-<h2>✍️ Create Anything Else</h2>
-<div class="split">
-<div>
-<label>WHAT DO YOU WANT TO CREATE?</label>
-<select id="otherType"><option>🎵 Song Lyrics</option><option>📝 Story</option><option>📱 WhatsApp / Facebook Caption</option><option>🎂 Birthday Message</option><option>💼 Business Idea</option><option>🖼️ Poster Text</option></select>
-<label>DESCRIBE IT</label>
-<textarea id="otherPrompt" placeholder="Ex: A love song about Maputo, in Changana + Portuguese, happy beat"></textarea>
-<button class="btn btn-green" onclick="makeOther()">✨ Create It →</button>
-<p class="notice" id="otherMsg"></p>
-</div>
-<div>
-<div id="otherResult" class="card hidden" style="background:#f0f2f5;margin:0"><p id="otherText" style="white-space:pre-wrap;line-height:1.6"></p></div>
-<button class="btn btn-grey hidden" id="otherCopy" onclick="copyOther()">📋 Copy</button>
-</div>
-</div>
-</div>
-</div>
-
-<div class="card ideas-wide"><h2>💡 Ideas</h2><p class="notice">• Image: Me as a superstar on stage in Maputo<br>• Video: Me announcing my new song<br>• Song: A song about my mama<br>• Poster: Poster for my show on Saturday</p></div>
+  <h1>Create ✨</h1>
+  <p class="sub">Describe it. Tati makes it for you.</p>
+  <textarea id="prompt" placeholder="e.g. A beautiful African queen in Maputo, golden sunset, photorealistic..."></textarea>
+  <div class="row" id="chips">
+    <div class="chip active" data-p="photorealistic, high quality">📸 Real Photo</div>
+    <div class="chip" data-p="anime style, vibrant">🎌 Anime</div>
+    <div class="chip" data-p="3d pixar style, cute">🧸 3D Cute</div>
+    <div class="chip" data-p="fashion editorial, studio light">👗 Fashion</div>
+  </div>
+  <button class="gen" id="genBtn" onclick="generate()">✨ Generate Image</button>
+  <div id="status"></div>
+  <div class="box" id="box"><div class="ph">Your image will appear here<br>🎨</div></div>
+  <div class="actions" id="actions" style="display:none">
+    <button onclick="downloadImg()">⬇ Download</button>
+    <button class="primary" onclick="useAsPost()">Use as Post →</button>
+  </div>
 </div>
 
 <script>
-var curStyle='Real Photo';
-var voiceURL=null;
-var imgTry=0;
-var currentPrompt='';
-function showTab(t){ ['img','vid','voice','other'].forEach(function(x){ document.getElementById('tab-'+x).classList.toggle('hidden',x!==t); document.getElementById('t'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on',x===t); }); }
-function pickChip(el,type){ document.querySelectorAll('#styleChips .chip').forEach(function(c){c.classList.remove('on')}); el.classList.add('on'); curStyle=el.textContent; }
-document.getElementById('imgUpload').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ var p=document.getElementById('imgUploadPrev'); p.src=r.result; p.classList.remove('hidden'); }; r.readAsDataURL(f); };
-function makeImage(){
-  var p=document.getElementById('imgPrompt').value.trim();
-  if(!p){ document.getElementById('imgMsg').innerHTML='<b>Please describe your image first.</b>'; return; }
-  currentPrompt=p;
-  document.getElementById('imgError').textContent='';
-  document.getElementById('imgMsg').textContent='⏳ AI is creating your image... Please wait 10-20 seconds... Do NOT tap again.';
-  document.getElementById('imgDownload').classList.add('hidden');
-  document.getElementById('imgShareBtn').classList.add('hidden');
-  imgTry=0;
-  loadImageTry(p);
-}
-function getKeywords(p){
-  // Take first 3 important words for backup server
-  var clean = p.toLowerCase().replace(/[^a-z ]/g,' ').split(' ').filter(function(w){ return w.length>3 && ['with','wearing','standing','smiling','behind','young','man','woman','girl','boy'].indexOf(w)===-1; });
-  if(clean.length===0) clean=['music','africa'];
-  return clean.slice(0,3).join(',');
-}
-function loadImageTry(p){
-  imgTry++;
-  var full = p + ', ' + curStyle + ', high quality, detailed';
-  var url = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(full) + '?width=1024&height=1024&seed=' + Math.floor(Math.random()*99999) + '&nologo=true';
-  var img=document.getElementById('imgResult');
-  img.src='';
-  img.onload=function(){
-    // Pollinations limit page returns tiny image / html - if too small, treat as fail
-    if(img.naturalWidth < 100){
-      tryBackup(p); return;
+// >>>>>> PUT YOUR WORKER URL HERE - COPY FROM CLOUDFLARE <<<<<<
+const WORKER_URL = "<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TATI - Create</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0b0b10;color:#fff;min-height:100vh}
+  .top{padding:16px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-weight:900;font-size:26px;letter-spacing:2px} .logo span{color:#ff2d78}
+  .wrap{max-width:520px;margin:0 auto;padding:10px 16px 40px}
+  h1{font-size:28px;margin:6px 0 4px} p.sub{color:#aaa;margin:0 0 16px}
+  textarea{width:100%;min-height:90px;border-radius:14px;border:1px solid #333;background:#17171f;color:#fff;padding:12px;font-size:16px;outline:none}
+  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .chip{padding:8px 12px;border-radius:999px;background:#222;border:1px solid #333;color:#ddd;font-size:13px;cursor:pointer}
+  .chip.active{background:#ff2d78;border-color:#ff2d78;color:#fff}
+  button.gen{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:#ff2d78;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
+  button.gen:disabled{opacity:.6}
+  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative}
+  .box img{width:100%;display:block}
+  .box .ph{color:#777;text-align:center;padding:20px}
+  .actions{display:flex;gap:10px;margin-top:12px}
+  .actions button{flex:1;padding:12px;border-radius:12px;border:1px solid #333;background:#222;color:#fff;font-weight:700;cursor:pointer}
+  .actions button.primary{background:#fff;color:#000;border-color:#fff}
+  #status{margin-top:10px;color:#ffb3cd;font-size:14px;text-align:center;min-height:20px}
+</style>
+</head>
+<body>
+<div class="top"><div class="logo">TATI<span>.</span></div><a href="index.html" style="color:#fff;text-decoration:none">← Back</a></div>
+<div class="wrap">
+  <h1>Create ✨</h1>
+  <p class="sub">Describe it. Tati makes it for you.</p>
+  <textarea id="prompt" placeholder="e.g. A beautiful African queen in Maputo, golden sunset, photorealistic..."></textarea>
+  <div class="row" id="chips">
+    <div class="chip active" data-p="photorealistic, high quality">📸 Real Photo</div>
+    <div class="chip" data-p="anime style, vibrant">🎌 Anime</div>
+    <div class="chip" data-p="3d pixar style, cute">🧸 3D Cute</div>
+    <div class="chip" data-p="fashion editorial, studio light">👗 Fashion</div>
+  </div>
+  <button class="gen" id="genBtn" onclick="generate()">✨ Generate Image</button>
+  <div id="status"></div>
+  <div class="box" id="box"><div class="ph">Your image will appear here<br>🎨</div></div>
+  <div class="actions" id="actions" style="display:none">
+    <button onclick="downloadImg()">⬇ Download</button>
+    <button class="primary" onclick="useAsPost()">Use as Post →</button>
+  </div>
+</div>
+
+<script>
+// >>>>>> PUT YOUR WORKER URL HERE - COPY FROM CLOUDFLARE <<<<<<
+const WORKER_URL = "<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TATI - Create</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0b0b10;color:#fff;min-height:100vh}
+  .top{padding:16px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-weight:900;font-size:26px;letter-spacing:2px} .logo span{color:#ff2d78}
+  .wrap{max-width:520px;margin:0 auto;padding:10px 16px 40px}
+  h1{font-size:28px;margin:6px 0 4px} p.sub{color:#aaa;margin:0 0 16px}
+  textarea{width:100%;min-height:90px;border-radius:14px;border:1px solid #333;background:#17171f;color:#fff;padding:12px;font-size:16px;outline:none}
+  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .chip{padding:8px 12px;border-radius:999px;background:#222;border:1px solid #333;color:#ddd;font-size:13px;cursor:pointer}
+  .chip.active{background:#ff2d78;border-color:#ff2d78;color:#fff}
+  button.gen{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:#ff2d78;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
+  button.gen:disabled{opacity:.6}
+  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative}
+  .box img{width:100%;display:block}
+  .box .ph{color:#777;text-align:center;padding:20px}
+  .actions{display:flex;gap:10px;margin-top:12px}
+  .actions button{flex:1;padding:12px;border-radius:12px;border:1px solid #333;background:#222;color:#fff;font-weight:700;cursor:pointer}
+  .actions button.primary{background:#fff;color:#000;border-color:#fff}
+  #status{margin-top:10px;color:#ffb3cd;font-size:14px;text-align:center;min-height:20px}
+</style>
+</head>
+<body>
+<div class="top"><div class="logo">TATI<span>.</span></div><a href="index.html" style="color:#fff;text-decoration:none">← Back</a></div>
+<div class="wrap">
+  <h1>Create ✨</h1>
+  <p class="sub">Describe it. Tati makes it for you.</p>
+  <textarea id="prompt" placeholder="e.g. A beautiful African queen in Maputo, golden sunset, photorealistic..."></textarea>
+  <div class="row" id="chips">
+    <div class="chip active" data-p="photorealistic, high quality">📸 Real Photo</div>
+    <div class="chip" data-p="anime style, vibrant">🎌 Anime</div>
+    <div class="chip" data-p="3d pixar style, cute">🧸 3D Cute</div>
+    <div class="chip" data-p="fashion editorial, studio light">👗 Fashion</div>
+  </div>
+  <button class="gen" id="genBtn" onclick="generate()">✨ Generate Image</button>
+  <div id="status"></div>
+  <div class="box" id="box"><div class="ph">Your image will appear here<br>🎨</div></div>
+  <div class="actions" id="actions" style="display:none">
+    <button onclick="downloadImg()">⬇ Download</button>
+    <button class="primary" onclick="useAsPost()">Use as Post →</button>
+  </div>
+</div>
+
+<script>
+// >>>>>> PUT YOUR WORKER URL HERE - COPY FROM CLOUDFLARE <<<<<<
+const WORKER_URL = "https://tati-server.dilemahluza.workers.dev/"; // <-- REPLACE THIS WITH YOUR FULL URL, NO /image AT END
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+let extraStyle = "photorealistic, high quality";
+let lastBlobUrl = "";
+
+document.querySelectorAll('.chip').forEach(c=>{
+  c.onclick=()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    extraStyle = c.dataset.p;
+  };
+});
+
+async function generate(){
+  const promptInput = document.getElementById('prompt').value.trim();
+  if(!promptInput){ alert("Write what you want to create first!"); return; }
+  if(WORKER_URL.includes("...") || WORKER_URL.includes("YOUR-NAME")){
+    alert("You forgot to put your real Worker URL in create.html! Go to top of file, WORKER_URL line.");
+    return;
+  }
+  const btn = document.getElementById('genBtn');
+  const status = document.getElementById('status');
+  const box = document.getElementById('box');
+  btn.disabled = true; btn.innerText = "⏳ Creating... please wait 10-20 sec";
+  status.innerText = "Tati is painting... don't close";
+  box.innerHTML = '<div class="ph">🎨 Painting...<br>Flux AI is working...</div>';
+  try{
+    const fullPrompt = promptInput + ", " + extraStyle;
+    const res = await fetch(WORKER_URL + "/image", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt: fullPrompt })
+    });
+    if(!res.ok){
+      const txt = await res.text();
+      throw new Error(txt.slice(0,200));
     }
-    document.getElementById('imgMsg').innerHTML='✅ Done! Your image is ready.';
-    document.getElementById('imgDownload').href=url;
-    document.getElementById('imgDownload').classList.remove('hidden');
-    document.getElementById('imgShareBtn').classList.remove('hidden');
-  };
-  img.onerror=function(){ tryBackup(p); };
-  // Timeout - if Pollinations hangs / limit page, go to backup in 12 sec
-  setTimeout(function(){
-    if(img.naturalWidth < 100 && imgTry===1){
-      // Still loading, go backup
-      tryBackup(p);
-    }
-  },12000);
-  img.src=url;
+    const blob = await res.blob();
+    if(lastBlobUrl) URL.revokeObjectURL(lastBlobUrl);
+    lastBlobUrl = URL.createObjectURL(blob);
+    box.innerHTML = '<img src="'+lastBlobUrl+'">';
+    document.getElementById('actions').style.display = "flex";
+    status.innerText = "Done! ✨";
+    btn.disabled = false; btn.innerText = "✨ Generate Image";
+  }catch(e){
+    console.error(e);
+    status.innerText = "Error: " + e.message + " - Try again. If it says AI binding missing, go to Cloudflare Settings > Bindings > Add Workers AI named AI";
+    box.innerHTML = '<div class="ph">❌ Failed<br>Try again</div>';
+    btn.disabled = false; btn.innerText = "✨ Generate Image";
+  }
 }
-function tryBackup(p){
-  if(imgTry>1) return; // already tried backup
-  imgTry=2;
-  document.getElementById('imgMsg').textContent='⏳ First server is full (Pollinations limit). Switching to backup server... Please wait...';
-  var kw = getKeywords(p);
-  var backupUrl = 'https://loremflickr.com/1024/1024/' + kw + '?lock=' + Math.floor(Math.random()*9999);
-  var img=document.getElementById('imgResult');
-  img.onload=function(){
-    document.getElementById('imgMsg').innerHTML='✅ Done! Backup server gave you a real photo for: <b>'+kw+'</b><br>First server was full, so Tati used backup. Try Pollinations again in 1 minute for AI-generated version.';
-    document.getElementById('imgDownload').href=backupUrl;
-    document.getElementById('imgDownload').classList.remove('hidden');
-    document.getElementById('imgShareBtn').classList.remove('hidden');
-  };
-  img.onerror=function(){
-    document.getElementById('imgMsg').textContent='';
-    document.getElementById('imgError').textContent='⚠️ Both servers busy right now. Your prompt is saved: '+p+'. Please tap Create again in 1 minute.';
-  };
-  img.src=backupUrl;
+
+function downloadImg(){
+  if(!lastBlobUrl) return;
+  const a = document.createElement('a');
+  a.href = lastBlobUrl; a.download = "tati-" + Date.now() + ".jpg";
+  a.click();
 }
-function shareImage(){ var p=document.getElementById('imgPrompt').value; var txt='I created this image with Tati AI: '+p; if(navigator.clipboard) navigator.clipboard.writeText(txt); alert('✅ Copied!'); }
-document.getElementById('vidPhoto').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ document.getElementById('videoImg').src=r.result; }; r.readAsDataURL(f); };
-document.getElementById('voiceFile').onchange=function(){ var f=this.files[0]; if(!f) return; voiceURL=URL.createObjectURL(f); var pl=document.getElementById('voicePlayer'); pl.src=voiceURL; pl.classList.remove('hidden'); document.getElementById('voiceStatus').innerHTML='✅ Voice uploaded: <b>'+f.name+'</b>'; };
-document.getElementById('voiceCloneFile').onchange=function(){ var f=this.files[0]; if(!f) return; voiceURL=URL.createObjectURL(f); document.getElementById('cloneMsg').innerHTML='✅ Voice file ready: <b>'+f.name+'</b>'; };
-function recordVoice(){
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ alert('Recording not supported. Please upload a voice file instead.'); return; }
-  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
-    var rec=new MediaRecorder(stream); var chunks=[];
-    rec.ondataavailable=function(e){ chunks.push(e.data); };
-    rec.onstop=function(){ var blob=new Blob(chunks,{type:'audio/webm'}); voiceURL=URL.createObjectURL(blob); var pl=document.getElementById('voicePlayer'); pl.src=voiceURL; pl.classList.remove('hidden'); document.getElementById('voiceStatus').innerHTML='✅ Voice recorded!'; };
-    rec.start(); document.getElementById('voiceStatus').textContent='🔴 Recording... Talk 10-20 seconds.';
-    setTimeout(function(){ try{rec.stop(); stream.getTracks().forEach(function(t){t.stop()});}catch(e){} },15000);
-  }).catch(function(){ alert('Please allow microphone.'); });
+function useAsPost(){
+  if(!lastBlobUrl){ alert("Generate first!"); return; }
+  localStorage.setItem("tati_last_image", lastBlobUrl);
+  alert("Saved! Now go to Feed and it will be your post image.");
+  window.location.href = "index.html";
 }
-function saveVoiceClone(){ if(!voiceURL){ document.getElementById('cloneMsg').innerHTML='<b>Please upload or record your voice first.</b>'; return; } document.getElementById('cloneMsg').innerHTML='✅ <b>Your Voice Clone Saved!</b>'; }
-function speakClone(){ var txt=document.getElementById('cloneText').value.trim() || document.getElementById('vidScript').value.trim(); if(!txt){ alert('Type something first.'); return; } if(voiceURL){ var a=new Audio(voiceURL); a.play(); setTimeout(function(){ speakText(txt); },800); } else speakText(txt); }
-function speakText(txt){ if(!('speechSynthesis' in window)){ alert(txt); return; } window.speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(txt); u.lang='pt-PT'; u.rate=0.95; window.speechSynthesis.speak(u); }
-function makeVideo(){ var action=document.getElementById('vidAction').value.trim(); var script=document.getElementById('vidScript').value.trim(); var outfit=document.getElementById('vidOutfit').value.trim(); if(!document.getElementById('vidPhoto').files.length){ document.getElementById('vidMsg').innerHTML='<b>Please upload 1 photo of yourself first.</b>'; return; } if(!script){ document.getElementById('vidMsg').innerHTML='<b>Please type what you want to say in video.</b>'; return; } document.getElementById('videoCaption').textContent=(outfit?'Outfit: '+outfit+' • ':'')+(action||'In my video...')+' - '+script.substring(0,80); document.getElementById('vidMsg').innerHTML='✅ <b>Your Video is Ready to Play!</b><br>Action: '+(action||'-')+'<br>Outfit: '+(outfit||'Same as photo')+'<br>Script: '+script; document.getElementById('playVideoBtn').classList.remove('hidden'); document.getElementById('stopVideoBtn').classList.remove('hidden'); }
-function playVideo(){ var script=document.getElementById('vidScript').value.trim(); document.getElementById('videoImg').classList.add('talking'); if(voiceURL){ var a=new Audio(voiceURL); a.play(); setTimeout(function(){ speakText(script); },1000); } else speakText(script); }
-function stopVideo(){ document.getElementById('videoImg').classList.remove('talking'); if('speechSynthesis' in window) window.speechSynthesis.cancel(); }
-function makeOther(){ var type=document.getElementById('otherType').value; var p=document.getElementById('otherPrompt').value.trim(); if(!p){ document.getElementById('otherMsg').innerHTML='<b>Please describe what you want.</b>'; return; } var out=''; if(type.indexOf('Song')>-1){ out='🎵 '+type+' - Based on: '+p+'\n\n[Verse 1]\nMaputo night, lights are shining bright\nMy heart is beating, everything feels right\nMama said keep going, never give up the fight\nShynone music, we shining through the night\n\n[Chorus]\nWe rise, we shine, we never fall\nFrom Maputo to the world, we give it all\nYour idea: '+p; } else if(type.indexOf('Caption')>-1){ out='📱 Caption:\n\n✨ '+p+' ✨\n\nFrom Maputo with love ❤️\n#ShynoneMusic #Tati #Maputo'; } else if(type.indexOf('Birthday')>-1){ out='🎂 Birthday Message:\n\nHappy Birthday! 🎉\nToday is your day - '+p+'.\nMay God bless you with health, happiness and success.\nFrom Shynone Music ❤️'; } else { out='✍️ '+type+' - Your idea: '+p+'\n\n1. Opening: Start with your story - '+p+'\n2. Middle: Tell what happened, how you felt\n3. Ending: What you learned, what comes next'; } document.getElementById('otherText').textContent=out; document.getElementById('otherResult').classList.remove('hidden'); document.getElementById('otherCopy').classList.remove('hidden'); document.getElementById('otherMsg').textContent='✅ Done! Copy it and share it.'; }
-function copyOther(){ var t=document.getElementById('otherText').textContent; if(navigator.clipboard) navigator.clipboard.writeText(t); alert('✅ Copied!'); }
 </script>
-</body></html>
+</body>
+</html>"; // <-- REPLACE THIS WITH YOUR FULL URL, NO /image AT END
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+let extraStyle = "photorealistic, high quality";
+let lastBlobUrl = "";
+
+document.querySelectorAll('.chip').forEach(c=>{
+  c.onclick=()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    extraStyle = c.dataset.p;
+  };
+});
+
+async function generate(){
+  const promptInput = document.getElementById('prompt').value.trim();
+  if(!promptInput){ alert("Write what you want to create first!"); return; }
+  if(WORKER_URL.includes("...") || WORKER_URL.includes("YOUR-NAME")){
+    alert("You forgot to put your real Worker URL in create.html! Go to top of file, WORKER_URL line.");
+    return;
+  }
+  const btn = document.getElementById('genBtn');
+  const status = document.getElementById('status');
+  const box = document.getElementById('box');
+  btn.disabled = true; btn.innerText = "⏳ Creating... please wait 10-20 sec";
+  status.innerText = "Tati is painting... don't close";
+  box.innerHTML = '<div class="ph">🎨 Painting...<br>Flux AI is working...</div>';
+  try{
+    const fullPrompt = promptInput + ", " + extraStyle;
+    const res = await fetch(WORKER_URL + "/image", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt: fullPrompt })
+    });
+    if(!res.ok){
+      const txt = await res.text();
+      throw new Error(txt.slice(0,200));
+    }
+    const blob = await res.blob();
+    if(lastBlobUrl) URL.revokeObjectURL(lastBlobUrl);
+    lastBlobUrl = URL.createObjectURL(blob);
+    box.innerHTML = '<img src="'+lastBlobUrl+'">';
+    document.getElementById('actions').style.display = "flex";
+    status.innerText = "Done! ✨";
+    btn.disabled = false; btn.innerText = "✨ Generate Image";
+  }catch(e){
+    console.error(e);
+    status.innerText = "Error: " + e.message + " - Try again. If it says AI binding missing, go to Cloudflare Settings > Bindings > Add Workers AI named AI";
+    box.innerHTML = '<div class="ph">❌ Failed<br>Try again</div>';
+    btn.disabled = false; btn.innerText = "✨ Generate Image";
+  }
+}
+
+function downloadImg(){
+  if(!lastBlobUrl) return;
+  const a = document.createElement('a');
+  a.href = lastBlobUrl; a.download = "tati-" + Date.now() + ".jpg";
+  a.click();
+}
+function useAsPost(){
+  if(!lastBlobUrl){ alert("Generate first!"); return; }
+  localStorage.setItem("tati_last_image", lastBlobUrl);
+  alert("Saved! Now go to Feed and it will be your post image.");
+  window.location.href = "index.html";
+}
+</script>
+</body>
+</html>"; // <-- REPLACE THIS WITH YOUR FULL URL, NO /image AT END
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+let extraStyle = "photorealistic, high quality";
+let lastBlobUrl = "";
+
+document.querySelectorAll('.chip').forEach(c=>{
+  c.onclick=()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    extraStyle = c.dataset.p;
+  };
+});
+
+async function generate(){
+  const promptInput = document.getElementById('prompt').value.trim();
+  if(!promptInput){ alert("Write what you want to create first!"); return; }
+  if(WORKER_URL.includes("...") || WORKER_URL.includes("YOUR-NAME")){
+    alert("You forgot to put your real Worker URL in create.html! Go to top of file, WORKER_URL line.");
+    return;
+  }
+  const btn = document.getElementById('genBtn');
+  const status = document.getElementById('status');
+  const box = document.getElementById('box');
+  btn.disabled = true; btn.innerText = "⏳ Creating... please wait 10-20 sec";
+  status.innerText = "Tati is painting... don't close";
+  box.innerHTML = '<div class="ph">🎨 Painting...<br>Flux AI is working...</div>';
+  try{
+    const fullPrompt = promptInput + ", " + extraStyle;
+    const res = await fetch(WORKER_URL + "/image", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt: fullPrompt })
+    });
+    if(!res.ok){
+      const txt = await res.text();
+      throw new Error(txt.slice(0,200));
+    }
+    const blob = await res.blob();
+    if(lastBlobUrl) URL.revokeObjectURL(lastBlobUrl);
+    lastBlobUrl = URL.createObjectURL(blob);
+    box.innerHTML = '<img src="'+lastBlobUrl+'">';
+    document.getElementById('actions').style.display = "flex";
+    status.innerText = "Done! ✨";
+    btn.disabled = false; btn.innerText = "✨ Generate Image";
+  }catch(e){
+    console.error(e);
+    status.innerText = "Error: " + e.message + " - Try again. If it says AI binding missing, go to Cloudflare Settings > Bindings > Add Workers AI named AI";
+    box.innerHTML = '<div class="ph">❌ Failed<br>Try again</div>';
+    btn.disabled = false; btn.innerText = "✨ Generate Image";
+  }
+}
+
+function downloadImg(){
+  if(!lastBlobUrl) return;
+  const a = document.createElement('a');
+  a.href = lastBlobUrl; a.download = "tati-" + Date.now() + ".jpg";
+  a.click();
+}
+function useAsPost(){
+  if(!lastBlobUrl){ alert("Generate first!"); return; }
+  localStorage.setItem("tati_last_image", lastBlobUrl);
+  alert("Saved! Now go to Feed and it will be your post image.");
+  window.location.href = "index.html";
+}
+</script>
+</body>
+</html>
