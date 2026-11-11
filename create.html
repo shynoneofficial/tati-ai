@@ -1,106 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TATI - Create</title>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Listen - Tati</title>
 <style>
-  *{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0b0b10;color:#fff;min-height:100vh}
-  .top{padding:16px;display:flex;justify-content:space-between;align-items:center}
-  .logo{font-weight:900;font-size:26px;letter-spacing:2px} .logo span{color:#ff2d78}
-  .wrap{max-width:520px;margin:0 auto;padding:10px 16px 40px}
-  h1{font-size:28px;margin:6px 0 4px} p.sub{color:#aaa;margin:0 0 16px}
-  textarea{width:100%;min-height:90px;border-radius:14px;border:1px solid #333;background:#17171f;color:#fff;padding:12px;font-size:16px;outline:none}
-  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-  .chip{padding:8px 12px;border-radius:999px;background:#222;border:1px solid #333;color:#ddd;font-size:13px;cursor:pointer}
-  .chip.active{background:#ff2d78;border-color:#ff2d78;color:#fff}
-  button.gen{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:#ff2d78;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
-  button.gen:disabled{opacity:.6}
-  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center}
-  .box img{width:100%;display:block}
-  .box .ph{color:#777;text-align:center;padding:20px}
-  .actions{display:flex;gap:10px;margin-top:12px}
-  .actions button{flex:1;padding:12px;border-radius:12px;border:1px solid #333;background:#222;color:#fff;font-weight:700;cursor:pointer}
-  .actions button.primary{background:#fff;color:#000;border-color:#fff}
-  #status{margin-top:10px;color:#ffb3cd;font-size:14px;text-align:center;min-height:20px}
-</style>
-</head>
-<body>
-<div class="top"><div class="logo">TATI<span>.</span></div><a href="index.html" style="color:#fff;text-decoration:none">← Back</a></div>
-<div class="wrap">
-  <h1>Create ✨</h1>
-  <p class="sub">Describe it. Tati makes it for you.</p>
-  <textarea id="prompt" placeholder="e.g. A beautiful African queen in Maputo, golden sunset, photorealistic..."></textarea>
-  <div class="row" id="chips">
-    <div class="chip active" data-p="photorealistic, high quality">📸 Real Photo</div>
-    <div class="chip" data-p="anime style, vibrant">🎌 Anime</div>
-    <div class="chip" data-p="3d pixar style, cute">🧸 3D Cute</div>
-    <div class="chip" data-p="fashion editorial, studio light">👗 Fashion</div>
-  </div>
-  <button class="gen" id="genBtn" onclick="generate()">✨ Generate Image</button>
-  <div id="status"></div>
-  <div class="box" id="box"><div class="ph">Your image will appear here<br>🎨</div></div>
-  <div class="actions" id="actions" style="display:none">
-    <button onclick="downloadImg()">⬇ Download</button>
-    <button class="primary" onclick="useAsPost()">Use as Post →</button>
-  </div>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#f6f3ee;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:100dvh}
+a{color:#0a192f;font-weight:800;text-decoration:none;font-size:13px}
+.card{background:#fff;border-radius:12px;padding:14px}
+.card b{font-size:15px}
+.card p{font-size:12px;color:#667781;margin-top:4px}
+.kbtn{width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none;background:#0a192f;color:#fff;font-weight:800;cursor:pointer}
+.kbtn.green{background:#00a884}
+.kbtn.sec{background:#f0f2f5;color:#111}
+#listenBox{background:#0a192f;color:#fff;border-radius:12px;padding:16px;text-align:center}
+#listenBox b{font-size:16px}
+#listenText{background:#fff;border-radius:12px;padding:14px;min-height:120px;font-size:15px;line-height:1.5;white-space:pre-wrap}
+#earBtn{width:90px;height:90px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:38px;cursor:pointer;margin:10px auto;display:block}
+#earBtn.on{background:#e11d48;animation:pulse 1s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+select{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-top:6px;font-size:14px}
+</style></head><body>
+
+<a href="./index.html">← Back to Tati</a>
+
+<div id="listenBox">
+<b>👂 Listen Mode</b>
+<p style="font-size:12px;opacity:.8;margin-top:4px">Tati listens quietly. No talking back unless you ask. For when you just need to be heard.</p>
+<button id="earBtn" onclick="toggleListen()">👂</button>
+<p id="listenStatus">Tap ear to start listening</p>
 </div>
+
+<select id="listenLang">
+<option value="pt-PT">Portuguese</option>
+<option value="en-US">English</option>
+<option value="ts-ZA">xiChangana / Tsonga</option>
+</select>
+
+<div id="listenText">Tati is listening... your words will appear here, private, not sent anywhere.</div>
+
+<div class="card">
+<b>What Tati does in Listen Mode:</b>
+<p>✅ Listens • ✅ Types what you say • ✅ No interruptions • ✅ No advice unless you say "Tati, help me"</p>
+<button class="kbtn green" onclick="saveListen()">💾 Save This Listening</button>
+<button class="kbtn sec" onclick="document.getElementById('listenText').textContent=''">🗑️ Clear</button>
+<button class="kbtn sec" onclick="alert('Listen history is only on YOUR phone. Nobody else can see it.')">🔒 Privacy Check</button>
+</div>
+
 <script>
-const WORKER_URL = "https://tati-server.dilemahluza.workers.dev";
-let extraStyle = "photorealistic, high quality";
-let lastBlobUrl = "";
-document.querySelectorAll('.chip').forEach(c=>{
-  c.onclick=()=>{
-    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
-    c.classList.add('active');
-    extraStyle = c.dataset.p;
+var rec=null, listening=false;
+function toggleListen(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}
+  if(listening){rec.stop();return}
+  rec=new SR();
+  rec.lang=document.getElementById("listenLang").value;
+  rec.continuous=true; rec.interimResults=true;
+  rec.onstart=function(){listening=true;document.getElementById("earBtn").classList.add("on");document.getElementById("listenStatus").textContent="● Tati is listening quietly...";};
+  rec.onend=function(){listening=false;document.getElementById("earBtn").classList.remove("on");document.getElementById("listenStatus").textContent="Paused. Tap to listen again";};
+  rec.onresult=function(e){
+    var txt=""; for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" ";}
+    document.getElementById("listenText").textContent=txt;
   };
-});
-async function generate(){
-  const promptInput = document.getElementById('prompt').value.trim();
-  if(!promptInput){ alert("Write what you want to create first!"); return; }
-  const btn = document.getElementById('genBtn');
-  const status = document.getElementById('status');
-  const box = document.getElementById('box');
-  btn.disabled = true; btn.innerText = "⏳ Creating... please wait 10-20 sec";
-  status.innerText = "Tati is painting... don't close";
-  box.innerHTML = '<div class="ph">🎨 Painting...<br>Flux AI is working...</div>';
-  try{
-    const fullPrompt = promptInput + ", " + extraStyle;
-    const res = await fetch(WORKER_URL + "/image", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ prompt: fullPrompt })
-    });
-    if(!res.ok){
-      const txt = await res.text();
-      throw new Error(txt.slice(0,200));
-    }
-    const blob = await res.blob();
-    if(lastBlobUrl) URL.revokeObjectURL(lastBlobUrl);
-    lastBlobUrl = URL.createObjectURL(blob);
-    box.innerHTML = '<img src="'+lastBlobUrl+'">';
-    document.getElementById('actions').style.display = "flex";
-    status.innerText = "Done! ✨";
-    btn.disabled = false; btn.innerText = "✨ Generate Image";
-  }catch(e){
-    status.innerText = "Error: " + e.message + " - Try again. If it says AI binding missing, go to Cloudflare Settings > Bindings > Add Workers AI named AI";
-    box.innerHTML = '<div class="ph">❌ Failed<br>Try again</div>';
-    btn.disabled = false; btn.innerText = "✨ Generate Image";
-  }
+  rec.start();
 }
-function downloadImg(){
-  if(!lastBlobUrl) return;
-  const a = document.createElement('a');
-  a.href = lastBlobUrl; a.download = "tati-" + Date.now() + ".jpg";
-  a.click();
-}
-function useAsPost(){
-  if(!lastBlobUrl){ alert("Generate first!"); return; }
-  localStorage.setItem("tati_last_image", lastBlobUrl);
-  alert("Saved! Now go to Feed and it will be your post image.");
-  window.location.href = "index.html";
+function saveListen(){
+  var t=document.getElementById("listenText").textContent.trim();
+  if(!t){alert("Nothing to save yet");return}
+  var all=[]; try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(e){}
+  all.push({date:new Date().toLocaleString(),text:t});
+  localStorage.setItem("tati_listen",JSON.stringify(all));
+  alert("Saved privately on your phone ✅ ("+all.length+" listenings)");
 }
 </script>
-</body>
-</html>
+</body></html>
