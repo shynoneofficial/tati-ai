@@ -4,8 +4,7 @@
 <title>SAFE - Tati</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-body{background:#e9e6e1;padding:12px;padding-bottom:30px}
-.wrap{max-width:420px;margin:0 auto}
+body{background:#f6f3ee;padding:12px;padding-bottom:30px}
 a.back{color:#0a192f;text-decoration:none;font-weight:800;font-size:14px}
 h1{font-size:22px;margin:12px 0 4px}
 p.sub{color:#667781;font-size:13px;margin-bottom:12px;line-height:1.4}
@@ -33,20 +32,18 @@ input[readonly]{background:#f0f2f5;color:#111;font-weight:700}
 .lockBox{background:#fff3cd;border:2px solid #ffcc00;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center}
 .hidden{display:none!important}
 </style></head><body>
-<div class="wrap">
 <a class="back" href="./index.html">← Back to Tati</a>
 <h1>🛡️ SAFE - My Safe Box</h1>
 <p class="sub">Lose phone? Stolen? Broken? Dead? Don't worry. Your contacts, documents, photos are safe in your Safe Box. Come back with any new phone, enter PIN + Secret Word, bring them all back.</p>
 
 <div id="lockView">
-<div class="lockBox"><h2>🔒 Set Your Secret - Only Once</h2><p class="notice" style="color:#111;font-size:13px">Your Name + Number are read automatically from People.<br>Here you only set <b>PIN + Secret Word</b>.</p></div>
+<div class="lockBox"><h2>🔒 Set Your Secret - Only Once</h2></div>
 <div class="card">
 <h2>🔑 Create Your Safe Lock</h2>
-<label>YOUR NAME - Read automatically from People - You don't type it</label><input id="safeName" readonly placeholder="Your name from People will show here">
-<label>YOUR NUMBER - Read automatically from People - You don't type it</label><input id="safeNumber" readonly placeholder="Your number from People will show here" inputmode="tel">
-<p class="notice" id="autoMsg"></p>
-<label>YOUR PIN - 4 numbers - Remember it!</label><input id="safePin" placeholder="Ex: 1234" inputmode="numeric" maxlength="6">
-<label>YOUR SECRET WORD - Remember it!</label><input id="safeWord" placeholder="Ex: Mama / Music">
+<label>YOUR NAME</label><input id="safeName" readonly>
+<label>YOUR NUMBER</label><input id="safeNumber" readonly inputmode="tel">
+<label>YOUR PIN</label><input id="safePin" placeholder="Ex: 1234" inputmode="numeric" maxlength="6">
+<label>YOUR SECRET WORD</label><input id="safeWord" placeholder="Ex: Mama / Music">
 <button class="btn btn-green" onclick="createSafe()">🔒 Create My Safe Box →</button>
 <p class="notice" id="lockMsg"></p>
 <p class="notice">Already have a Safe? Tap below.</p>
@@ -54,7 +51,7 @@ input[readonly]{background:#f0f2f5;color:#111;font-weight:700}
 </div>
 <div class="card" id="openBox" style="display:none">
 <h2>🔓 Open My Safe</h2>
-<label>YOUR NUMBER - Read automatically</label><input id="openNumber" readonly placeholder="Your number">
+<label>YOUR NUMBER</label><input id="openNumber" readonly>
 <label>PIN</label><input id="openPin" placeholder="Your PIN" inputmode="numeric">
 <label>SECRET WORD</label><input id="openWord" placeholder="Your Secret Word">
 <button class="btn btn-green" onclick="openSafe()">🔓 Open Safe Box</button>
@@ -68,11 +65,9 @@ input[readonly]{background:#f0f2f5;color:#111;font-weight:700}
 
 <div id="safe-contacts">
 <div class="card">
-<h2>📞 Save Contacts - READ Phone Book AUTOMATICALLY</h2>
-<p class="notice">No need to type one by one. Tap below, allow Tati to read your phone book, we read ALL contacts at once and save them to your Safe.</p>
+<h2>📞 Save Contacts</h2>
 <button class="btn btn-green" onclick="readPhoneBookAuto()">📞 READ My Phone Book - Save ALL Contacts At Once</button>
 <p class="notice" id="contactMsg"></p>
-<p class="notice">Phone did not allow automatic read? Use manual below:</p>
 <label>ADD ONE MANUALLY</label><input id="newCName" placeholder="Name - Ex: Mama"><input id="newCNum" placeholder="Number - Ex: +258 ..." style="margin-top:8px" inputmode="tel"><button class="btn btn-dark" onclick="addContactManual()">➕ Add This Contact To Safe</button>
 </div>
 <div class="card"><h2>👀 View My Saved Contacts <span id="contactsLabel"></span></h2><div id="contactsList"><p class="notice">No contacts saved yet.</p></div><button class="btn btn-green" onclick="bringAllContacts()">⬇️ Bring Back ALL My Contacts</button><button class="btn btn-grey" onclick="downloadAllContacts()">💾 Download All Contacts As File (.vcf)</button></div>
@@ -88,19 +83,15 @@ input[readonly]{background:#f0f2f5;color:#111;font-weight:700}
 <div class="card"><h2>👀 View My Saved Photos</h2><div id="photosList"><p class="notice">No photos yet.</p></div><button class="btn btn-green" onclick="downloadAllPhotos()">⬇️ Bring Back ALL Photos</button></div>
 </div>
 </div>
-</div>
 
 <script>
 function getSafe(){ try{ return JSON.parse(localStorage.getItem('tati_safe')||'{}'); }catch(e){ return {}; } }
 function saveSafe(s){ localStorage.setItem('tati_safe', JSON.stringify(s)); }
 function getProfile(){ try{ return JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); }catch(e){ return {}; } }
-// READ NAME + NUMBER AUTOMATICALLY FROM PEOPLE - NO TYPING
 function fillFromPeople(){
   var pr=getProfile();
-  if(pr.name){ document.getElementById('safeName').value=pr.name; document.getElementById('openNumber').value=pr.number||''; }
+  if(pr.name){ document.getElementById('safeName').value=pr.name; }
   if(pr.number){ document.getElementById('safeNumber').value=pr.number; document.getElementById('openNumber').value=pr.number; }
-  if(pr.name && pr.number){ document.getElementById('autoMsg').innerHTML='✅ Found you from People: <b>'+pr.name+' - '+pr.number+'</b>. You don\'t need to type Name + Number.'; }
-  else { document.getElementById('autoMsg').innerHTML='⚠️ We did not find your People registration yet. Go to People first, finish your setup - Name + Number + Selfie - then come back here. Your Name + Number will appear automatically.'; }
 }
 fillFromPeople();
 function createSafe(){
@@ -109,7 +100,7 @@ function createSafe(){
   var num=pr.number||document.getElementById('safeNumber').value.trim();
   var pin=document.getElementById('safePin').value.trim();
   var word=document.getElementById('safeWord').value.trim();
-  if(!name||!num){ document.getElementById('lockMsg').innerHTML='<b>Please finish People setup first. Your Name + Number must come from People automatically.</b>'; return; }
+  if(!name||!num){ document.getElementById('lockMsg').innerHTML='<b>Please finish People setup first.</b>'; return; }
   if(!pin||!word){ document.getElementById('lockMsg').innerHTML='<b>Please fill PIN + Secret Word.</b>'; return; }
   var s=getSafe(); s.owner={name:name,number:num}; s.pin=pin; s.word=word.toLowerCase(); s.contacts=s.contacts||[]; s.docs=s.docs||[]; s.photos=s.photos||[]; saveSafe(s); document.getElementById('lockMsg').textContent='✅ Safe Created!'; enterSafe(name);
 }
@@ -137,7 +128,7 @@ async function readPhoneBookAuto(){
         var s=getSafe(); var added=0;
         cs.forEach(function(c){ if(c.tel && c.tel[0]){ var num=c.tel[0]; var exists=s.contacts.some(function(x){ return x.number===num; }); if(!exists){ s.contacts.push({name:(c.name && c.name[0])||'No Name', number:num}); added++; } } });
         saveSafe(s); renderSafe();
-        document.getElementById('contactMsg').innerHTML='✅ DONE! Read <b>'+cs.length+'</b> contacts from your phone book, saved <b>'+added+'</b> new ones to Safe. No typing one by one!';
+        document.getElementById('contactMsg').innerHTML='✅ DONE! Read <b>'+cs.length+'</b> contacts, saved <b>'+added+'</b> new ones to Safe.';
         return;
       }
     }catch(e){}
