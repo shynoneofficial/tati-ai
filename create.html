@@ -189,47 +189,66 @@ textarea{min-height:70px;resize:vertical}
 <script>
 var curStyle='Real Photo';
 var voiceURL=null;
-var imgTry=0;
+var WORKER_URL='https://tati-server.dilemahluza.workers.dev';
+var lastImgBlobUrl='';
 function showTab(t){ ['img','vid','voice','other'].forEach(function(x){ document.getElementById('tab-'+x).classList.toggle('hidden',x!==t); document.getElementById('t'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on',x===t); }); }
 function pickChip(el,type){ document.querySelectorAll('#styleChips .chip').forEach(function(c){c.classList.remove('on')}); el.classList.add('on'); curStyle=el.textContent; }
 document.getElementById('imgUpload').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ var p=document.getElementById('imgUploadPrev'); p.src=r.result; p.classList.remove('hidden'); }; r.readAsDataURL(f); };
-function makeImage(){
+// ===== IMAGE - FIXED ONLY HERE: now uses YOUR Worker, not Pollinations =====
+async function makeImage(){
   var p=document.getElementById('imgPrompt').value.trim();
   if(!p){ document.getElementById('imgMsg').innerHTML='<b>Please describe your image first.</b>'; return; }
   document.getElementById('imgError').textContent='';
   document.getElementById('imgMsg').textContent='⏳ AI is creating your image... Please wait 10-20 seconds... Do NOT tap again.';
   document.getElementById('imgDownload').classList.add('hidden');
   document.getElementById('imgShareBtn').classList.add('hidden');
-  imgTry=0;
-  loadImageTry(p);
-}
-function loadImageTry(p){
-  imgTry++;
-  var full = p + ', ' + curStyle + ', high quality, detailed, photorealistic';
-  // Try 1 = Pollinations, Try 2 = Pollinations different server, Try 3 = retry
-  var url = '';
-  if(imgTry===1) url = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(full) + '?width=1024&height=1024&seed=' + Math.floor(Math.random()*99999) + '&nologo=true&model=flux';
-  else url = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(full) + '?width=1024&height=1024&seed=' + Math.floor(Math.random()*99999) + '&nologo=true';
   var img=document.getElementById('imgResult');
-  // Clear old image so user sees it is loading
   img.src='';
-  img.onload=function(){
-    // Check if it's a real image, not an error text - if width is tiny, it's error
-    if(img.naturalWidth < 50){
-      if(imgTry < 3){ document.getElementById('imgMsg').textContent='⏳ Server busy, trying again... ('+imgTry+'/3)'; setTimeout(function(){loadImageTry(p)},1500); }
-      else { document.getElementById('imgMsg').textContent=''; document.getElementById('imgError').textContent='⚠️ Image server is busy right now. Your prompt is saved. Please tap Create My Image again in 1 minute. Prompt: '+p; }
-      return;
+  // Make short prompts safe so Cloudflare does not block "beautiful girl" with 8007
+  var safeSuffix = ', fully clothed, wearing elegant dress, smiling, professional portrait, family friendly, photorealistic, high quality, detailed';
+  var full = p + ', ' + curStyle + safeSuffix;
+  // If user already wrote a long prompt, don't double-add too much - keep it simple
+  try{
+    var res = await fetch(WORKER_URL + '/image', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ prompt: full })
+    });
+    var ctype = res.headers.get('content-type') || '';
+    if(!res.ok){
+      var txt = await res.text();
+      throw new Error(txt.slice(0,250));
     }
-    document.getElementById('imgMsg').innerHTML='✅ Done! Your image is ready.';
-    document.getElementById('imgDownload').href=url;
-    document.getElementById('imgDownload').classList.remove('hidden');
-    document.getElementById('imgShareBtn').classList.remove('hidden');
-  };
-  img.onerror=function(){
-    if(imgTry < 3){ document.getElementById('imgMsg').textContent='⏳ Server busy, trying again... ('+imgTry+'/3)'; setTimeout(function(){loadImageTry(p)},1500); }
-    else { document.getElementById('imgMsg').textContent=''; document.getElementById('imgError').textContent='⚠️ Image server is busy right now. Your prompt is saved. Please tap Create My Image again in 1 minute. Prompt: '+p; }
-  };
-  img.src=url;
+    if(ctype.indexOf('application/json')>-1){
+      var txt2 = await res.text();
+      throw new Error('Worker returned JSON not image: ' + txt2.slice(0,250));
+    }
+    var blob = await res.blob();
+    if(blob.size < 1000){
+      var txt3 = await blob.text();
+      throw new Error('Worker said: ' + txt3.slice(0,250));
+    }
+    if(lastImgBlobUrl) URL.revokeObjectURL(lastImgBlobUrl);
+    lastImgBlobUrl = URL.createObjectURL(blob);
+    img.onload = function(){
+      document.getElementById('imgMsg').innerHTML='✅ Done! Your image is ready.';
+      var dl = document.getElementById('imgDownload');
+      dl.href = lastImgBlobUrl;
+      dl.classList.remove('hidden');
+      document.getElementById('imgShareBtn').classList.remove('hidden');
+    };
+    img.onerror = function(){
+      document.getElementById('imgMsg').textContent='';
+      document.getElementById('imgError').textContent='⚠️ Image made but preview failed. Tap Download - it is in your Gallery.';
+      var dl2 = document.getElementById('imgDownload');
+      dl2.href = lastImgBlobUrl;
+      dl2.classList.remove('hidden');
+    };
+    img.src = lastImgBlobUrl;
+  }catch(e){
+    document.getElementById('imgMsg').textContent='';
+    document.getElementById('imgError').textContent='⚠️ ' + e.message + ' - Try again with a longer prompt, e.g. "A beautiful African woman wearing a colorful dress, smiling in Maputo"';
+  }
 }
 function shareImage(){ var p=document.getElementById('imgPrompt').value; var txt='I created this image with Tati AI: '+p; if(navigator.clipboard) navigator.clipboard.writeText(txt); alert('✅ Copied! Share your image + this text:\n'+txt); }
 document.getElementById('vidPhoto').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ document.getElementById('videoImg').src=r.result; }; r.readAsDataURL(f); };
