@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>People - Tati</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#f6f3ee;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:100dvh}
+a{color:#0a192f;font-weight:800;text-decoration:none;font-size:13px}
+.card{background:#fff;border-radius:12px;padding:14px}
+.card b{font-size:14px}
+.card p{font-size:12px;color:#667781;margin-top:4px}
+.safeInput{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-top:6px;font-size:14px}
+.kbtn{width:100%;margin-top:10px;padding:11px;border-radius:8px;border:none;background:#0a192f;color:#fff;font-weight:700;cursor:pointer}
+.kbtn.green{background:#00a884}
+.kbtn.sec{background:#f0f2f5;color:#111}
+.contactRow{display:flex;gap:10px;align-items:center;padding:10px;background:#fff;border-radius:12px;cursor:pointer}
+.contactRow img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.bubble{max-width:80%;padding:7px 10px;font-size:14px;border-radius:12px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.user{align-self:flex-end;background:#d9fdd3}
+.msgRow{display:flex;gap:8px;margin-top:6px}
+.msgRow input{flex:1;padding:10px;border-radius:20px;border:1px solid #ddd;outline:none}
+</style></head><body>
+
+<a href="./index.html">← Back to Tati</a>
+
+<div id="registerBox" class="card">
+<b>👤 Register - Create Your Profile</b>
+<p>One time only. Name + Phone + Photo.</p>
+<input id="regName" class="safeInput" placeholder="Your Name - ex: Jemi">
+<input id="regPhone" class="safeInput" placeholder="Phone - ex: +258 84 123 4567">
+<input id="regPhoto" class="safeInput" placeholder="Photo link - optional">
+<button class="kbtn green" onclick="doRegister()">✅ Create My Profile</button>
+<p>By registering you agree: Real name, real face. No fake accounts.</p>
+</div>
+
+<div id="peopleBox" style="display:none;flex-direction:column;gap:8px">
+<div class="card"><b id="myProfileLabel">👤 My Profile</b><p id="myProfileText"></p><button class="kbtn sec" onclick="showProfile()">Edit Profile / View</button></div>
+<div class="card"><b>➕ Add Contact</b>
+<input id="newContactName" class="safeInput" placeholder="Name">
+<input id="newContactPhone" class="safeInput" placeholder="Phone">
+<button class="kbtn" onclick="addContact()">➕ Add Contact</button></div>
+<div id="contactsList" style="display:flex;flex-direction:column;gap:6px"></div>
+<div class="card"><p>📞 Calls live inside chat. Tap a contact to open chat, then tap 📞 or 📹</p></div>
+</div>
+
+<div id="profileBox" class="card" style="display:none">
+<b>👤 Profile</b><p id="profileView"></p>
+<button class="kbtn sec" onclick="if(confirm('Clear profile?')){localStorage.removeItem('tati_user');location.reload()}">Clear Profile / Logout</button>
+<button class="kbtn sec" onclick="document.getElementById('profileBox').style.display='none'">← Back</button>
+</div>
+
+<div id="chatBox" class="card" style="display:none;flex-direction:column;gap:6px">
+<b id="chatWithName">Chat</b>
+<div style="display:flex;gap:6px">
+<button class="kbtn sec" style="width:auto" onclick="alert('Voice call - STEP 2B will make it live')">📞 Voice</button>
+<button class="kbtn sec" style="width:auto" onclick="alert('Video call - STEP 2B will make it live')">📹 Video</button>
+<button class="kbtn sec" style="width:auto" onclick="closeChat()">← Back</button>
+</div>
+<div id="peopleChatMsgs" style="display:flex;flex-direction:column;gap:6px"></div>
+<div class="msgRow"><input id="peopleChatInput" placeholder="Message..."><button class="kbtn" style="width:auto;margin:0;padding:10px 16px" onclick="sendPeopleMsg()">➤</button></div>
+</div>
+
+<script>
+function el(id){return document.getElementById(id)}
+function getUser(){try{return JSON.parse(localStorage.getItem("tati_user")||"null")}catch(e){return null}}
+function getContacts(){try{return JSON.parse(localStorage.getItem("tati_contacts")||"[]")}catch(e){return []}}
+function saveContacts(c){localStorage.setItem("tati_contacts",JSON.stringify(c))}
+function doRegister(){
+  var n=el("regName").value.trim(), ph=el("regPhone").value.trim();
+  if(!n||!ph){alert("Please put Name + Phone");return}
+  var u={name:n,phone:ph,photo:el("regPhoto").value.trim()};
+  localStorage.setItem("tati_user",JSON.stringify(u));
+  alert("Welcome "+n+"! Profile created ✅"); renderPeople();
+}
+function renderPeople(){
+  var u=getUser();
+  if(!u){el("registerBox").style.display="block";el("peopleBox").style.display="none";return}
+  el("registerBox").style.display="none";el("peopleBox").style.display="flex";
+  el("myProfileText").textContent=u.name+" • "+u.phone;
+  var list=el("contactsList"); list.innerHTML="";
+  var cs=getContacts();
+  if(cs.length===0){list.innerHTML='<div class="card"><p>No contacts yet. Add one above 👆</p></div>';return}
+  cs.forEach(function(c,i){
+    var d=document.createElement("div"); d.className="contactRow";
+    d.innerHTML='<img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200"><div style="flex:1"><b>'+c.name+'</b><p style="font-size:12px;color:#667781">'+c.phone+'</p></div><span>💬</span>';
+    d.onclick=function(){openPeopleChat(i)}; list.appendChild(d);
+  });
+}
+function addContact(){
+  var n=el("newContactName").value.trim(), ph=el("newContactPhone").value.trim();
+  if(!n||!ph){alert("Put Name + Phone");return}
+  var cs=getContacts(); cs.push({name:n,phone:ph}); saveContacts(cs);
+  el("newContactName").value=""; el("newContactPhone").value=""; renderPeople();
+}
+function showProfile(){
+  var u=getUser(); el("profileView").innerHTML="<b>"+u.name+"</b><br>"+u.phone+"<br><br>Selfie verification coming in STEP 2B.";
+  el("profileBox").style.display="block";
+}
+var currentChat=-1;
+function openPeopleChat(i){
+  currentChat=i; var c=getContacts()[i];
+  el("chatWithName").textContent="💬 "+c.name+" • "+c.phone;
+  el("chatBox").style.display="flex"; renderPeopleChat();
+}
+function closeChat(){el("chatBox").style.display="none"}
+function renderPeopleChat(){
+  var box=el("peopleChatMsgs"); box.innerHTML="";
+  var key="tati_chat_"+currentChat; var msgs=[]; try{msgs=JSON.parse(localStorage.getItem(key)||"[]")}catch(e){}
+  if(msgs.length===0) box.innerHTML='<div class="bubble"><span>Hi! Private chat with '+getContacts()[currentChat].name+'. Say Avuxeni! 👋</span></div>';
+  msgs.forEach(function(m){var d=document.createElement("div"); d.className="bubble "+(m.mine?"user":""); d.innerHTML="<span>"+m.text+"</span>"; box.appendChild(d)});
+}
+function sendPeopleMsg(){
+  var inp=el("peopleChatInput"); var t=inp.value.trim(); if(!t) return;
+  var key="tati_chat_"+currentChat; var msgs=[]; try{msgs=JSON.parse(localStorage.getItem(key)||"[]")}catch(e){}
+  msgs.push({text:t,mine:true}); localStorage.setItem(key,JSON.stringify(msgs)); inp.value=""; renderPeopleChat();
+}
+renderPeople();
+</script>
+</body></html>
