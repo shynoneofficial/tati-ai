@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Did You Know? - Tati</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#f6f3ee;padding:12px;padding-bottom:30px}
+a.back{color:#0a192f;text-decoration:none;font-weight:800;font-size:14px}
+h1{font-size:24px;margin:12px 0 4px}
+p.sub{color:#667781;font-size:13px;margin-bottom:14px;line-height:1.4}
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card h2{font-size:18px;line-height:1.4;margin-bottom:8px}
+.card p{font-size:15px;line-height:1.6;color:#333}
+.badge{display:inline-block;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:800;margin-bottom:10px}
+.badge-science{background:#e3f2fd;color:#1565c0}
+.badge-bio{background:#e8f5e9;color:#2e7d32}
+.badge-geo{background:#fff3e0;color:#ef6c00}
+.badge-history{background:#f3e5f5;color:#7b1fa2}
+.badge-space{background:#e8eaf6;color:#283593}
+.badge-body{background:#fce4ec;color:#c62828}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;text-align:center;margin-top:10px}
+.btn-green{background:#00a884;color:#fff}
+.btn-dark{background:#0a192f;color:#fff}
+.btn-grey{background:#f0f2f5;color:#111}
+.btn-outline{background:#fff;border:2px solid #0a192f;color:#0a192f}
+.notice{font-size:12px;line-height:1.4;color:#667781;margin-top:8px;text-align:center}
+.hidden{display:none!important}
+#factBox{display:none}
+#moreBox{display:none;background:#fff8e1;border:2px solid #ffcc00;border-radius:14px;padding:14px;margin-top:12px}
+#moreBox h3{font-size:16px;margin-bottom:8px}
+#moreBox p{font-size:14px;line-height:1.6;color:#333}
+.count{font-size:12px;color:#667781;text-align:center;margin-top:8px}
+</style></head><body>
+<a class="back" href="./index.html">← Back to Tati</a>
+<h1>❓ Did You Know?</h1>
+<p class="sub">Your Information & Knowledge Centre. Learn something new every day - science, biology, geography, history, space, body, world. So you are well informed.</p>
+
+<div class="card" style="text-align:center">
+<h2>🧠 Ready to learn something wonderful?</h2>
+<p class="sub" style="text-align:center">Tap below. Tati will bring you a fact you did NOT know.</p>
+<button class="btn btn-green" id="newFactBtn" onclick="newFact()">✨ New Fact</button>
+<p class="count" id="learnedCount">You have learned 0 facts today</p>
+</div>
+
+<div id="factBox" class="card">
+<span id="factBadge" class="badge badge-science">SCIENCE</span>
+<h2 id="factTitle"></h2>
+<p id="factShort"></p>
+<button class="btn btn-dark" onclick="showMore()">🤔 How? / Tell Me More →</button>
+<div id="moreBox">
+<h3>📖 Tell Me More - Full Explanation</h3>
+<p id="factLong"></p>
+</div>
+<button class="btn btn-green" onclick="newFact()">➡️ Another Fact - Give Me A New One</button>
+<button class="btn btn-grey" onclick="shareFact()">📤 Share This Fact</button>
+<p class="notice">Tati will never repeat the same fact in this chat. Always new, new, new.</p>
+</div>
+
+<div class="card">
+<h2>📚 What can you learn here?</h2>
+<p>• 🔬 Science - How things work<br>• 🧬 Biology - Animals, plants, life<br>• 🌍 Geography - Countries, earth, oceans<br>• 🏛️ History - What happened long ago<br>• 🚀 Space - Stars, moon, planets<br>• 🧍 Body - Your own body</p>
+</div>
+
+<script>
+var FACTS = [
+{cat:"SCIENCE",cls:"badge-science",title:"Hot water can freeze faster than cold water.",short:"This is called the Mpemba Effect. Sometimes hot water turns to ice faster than cold water. Scientists still argue why!",long:"How? Hot water loses heat faster because it evaporates more, and the water moves around more. Also, cold water can have gases dissolved in it that slow down freezing. Hot water pushes those gases out. So in some conditions, hot water starts to freeze first. It does not happen every time, but it is real and scientists have tested it many times."},
+{cat:"BIOLOGY",cls:"badge-bio",title:"Honey never goes bad. You can eat 3,000 year old honey.",short:"Archaeologists found honey in Egyptian tombs that was 3,000 years old - and it was still good to eat!",long:"How? Honey has almost no water in it, and it is very acidic. Bacteria and germs cannot live in it. Bees also add a special enzyme that makes honey produce a little hydrogen peroxide - like medicine that kills germs. That is why honey lasts forever if you keep the lid closed."},
+{cat:"GEOGRAPHY",cls:"badge-geo",title:"Africa is bigger than you think on maps.",short:"Most maps make Africa look small. In real life, Africa is so big you can fit USA, China, India, Europe and Japan inside it - all at once!",long:"How? Old maps stretch the top and bottom of the world and squeeze the middle where Africa sits. This is called the Mercator map. It was made for ships, not for true size. In reality Africa is 30 million km² - the second biggest continent. Your country Mozambique alone is bigger than many European countries put together."},
+{cat:"SPACE",cls:"badge-space",title:"One day on Venus is longer than one year on Venus.",short:"Venus spins so slowly, that one day there takes 243 Earth days. But one year there takes only 225 Earth days!",long:"How? Venus turns on its own very, very slowly, but it goes around the Sun quite fast. So before it finishes one full turn (one day), it has already finished going around the Sun (one year). Also Venus spins backwards compared to Earth - there the Sun rises in the west!"},
+{cat:"BODY",cls:"badge-body",title:"Your nose can remember 1 trillion different smells.",short:"Humans were told we have a weak nose. Not true. Your nose can tell apart more than 1 trillion smells!",long:"How? You have about 400 different smell receptors in your nose. Each smell uses a different combination of them, like a code. Your brain reads the code and remembers it. That is why one smell of rain, or mama's cooking, can bring back a memory from many years ago instantly."},
+{cat:"BIOLOGY",cls:"badge-bio",title:"Octopuses have 3 hearts and blue blood.",short:"An octopus has 3 hearts. Two pump blood to its gills, one pumps to its body. And its blood is blue!",long:"How? Octopus blood uses copper to carry oxygen, not iron like ours. Copper turns blue when it meets oxygen. That is why their blood is blue. When an octopus swims, one heart stops beating - that is why they prefer to crawl instead of swimming, to save energy."},
+{cat:"HISTORY",cls:"badge-history",title:"The Great Wall of China is held together with sticky rice.",short:"Builders in China mixed sticky rice soup into the mortar for the Great Wall over 600 years ago. It is still strong today!",long:"How? Sticky rice has a starch called amylopectin. When mixed with lime, it makes a super strong glue - stronger than normal cement. Scientists tested it and found it is even better at surviving earthquakes and rain. That is why parts of the Wall are still standing after 600 years."},
+{cat:"GEOGRAPHY",cls:"badge-geo",title:"There is a lake in Antarctica that never freezes, even at -60°C.",short:"Lake Don Juan in Antarctica is so salty, it never freezes, even when it is colder than your freezer by 3 times!",long:"How? Normal water freezes at 0°C. But salt water freezes much lower. Lake Don Juan is 40% salt - 10 times saltier than the sea. Salt breaks up the ice crystals. So even at -50°C, it stays liquid. This helps scientists understand how water could exist on Mars."},
+{cat:"SCIENCE",cls:"badge-science",title:"Bananas are berries, but strawberries are NOT berries.",short:"In science, a banana is a berry. A strawberry is not a berry. A grape is a berry too!",long:"How? Scientists define a berry as a fruit that comes from one flower with one ovary, with seeds inside the flesh. Bananas, grapes and kiwis fit that. Strawberries come from one flower with many ovaries, and their seeds are on the OUTSIDE. So strawberry is not a true berry. It is an 'aggregate fruit'."},
+{cat:"BODY",cls:"badge-body",title:"Your bones are stronger than concrete.",short:"A piece of bone as big as a matchbox can hold 9 tonnes - 4 times stronger than concrete!",long:"How? Bone is not solid like stone. It is made of living tissue with collagen (soft, flexible) and calcium (hard). The mix makes it both strong and a little flexible, so it does not break easily. That is why a healthy bone can take huge weight, but still bend a little when you jump."},
+{cat:"SPACE",cls:"badge-space",title:"There are more stars than grains of sand on all beaches.",short:"Scientists count about 200 billion trillion stars in the universe. That is more than all sand on Earth!",long:"How? Our galaxy alone has 200 billion stars. And there are about 2 trillion galaxies. Multiply them, you get a number so big you cannot imagine it. Every time you look at the night sky, you are seeing only a tiny, tiny part of it."},
+{cat:"BIOLOGY",cls:"badge-bio",title:"Elephants can hear through their feet.",short:"Elephants talk to each other through the ground. They feel vibrations with their feet from 30km away!",long:"How? Elephants make very low sounds called infrasound - too low for humans to hear. The sound travels through the ground as vibration. Elephants have special bones in their feet that pick up the vibration and send it to their brain. So they can 'hear' a friend calling from far away, even if there is no sound in the air."},
+{cat:"HISTORY",cls:"badge-history",title:"Mozambique Island was a big trading city 500 years ago.",short:"Long before cars and planes, Mozambique Island was one of the biggest trading ports in Africa - Arabs, Portuguese, Indians and Africans all met there.",long:"How? Mozambique Island sits in a perfect place on the Indian Ocean trade route. Ships from Arabia, India and Portugal stopped there to trade gold, ivory, spices and cloth. That is why the island has a big stone fort, old churches and mosques together. It is now a UNESCO World Heritage site."},
+{cat:"GEOGRAPHY",cls:"badge-geo",title:"The Sahara Desert was once green with lakes.",short:"10,000 years ago, the Sahara was not a desert. It had grass, lakes, rivers and even hippos!",long:"How? The Earth tilts a little over thousands of years. That changes where rain falls. Long ago, rain fell on the Sahara, so it was green. Paintings in caves there show people fishing and hunting hippos. Then the rain moved away, and it slowly became the desert we know today."},
+{cat:"SCIENCE",cls:"badge-science",title:"Your phone is more powerful than NASA in 1969.",short:"The phone in your hand is millions of times more powerful than the computer that sent men to the Moon!",long:"How? The Apollo 11 computer had only 0.004 MHz and 72KB memory. Your phone has thousands of MHz and gigabytes of memory. NASA used maths and clever programming to do it with very little. Today your phone can do in one second what took them hours."},
+{cat:"BODY",cls:"badge-body",title:"You swallow 1 litre of mucus every day without knowing.",short:"Your nose and throat make about 1 litre of mucus daily. You swallow most of it. It protects you.",long:"How? Mucus traps dust, germs and dirt from the air you breathe. Then tiny hairs called cilia push it to your throat, you swallow it, and your stomach acid kills the germs. You only notice it when you are sick and your body makes extra mucus to fight the sickness."},
+{cat:"BIOLOGY",cls:"badge-bio",title:"A snail can sleep for up to 3 years.",short:"If it is too dry or too cold, a snail can go to sleep and stay asleep for up to 3 years!",long:"How? Snails make a lid of mucus over their shell to keep water inside. Then they slow down their body almost to zero - heart beats very slowly, they use almost no energy. When rain comes, they wake up and continue life like nothing happened."},
+{cat:"SPACE",cls:"badge-space",title:"The Moon is moving away from Earth every year.",short:"The Moon moves 3.8cm away from Earth every year - about as fast as your fingernails grow!",long:"How? The Moon pulls the sea to make tides. That pulling also pushes the Moon a little further away. Billions of years ago the Moon was much closer and looked much bigger in the sky. In millions of years, it will be so far that there will be no more total solar eclipses."},
+{cat:"GEOGRAPHY",cls:"badge-geo",title:"Russia has a bigger surface than Pluto.",short:"Russia is 17 million km². Pluto, the dwarf planet, is only 16.6 million km². Russia is bigger!",long:"How? We think planets must be bigger than countries, but Pluto is very small. Russia stretches across 11 time zones. If you fly from one side of Russia to the other, it takes 8 hours. Pluto is so small you could walk around it in theory, if you had a spacesuit."},
+{cat:"HISTORY",cls:"badge-history",title:"The first computer programmer was a woman in 1843.",short:"Ada Lovelace wrote the first computer program in 1843 - 100 years before the first computer was built!",long:"How? Ada worked with Charles Babbage who designed a machine called the Analytical Engine. It was never built in their time, but Ada wrote instructions for it to calculate numbers. She even predicted computers would one day make music and art. Today the computer language 'Ada' is named after her."}
+];
+var used = [];
+var current = null;
+var count = 0;
+function newFact(){
+  // Never repeat in same chat - if all used, reset but shuffle
+  if(used.length >= FACTS.length){ used = []; }
+  var available = FACTS.filter(function(f,i){ return used.indexOf(i)===-1; });
+  var idx = Math.floor(Math.random()*available.length);
+  var fact = available[idx];
+  var realIdx = FACTS.indexOf(fact);
+  used.push(realIdx);
+  current = fact;
+  count++;
+  document.getElementById('factBox').style.display='block';
+  document.getElementById('moreBox').style.display='none';
+  document.getElementById('factBadge').textContent = fact.cat;
+  document.getElementById('factBadge').className = 'badge ' + fact.cls;
+  document.getElementById('factTitle').textContent = fact.title;
+  document.getElementById('factShort').textContent = fact.short;
+  document.getElementById('factLong').textContent = fact.long;
+  document.getElementById('learnedCount').textContent = 'You have learned ' + count + ' facts today - Keep going!';
+  document.getElementById('factBox').scrollIntoView({behavior:'smooth'});
+  document.getElementById('newFactBtn').textContent = '✨ New Fact';
+}
+function showMore(){
+  document.getElementById('moreBox').style.display='block';
+  document.getElementById('moreBox').scrollIntoView({behavior:'smooth'});
+}
+function shareFact(){
+  if(!current) return;
+  var txt = 'Did You Know? ' + current.title + ' ' + current.short + ' - Learned on Tati';
+  if(navigator.clipboard) navigator.clipboard.writeText(txt);
+  alert('✅ Copied! Share it on WhatsApp / Facebook:\n\n' + txt);
+}
+</script>
+</body></html>
