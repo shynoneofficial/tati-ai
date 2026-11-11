@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Listen - Tati</title>
+<title>Listen History - Tati</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-body{background:#f6f3ee;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:100dvh}
+body{background:#f6f3ee;padding:12px;display:flex;flex-direction:column;gap:8px}
 a{color:#0a192f;font-weight:800;text-decoration:none;font-size:13px}
 .card{background:#fff;border-radius:12px;padding:14px}
 .card b{font-size:15px}
@@ -12,64 +12,83 @@ a{color:#0a192f;font-weight:800;text-decoration:none;font-size:13px}
 .kbtn{width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none;background:#0a192f;color:#fff;font-weight:800;cursor:pointer}
 .kbtn.green{background:#00a884}
 .kbtn.sec{background:#f0f2f5;color:#111}
-#listenBox{background:#0a192f;color:#fff;border-radius:12px;padding:16px;text-align:center}
-#listenBox b{font-size:16px}
-#listenText{background:#fff;border-radius:12px;padding:14px;min-height:120px;font-size:15px;line-height:1.5;white-space:pre-wrap}
-#earBtn{width:90px;height:90px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:38px;cursor:pointer;margin:10px auto;display:block}
-#earBtn.on{background:#e11d48;animation:pulse 1s infinite}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-select{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-top:6px;font-size:14px}
+.kbtn.red{background:#e11d48}
+.safeInput{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-top:6px;font-size:14px}
+.log{font-size:13px;line-height:1.5;background:#fff;padding:10px;border-radius:10px;white-space:pre-wrap}
+.switch{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #eee;font-size:13px;font-weight:700}
+.switch input{width:44px;height:24px}
 </style></head><body>
 
 <a href="./index.html">← Back to Tati</a>
 
-<div id="listenBox">
-<b>👂 Listen Mode</b>
-<p style="font-size:12px;opacity:.8;margin-top:4px">Tati listens quietly. No talking back unless you ask. For when you just need to be heard.</p>
-<button id="earBtn" onclick="toggleListen()">👂</button>
-<p id="listenStatus">Tap ear to start listening</p>
+<div class="card">
+<b>👂 Listen - History & Brain</b>
+<p>Listen itself lives on the main page as ONE ON/OFF button. This page is only to TRACE what Tati heard, and to tell Tati how to behave.</p>
+<p><b>Status now:</b> <span id="statusNow">OFF</span></p>
+<button class="kbtn green" onclick="location.href='./index.html'">👂 Go to Main Page to Turn ON / OFF</button>
 </div>
 
-<select id="listenLang">
-<option value="pt-PT">Portuguese</option>
-<option value="en-US">English</option>
-<option value="ts-ZA">xiChangana / Tsonga</option>
-</select>
-
-<div id="listenText">Tati is listening... your words will appear here, private, not sent anywhere.</div>
+<div class="card">
+<b>👥 Who is here? Names</b>
+<p>Tati asks names so it knows who is talking when 10 people are talking.</p>
+<input id="namesInput" class="safeInput" placeholder="Ex: Jemi, Mama, Thabo, Nyeleti">
+<button class="kbtn" onclick="saveNames()">💾 Save Names</button>
+<p id="namesSaved"></p>
+</div>
 
 <div class="card">
-<b>What Tati does in Listen Mode:</b>
-<p>✅ Listens • ✅ Types what you say • ✅ No interruptions • ✅ No advice unless you say "Tati, help me"</p>
-<button class="kbtn green" onclick="saveListen()">💾 Save This Listening</button>
-<button class="kbtn sec" onclick="document.getElementById('listenText').textContent=''">🗑️ Clear</button>
-<button class="kbtn sec" onclick="alert('Listen history is only on YOUR phone. Nobody else can see it.')">🔒 Privacy Check</button>
+<b>🧠 How should Tati jump in?</b>
+<div class="switch"><span>😂 Laugh if funny</span><input type="checkbox" id="jumpFunny" checked onchange="saveSettings()"></div>
+<div class="switch"><span>✅ Correct if wrong</span><input type="checkbox" id="jumpCorrect" checked onchange="saveSettings()"></div>
+<div class="switch"><span>💡 Jump in if interesting</span><input type="checkbox" id="jumpInteresting" checked onchange="saveSettings()"></div>
+<div class="switch"><span>🤫 Stay quiet unless asked</span><input type="checkbox" id="quietMode" onchange="saveSettings()"></div>
+<p>Tati listens quietly. If jump is ON, it will jump in by itself. If Quiet Mode is ON, it will only listen and never jump.</p>
+</div>
+
+<div class="card">
+<b>📜 Trace - Everything Tati Heard</b>
+<p>Only on YOUR phone. Private.</p>
+<button class="kbtn sec" onclick="renderHistory()">🔄 Refresh History</button>
+<button class="kbtn red" onclick="if(confirm('Clear all listen history?')){localStorage.removeItem('tati_listen');renderHistory()}">🗑️ Clear History</button>
+<div id="historyBox" style="display:flex;flex-direction:column;gap:6px;margin-top:10px"></div>
 </div>
 
 <script>
-var rec=null, listening=false;
-function toggleListen(){
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}
-  if(listening){rec.stop();return}
-  rec=new SR();
-  rec.lang=document.getElementById("listenLang").value;
-  rec.continuous=true; rec.interimResults=true;
-  rec.onstart=function(){listening=true;document.getElementById("earBtn").classList.add("on");document.getElementById("listenStatus").textContent="● Tati is listening quietly...";};
-  rec.onend=function(){listening=false;document.getElementById("earBtn").classList.remove("on");document.getElementById("listenStatus").textContent="Paused. Tap to listen again";};
-  rec.onresult=function(e){
-    var txt=""; for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" ";}
-    document.getElementById("listenText").textContent=txt;
-  };
-  rec.start();
+function getHistory(){try{return JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(e){return []}}
+function renderHistory(){
+  var h=getHistory(); var box=document.getElementById("historyBox"); box.innerHTML="";
+  var st=localStorage.getItem("tati_listen_on")==="1"?"🟢 ON - Listening now":"🔴 OFF";
+  document.getElementById("statusNow").textContent=st;
+  if(h.length===0){box.innerHTML='<div class="log">Nothing yet. Turn Listen ON on main page.</div>';return}
+  h.slice().reverse().forEach(function(x){
+    var d=document.createElement("div"); d.className="log"; d.textContent=x.date+" - "+x.text; box.appendChild(d);
+  });
 }
-function saveListen(){
-  var t=document.getElementById("listenText").textContent.trim();
-  if(!t){alert("Nothing to save yet");return}
-  var all=[]; try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(e){}
-  all.push({date:new Date().toLocaleString(),text:t});
-  localStorage.setItem("tati_listen",JSON.stringify(all));
-  alert("Saved privately on your phone ✅ ("+all.length+" listenings)");
+function saveNames(){
+  var v=document.getElementById("namesInput").value.trim();
+  localStorage.setItem("tati_listen_names",v);
+  document.getElementById("namesSaved").textContent="Saved: "+v;
+  alert("Tati now knows: "+v);
 }
+function saveSettings(){
+  localStorage.setItem("tati_listen_settings",JSON.stringify({
+    funny:document.getElementById("jumpFunny").checked,
+    correct:document.getElementById("jumpCorrect").checked,
+    interesting:document.getElementById("jumpInteresting").checked,
+    quiet:document.getElementById("quietMode").checked
+  }));
+}
+function loadAll(){
+  var n=localStorage.getItem("tati_listen_names")||"";
+  document.getElementById("namesInput").value=n; document.getElementById("namesSaved").textContent=n?"Saved: "+n:"";
+  try{var s=JSON.parse(localStorage.getItem("tati_listen_settings")||"{}");
+    if(s.funny!==undefined) document.getElementById("jumpFunny").checked=s.funny;
+    if(s.correct!==undefined) document.getElementById("jumpCorrect").checked=s.correct;
+    if(s.interesting!==undefined) document.getElementById("jumpInteresting").checked=s.interesting;
+    if(s.quiet!==undefined) document.getElementById("quietMode").checked=s.quiet;
+  }catch(e){}
+  renderHistory();
+}
+loadAll();
 </script>
 </body></html>
