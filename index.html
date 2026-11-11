@@ -18,6 +18,10 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #modeSwitch{display:flex;background:#f0f2f5;padding:4px;margin:0 8px 8px;border-radius:10px;gap:4px;flex-shrink:0;overflow-x:auto}
 .modeBtn{flex:1;padding:9px 6px;border-radius:8px;border:none;font-weight:800;font-size:11px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center}
 .modeBtn.active{background:#0a192f;color:#fff}
+#listenBar{display:flex;gap:6px;align-items:center;margin:0 8px 8px;padding:8px 10px;background:#0a192f;color:#fff;border-radius:10px;flex-shrink:0}
+#listenToggle{padding:8px 12px;border-radius:999px;border:none;font-weight:800;font-size:11px;cursor:pointer;background:#e11d48;color:#fff}
+#listenToggle.on{background:#00a884}
+#listenHistoryLink{color:#fff;font-size:11px;font-weight:700;text-decoration:underline}
 .page{flex:1;overflow-y:auto;padding:12px;background:#f6f3ee;display:flex;flex-direction:column;gap:6px}
 .bubble{max-width:80%;padding:7px 10px;font-size:14px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .user{align-self:flex-end;background:#d9fdd3}
@@ -58,25 +62,83 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 <a class="modeBtn active" href="./index.html">💬 Tati</a>
 <a class="modeBtn" href="./people.html">👥 People</a>
 <a class="modeBtn" href="./voice.html">🎤 Voice</a>
-<a class="modeBtn" href="./listen.html">👂 Listen</a>
+<a class="modeBtn" href="./listen.html">👂 Listen History</a>
 <a class="modeBtn" href="./create.html">✨ Create</a>
 <a class="modeBtn" href="./keyboard.html">⌨️ Keyboard</a>
 </div>
 
+<!-- LISTEN ON / OFF - STAYS ON MAIN PAGE -->
+<div id="listenBar">
+<span style="font-size:12px;font-weight:800">👂 Listen:</span>
+<button id="listenToggle" onclick="toggleListenMain()">🔴 OFF</button>
+<span id="listenLiveText" style="font-size:11px;opacity:.8;flex:1">Tap OFF to turn ON. Tati will listen quietly.</span>
+<a id="listenHistoryLink" href="./listen.html">Check History →</a>
+</div>
+
 <div class="page"><div id="chat"></div>
-<div class="card"><p>👥 People is now SEPARATE file. Tap 👥 People on top to open <b>people.html</b> - Register, Add Contact, Chat.</p></div>
+<div class="card"><p>👥 People is SEPARATE. Tap 👥 People on top to open <b>people.html</b> - Register, Add Contact, Chat.</p><p style="margin-top:6px;font-size:12px;color:#667781">👂 Listen: Use the black bar above. OFF = quiet. ON = Tati listens, and jumps in if funny / wrong / interesting. History is in Listen History page.</p></div>
 </div>
 
 <div id="inputArea"><div id="textBox"><textarea id="textInput" placeholder="Message Tati..." rows="1"></textarea></div><button id="sendBtn">➤</button></div>
 
 <script>
-function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+t+"</span>";document.getElementById("chat").appendChild(b)}
+function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+t+"</span>";document.getElementById("chat").appendChild(b);document.getElementById("chat").scrollTop=99999}
 document.getElementById("sendBtn").onclick=function(){
   var q=document.getElementById("textInput").value.trim(); if(!q) return;
   addBubble(q,"user"); document.getElementById("textInput").value="";
-  addBubble("Hi! I am clean shell Tati. People is now separate - tap 👥 People above.","tati");
+  addBubble("Hi! I am clean shell Tati. People is separate - tap 👥 People above.","tati");
 };
-addBubble("Avuxeni! Hi mina Tati. STEP 1 Shell + STEP 2 People (separate file) are ready.","tati");
 document.getElementById("centerLogo").onclick=function(){window.open('https://shynoneofficial.github.io/shynone-music/','_blank')};
+
+// --- LISTEN MAIN - ON / OFF ON MAIN PAGE ---
+var listenRec=null, listenOn=false;
+function getListenSettings(){try{return JSON.parse(localStorage.getItem("tati_listen_settings")||"{}")}catch(e){return {}}}
+function toggleListenMain(){
+  if(listenOn){ if(listenRec) listenRec.stop(); return; }
+  // Ask names first time if no names saved
+  var names=localStorage.getItem("tati_listen_names")||"";
+  if(!names){
+    var n=prompt("👂 Listen ON! Who is here? What are your names? (ex: Jemi, Mama, Thabo)");
+    if(n){ localStorage.setItem("tati_listen_names",n); }
+  }
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}
+  listenRec=new SR();
+  listenRec.lang="pt-PT"; listenRec.continuous=true; listenRec.interimResults=true;
+  listenRec.onstart=function(){
+    listenOn=true; localStorage.setItem("tati_listen_on","1");
+    var btn=document.getElementById("listenToggle"); btn.textContent="🟢 ON"; btn.classList.add("on");
+    document.getElementById("listenLiveText").textContent="Listening quietly... names: "+(localStorage.getItem("tati_listen_names")||"");
+    addBubble("👂 Listen is ON. I am listening quietly. I will jump in if funny / wrong / interesting. Say something!","tati");
+  };
+  listenRec.onend=function(){
+    listenOn=false; localStorage.setItem("tati_listen_on","0");
+    var btn=document.getElementById("listenToggle"); btn.textContent="🔴 OFF"; btn.classList.remove("on");
+    document.getElementById("listenLiveText").textContent="Tap OFF to turn ON again.";
+  };
+  listenRec.onresult=function(e){
+    var txt=""; for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" ";}
+    txt=txt.trim(); if(!txt) return;
+    document.getElementById("listenLiveText").textContent="Heard: "+txt.slice(0,80);
+    // Save to history
+    var all=[]; try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(err){}
+    all.push({date:new Date().toLocaleString(),text:txt});
+    localStorage.setItem("tati_listen",JSON.stringify(all));
+    // Jump-in logic
+    var s=getListenSettings();
+    if(s.quiet) return;
+    var low=txt.toLowerCase();
+    if(low.indexOf("tati")>-1 || low.indexOf("help")>-1 || low.indexOf("ajuda")>-1){
+      addBubble("👂 I heard you say my name! How can I help? Names here: "+(localStorage.getItem("tati_listen_names")||"")+" - "+txt,"tati");
+    } else if(low.indexOf("haha")>-1 || low.indexOf("funny")>-1 || low.indexOf("engracado")>-1){
+      if(s.funny!==false) addBubble("😂 Hahaha! That was funny! I heard: "+txt,"tati");
+    } else if(low.indexOf("wrong")>-1 || low.indexOf("errado")>-1){
+      if(s.correct!==false) addBubble("✅ Wait - I think that might be wrong, let me check: "+txt,"tati");
+    }
+  };
+  listenRec.onerror=function(){ listenOn=false; localStorage.setItem("tati_listen_on","0"); };
+  listenRec.start();
+}
+addBubble("Avuxeni! Hi mina Tati. 👂 Listen is now ON/OFF on this main page - black bar above. Tap OFF to turn ON.","tati");
 </script>
 </body></html>
