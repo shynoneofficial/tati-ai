@@ -10,24 +10,18 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #centerLogo{flex:1;text-align:center;line-height:1;cursor:pointer;border-left:1px solid #ddd;border-right:1px solid #ddd;margin:0 8px}
 #centerLogo b{font-size:14px;font-weight:900}
 #centerLogo i{font-style:normal;font-size:8px;letter-spacing:3px;color:#00a884;font-weight:700}
-.topBtn{padding:8px 9px;border-radius:15px;border:none;font-size:12px;font-weight:800;cursor:pointer;background:#f0f2f5}
-.topBtn.active{background:#0a192f;color:#fff}
+.topBtn{padding:8px 9px;border-radius:15px;border:none;font-size:12px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111}
 #greenLine{height:4mm;background:#00a884;flex-shrink:0}
 #safeBar{display:flex;gap:8px;padding:10px;overflow-x:auto;flex-shrink:0}
 .pill{padding:9px 13px;border-radius:999px;border:none;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none}
-
-/* MODE BAR - NORMAL APP SIZE */
 #modeSwitch{display:flex;background:#f0f2f5;padding:4px;margin:0 8px 10px;border-radius:12px;gap:4px;flex-shrink:0;overflow-x:auto;align-items:center}
 .modeBtn{padding:10px 10px;border-radius:9px;border:none;font-weight:800;font-size:13px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center;flex-shrink:0}
 .modeBtn.active{background:#0a192f;color:#fff}
-
-/* DOUBLE BUTTON - NORMAL SIZE, STILL ONE BUTTON DIVIDED */
 .doubleBtn{display:flex;background:#fff;border:1px solid #ddd;border-radius:9px;overflow:hidden;white-space:nowrap;padding:0;margin:0;flex-shrink:0}
 .doubleBtn button,.doubleBtn a{padding:10px 8px;border:none;background:#fff;font-weight:800;font-size:13px;cursor:pointer;text-decoration:none;color:#111;text-align:center;margin:0;line-height:1.2}
 .doubleBtn .divider{width:1px;background:#bbb;flex:none;flex-shrink:0;margin:7px 0}
 .doubleBtn button.on{background:#00a884;color:#fff}
 .doubleBtn a.active{background:#0a192f;color:#fff}
-
 .page{flex:1;overflow-y:auto;padding:12px;background:#f6f3ee;display:flex;flex-direction:column;gap:6px}
 .bubble{max-width:80%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .user{align-self:flex-end;background:#d9fdd3}
@@ -45,25 +39,23 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 <b>Tati <span style="font-size:10px;color:#00a884">● Online</span></b>
 </div>
 <div id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></div>
+<!-- ONLY GLOBE + BELL NOW - NO CH/EN/PT BUTTONS -->
 <div style="display:flex;gap:4px;align-items:center">
-<a class="topBtn" href="./requests.html">🔔<span>0</span></a>
-<button class="topBtn active">CH</button>
-<button class="topBtn">EN</button>
-<button class="topBtn">PT</button>
 <a class="topBtn" href="./langs.html">🌐 ▼</a>
+<a class="topBtn" href="./requests.html">🔔<span>0</span></a>
 </div>
 </div>
 
 <div id="greenLine"></div>
 
+<!-- ONLY 3 GREEN BUTTONS NOW - SAFE CONTAINS CONTACTS + DOCS -->
 <div id="safeBar">
-<a class="pill" href="./contacts.html">👥 CONTACTS</a>
-<a class="pill" href="./docs.html">📄 DOCS (20)</a>
+<a class="pill" href="./safe.html">🛡️ SAFE</a>
 <a class="pill" href="./fact.html">💡 DID YOU KNOW</a>
 <a class="pill" href="./create.html">✨ CREATE</a>
 </div>
 
-<!-- NORMAL SIZE NOW: People | Text|Talk | Listen|History | Create -->
+<!-- NO BOTTOM CREATE ANYMORE - KILLED. ONLY People, Text|Talk, Listen|History -->
 <div id="modeSwitch">
 <a class="modeBtn" href="./people.html">👥 People</a>
 <div class="doubleBtn">
@@ -76,7 +68,6 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 <div class="divider"></div>
 <a href="./listen.html">History</a>
 </div>
-<a class="modeBtn" href="./create.html">✨ Create</a>
 </div>
 
 <div class="page"><div id="chat"></div></div>
