@@ -16,7 +16,7 @@
   .chip.active{background:#ff2d78;border-color:#ff2d78;color:#fff}
   button.gen{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:#ff2d78;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
   button.gen:disabled{opacity:.6}
-  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative}
+  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center}
   .box img{width:100%;display:block}
   .box .ph{color:#777;text-align:center;padding:20px}
   .actions{display:flex;gap:10px;margin-top:12px}
@@ -45,115 +45,10 @@
     <button class="primary" onclick="useAsPost()">Use as Post →</button>
   </div>
 </div>
-
 <script>
-// >>>>>> PUT YOUR WORKER URL HERE - COPY FROM CLOUDFLARE <<<<<<
-const WORKER_URL = "<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TATI - Create</title>
-<style>
-  *{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0b0b10;color:#fff;min-height:100vh}
-  .top{padding:16px;display:flex;justify-content:space-between;align-items:center}
-  .logo{font-weight:900;font-size:26px;letter-spacing:2px} .logo span{color:#ff2d78}
-  .wrap{max-width:520px;margin:0 auto;padding:10px 16px 40px}
-  h1{font-size:28px;margin:6px 0 4px} p.sub{color:#aaa;margin:0 0 16px}
-  textarea{width:100%;min-height:90px;border-radius:14px;border:1px solid #333;background:#17171f;color:#fff;padding:12px;font-size:16px;outline:none}
-  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-  .chip{padding:8px 12px;border-radius:999px;background:#222;border:1px solid #333;color:#ddd;font-size:13px;cursor:pointer}
-  .chip.active{background:#ff2d78;border-color:#ff2d78;color:#fff}
-  button.gen{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:#ff2d78;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
-  button.gen:disabled{opacity:.6}
-  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative}
-  .box img{width:100%;display:block}
-  .box .ph{color:#777;text-align:center;padding:20px}
-  .actions{display:flex;gap:10px;margin-top:12px}
-  .actions button{flex:1;padding:12px;border-radius:12px;border:1px solid #333;background:#222;color:#fff;font-weight:700;cursor:pointer}
-  .actions button.primary{background:#fff;color:#000;border-color:#fff}
-  #status{margin-top:10px;color:#ffb3cd;font-size:14px;text-align:center;min-height:20px}
-</style>
-</head>
-<body>
-<div class="top"><div class="logo">TATI<span>.</span></div><a href="index.html" style="color:#fff;text-decoration:none">← Back</a></div>
-<div class="wrap">
-  <h1>Create ✨</h1>
-  <p class="sub">Describe it. Tati makes it for you.</p>
-  <textarea id="prompt" placeholder="e.g. A beautiful African queen in Maputo, golden sunset, photorealistic..."></textarea>
-  <div class="row" id="chips">
-    <div class="chip active" data-p="photorealistic, high quality">📸 Real Photo</div>
-    <div class="chip" data-p="anime style, vibrant">🎌 Anime</div>
-    <div class="chip" data-p="3d pixar style, cute">🧸 3D Cute</div>
-    <div class="chip" data-p="fashion editorial, studio light">👗 Fashion</div>
-  </div>
-  <button class="gen" id="genBtn" onclick="generate()">✨ Generate Image</button>
-  <div id="status"></div>
-  <div class="box" id="box"><div class="ph">Your image will appear here<br>🎨</div></div>
-  <div class="actions" id="actions" style="display:none">
-    <button onclick="downloadImg()">⬇ Download</button>
-    <button class="primary" onclick="useAsPost()">Use as Post →</button>
-  </div>
-</div>
-
-<script>
-// >>>>>> PUT YOUR WORKER URL HERE - COPY FROM CLOUDFLARE <<<<<<
-const WORKER_URL = "<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TATI - Create</title>
-<style>
-  *{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0b0b10;color:#fff;min-height:100vh}
-  .top{padding:16px;display:flex;justify-content:space-between;align-items:center}
-  .logo{font-weight:900;font-size:26px;letter-spacing:2px} .logo span{color:#ff2d78}
-  .wrap{max-width:520px;margin:0 auto;padding:10px 16px 40px}
-  h1{font-size:28px;margin:6px 0 4px} p.sub{color:#aaa;margin:0 0 16px}
-  textarea{width:100%;min-height:90px;border-radius:14px;border:1px solid #333;background:#17171f;color:#fff;padding:12px;font-size:16px;outline:none}
-  .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-  .chip{padding:8px 12px;border-radius:999px;background:#222;border:1px solid #333;color:#ddd;font-size:13px;cursor:pointer}
-  .chip.active{background:#ff2d78;border-color:#ff2d78;color:#fff}
-  button.gen{width:100%;margin-top:14px;padding:15px;border:none;border-radius:14px;background:#ff2d78;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
-  button.gen:disabled{opacity:.6}
-  .box{margin-top:18px;border-radius:16px;overflow:hidden;background:#17171f;border:1px solid #222;min-height:320px;display:flex;align-items:center;justify-content:center;position:relative}
-  .box img{width:100%;display:block}
-  .box .ph{color:#777;text-align:center;padding:20px}
-  .actions{display:flex;gap:10px;margin-top:12px}
-  .actions button{flex:1;padding:12px;border-radius:12px;border:1px solid #333;background:#222;color:#fff;font-weight:700;cursor:pointer}
-  .actions button.primary{background:#fff;color:#000;border-color:#fff}
-  #status{margin-top:10px;color:#ffb3cd;font-size:14px;text-align:center;min-height:20px}
-</style>
-</head>
-<body>
-<div class="top"><div class="logo">TATI<span>.</span></div><a href="index.html" style="color:#fff;text-decoration:none">← Back</a></div>
-<div class="wrap">
-  <h1>Create ✨</h1>
-  <p class="sub">Describe it. Tati makes it for you.</p>
-  <textarea id="prompt" placeholder="e.g. A beautiful African queen in Maputo, golden sunset, photorealistic..."></textarea>
-  <div class="row" id="chips">
-    <div class="chip active" data-p="photorealistic, high quality">📸 Real Photo</div>
-    <div class="chip" data-p="anime style, vibrant">🎌 Anime</div>
-    <div class="chip" data-p="3d pixar style, cute">🧸 3D Cute</div>
-    <div class="chip" data-p="fashion editorial, studio light">👗 Fashion</div>
-  </div>
-  <button class="gen" id="genBtn" onclick="generate()">✨ Generate Image</button>
-  <div id="status"></div>
-  <div class="box" id="box"><div class="ph">Your image will appear here<br>🎨</div></div>
-  <div class="actions" id="actions" style="display:none">
-    <button onclick="downloadImg()">⬇ Download</button>
-    <button class="primary" onclick="useAsPost()">Use as Post →</button>
-  </div>
-</div>
-
-<script>
-// >>>>>> PUT YOUR WORKER URL HERE - COPY FROM CLOUDFLARE <<<<<<
-const WORKER_URL = "https://tati-server.dilemahluza.workers.dev/"; // <-- REPLACE THIS WITH YOUR FULL URL, NO /image AT END
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+const WORKER_URL = "https://tati-server.dilemahluza.workers.dev";
 let extraStyle = "photorealistic, high quality";
 let lastBlobUrl = "";
-
 document.querySelectorAll('.chip').forEach(c=>{
   c.onclick=()=>{
     document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
@@ -161,14 +56,9 @@ document.querySelectorAll('.chip').forEach(c=>{
     extraStyle = c.dataset.p;
   };
 });
-
 async function generate(){
   const promptInput = document.getElementById('prompt').value.trim();
   if(!promptInput){ alert("Write what you want to create first!"); return; }
-  if(WORKER_URL.includes("...") || WORKER_URL.includes("YOUR-NAME")){
-    alert("You forgot to put your real Worker URL in create.html! Go to top of file, WORKER_URL line.");
-    return;
-  }
   const btn = document.getElementById('genBtn');
   const status = document.getElementById('status');
   const box = document.getElementById('box');
@@ -194,147 +84,11 @@ async function generate(){
     status.innerText = "Done! ✨";
     btn.disabled = false; btn.innerText = "✨ Generate Image";
   }catch(e){
-    console.error(e);
     status.innerText = "Error: " + e.message + " - Try again. If it says AI binding missing, go to Cloudflare Settings > Bindings > Add Workers AI named AI";
     box.innerHTML = '<div class="ph">❌ Failed<br>Try again</div>';
     btn.disabled = false; btn.innerText = "✨ Generate Image";
   }
 }
-
-function downloadImg(){
-  if(!lastBlobUrl) return;
-  const a = document.createElement('a');
-  a.href = lastBlobUrl; a.download = "tati-" + Date.now() + ".jpg";
-  a.click();
-}
-function useAsPost(){
-  if(!lastBlobUrl){ alert("Generate first!"); return; }
-  localStorage.setItem("tati_last_image", lastBlobUrl);
-  alert("Saved! Now go to Feed and it will be your post image.");
-  window.location.href = "index.html";
-}
-</script>
-</body>
-</html>"; // <-- REPLACE THIS WITH YOUR FULL URL, NO /image AT END
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-let extraStyle = "photorealistic, high quality";
-let lastBlobUrl = "";
-
-document.querySelectorAll('.chip').forEach(c=>{
-  c.onclick=()=>{
-    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
-    c.classList.add('active');
-    extraStyle = c.dataset.p;
-  };
-});
-
-async function generate(){
-  const promptInput = document.getElementById('prompt').value.trim();
-  if(!promptInput){ alert("Write what you want to create first!"); return; }
-  if(WORKER_URL.includes("...") || WORKER_URL.includes("YOUR-NAME")){
-    alert("You forgot to put your real Worker URL in create.html! Go to top of file, WORKER_URL line.");
-    return;
-  }
-  const btn = document.getElementById('genBtn');
-  const status = document.getElementById('status');
-  const box = document.getElementById('box');
-  btn.disabled = true; btn.innerText = "⏳ Creating... please wait 10-20 sec";
-  status.innerText = "Tati is painting... don't close";
-  box.innerHTML = '<div class="ph">🎨 Painting...<br>Flux AI is working...</div>';
-  try{
-    const fullPrompt = promptInput + ", " + extraStyle;
-    const res = await fetch(WORKER_URL + "/image", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ prompt: fullPrompt })
-    });
-    if(!res.ok){
-      const txt = await res.text();
-      throw new Error(txt.slice(0,200));
-    }
-    const blob = await res.blob();
-    if(lastBlobUrl) URL.revokeObjectURL(lastBlobUrl);
-    lastBlobUrl = URL.createObjectURL(blob);
-    box.innerHTML = '<img src="'+lastBlobUrl+'">';
-    document.getElementById('actions').style.display = "flex";
-    status.innerText = "Done! ✨";
-    btn.disabled = false; btn.innerText = "✨ Generate Image";
-  }catch(e){
-    console.error(e);
-    status.innerText = "Error: " + e.message + " - Try again. If it says AI binding missing, go to Cloudflare Settings > Bindings > Add Workers AI named AI";
-    box.innerHTML = '<div class="ph">❌ Failed<br>Try again</div>';
-    btn.disabled = false; btn.innerText = "✨ Generate Image";
-  }
-}
-
-function downloadImg(){
-  if(!lastBlobUrl) return;
-  const a = document.createElement('a');
-  a.href = lastBlobUrl; a.download = "tati-" + Date.now() + ".jpg";
-  a.click();
-}
-function useAsPost(){
-  if(!lastBlobUrl){ alert("Generate first!"); return; }
-  localStorage.setItem("tati_last_image", lastBlobUrl);
-  alert("Saved! Now go to Feed and it will be your post image.");
-  window.location.href = "index.html";
-}
-</script>
-</body>
-</html>"; // <-- REPLACE THIS WITH YOUR FULL URL, NO /image AT END
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-let extraStyle = "photorealistic, high quality";
-let lastBlobUrl = "";
-
-document.querySelectorAll('.chip').forEach(c=>{
-  c.onclick=()=>{
-    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
-    c.classList.add('active');
-    extraStyle = c.dataset.p;
-  };
-});
-
-async function generate(){
-  const promptInput = document.getElementById('prompt').value.trim();
-  if(!promptInput){ alert("Write what you want to create first!"); return; }
-  if(WORKER_URL.includes("...") || WORKER_URL.includes("YOUR-NAME")){
-    alert("You forgot to put your real Worker URL in create.html! Go to top of file, WORKER_URL line.");
-    return;
-  }
-  const btn = document.getElementById('genBtn');
-  const status = document.getElementById('status');
-  const box = document.getElementById('box');
-  btn.disabled = true; btn.innerText = "⏳ Creating... please wait 10-20 sec";
-  status.innerText = "Tati is painting... don't close";
-  box.innerHTML = '<div class="ph">🎨 Painting...<br>Flux AI is working...</div>';
-  try{
-    const fullPrompt = promptInput + ", " + extraStyle;
-    const res = await fetch(WORKER_URL + "/image", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ prompt: fullPrompt })
-    });
-    if(!res.ok){
-      const txt = await res.text();
-      throw new Error(txt.slice(0,200));
-    }
-    const blob = await res.blob();
-    if(lastBlobUrl) URL.revokeObjectURL(lastBlobUrl);
-    lastBlobUrl = URL.createObjectURL(blob);
-    box.innerHTML = '<img src="'+lastBlobUrl+'">';
-    document.getElementById('actions').style.display = "flex";
-    status.innerText = "Done! ✨";
-    btn.disabled = false; btn.innerText = "✨ Generate Image";
-  }catch(e){
-    console.error(e);
-    status.innerText = "Error: " + e.message + " - Try again. If it says AI binding missing, go to Cloudflare Settings > Bindings > Add Workers AI named AI";
-    box.innerHTML = '<div class="ph">❌ Failed<br>Try again</div>';
-    btn.disabled = false; btn.innerText = "✨ Generate Image";
-  }
-}
-
 function downloadImg(){
   if(!lastBlobUrl) return;
   const a = document.createElement('a');
