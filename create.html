@@ -33,8 +33,6 @@ textarea{min-height:70px;resize:vertical}
 #videoStage .talking{animation:talk 0.6s infinite alternate}
 @keyframes talk{from{transform:scale(1)}to{transform:scale(1.03)}}
 #videoCaption{position:absolute;bottom:12px;left:10px;right:10px;background:rgba(0,0,0,.7);color:#fff;padding:10px;border-radius:10px;font-size:14px;font-weight:700;text-align:center}
-
-/* ===== WIDE ON COMPUTER ONLY - PHONE STAYS SAME ===== */
 @media(min-width:800px){
   body{padding:0}
   .wrap{max-width:1180px;padding:20px 28px}
@@ -46,10 +44,8 @@ textarea{min-height:70px;resize:vertical}
   .studio-grid .card{margin-bottom:0}
   .card{padding:22px;border-radius:20px}
   .card h2{font-size:21px}
-  /* Image tab: left = controls, right = result */
   #tab-img .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   #tab-img .preview{min-height:320px}
-  /* Video tab: left = form, right = stage */
   #tab-vid .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   #tab-vid #videoStage{margin-top:0;min-height:520px}
   #tab-other .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -60,15 +56,12 @@ textarea{min-height:70px;resize:vertical}
 <a class="back" href="./index.html">← Back to Tati</a>
 <h1>✨ CREATE - Tati AI Studio</h1>
 <p class="sub">Create ANYTHING with our AI. Just describe it. No skill needed.<br><b>Images • Videos • Voice • Songs • Posters • Stories</b><br>Upload a photo, describe what you want, type what you want to say, upload your voice - AI does the rest.</p>
-
 <div class="tabs">
 <button id="tImg" class="on" onclick="showTab('img')">🖼️ Image</button>
 <button id="tVid" onclick="showTab('vid')">🎥 Video</button>
 <button id="tVoice" onclick="showTab('voice')">🎤 My Voice</button>
 <button id="tOther" onclick="showTab('other')">✍️ Anything</button>
 </div>
-
-<!-- IMAGE -->
 <div id="tab-img">
 <div class="studio-grid">
 <div class="card">
@@ -100,8 +93,6 @@ textarea{min-height:70px;resize:vertical}
 </div>
 </div>
 </div>
-
-<!-- VIDEO -->
 <div id="tab-vid" class="hidden">
 <div class="card">
 <h2>🎥 Create A Video - With YOU In It</h2>
@@ -141,8 +132,6 @@ textarea{min-height:70px;resize:vertical}
 </div>
 </div>
 </div>
-
-<!-- VOICE -->
 <div id="tab-voice" class="hidden">
 <div class="studio-grid">
 <div class="card">
@@ -159,8 +148,6 @@ textarea{min-height:70px;resize:vertical}
 </div>
 </div>
 </div>
-
-<!-- OTHER -->
 <div id="tab-other" class="hidden">
 <div class="card">
 <h2>✍️ Create Anything Else</h2>
@@ -181,20 +168,38 @@ textarea{min-height:70px;resize:vertical}
 </div>
 </div>
 </div>
-
 <div class="card ideas-wide"><h2>💡 Ideas - Tap to try</h2>
 <p class="notice">• Image: Me as a superstar on stage in Maputo<br>• Video: Me announcing my new song<br>• Song: A song about my mama<br>• Poster: Poster for my show on Saturday</p></div>
 </div>
-
 <script>
 var curStyle='Real Photo';
 var voiceURL=null;
 var WORKER_URL='https://tati-server.dilemahluza.workers.dev';
 var lastImgBlobUrl='';
+var lastImgUrl='';
 function showTab(t){ ['img','vid','voice','other'].forEach(function(x){ document.getElementById('tab-'+x).classList.toggle('hidden',x!==t); document.getElementById('t'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on',x===t); }); }
 function pickChip(el,type){ document.querySelectorAll('#styleChips .chip').forEach(function(c){c.classList.remove('on')}); el.classList.add('on'); curStyle=el.textContent; }
 document.getElementById('imgUpload').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ var p=document.getElementById('imgUploadPrev'); p.src=r.result; p.classList.remove('hidden'); }; r.readAsDataURL(f); };
-// ===== IMAGE - FIXED ONLY HERE: now uses YOUR Worker, not Pollinations =====
+// ===== IMAGE ONLY - FIXED: Worker first, Pollinations backup, BIG preview, real Download =====
+function showImageReady(blobUrl, directUrl){
+  var img=document.getElementById('imgResult');
+  lastImgUrl = directUrl || blobUrl;
+  img.onload=function(){
+    document.getElementById('imgMsg').innerHTML='✅ Done! Your image is ready.';
+    var dl=document.getElementById('imgDownload');
+    dl.href=blobUrl;
+    dl.removeAttribute('target');
+    dl.classList.remove('hidden');
+    document.getElementById('imgShareBtn').classList.remove('hidden');
+  };
+  img.onerror=function(){
+    document.getElementById('imgMsg').textContent='';
+    document.getElementById('imgError').textContent='⚠️ Image made but preview failed. Tap Download.';
+    var dl2=document.getElementById('imgDownload');
+    dl2.href=blobUrl; dl2.classList.remove('hidden');
+  };
+  img.src=blobUrl;
+}
 async function makeImage(){
   var p=document.getElementById('imgPrompt').value.trim();
   if(!p){ document.getElementById('imgMsg').innerHTML='<b>Please describe your image first.</b>'; return; }
@@ -204,53 +209,54 @@ async function makeImage(){
   document.getElementById('imgShareBtn').classList.add('hidden');
   var img=document.getElementById('imgResult');
   img.src='';
-  // Make short prompts safe so Cloudflare does not block "beautiful girl" with 8007
-  var safeSuffix = ', fully clothed, wearing elegant dress, smiling, professional portrait, family friendly, photorealistic, high quality, detailed';
-  var full = p + ', ' + curStyle + safeSuffix;
-  // If user already wrote a long prompt, don't double-add too much - keep it simple
+  img.style.width='100%'; img.style.minHeight='280px'; img.style.display='block';
+  var safeSuffix=', fully clothed, wearing elegant dress, smiling, professional portrait, family friendly, photorealistic, high quality, detailed';
+  var full=p+', '+curStyle+safeSuffix;
+  // 1) TRY WORKER
   try{
-    var res = await fetch(WORKER_URL + '/image', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ prompt: full })
-    });
-    var ctype = res.headers.get('content-type') || '';
-    if(!res.ok){
-      var txt = await res.text();
-      throw new Error(txt.slice(0,250));
+    var res=await fetch(WORKER_URL+'/image',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:full})});
+    var ct=res.headers.get('content-type')||'';
+    if(res.ok && ct.indexOf('application/json')===-1){
+      var blob=await res.blob();
+      if(blob.size>1000){
+        if(lastImgBlobUrl) URL.revokeObjectURL(lastImgBlobUrl);
+        lastImgBlobUrl=URL.createObjectURL(blob);
+        showImageReady(lastImgBlobUrl, lastImgBlobUrl);
+        return;
+      }
     }
-    if(ctype.indexOf('application/json')>-1){
-      var txt2 = await res.text();
-      throw new Error('Worker returned JSON not image: ' + txt2.slice(0,250));
-    }
-    var blob = await res.blob();
-    if(blob.size < 1000){
-      var txt3 = await blob.text();
-      throw new Error('Worker said: ' + txt3.slice(0,250));
-    }
+  }catch(e){}
+  // 2) BACKUP - Pollinations - fetch as blob so Download works and preview is BIG
+  document.getElementById('imgMsg').textContent='⏳ Worker busy, trying backup server...';
+  try{
+    var backupUrl='https://image.pollinations.ai/prompt/'+encodeURIComponent(full)+'?width=1024&height=1024&seed='+Math.floor(Math.random()*99999)+'&nologo=true&model=flux';
+    var r2=await fetch(backupUrl);
+    if(!r2.ok) throw new Error('backup busy');
+    var b2=await r2.blob();
+    if(b2.size<1000) throw new Error('backup empty');
     if(lastImgBlobUrl) URL.revokeObjectURL(lastImgBlobUrl);
-    lastImgBlobUrl = URL.createObjectURL(blob);
-    img.onload = function(){
-      document.getElementById('imgMsg').innerHTML='✅ Done! Your image is ready.';
-      var dl = document.getElementById('imgDownload');
-      dl.href = lastImgBlobUrl;
-      dl.classList.remove('hidden');
-      document.getElementById('imgShareBtn').classList.remove('hidden');
-    };
-    img.onerror = function(){
-      document.getElementById('imgMsg').textContent='';
-      document.getElementById('imgError').textContent='⚠️ Image made but preview failed. Tap Download - it is in your Gallery.';
-      var dl2 = document.getElementById('imgDownload');
-      dl2.href = lastImgBlobUrl;
-      dl2.classList.remove('hidden');
-    };
-    img.src = lastImgBlobUrl;
-  }catch(e){
+    lastImgBlobUrl=URL.createObjectURL(b2);
+    showImageReady(lastImgBlobUrl, backupUrl);
+  }catch(e2){
     document.getElementById('imgMsg').textContent='';
-    document.getElementById('imgError').textContent='⚠️ ' + e.message + ' - Try again with a longer prompt, e.g. "A beautiful African woman wearing a colorful dress, smiling in Maputo"';
+    document.getElementById('imgError').textContent='⚠️ Both servers busy. Tap Create My Image again in 1 minute. Prompt: '+p;
   }
 }
-function shareImage(){ var p=document.getElementById('imgPrompt').value; var txt='I created this image with Tati AI: '+p; if(navigator.clipboard) navigator.clipboard.writeText(txt); alert('✅ Copied! Share your image + this text:\n'+txt); }
+function shareImage(){
+  if(lastImgBlobUrl && navigator.share){
+    fetch(lastImgBlobUrl).then(function(r){return r.blob()}).then(function(b){
+      var f=new File([b],'tati-image.jpg',{type:'image/jpeg'});
+      if(navigator.canShare && navigator.canShare({files:[f]})){ navigator.share({files:[f], title:'Tati AI Image'}); return; }
+      throw new Error('no share');
+    }).catch(function(){
+      var p=document.getElementById('imgPrompt').value; var txt='I created this image with Tati AI: '+p;
+      if(navigator.clipboard) navigator.clipboard.writeText(txt); alert('✅ Copied! Share your image + this text:\n'+txt);
+    });
+  } else {
+    var p2=document.getElementById('imgPrompt').value; var txt2='I created this image with Tati AI: '+p2;
+    if(navigator.clipboard) navigator.clipboard.writeText(txt2); alert('✅ Copied! Share your image + this text:\n'+txt2);
+  }
+}
 document.getElementById('vidPhoto').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ document.getElementById('videoImg').src=r.result; }; r.readAsDataURL(f); };
 document.getElementById('voiceFile').onchange=function(){ var f=this.files[0]; if(!f) return; voiceURL=URL.createObjectURL(f); var pl=document.getElementById('voicePlayer'); pl.src=voiceURL; pl.classList.remove('hidden'); document.getElementById('voiceStatus').innerHTML='✅ Voice uploaded: <b>'+f.name+'</b> - Saved for your video.'; localStorage.setItem('tati_voice_name',f.name); };
 document.getElementById('voiceCloneFile').onchange=function(){ var f=this.files[0]; if(!f) return; voiceURL=URL.createObjectURL(f); document.getElementById('cloneMsg').innerHTML='✅ Voice file ready: <b>'+f.name+'</b> - Tap Save My Voice Clone.'; };
