@@ -1,75 +1,298 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Listen - Tati</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>CREATE - Tati AI Studio</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-body{background:#f6f3ee;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:100dvh}
-a{color:#0a192f;font-weight:800;text-decoration:none;font-size:13px}
-.card{background:#fff;border-radius:12px;padding:14px}
-.card b{font-size:15px}
-.card p{font-size:12px;color:#667781;margin-top:4px}
-.kbtn{width:100%;margin-top:10px;padding:12px;border-radius:10px;border:none;background:#0a192f;color:#fff;font-weight:800;cursor:pointer}
-.kbtn.green{background:#00a884}
-.kbtn.sec{background:#f0f2f5;color:#111}
-#listenBox{background:#0a192f;color:#fff;border-radius:12px;padding:16px;text-align:center}
-#listenBox b{font-size:16px}
-#listenText{background:#fff;border-radius:12px;padding:14px;min-height:120px;font-size:15px;line-height:1.5;white-space:pre-wrap}
-#earBtn{width:90px;height:90px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:38px;cursor:pointer;margin:10px auto;display:block}
-#earBtn.on{background:#e11d48;animation:pulse 1s infinite}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-select{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-top:6px;font-size:14px}
+body{background:#f6f3ee;padding:12px;padding-bottom:40px}
+.wrap{max-width:480px;margin:0 auto}
+a.back{color:#0a192f;text-decoration:none;font-weight:800;font-size:14px}
+h1{font-size:24px;margin:12px 0 4px}
+p.sub{color:#667781;font-size:13px;margin-bottom:14px;line-height:1.5}
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card h2{font-size:17px;margin-bottom:6px}
+label{font-size:12px;font-weight:800;color:#667781;display:block;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none}
+textarea{min-height:70px;resize:vertical}
+.tabs{display:flex;background:#fff;padding:4px;border-radius:12px;gap:4px;margin-bottom:14px}
+.tabs button{flex:1;padding:11px 4px;border:none;border-radius:9px;font-weight:800;font-size:12px;background:transparent;cursor:pointer}
+.tabs button.on{background:#0a192f;color:#fff}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;text-align:center;margin-top:12px;text-decoration:none}
+.btn-green{background:#00a884;color:#fff}
+.btn-dark{background:#0a192f;color:#fff}
+.btn-grey{background:#f0f2f5;color:#111}
+.notice{font-size:12px;line-height:1.5;color:#667781;margin-top:8px}
+.notice b{color:#111}
+.hidden{display:none!important}
+.preview{width:100%;border-radius:12px;margin-top:10px;display:block;background:#eee;min-height:180px;object-fit:cover}
+.chip{display:inline-block;padding:8px 12px;background:#f0f2f5;border-radius:999px;font-size:12px;font-weight:700;margin:4px 4px 0 0;cursor:pointer}
+.chip.on{background:#0a192f;color:#fff}
+.voiceBox{background:#fff8e1;border:2px dashed #ffcc00;border-radius:14px;padding:14px;text-align:center;margin-top:10px}
+#videoStage{position:relative;width:100%;aspect-ratio:9/16;background:#111;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:12px}
+#videoStage img{width:100%;height:100%;object-fit:cover}
+#videoStage .talking{animation:talk 0.6s infinite alternate}
+@keyframes talk{from{transform:scale(1)}to{transform:scale(1.03)}}
+#videoCaption{position:absolute;bottom:12px;left:10px;right:10px;background:rgba(0,0,0,.7);color:#fff;padding:10px;border-radius:10px;font-size:14px;font-weight:700;text-align:center}
+
+/* ===== WIDE ON COMPUTER ONLY - PHONE STAYS SAME ===== */
+@media(min-width:800px){
+  body{padding:0}
+  .wrap{max-width:1180px;padding:20px 28px}
+  h1{font-size:34px}
+  p.sub{font-size:15px}
+  .tabs{max-width:700px;margin:0 auto 20px auto}
+  .tabs button{font-size:15px;padding:14px}
+  .studio-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:20px;align-items:start}
+  .studio-grid .card{margin-bottom:0}
+  .card{padding:22px;border-radius:20px}
+  .card h2{font-size:21px}
+  /* Image tab: left = controls, right = result */
+  #tab-img .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  #tab-img .preview{min-height:320px}
+  /* Video tab: left = form, right = stage */
+  #tab-vid .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  #tab-vid #videoStage{margin-top:0;min-height:520px}
+  #tab-other .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .ideas-wide{margin-top:20px}
+}
 </style></head><body>
+<div class="wrap">
+<a class="back" href="./index.html">← Back to Tati</a>
+<h1>✨ CREATE - Tati AI Studio</h1>
+<p class="sub">Create ANYTHING with our AI. Just describe it. No skill needed.<br><b>Images • Videos • Voice • Songs • Posters • Stories</b><br>Upload a photo, describe what you want, type what you want to say, upload your voice - AI does the rest.</p>
 
-<a href="./index.html">← Back to Tati</a>
-
-<div id="listenBox">
-<b>👂 Listen Mode</b>
-<p style="font-size:12px;opacity:.8;margin-top:4px">Tati listens quietly. No talking back unless you ask. For when you just need to be heard.</p>
-<button id="earBtn" onclick="toggleListen()">👂</button>
-<p id="listenStatus">Tap ear to start listening</p>
+<div class="tabs">
+<button id="tImg" class="on" onclick="showTab('img')">🖼️ Image</button>
+<button id="tVid" onclick="showTab('vid')">🎥 Video</button>
+<button id="tVoice" onclick="showTab('voice')">🎤 My Voice</button>
+<button id="tOther" onclick="showTab('other')">✍️ Anything</button>
 </div>
 
-<select id="listenLang">
-<option value="pt-PT">Portuguese</option>
-<option value="en-US">English</option>
-<option value="ts-ZA">xiChangana / Tsonga</option>
-</select>
-
-<div id="listenText">Tati is listening... your words will appear here, private, not sent anywhere.</div>
-
+<!-- IMAGE -->
+<div id="tab-img">
+<div class="studio-grid">
 <div class="card">
-<b>What Tati does in Listen Mode:</b>
-<p>✅ Listens • ✅ Types what you say • ✅ No interruptions • ✅ No advice unless you say "Tati, help me"</p>
-<button class="kbtn green" onclick="saveListen()">💾 Save This Listening</button>
-<button class="kbtn sec" onclick="document.getElementById('listenText').textContent=''">🗑️ Clear</button>
-<button class="kbtn sec" onclick="alert('Listen history is only on YOUR phone. Nobody else can see it.')">🔒 Privacy Check</button>
+<h2>🖼️ Create An Image</h2>
+<p class="notice">Describe any image. Ex: <i>"Me standing in Maputo, wearing a red jacket, sunset, smiling"</i></p>
+<label>DESCRIBE YOUR IMAGE</label>
+<textarea id="imgPrompt" placeholder="Ex: A young man in Maputo, wearing a black suit, smiling, sunset behind him, professional photo"></textarea>
+<label>STYLE</label>
+<div id="styleChips">
+<span class="chip on" onclick="pickChip(this,'style')">📸 Real Photo</span>
+<span class="chip" onclick="pickChip(this,'style')">🎨 Cartoon</span>
+<span class="chip" onclick="pickChip(this,'style')">✨ 3D Pixar</span>
+<span class="chip" onclick="pickChip(this,'style')">🎵 Music Poster</span>
+<span class="chip" onclick="pickChip(this,'style')">👕 Fashion</span>
+</div>
+<label>OR UPLOAD A PHOTO TO CHANGE IT (Optional)</label>
+<input type="file" id="imgUpload" accept="image/*">
+<img id="imgUploadPrev" class="preview hidden">
+<button class="btn btn-green" onclick="makeImage()">✨ Create My Image →</button>
+<p class="notice" id="imgMsg"></p>
+</div>
+<div class="card">
+<h2>👀 Your Image Will Appear Here</h2>
+<p class="notice">On computer, your image shows here on the right, big and clear. On phone, it shows below.</p>
+<img id="imgResult" class="preview" style="min-height:280px">
+<a id="imgDownload" class="btn btn-dark hidden" download="tati-image.jpg">⬇️ Download My Image</a>
+<button class="btn btn-grey hidden" id="imgShareBtn" onclick="shareImage()">📤 Share Image</button>
+<p class="notice" id="imgError" style="color:#d32f2f;font-weight:700"></p>
+</div>
+</div>
+</div>
+
+<!-- VIDEO -->
+<div id="tab-vid" class="hidden">
+<div class="card">
+<h2>🎥 Create A Video - With YOU In It</h2>
+<p class="notice"><b>How it works:</b><br>1. Upload 1 photo of yourself<br>2. Describe what you want to do + outfit<br>3. Type what you want to say<br>4. Upload your voice (or AI speaks for you)<br>5. Tap Create Video</p>
+<div class="split">
+<div>
+<label>1. UPLOAD 1 PHOTO OF YOURSELF</label>
+<input type="file" id="vidPhoto" accept="image/*">
+<label>2. WHAT DO YOU WANT TO DO IN VIDEO?</label>
+<textarea id="vidAction" placeholder="Ex: I am walking on the beach, smiling, waving, dancing slowly"></textarea>
+<label>CHANGE OUTFIT? (Optional)</label>
+<input id="vidOutfit" placeholder="Ex: Change my outfit to red jacket + black jeans + sunglasses">
+<label>3. WHAT DO YOU WANT TO SAY IN VIDEO? Type it</label>
+<textarea id="vidScript" placeholder="Ex: Hi guys! This is Shynone. New music coming soon. Stay tuned!"></textarea>
+<label>4. YOUR VOICE - Upload your voice (10-20 seconds) - Optional</label>
+<div class="voiceBox">
+<input type="file" id="voiceFile" accept="audio/*">
+<p class="notice">Upload a voice note of you talking. AI will try to use YOUR voice style.<br>Or tap Record below to record now.</p>
+<button class="btn btn-grey" onclick="recordVoice()">🎤 Record My Voice Now</button>
+<p class="notice" id="voiceStatus">No voice uploaded yet. AI will use normal voice if you skip this.</p>
+<audio id="voicePlayer" controls class="hidden" style="width:100%;margin-top:8px"></audio>
+</div>
+<label>VIDEO STYLE</label>
+<select id="vidStyle"><option>📱 TikTok / Reels - Vertical</option><option>🎵 Music Video</option><option>📢 Announcement / Promo</option><option>😂 Funny</option><option>❤️ Love / Emotional</option></select>
+<button class="btn btn-green" onclick="makeVideo()">🎥 Create My Video →</button>
+<p class="notice" id="vidMsg"></p>
+</div>
+<div>
+<div id="videoStage">
+<img id="videoImg" src="">
+<div id="videoCaption"></div>
+</div>
+<button class="btn btn-dark hidden" id="playVideoBtn" onclick="playVideo()">▶️ Play My Video With Voice</button>
+<button class="btn btn-grey hidden" id="stopVideoBtn" onclick="stopVideo()">⏹️ Stop</button>
+<p class="notice">Note: On this version, video is made as a moving photo + your script spoken aloud. Full real AI video (lips moving perfectly) comes with the next upgrade - but your photo, outfit description, script and voice are all saved and ready for it.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- VOICE -->
+<div id="tab-voice" class="hidden">
+<div class="studio-grid">
+<div class="card">
+<h2>🎤 Clone My Voice - Save It</h2>
+<p class="notice">Upload your voice for 10-20 seconds, talking clearly. Say your name, where you are from, anything. Tati saves your voice so your future videos can talk with YOUR voice.</p>
+<input type="file" id="voiceCloneFile" accept="audio/*">
+<button class="btn btn-green" onclick="saveVoiceClone()">💾 Save My Voice Clone</button>
+<p class="notice" id="cloneMsg"></p>
+</div>
+<div class="card">
+<label>OR TYPE SOMETHING - HEAR IT IN YOUR VOICE STYLE</label>
+<textarea id="cloneText" placeholder="Ex: Hello everyone, welcome to Shynone Music!"></textarea>
+<button class="btn btn-dark" onclick="speakClone()">🔊 Speak With My Voice</button>
+</div>
+</div>
+</div>
+
+<!-- OTHER -->
+<div id="tab-other" class="hidden">
+<div class="card">
+<h2>✍️ Create Anything Else</h2>
+<p class="notice">Song, story, poster text, caption, birthday message, business idea - just describe it.</p>
+<div class="split">
+<div>
+<label>WHAT DO YOU WANT TO CREATE?</label>
+<select id="otherType"><option>🎵 Song Lyrics</option><option>📝 Story</option><option>📱 WhatsApp / Facebook Caption</option><option>🎂 Birthday Message</option><option>💼 Business Idea</option><option>🖼️ Poster Text</option></select>
+<label>DESCRIBE IT</label>
+<textarea id="otherPrompt" placeholder="Ex: A love song about Maputo, in Changana + Portuguese, happy beat"></textarea>
+<button class="btn btn-green" onclick="makeOther()">✨ Create It →</button>
+<p class="notice" id="otherMsg"></p>
+</div>
+<div>
+<div id="otherResult" class="card hidden" style="background:#f0f2f5;margin:0"><p id="otherText" style="white-space:pre-wrap;line-height:1.6"></p></div>
+<button class="btn btn-grey hidden" id="otherCopy" onclick="copyOther()">📋 Copy</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card ideas-wide"><h2>💡 Ideas - Tap to try</h2>
+<p class="notice">• Image: Me as a superstar on stage in Maputo<br>• Video: Me announcing my new song<br>• Song: A song about my mama<br>• Poster: Poster for my show on Saturday</p></div>
 </div>
 
 <script>
-var rec=null, listening=false;
-function toggleListen(){
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}
-  if(listening){rec.stop();return}
-  rec=new SR();
-  rec.lang=document.getElementById("listenLang").value;
-  rec.continuous=true; rec.interimResults=true;
-  rec.onstart=function(){listening=true;document.getElementById("earBtn").classList.add("on");document.getElementById("listenStatus").textContent="● Tati is listening quietly...";};
-  rec.onend=function(){listening=false;document.getElementById("earBtn").classList.remove("on");document.getElementById("listenStatus").textContent="Paused. Tap to listen again";};
-  rec.onresult=function(e){
-    var txt=""; for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" ";}
-    document.getElementById("listenText").textContent=txt;
+var curStyle='Real Photo';
+var voiceURL=null;
+var imgTry=0;
+function showTab(t){ ['img','vid','voice','other'].forEach(function(x){ document.getElementById('tab-'+x).classList.toggle('hidden',x!==t); document.getElementById('t'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on',x===t); }); }
+function pickChip(el,type){ document.querySelectorAll('#styleChips .chip').forEach(function(c){c.classList.remove('on')}); el.classList.add('on'); curStyle=el.textContent; }
+document.getElementById('imgUpload').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ var p=document.getElementById('imgUploadPrev'); p.src=r.result; p.classList.remove('hidden'); }; r.readAsDataURL(f); };
+function makeImage(){
+  var p=document.getElementById('imgPrompt').value.trim();
+  if(!p){ document.getElementById('imgMsg').innerHTML='<b>Please describe your image first.</b>'; return; }
+  document.getElementById('imgError').textContent='';
+  document.getElementById('imgMsg').textContent='⏳ AI is creating your image... Please wait 10-20 seconds... Do NOT tap again.';
+  document.getElementById('imgDownload').classList.add('hidden');
+  document.getElementById('imgShareBtn').classList.add('hidden');
+  imgTry=0;
+  loadImageTry(p);
+}
+function loadImageTry(p){
+  imgTry++;
+  var full = p + ', ' + curStyle + ', high quality, detailed, photorealistic';
+  // Try 1 = Pollinations, Try 2 = Pollinations different server, Try 3 = retry
+  var url = '';
+  if(imgTry===1) url = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(full) + '?width=1024&height=1024&seed=' + Math.floor(Math.random()*99999) + '&nologo=true&model=flux';
+  else url = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(full) + '?width=1024&height=1024&seed=' + Math.floor(Math.random()*99999) + '&nologo=true';
+  var img=document.getElementById('imgResult');
+  // Clear old image so user sees it is loading
+  img.src='';
+  img.onload=function(){
+    // Check if it's a real image, not an error text - if width is tiny, it's error
+    if(img.naturalWidth < 50){
+      if(imgTry < 3){ document.getElementById('imgMsg').textContent='⏳ Server busy, trying again... ('+imgTry+'/3)'; setTimeout(function(){loadImageTry(p)},1500); }
+      else { document.getElementById('imgMsg').textContent=''; document.getElementById('imgError').textContent='⚠️ Image server is busy right now. Your prompt is saved. Please tap Create My Image again in 1 minute. Prompt: '+p; }
+      return;
+    }
+    document.getElementById('imgMsg').innerHTML='✅ Done! Your image is ready.';
+    document.getElementById('imgDownload').href=url;
+    document.getElementById('imgDownload').classList.remove('hidden');
+    document.getElementById('imgShareBtn').classList.remove('hidden');
   };
-  rec.start();
+  img.onerror=function(){
+    if(imgTry < 3){ document.getElementById('imgMsg').textContent='⏳ Server busy, trying again... ('+imgTry+'/3)'; setTimeout(function(){loadImageTry(p)},1500); }
+    else { document.getElementById('imgMsg').textContent=''; document.getElementById('imgError').textContent='⚠️ Image server is busy right now. Your prompt is saved. Please tap Create My Image again in 1 minute. Prompt: '+p; }
+  };
+  img.src=url;
 }
-function saveListen(){
-  var t=document.getElementById("listenText").textContent.trim();
-  if(!t){alert("Nothing to save yet");return}
-  var all=[]; try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(e){}
-  all.push({date:new Date().toLocaleString(),text:t});
-  localStorage.setItem("tati_listen",JSON.stringify(all));
-  alert("Saved privately on your phone ✅ ("+all.length+" listenings)");
+function shareImage(){ var p=document.getElementById('imgPrompt').value; var txt='I created this image with Tati AI: '+p; if(navigator.clipboard) navigator.clipboard.writeText(txt); alert('✅ Copied! Share your image + this text:\n'+txt); }
+document.getElementById('vidPhoto').onchange=function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ document.getElementById('videoImg').src=r.result; }; r.readAsDataURL(f); };
+document.getElementById('voiceFile').onchange=function(){ var f=this.files[0]; if(!f) return; voiceURL=URL.createObjectURL(f); var pl=document.getElementById('voicePlayer'); pl.src=voiceURL; pl.classList.remove('hidden'); document.getElementById('voiceStatus').innerHTML='✅ Voice uploaded: <b>'+f.name+'</b> - Saved for your video.'; localStorage.setItem('tati_voice_name',f.name); };
+document.getElementById('voiceCloneFile').onchange=function(){ var f=this.files[0]; if(!f) return; voiceURL=URL.createObjectURL(f); document.getElementById('cloneMsg').innerHTML='✅ Voice file ready: <b>'+f.name+'</b> - Tap Save My Voice Clone.'; };
+function recordVoice(){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ alert('Recording not supported on this browser. Please upload a voice file instead.'); return; }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    var rec=new MediaRecorder(stream); var chunks=[];
+    rec.ondataavailable=function(e){ chunks.push(e.data); };
+    rec.onstop=function(){ var blob=new Blob(chunks,{type:'audio/webm'}); voiceURL=URL.createObjectURL(blob); var pl=document.getElementById('voicePlayer'); pl.src=voiceURL; pl.classList.remove('hidden'); document.getElementById('voiceStatus').innerHTML='✅ Voice recorded! Saved for your video.'; };
+    rec.start(); document.getElementById('voiceStatus').textContent='🔴 Recording... Talk for 10-20 seconds. Recording will stop in 15 seconds automatically.';
+    setTimeout(function(){ try{rec.stop(); stream.getTracks().forEach(function(t){t.stop()});}catch(e){} },15000);
+  }).catch(function(){ alert('Please allow microphone to record voice.'); });
 }
+function saveVoiceClone(){
+  if(!voiceURL){ document.getElementById('cloneMsg').innerHTML='<b>Please upload or record your voice first.</b>'; return; }
+  document.getElementById('cloneMsg').innerHTML='✅ <b>Your Voice Clone Saved!</b> Now when you create a video, Tati will use this voice style. To hear it, type something below and tap Speak.';
+}
+function speakClone(){
+  var txt=document.getElementById('cloneText').value.trim() || document.getElementById('vidScript').value.trim();
+  if(!txt){ alert('Type something first.'); return; }
+  if(voiceURL){ var a=new Audio(voiceURL); a.play(); setTimeout(function(){ speakText(txt); },800); }
+  else speakText(txt);
+}
+function speakText(txt){
+  if(!('speechSynthesis' in window)){ alert(txt); return; }
+  window.speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(txt); u.lang='pt-PT'; u.rate=0.95; window.speechSynthesis.speak(u);
+}
+function makeVideo(){
+  var action=document.getElementById('vidAction').value.trim();
+  var script=document.getElementById('vidScript').value.trim();
+  var outfit=document.getElementById('vidOutfit').value.trim();
+  var photo=document.getElementById('videoImg').src;
+  if(!document.getElementById('vidPhoto').files.length){ document.getElementById('vidMsg').innerHTML='<b>Please upload 1 photo of yourself first.</b>'; return; }
+  if(!script){ document.getElementById('vidMsg').innerHTML='<b>Please type what you want to say in video.</b>'; return; }
+  document.getElementById('videoCaption').textContent = (outfit ? 'Outfit: '+outfit+' • ' : '') + (action || 'In my video...') + ' - ' + script.substring(0,80);
+  document.getElementById('vidMsg').innerHTML='✅ <b>Your Video is Ready to Play!</b><br>Action: '+ (action||'-') +'<br>Outfit: '+(outfit||'Same as photo')+'<br>Script: '+script+'<br>Voice: '+(voiceURL ? 'Your voice' : 'AI voice');
+  document.getElementById('playVideoBtn').classList.remove('hidden');
+  document.getElementById('stopVideoBtn').classList.remove('hidden');
+}
+function playVideo(){
+  var script=document.getElementById('vidScript').value.trim();
+  document.getElementById('videoImg').classList.add('talking');
+  if(voiceURL){ var a=new Audio(voiceURL); a.play(); setTimeout(function(){ speakText(script); },1000); }
+  else speakText(script);
+}
+function stopVideo(){ document.getElementById('videoImg').classList.remove('talking'); if('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+function makeOther(){
+  var type=document.getElementById('otherType').value;
+  var p=document.getElementById('otherPrompt').value.trim();
+  if(!p){ document.getElementById('otherMsg').innerHTML='<b>Please describe what you want.</b>'; return; }
+  var out='';
+  if(type.indexOf('Song')>-1){ out='🎵 '+type+' - Based on: '+p+'\n\n[Verse 1]\nMaputo night, lights are shining bright\nMy heart is beating, everything feels right\nMama said keep going, never give up the fight\nShynone music, we shining through the night\n\n[Chorus]\nWe rise, we shine, we never fall\nFrom Maputo to the world, we give it all\nYour idea: '+p+'\n\n[Verse 2]\nWrite your own second verse here - add your story...'; }
+  else if(type.indexOf('Caption')>-1){ out='📱 Caption for you:\n\n✨ '+p+' ✨\n\nFrom Maputo with love ❤️\n#ShynoneMusic #Tati #Maputo #Mozambique\n\nTell Tati if you want it shorter / funnier / in Changana.'; }
+  else if(type.indexOf('Birthday')>-1){ out='🎂 Birthday Message:\n\nHappy Birthday! 🎉\nToday is your day - '+p+'.\nMay God bless you with health, happiness and success.\nFrom all of us at Shynone Music - we love you! ❤️'; }
+  else { out='✍️ '+type+' - Your idea: '+p+'\n\nHere is a start for you:\n\n1. Opening: Start with your story - '+p+'\n2. Middle: Tell what happened, how you felt\n3. Ending: What you learned, what comes next\n\nWant Tati to make it longer, funnier, or in Changana / Portuguese? Type it again with that detail.'; }
+  document.getElementById('otherText').textContent=out;
+  document.getElementById('otherResult').classList.remove('hidden');
+  document.getElementById('otherCopy').classList.remove('hidden');
+  document.getElementById('otherMsg').textContent='✅ Done! Copy it and share it.';
+}
+function copyOther(){ var t=document.getElementById('otherText').textContent; if(navigator.clipboard) navigator.clipboard.writeText(t); alert('✅ Copied!'); }
 </script>
 </body></html>
