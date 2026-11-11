@@ -5,8 +5,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
 body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:hidden}
-
-/* HEADER - TATI LEFT BIG, SHYNONE MIDDLE A LITTLE BIGGER, GLOBE+BELL BIGGER */
 #header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;flex-shrink:0}
 #avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #00a884;flex-shrink:0}
 #tatiName{font-size:19px;font-weight:900;line-height:1.1}
@@ -16,13 +14,9 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
 .topBtn{padding:11px 12px;border-radius:16px;border:none;font-size:16px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111}
 #greenLine{height:4mm;background:#00a884;flex-shrink:0}
-
-/* GREEN BUTTONS - MINIMISED A LITTLE + CENTERED - SPACE LEFT = SPACE RIGHT */
-#safeBar{display:flex;gap:10px;padding:12px 10px;flex-shrink:0;justify-content:center;align-items:center}
+#safeBar{display:flex;gap:10px;padding:12px 10px;flex-shrink:0;justify-content:space-between;align-items:center}
 .pill{padding:10px 14px;border-radius:999px;border:none;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none;flex-shrink:0}
-
-/* MODE BAR - CENTERED TOO */
-#modeSwitch{display:flex;background:#f0f2f5;padding:6px;margin:0 8px 10px;border-radius:14px;gap:10px;flex-shrink:0;justify-content:center;align-items:center;overflow-x:auto;scrollbar-width:none}
+#modeSwitch{display:flex;background:#f0f2f5;padding:6px;margin:0 8px 10px;border-radius:14px;gap:10px;flex-shrink:0;align-items:center;overflow-x:auto;scrollbar-width:none}
 #modeSwitch::-webkit-scrollbar{display:none}
 .modeBtn{padding:12px 14px;border-radius:10px;border:none;font-weight:800;font-size:14px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center;flex-shrink:0}
 .modeBtn.active{background:#0a192f;color:#fff}
@@ -32,14 +26,10 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 .doubleBtn a.active{background:#0a192f;color:#fff}
 #listenBtn{padding:12px 18px;border:1px solid #ddd;border-radius:10px;background:#fff;font-weight:800;font-size:14px;cursor:pointer;color:#111;white-space:nowrap;flex-shrink:0}
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
-
-/* HOME - FRONT PAGE CLOSED, NO CHAT OPEN BY DEFAULT */
 .page{flex:1;overflow-y:auto;padding:12px;background:#f6f3ee;display:flex;flex-direction:column;gap:10px}
 .homeCard{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .homeCard h2{font-size:20px;margin-bottom:6px}
 .homeCard p{font-size:14px;color:#667781;line-height:1.4}
-.homeBtn{display:block;background:#0a192f;color:#fff;text-decoration:none;padding:13px;border-radius:12px;font-weight:800;font-size:15px;margin-top:12px;text-align:center}
-.homeBtn.green{background:#00a884}
 .bubble{max-width:80%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .user{align-self:flex-end;background:#d9fdd3}
 .tati{align-self:flex-start;background:#fff}
@@ -47,7 +37,7 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #textBox{flex:1;background:#fff;border-radius:22px;padding:9px 12px;display:flex}
 #textInput{flex:1;border:none;outline:none;font-size:16px;resize:none}
 #sendBtn{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
-#kbHint{font-size:11px;color:#667781;text-align:center;padding:4px 10px 8px;line-height:1.4}
+#kbHint{font-size:11px;color:#667781;text-align:center;padding:4px 12px 10px;line-height:1.4;white-space:normal}
 .hidden{display:none!important}
 </style></head><body>
 
@@ -68,7 +58,6 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 
 <div id="greenLine"></div>
 
-<!-- GREEN BUTTONS - CENTERED, MINIMISED A LITTLE, SPACE SHOWS -->
 <div id="safeBar">
 <a class="pill" href="./safe.html">🛡️ SAFE</a>
 <a class="pill" href="./fact.html">💡 DID YOU KNOW</a>
@@ -85,21 +74,13 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 <button id="listenBtn" onclick="toggleListenMain()">👂 Listen</button>
 </div>
 
-<!-- HOME / FRONT PAGE - CLOSED BY DEFAULT, NO TYPING BOX -->
 <div class="page" id="homeView">
 <div class="homeCard">
-<h2>👋 Avuxeni! Hi mina Tati.</h2>
+<h2>👋 Alixeni! Hi mina Tati.</h2>
 <p>Your friend. Your helper. Your music.<br>Choose how you want to talk to me.</p>
-<a class="homeBtn" href="#" onclick="openTextPage();return false;">💬 Open Text Chat →</a>
-<a class="homeBtn green" href="./voice.html">🎤 Talk to Tati →</a>
-</div>
-<div class="homeCard">
-<h2>🎵 SHYNONE MUSIC</h2>
-<p>Music, stories, help, learning.<br>All in your language.</p>
 </div>
 </div>
 
-<!-- TEXT PAGE - HIDDEN UNTIL YOU TAP TEXT -->
 <div class="page hidden" id="chatView"><div id="chat"></div></div>
 <div id="inputArea" class="hidden"><div id="textBox"><textarea id="textInput" placeholder="Message Tati..." rows="1"></textarea></div><button id="sendBtn">➤</button></div>
 <div id="kbHint">⌨️ Keyboard is built-in inside Tati - CH / EN / PT included. New languages from 🌐 go to keyboard automatically.</div>
@@ -111,7 +92,7 @@ function openTextPage(){
   document.getElementById("chatView").classList.remove("hidden");
   document.getElementById("inputArea").classList.remove("hidden");
   document.getElementById("textLink").classList.add("active");
-  if(document.getElementById("chat").children.length===0){ addBubble("Avuxeni! Hi mina Tati. How can I help?","tati"); }
+  if(document.getElementById("chat").children.length===0){ addBubble("Alixeni! Hi mina Tati. How can I help?","tati"); }
   document.getElementById("textInput").focus();
 }
 document.getElementById("sendBtn").onclick=function(){
