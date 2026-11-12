@@ -83,7 +83,7 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <button class="btn btn-green" type="button" onclick="openSelfieCamera('profile')">📸 Take Selfie - Face + Chest - YOURSELF</button>
 <button class="btn btn-grey" type="button" onclick="document.getElementById('uploadInput').click()">🖼️ Upload Photo Instead - Shows NOT VERIFIED</button>
 <input type="file" id="uploadInput" accept="image/*" class="hidden">
-<p class="notice">Selfie tip: Look at camera, smile, show face + chest. So people know it is really YOU.</p>
+<p class="notice">Tap Take Selfie - browser will ask Allow camera. Tap Allow while using app. Selfie tip: Look at camera, smile, show face + chest.</p>
 </div>
 
 <div class="card">
@@ -127,82 +127,74 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <div class="card"><h2>👥 My People <span id="peopleCount"></span></h2><div id="peopleList"><p class="notice">No people yet.</p></div></div>
 </div>
 
-<div id="cameraModal"><div id="cameraBox"><h2 style="margin-bottom:8px">📸 Take Selfie</h2><p class="notice" style="margin-bottom:8px">Look at camera, smile, show face + chest. Camera will stay open until you tap Take Photo.</p><video id="cameraVideo" playsinline autoplay muted></video><canvas id="cameraCanvas" style="display:none"></canvas><button class="btn btn-green" type="button" onclick="takeSelfiePhoto()">✅ Take Photo</button><button class="btn btn-grey" type="button" onclick="closeSelfieCamera()">❌ Cancel</button><p class="notice" id="cameraError" style="display:none;color:#b00020"></p><button id="cameraRetryBtn" class="btn btn-dark hidden" type="button" onclick="retryCamera()">🔄 Try Camera Again</button><button id="cameraFileBtn" class="btn btn-grey hidden" type="button" onclick="cameraChooseFile()">🖼️ Choose File Instead</button></div></div>
+<div id="cameraModal"><div id="cameraBox"><h2 style="margin-bottom:8px">📸 Take Selfie</h2><p class="notice" style="margin-bottom:8px">If browser asks, tap Allow while using app.</p><video id="cameraVideo" playsinline autoplay muted></video><canvas id="cameraCanvas" style="display:none"></canvas><p class="notice" id="cameraStatus" style="color:#111;font-weight:800">Requesting camera permission...</p><button class="btn btn-green" type="button" onclick="takeSelfiePhoto()">✅ Take Photo</button><button class="btn btn-grey" type="button" onclick="closeSelfieCamera()">❌ Cancel</button><p class="notice" id="cameraError" style="display:none;color:#b00020"></p><button id="cameraRetryBtn" class="btn btn-dark hidden" type="button" onclick="openSelfieCamera(_selfieTarget)">🔄 Tap Again To Ask Permission</button></div></div>
 
 <script>
-let _selfieStream = null;
-let _selfieTarget = 'profile';
-let _cameraBusy = false;
-async function openSelfieCamera(target){
-  if(_cameraBusy) return;
-  _cameraBusy = true;
+function getUserName(){
+  try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(p.name) return p.name; }catch(e){}
+  var v=document.getElementById('myName') ? document.getElementById('myName').value.trim() : '';
+  return v || 'friend';
+}
+var _selfieStream=null; var _selfieTarget='profile'; var _cameraReady=false;
+// IMPORTANT: This must be called DIRECTLY from the button click, no delay before getUserMedia, otherwise browser will NOT show Allow box
+function openSelfieCamera(target){
   _selfieTarget = target || 'profile';
-  var modal = document.getElementById('cameraModal');
-  var err = document.getElementById('cameraError');
+  _cameraReady = false;
+  var modal=document.getElementById('cameraModal');
+  var err=document.getElementById('cameraError');
+  var st=document.getElementById('cameraStatus');
   err.style.display='none'; err.textContent='';
+  st.style.display='block'; st.textContent='Requesting camera permission... Please tap Allow.';
   document.getElementById('cameraRetryBtn').classList.add('hidden');
-  document.getElementById('cameraFileBtn').classList.add('hidden');
   modal.classList.add('open');
-  try{
-    if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();});
-    _selfieStream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false });
-    var v = document.getElementById('cameraVideo');
-    v.srcObject = _selfieStream;
-    await v.play().catch(function(){});
-  }catch(e){
-    err.style.display='block';
-    err.textContent='Camera blocked, Ash. Tap Allow, then tap Try Camera Again. Camera will stay here, it will NOT open folder by itself.';
+  // Stop old stream
+  if(_selfieStream){ try{_selfieStream.getTracks().forEach(function(t){t.stop();});}catch(e){} }
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    st.style.display='none'; err.style.display='block'; err.textContent='This browser does not support camera permission. Please open in Chrome via https:// link.';
+    return;
+  }
+  // THIS line triggers the Allow box - must run inside the click
+  navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false }).then(function(stream){
+    _selfieStream=stream;
+    var video=document.getElementById('cameraVideo');
+    video.srcObject=stream;
+    video.onloadedmetadata=function(){ video.play().then(function(){ _cameraReady=true; document.getElementById('cameraStatus').style.display='none'; }).catch(function(){ _cameraReady=true; document.getElementById('cameraStatus').style.display='none'; }); };
+    // Fallback if metadata already loaded
+    setTimeout(function(){ if(video.videoWidth>0){ _cameraReady=true; document.getElementById('cameraStatus').style.display='none'; } }, 1500);
+  }).catch(function(e){
+    // Try any camera if front fails
+    if(e && e.name!=='NotAllowedError' && e.name!=='SecurityError'){
+      navigator.mediaDevices.getUserMedia({ video:true, audio:false }).then(function(stream){
+        _selfieStream=stream; var video=document.getElementById('cameraVideo'); video.srcObject=stream;
+        video.onloadedmetadata=function(){ video.play().then(function(){ _cameraReady=true; document.getElementById('cameraStatus').style.display='none'; }); };
+        setTimeout(function(){ if(video.videoWidth>0){ _cameraReady=true; document.getElementById('cameraStatus').style.display='none'; } }, 1500);
+      }).catch(function(e2){ showCameraError(e2); });
+    } else { showCameraError(e); }
+  });
+  function showCameraError(e){
+    var st2=document.getElementById('cameraStatus'); st2.style.display='none';
+    var err2=document.getElementById('cameraError'); err2.style.display='block';
+    var msg = e && e.message ? e.message : String(e);
+    if(e && e.name==='NotAllowedError') msg='You tapped Don\'t Allow. Tap the lock icon in address bar -> Camera -> Allow, then tap Tap Again To Ask Permission.';
+    if(window.location.protocol==='file:') msg='You opened from file / Downloads. Camera permission will NOT show from file:// . You must open from https:// link. That is why Allow box does not come.';
+    err2.textContent='Camera permission: '+msg;
     document.getElementById('cameraRetryBtn').classList.remove('hidden');
-    document.getElementById('cameraFileBtn').classList.remove('hidden');
   }
-  _cameraBusy = false;
 }
-function retryCamera(){ openSelfieCamera(_selfieTarget); }
-function cameraChooseFile(){
-  if(_selfieTarget==='profile') document.getElementById('selfieInput').click();
-  else document.getElementById('coverSelfieInput').click();
-}
-function closeSelfieCamera(){
-  if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();});
-  _selfieStream=null;
-  document.getElementById('cameraModal').classList.remove('open');
-}
+function closeSelfieCamera(){ if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();}); _selfieStream=null; _cameraReady=false; document.getElementById('cameraModal').classList.remove('open'); }
 function takeSelfiePhoto(){
-  var video=document.getElementById('cameraVideo');
-  var canvas=document.getElementById('cameraCanvas');
-  if(!video.videoWidth){ alert('Wait a second, Ash, camera still loading...'); return; }
+  var name=getUserName(); var video=document.getElementById('cameraVideo'); var canvas=document.getElementById('cameraCanvas');
+  if(!_cameraReady || !video.videoWidth){ alert('Wait a second, '+name+', camera still loading... Did you tap Allow? If Allow box did not come, you opened from file / Downloads. Open via https:// link.'); return; }
   canvas.width=video.videoWidth; canvas.height=video.videoHeight;
-  var ctx=canvas.getContext('2d');
-  ctx.translate(canvas.width,0); ctx.scale(-1,1);
-  ctx.drawImage(video,0,0);
-  var data=canvas.toDataURL('image/jpeg',0.85);
-  closeSelfieCamera();
-  if(_selfieTarget==='profile'){
-    var im=document.getElementById('selfiePreview'); im.src=data; im.style.display='block'; document.getElementById('selfieIcon').style.display='none';
-    setVerified(true); saveField('selfie',data); saveField('selfieVerified',true); saveField('selfieUploaded',false);
-  } else {
-    var c=document.getElementById('coverPreview'); c.src=data; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',data);
-  }
+  var ctx=canvas.getContext('2d'); ctx.translate(canvas.width,0); ctx.scale(-1,1); ctx.drawImage(video,0,0);
+  var data=canvas.toDataURL('image/jpeg',0.85); closeSelfieCamera();
+  if(_selfieTarget==='profile'){ var im=document.getElementById('selfiePreview'); im.src=data; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; setVerified(true); saveField('selfie',data); saveField('selfieVerified',true); saveField('selfieUploaded',false); }
+  else { var c=document.getElementById('coverPreview'); c.src=data; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',data); }
   updateGate();
 }
-function isSetupDone(){
-  try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
-    return !!(p.name && p.number && p.selfieVerified && p.cover && p.setupDone);
-  }catch(e){ return false; }
-}
-function updateGate(){
-  var done=isSetupDone();
-  document.getElementById('setupGate').style.display = done ? 'none' : 'block';
-  try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
-    var c=0; if(p.name && p.number) c++; if(p.selfieVerified) c++; if(p.cover) c++;
-    document.getElementById('setupProgress').textContent='⏳ Setup: '+c+' / 3 done'+(done?' - ✅ YOU ARE GOOD TO GO!':'');
-    document.getElementById('finishMsg').innerHTML = done ? '✅ Setup Complete! You can now talk to people.' : 'Fill Name + Number, take Profile Selfie, add Cover. Then tap below.';
-  }catch(e){}
-}
-function tryShowTab(t){
-  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first!\n\n1. Your Name + Number\n2. Your Profile Selfie - take it yourself\n3. Your Cover Photo\n\nThen you are good to go!'); showTab('profile'); return; }
-  showTab(t);
-}
+function isSetupDone(){ try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); return !!(p.name && p.number && p.selfieVerified && p.cover && p.setupDone); }catch(e){ return false; } }
+function updateGate(){ var done=isSetupDone(); document.getElementById('setupGate').style.display = done ? 'none' : 'block'; try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); var c=0; if(p.name && p.number) c++; if(p.selfieVerified) c++; if(p.cover) c++; document.getElementById('setupProgress').textContent='⏳ Setup: '+c+' / 3 done'+(done?' - ✅ YOU ARE GOOD TO GO!':''); document.getElementById('finishMsg').innerHTML = done ? '✅ Setup Complete! You can now talk to people.' : 'Fill Name + Number, take Profile Selfie, add Cover. Then tap below.'; }catch(e){} }
+function tryShowTab(t){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first!\n\n1. Your Name + Number\n2. Your Profile Selfie - take it yourself\n3. Your Cover Photo\n\nThen you are good to go!'); showTab('profile'); return; } showTab(t); }
 function showTab(t){ ['profile','add','list'].forEach(function(x){ document.getElementById('view-'+x).classList.toggle('hidden', x!==t); document.getElementById('tab'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on', x===t); }); }
 try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(p.name) document.getElementById('myName').value=p.name; if(p.number) document.getElementById('myNumber').value=p.number; if(p.about) document.getElementById('myAbout').value=p.about; if(p.selfie){ var im=document.getElementById('selfiePreview'); im.src=p.selfie; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; } if(p.selfieVerified) setVerified(true); if(p.selfieUploaded) setVerified(false); if(p.cover){ var c=document.getElementById('coverPreview'); c.src=p.cover; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; } }catch(e){}
 function setVerified(isSelfie){ var b=document.getElementById('selfieBadge'); if(isSelfie){ b.className='badge ok'; b.textContent='✅ VERIFIED - Real Person - Selfie taken'; document.getElementById('selfieNotice').innerHTML='Great! You took a selfie YOURSELF. People can trust you are real.'; } else { b.className='badge no'; b.textContent='⚠️ NOT VERIFIED - Uploaded photo, not selfie'; document.getElementById('selfieNotice').innerHTML='<b>Not Verified.</b> You uploaded a photo, you did not prove YOU are real with selfie. Take a selfie yourself to become Verified.'; } }
@@ -213,34 +205,11 @@ document.getElementById('coverInput').onchange=function(){ readFile(this,functio
 document.getElementById('coverSelfieInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('coverPreview'); im.src=d; im.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',d); updateGate(); }); };
 function saveField(k,v){ try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); p[k]=v; localStorage.setItem('tati_my_profile', JSON.stringify(p)); }catch(e){} }
 function saveProfile(){ var name=document.getElementById('myName').value.trim(); var num=document.getElementById('myNumber').value.trim(); if(!name||!num){ document.getElementById('saveMsg').innerHTML='<b>Please fill YOUR Name + YOUR Number.</b>'; return; } saveField('name',name); saveField('number',num); saveField('about', document.getElementById('myAbout').value.trim()); document.getElementById('saveMsg').textContent='✅ Saved! Now take your selfie.'; updateGate(); }
-function finishSetup(){
-  try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
-    if(!p.name || !p.number){ alert('❌ Missing: YOUR Name + Number. Fill them first.'); return; }
-    if(!p.selfieVerified){ alert('❌ Missing: YOUR Profile Selfie. You must take it YOURSELF with camera. Upload does NOT count - it shows NOT VERIFIED.'); return; }
-    if(!p.cover){ alert('❌ Missing: YOUR Cover Photo. Add cover first.'); return; }
-    p.setupDone=true; localStorage.setItem('tati_my_profile', JSON.stringify(p));
-    alert('✅ SETUP DONE! You are good to go! Now you can Add People and Talk to people.');
-    updateGate(); showTab('add');
-  }catch(e){}
-}
+function finishSetup(){ try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(!p.name || !p.number){ alert('❌ Missing: YOUR Name + Number. Fill them first.'); return; } if(!p.selfieVerified){ alert('❌ Missing: YOUR Profile Selfie. You must take it YOURSELF with camera. Upload does NOT count - it shows NOT VERIFIED.'); return; } if(!p.cover){ alert('❌ Missing: YOUR Cover Photo. Add cover first.'); return; } p.setupDone=true; localStorage.setItem('tati_my_profile', JSON.stringify(p)); alert('✅ SETUP DONE! You are good to go! Now you can Add People and Talk to people.'); updateGate(); showTab('add'); }catch(e){} }
 function getReq(){ try{ return JSON.parse(localStorage.getItem('tati_requests')||'[]'); }catch(e){ return []; } }
 function getInc(){ try{ return JSON.parse(localStorage.getItem('tati_incoming')||'[]'); }catch(e){ return []; } }
-function renderAll(){
-  var list=getReq(); var box=document.getElementById('sentList');
-  if(!list.length){ box.innerHTML='<p class="notice">No requests sent yet.</p>'; }
-  else { box.innerHTML=list.map(function(r){ var st=r.status||'pending'; var label=st==='accepted'?'✅ Request Accepted - Chat Open':st==='denied'?'❌ Request Denied':'⏳ Request Sent - Waiting'; var btn=st==='accepted'?'<a class="smallBtn" style="background:#00a884;color:#fff;text-decoration:none" href="./index.html?chat='+encodeURIComponent(r.number)+'">💬 Open Chat</a>':'<button class="smallBtn" style="background:#f0f2f5" disabled>'+label+'</button>'; return '<div style="margin-bottom:12px"><div class="row"><img src="'+(r.photo||'')+'"><div class="info"><b>'+(r.name||r.number)+'</b><span>'+r.number+'</span></div></div><div style="margin-top:6px">'+btn+'</div></div>'; }).join(''); }
-  var inc=getInc(); var ibox=document.getElementById('incomingList');
-  if(!inc.length){ ibox.innerHTML='<p class="notice">No new requests.</p>'; }
-  else { ibox.innerHTML=inc.map(function(r,i){ if(r.status!=='pending') return '<div style="margin-bottom:10px"><b>'+(r.name||r.number)+'</b> - '+(r.status==='accepted'?'✅ You Accepted - Chat Open':'❌ You Denied')+'</div>'; return '<div style="border:1px solid #ddd;border-radius:12px;padding:12px;margin-bottom:12px"><div class="row"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><div class="info"><b>'+(r.name||'Unknown')+'</b><span>'+r.number+'</span></div></div><div class="reqPhotos"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><img class="cover" src="'+(r.cover||'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400')+'"></div><p class="notice"><b>Do you know this person? Do you recognise this face?</b><br>If YES, tap Accept. If NO, tap Deny. This keeps Tati safe.</p><div style="display:flex;gap:8px;margin-top:10px"><button class="accBtn" style="background:#00a884;color:#fff" onclick="answerIncoming('+i+',\'accepted\')">✅ Accept</button><button class="accBtn" style="background:#ffe0e0;color:#b00020" onclick="answerIncoming('+i+',\'denied\')">❌ Deny</button></div></div>'; }).join(''); }
-  var ppl=getReq().filter(function(r){ return r.status==='accepted'; }).concat(getInc().filter(function(r){ return r.status==='accepted'; }));
-  document.getElementById('peopleCount').textContent='('+ppl.length+')';
-  var plist=document.getElementById('peopleList');
-  if(!ppl.length){ plist.innerHTML='<p class="notice">No people yet. When someone accepts you, they appear here and you can chat.</p>'; }
-  else { plist.innerHTML=ppl.map(function(r){ return '<div class="row" style="margin-bottom:12px"><img src="'+(r.photo||'')+'"><div class="info"><b>'+(r.name||r.number)+'</b><span>'+r.number+' • ✅ Accepted</span></div><a class="smallBtn" style="background:#00a884;color:#fff;text-decoration:none" href="./index.html?chat='+encodeURIComponent(r.number)+'">💬 Chat</a></div>'; }).join(''); }
-}
-function sendRequest(){
-  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first! Your Name + Number + Your Selfies. Then you can send requests.'); showTab('profile'); return; }
-  var num=document.getElementById('addNumber').value.trim(); var name=document.getElementById('addName').value.trim(); if(!num){ document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>'; return; } var list=getReq(); list.push({number:num,name:name||'',status:'pending',date:new Date().toLocaleString()}); localStorage.setItem('tati_requests', JSON.stringify(list)); document.getElementById('addMsg').innerHTML='✅ Request Sent to '+num+'! When they Accept, it will say <b>Request Accepted</b> and chat will open.'; document.getElementById('addNumber').value=''; document.getElementById('addName').value=''; renderAll(); }
+function renderAll(){ var list=getReq(); var box=document.getElementById('sentList'); if(!list.length){ box.innerHTML='<p class="notice">No requests sent yet.</p>'; } else { box.innerHTML=list.map(function(r){ var st=r.status||'pending'; var label=st==='accepted'?'✅ Request Accepted - Chat Open':st==='denied'?'❌ Request Denied':'⏳ Request Sent - Waiting'; var btn=st==='accepted'?'<a class="smallBtn" style="background:#00a884;color:#fff;text-decoration:none" href="./index.html?chat='+encodeURIComponent(r.number)+'">💬 Open Chat</a>':'<button class="smallBtn" style="background:#f0f2f5" disabled>'+label+'</button>'; return '<div style="margin-bottom:12px"><div class="row"><img src="'+(r.photo||'')+'"><div class="info"><b>'+(r.name||r.number)+'</b><span>'+r.number+'</span></div></div><div style="margin-top:6px">'+btn+'</div></div>'; }).join(''); } var inc=getInc(); var ibox=document.getElementById('incomingList'); if(!inc.length){ ibox.innerHTML='<p class="notice">No new requests.</p>'; } else { ibox.innerHTML=inc.map(function(r,i){ if(r.status!=='pending') return '<div style="margin-bottom:10px"><b>'+(r.name||r.number)+'</b> - '+(r.status==='accepted'?'✅ You Accepted - Chat Open':'❌ You Denied')+'</div>'; return '<div style="border:1px solid #ddd;border-radius:12px;padding:12px;margin-bottom:12px"><div class="row"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><div class="info"><b>'+(r.name||'Unknown')+'</b><span>'+r.number+'</span></div></div><div class="reqPhotos"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><img class="cover" src="'+(r.cover||'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400')+'"></div><p class="notice"><b>Do you know this person? Do you recognise this face?</b><br>If YES, tap Accept. If NO, tap Deny. This keeps Tati safe.</p><div style="display:flex;gap:8px;margin-top:10px"><button class="accBtn" style="background:#00a884;color:#fff" onclick="answerIncoming('+i+',\'accepted\')">✅ Accept</button><button class="accBtn" style="background:#ffe0e0;color:#b00020" onclick="answerIncoming('+i+',\'denied\')">❌ Deny</button></div></div>'; }).join(''); } var ppl=getReq().filter(function(r){ return r.status==='accepted'; }).concat(getInc().filter(function(r){ return r.status==='accepted'; })); document.getElementById('peopleCount').textContent='('+ppl.length+')'; var plist=document.getElementById('peopleList'); if(!ppl.length){ plist.innerHTML='<p class="notice">No people yet. When someone accepts you, they appear here and you can chat.</p>'; } else { plist.innerHTML=ppl.map(function(r){ return '<div class="row" style="margin-bottom:12px"><img src="'+(r.photo||'')+'"><div class="info"><b>'+(r.name||r.number)+'</b><span>'+r.number+' • ✅ Accepted</span></div><a class="smallBtn" style="background:#00a884;color:#fff;text-decoration:none" href="./index.html?chat='+encodeURIComponent(r.number)+'">💬 Chat</a></div>'; }).join(''); } }
+function sendRequest(){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first! Your Name + Number + Your Selfies. Then you can send requests.'); showTab('profile'); return; } var num=document.getElementById('addNumber').value.trim(); var name=document.getElementById('addName').value.trim(); if(!num){ document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>'; return; } var list=getReq(); list.push({number:num,name:name||'',status:'pending',date:new Date().toLocaleString()}); localStorage.setItem('tati_requests', JSON.stringify(list)); document.getElementById('addMsg').innerHTML='✅ Request Sent to '+num+'! When they Accept, it will say <b>Request Accepted</b> and chat will open.'; document.getElementById('addNumber').value=''; document.getElementById('addName').value=''; renderAll(); }
 function answerIncoming(i,ans){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first before you Accept / Deny.'); showTab('profile'); return; } var inc=getInc(); inc[i].status=ans; localStorage.setItem('tati_incoming', JSON.stringify(inc)); if(ans==='accepted'){ var n=JSON.parse(localStorage.getItem('tati_notifications')||'[]'); n.unshift({type:'accepted',name:inc[i].name||inc[i].number,number:inc[i].number,date:new Date().toLocaleString(),text:'Accepted your request - Chat is now open'}); localStorage.setItem('tati_notifications', JSON.stringify(n)); } renderAll(); alert(ans==='accepted'?'✅ You Accepted! Chat is now open for you two.':'❌ You Denied. Request removed.'); }
 function demoIncoming(){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first to test.'); showTab('profile'); return; } var inc=getInc(); inc.unshift({name:'Thabo M.',number:'+258 84 123 4567',status:'pending',photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',cover:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400'}); localStorage.setItem('tati_incoming', JSON.stringify(inc)); renderAll(); showTab('add'); }
 updateGate(); renderAll();
