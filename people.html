@@ -5,14 +5,12 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
 body{background:#f6f3ee;padding-bottom:20px}
-/* === SAME HEADER AS HOMEPAGE === */
 .topbar{background:#0a192f;color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
 .topbar a{color:#fff;text-decoration:none;font-weight:800;font-size:14px}
 .logo{font-size:22px;font-weight:900;letter-spacing:-.5px}
 .logo span{color:#00a884}
 .topbar .tag{font-size:11px;background:#00a884;padding:4px 8px;border-radius:999px;font-weight:800}
 .wrap{max-width:1100px;margin:0 auto;padding:12px}
-/* === VERIFIED HEADER - CLEAN === */
 .meBar{background:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px}
 .meBar img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #00a884;background:#eee}
 .meBar .info{flex:1;min-width:0}
@@ -20,7 +18,6 @@ body{background:#f6f3ee;padding-bottom:20px}
 .dot{width:10px;height:10px;background:#00a884;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px #d9fdd3}
 .meBar .info span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .editBtn{padding:9px 14px;border-radius:999px;border:1px solid #ddd;background:#fff;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
-/* === LAYOUT LEFT + RIGHT === */
 .layout{display:flex;gap:12px;align-items:flex-start}
 .left{width:340px;flex-shrink:0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .right{flex:1;background:#fff;border-radius:16px;min-height:560px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -37,7 +34,6 @@ body{background:#f6f3ee;padding-bottom:20px}
 .person .info b{font-size:14px;display:flex;gap:6px;align-items:center}
 .person .info span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .person .time{font-size:11px;color:#667781}
-/* === RIGHT CHAT === */
 .chatHead{padding:12px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0f2f5}
 .chatHead img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee}
 .chatHead .info{flex:1}
@@ -52,14 +48,12 @@ body{background:#f6f3ee;padding-bottom:20px}
 .chatInput{display:flex;gap:8px;padding:10px;border-top:1px solid #f0f2f5;background:#fff}
 .chatInput input{flex:1;padding:12px;border:1px solid #ddd;border-radius:999px;outline:none;font-size:14px}
 .send{width:46px;height:46px;border:none;border-radius:50%;background:#00a884;color:#fff;font-size:18px;cursor:pointer;flex-shrink:0}
-/* === SETUP CARDS === */
 .card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);max-width:560px}
 .card h2{font-size:16px;margin-bottom:8px}
 label{font-size:12px;font-weight:800;color:#667781;display:block;margin:10px 0 4px}
 input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none;background:#fff}
 input.error{border:2px solid #ff3b30;background:#fff0f0}
 input.ok{border:2px solid #00a884;background:#f0fff4}
-/* CENTRED GREEN BUTTONS - justified inside card */
 .btn{display:block;width:100%;max-width:360px;padding:13px 20px;border:none;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;text-align:center;margin:12px auto 0 auto}
 .btn-green{background:#00a884;color:#fff}
 .btn-dark{background:#0a192f;color:#fff}
@@ -88,17 +82,14 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 <div class="topbar"><a href="./index.html">←</a><div class="logo">Tati<span>.</span></div><div class="tag">People</div><div style="flex:1"></div><a href="./index.html">Home</a></div>
 
 <div class="wrap">
-<!-- VERIFIED TOP - SHOWS ONLY WHEN DONE -->
 <div id="meBar" class="meBar hidden">
 <img id="meBarImg" src="">
 <div class="info"><b><span class="dot"></span><span id="meBarName">Jemi</span></b><span id="meBarSub">+258 • Mozambique • ✅ Verified</span></div>
 <button class="editBtn" onclick="toggleEdit(true)">✏️ Edit Profile</button>
 </div>
 
-<!-- SETUP GATE -->
 <div id="setupGate" class="lockBox"><h2>🔒 Finish YOUR Setup First</h2><p class="notice" style="color:#111;font-size:13px">1. Your Name + Number<br>2. Your Profile Selfie - camera<br>Cover is OPTIONAL.<br>Then you are good to go!</p><p class="notice" id="setupProgress">⏳ Setup: 0 / 2 done</p></div>
 
-<!-- SETUP FORM - DISAPPEARS WHEN VERIFIED -->
 <div id="setupForm">
 <div class="card"><h2>1️⃣ YOUR NAME + NUMBER</h2>
 <label>YOUR NAME *</label><input id="myName" placeholder="Ex: Jemi">
@@ -130,14 +121,11 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 <div class="card"><h2>✅ Finish Setup</h2><p class="notice" id="finishMsg">Fill Name + Number, take Profile Selfie. Cover is optional.</p><button class="btn btn-green" onclick="finishSetup()">✅ I Am Done - I Am Good To Go →</button></div>
 </div>
 
-<!-- MAIN LAYOUT - LEFT + RIGHT -->
 <div id="mainLayout" class="layout hidden">
 <div class="left">
 <div class="leftHead">
 <input class="search" id="searchPeople" placeholder="🔍 Search my people..." oninput="renderAll()">
 <div class="topActions"><button class="btnAdd" onclick="toggleAdd()">➕ Add Person</button><button class="btnReq" onclick="toggleReq()">🔔 Requests (<span id="reqCount">0</span>)</button></div>
-
-<!-- ADD FORM INSIDE LEFT -->
 <div id="addBox" class="hidden" style="margin-top:12px;border-top:1px solid #eee;padding-top:12px">
 <label>PERSON'S COUNTRY *</label><select id="addCountryCode"></select>
 <label>PERSON'S NUMBER *</label><div class="phoneRow"><div class="codeBox" id="addCodeDisplay">+258</div><input id="addNumber" placeholder="84 000 0000" inputmode="tel" oninput="validateNumber('addCountryCode','addNumber','addNumMsg')"></div>
@@ -145,8 +133,6 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 <label>PERSON'S NAME (if you know it)</label><input id="addName" placeholder="Ex: Mama / Thabo / Leave empty">
 <button class="btn btn-green" onclick="sendRequest()">📩 Send Request</button><p class="notice" id="addMsg"></p>
 </div>
-
-<!-- REQUESTS INSIDE LEFT -->
 <div id="reqBox" class="hidden" style="margin-top:12px;border-top:1px solid #eee;padding-top:12px">
 <div id="incomingList"></div>
 <button class="btn btn-grey" onclick="demoIncoming()">👀 Test: Show me how a request looks</button>
@@ -168,6 +154,12 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 </div>
 
 <script>
+// FIXED CORD ONLY - NO APPEARANCE CHANGE - CONNECTS TO CLOUDFLARE
+var WORKER_URL = "https://tati-server.dilemahluza.workers.dev";
+function cleanPhone(p){ var s=String(p||"").replace(/\D/g,""); if(s.startsWith("258")&&s.length===12) s=s.slice(3); if(s.startsWith("0")&&s.length===10) s=s.slice(1); return s; }
+function myCleanPhone(){ var p=getProfile(); return cleanPhone(p.number||""); }
+async function cloudCall(body){ try{ var r=await fetch(WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}); return await r.json(); }catch(e){ return {ok:false}; } }
+async function syncRegisterToCloud(){ var p=getProfile(); if(!p.name||!p.number) return; localStorage.setItem("tati_my_phone", cleanPhone(p.number)); localStorage.setItem("tati_my_name", p.name); await cloudCall({action:"register", phone: cleanPhone(p.number), name: p.name, profilePic: p.selfie||"", coverPic: p.cover||""}); await cloudCall({action:"update_profile", phone: cleanPhone(p.number), profilePic: p.selfie||"", coverPic: p.cover||""}); }
 var COUNTRIES=[["Afghanistan","+93",9],["Albania","+355",9],["Algeria","+213",9],["Andorra","+376",6],["Angola","+244",9],["Antigua and Barbuda","+1268",7],["Argentina","+54",10],["Armenia","+374",8],["Australia","+61",9],["Austria","+43",10],["Azerbaijan","+994",9],["Bahamas","+1242",7],["Bahrain","+973",8],["Bangladesh","+880",10],["Barbados","+1246",7],["Belarus","+375",9],["Belgium","+32",9],["Belize","+501",7],["Benin","+229",8],["Bhutan","+975",8],["Bolivia","+591",8],["Bosnia and Herzegovina","+387",8],["Botswana","+267",7],["Brazil","+55",11],["Brunei","+673",7],["Bulgaria","+359",9],["Burkina Faso","+226",8],["Burundi","+257",8],["Cambodia","+855",9],["Cameroon","+237",9],["Canada","+1",10],["Cape Verde","+238",7],["Central African Republic","+236",8],["Chad","+235",8],["Chile","+56",9],["China","+86",11],["Colombia","+57",10],["Comoros","+269",7],["Congo","+242",9],["Congo (DRC)","+243",9],["Costa Rica","+506",8],["Croatia","+385",9],["Cuba","+53",8],["Cyprus","+357",8],["Czechia","+420",9],["Denmark","+45",8],["Djibouti","+253",8],["Dominica","+1767",7],["Dominican Republic","+1809",10],["Ecuador","+593",9],["Egypt","+20",10],["El Salvador","+503",8],["Equatorial Guinea","+240",9],["Eritrea","+291",7],["Estonia","+372",7],["Eswatini","+268",8],["Ethiopia","+251",9],["Fiji","+679",7],["Finland","+358",10],["France","+33",9],["Gabon","+241",8],["Gambia","+220",7],["Georgia","+995",9],["Germany","+49",10],["Ghana","+233",9],["Greece","+30",10],["Grenada","+1473",7],["Guatemala","+502",8],["Guinea","+224",9],["Guinea-Bissau","+245",9],["Guyana","+592",7],["Haiti","+509",8],["Honduras","+504",8],["Hong Kong","+852",8],["Hungary","+36",9],["Iceland","+354",7],["India","+91",10],["Indonesia","+62",10],["Iran","+98",10],["Iraq","+964",10],["Ireland","+353",9],["Israel","+972",9],["Italy","+39",10],["Jamaica","+1876",7],["Japan","+81",10],["Jordan","+962",9],["Kazakhstan","+7",10],["Kenya","+254",9],["Kiribati","+686",8],["Kuwait","+965",8],["Kyrgyzstan","+996",9],["Laos","+856",9],["Latvia","+371",8],["Lebanon","+961",7],["Lesotho","+266",8],["Liberia","+231",7],["Libya","+218",9],["Liechtenstein","+423",7],["Lithuania","+370",8],["Luxembourg","+352",9],["Madagascar","+261",9],["Malawi","+265",9],["Malaysia","+60",9],["Maldives","+960",7],["Mali","+223",8],["Malta","+356",8],["Marshall Islands","+692",7],["Mauritania","+222",8],["Mauritius","+230",8],["Mexico","+52",10],["Micronesia","+691",7],["Moldova","+373",8],["Monaco","+377",8],["Mongolia","+976",8],["Montenegro","+382",8],["Morocco","+212",9],["Mozambique","+258",9],["Myanmar","+95",9],["Namibia","+264",9],["Nauru","+674",7],["Nepal","+977",10],["Netherlands","+31",9],["New Zealand","+64",9],["Nicaragua","+505",8],["Niger","+227",8],["Nigeria","+234",10],["North Korea","+850",9],["North Macedonia","+389",8],["Norway","+47",8],["Oman","+968",8],["Pakistan","+92",10],["Palau","+680",7],["Palestine","+970",9],["Panama","+507",8],["Papua New Guinea","+675",7],["Paraguay","+595",9],["Peru","+51",9],["Philippines","+63",10],["Poland","+48",9],["Portugal","+351",9],["Qatar","+974",8],["Romania","+40",10],["Russia","+7",10],["Rwanda","+250",9],["Saint Kitts and Nevis","+1869",7],["Saint Lucia","+1758",7],["Saint Vincent","+1784",7],["Samoa","+685",7],["San Marino","+378",7],["Sao Tome and Principe","+239",7],["Saudi Arabia","+966",9],["Senegal","+221",9],["Serbia","+381",9],["Seychelles","+248",7],["Sierra Leone","+232",8],["Singapore","+65",8],["Slovakia","+421",9],["Slovenia","+386",8],["Solomon Islands","+677",7],["Somalia","+252",8],["South Africa","+27",9],["South Korea","+82",10],["South Sudan","+211",9],["Spain","+34",9],["Sri Lanka","+94",9],["Sudan","+249",9],["Suriname","+597",7],["Sweden","+46",9],["Switzerland","+41",9],["Syria","+963",9],["Taiwan","+886",9],["Tajikistan","+992",9],["Tanzania","+255",9],["Thailand","+66",9],["Timor-Leste","+670",8],["Togo","+228",8],["Tonga","+676",7],["Trinidad and Tobago","+1868",7],["Tunisia","+216",8],["Turkey","+90",10],["Turkmenistan","+993",8],["Tuvalu","+688",7],["Uganda","+256",9],["Ukraine","+380",9],["United Arab Emirates","+971",9],["United Kingdom","+44",10],["United States","+1",10],["Uruguay","+598",8],["Uzbekistan","+998",9],["Vanuatu","+678",7],["Vatican City","+379",8],["Venezuela","+58",10],["Vietnam","+84",9],["Yemen","+967",9],["Zambia","+260",9],["Zimbabwe","+263",9]];
 var COUNTRY_BY_CODE={},LENGTH_BY_CODE={};COUNTRIES.forEach(function(c){COUNTRY_BY_CODE[c[1]]=c[0];LENGTH_BY_CODE[c[1]]=c[2];});
 function buildCountrySelect(id, disp, def){var s=document.getElementById(id);s.innerHTML='';COUNTRIES.forEach(function(c){var o=document.createElement('option');o.value=c[1];o.textContent=c[0];o.setAttribute('data-country',c[0]);if(c[1]===def)o.selected=true;s.appendChild(o);});s.onchange=function(){document.getElementById(disp).textContent=s.value;validateNumber(id, id==='myCountryCode'?'myNumber':'addNumber', id==='myCountryCode'?'myNumMsg':'addNumMsg');};document.getElementById(disp).textContent=s.value;}
@@ -192,35 +184,64 @@ var c=0;if(p.name&&p.number)c++;if(p.selfieVerified)c++;document.getElementById(
 document.getElementById('finishMsg').innerHTML=done?'✅ Setup Complete! You can now talk to people.':'Fill Name + Number, take Profile Selfie. Cover is optional.';
 }
 function saveField(k,v){var p=getProfile();p[k]=v;localStorage.setItem('tati_my_profile',JSON.stringify(p));}
-function saveProfile(){var name=document.getElementById('myName').value.trim();var full=getFullNumber('myCountryCode','myNumber');if(!name||!full){document.getElementById('saveMsg').innerHTML='<b>Please fill YOUR Name + YOUR Number.</b>';return;}if(!validateNumber('myCountryCode','myNumber','myNumMsg')){document.getElementById('saveMsg').innerHTML='<b>❌ Fix your number first.</b>';return;}saveField('name',name);saveField('number',full);saveField('countryCode',document.getElementById('myCountryCode').value);saveField('country',getCountryName('myCountryCode'));saveField('about',document.getElementById('myAbout').value.trim());document.getElementById('saveMsg').textContent='✅ Saved! '+full+' - Now take your selfie.';updateUI();}
-function finishSetup(){var p=getProfile();if(!p.name||!p.number){alert('❌ Missing: YOUR Name + Number.');return;}if(!p.selfieVerified){alert('❌ Missing: YOUR Profile Selfie. Take it YOURSELF. Upload does NOT count.');return;}p.setupDone=true;localStorage.setItem('tati_my_profile',JSON.stringify(p));editing=false;alert('✅ SETUP DONE! You are good to go!');updateUI();renderAll();}
+function saveProfile(){var name=document.getElementById('myName').value.trim();var full=getFullNumber('myCountryCode','myNumber');if(!name||!full){document.getElementById('saveMsg').innerHTML='<b>Please fill YOUR Name + YOUR Number.</b>';return;}if(!validateNumber('myCountryCode','myNumber','myNumMsg')){document.getElementById('saveMsg').innerHTML='<b>❌ Fix your number first.</b>';return;}saveField('name',name);saveField('number',full);saveField('countryCode',document.getElementById('myCountryCode').value);saveField('country',getCountryName('myCountryCode'));saveField('about',document.getElementById('myAbout').value.trim());document.getElementById('saveMsg').textContent='✅ Saved! '+full+' - Now take your selfie.';syncRegisterToCloud();updateUI();}
+function finishSetup(){var p=getProfile();if(!p.name||!p.number){alert('❌ Missing: YOUR Name + Number.');return;}if(!p.selfieVerified){alert('❌ Missing: YOUR Profile Selfie. Take it YOURSELF. Upload does NOT count.');return;}p.setupDone=true;localStorage.setItem('tati_my_profile',JSON.stringify(p));editing=false;syncRegisterToCloud();alert('✅ SETUP DONE! You are good to go!');updateUI();renderAll();}
 function setVerified(v){var b=document.getElementById('selfieBadge');if(v){b.className='badge ok';b.textContent='✅ VERIFIED - Real Person - Selfie taken';document.getElementById('selfieNotice').innerHTML='Great! You took a selfie YOURSELF.';}else{b.className='badge no';b.textContent='⚠️ NOT VERIFIED - Uploaded photo, not selfie';document.getElementById('selfieNotice').innerHTML='<b>Not Verified.</b> Take a selfie yourself to become Verified.';}}
 function readFile(inp,cb){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){cb(r.result)};r.readAsDataURL(f);}
 var _s=null,_c=null;
 function takeSelfie(t){t=t||'profile';var isPhone=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);if(isPhone){if(t==='cover'){document.getElementById('coverSelfieInput').click()}else{document.getElementById('selfieInput').click()}return;}var v=t==='cover'?document.getElementById('coverVideo'):document.getElementById('selfieVideo');var b=t==='cover'?document.getElementById('coverCameraBtns'):document.getElementById('selfieCameraBtns');var m=t==='cover'?document.getElementById('coverCamMsg'):document.getElementById('camMsg');m.style.display='none';b.style.display='block';v.style.display='block';if(!navigator.mediaDevices){m.textContent='Browser does not support camera. Use Chrome.';m.style.display='block';return;}navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640}},audio:false}).then(function(s){if(t==='cover')_c=s;else _s=s;v.srcObject=s;v.play();}).catch(function(e){m.style.display='block';m.textContent='Camera blocked. Allow camera in address bar -> Refresh -> Try again. ('+e.message+')';b.style.display='none';v.style.display='none';});}
 function cancelSelfie(t){t=t||'profile';if(t==='cover'){if(_c)_c.getTracks().forEach(function(x){x.stop()});_c=null;document.getElementById('coverVideo').style.display='none';document.getElementById('coverCameraBtns').style.display='none';}else{if(_s)_s.getTracks().forEach(function(x){x.stop()});_s=null;document.getElementById('selfieVideo').style.display='none';document.getElementById('selfieCameraBtns').style.display='none';}}
-function snapSelfie(t){t=t||'profile';var v=t==='cover'?document.getElementById('coverVideo'):document.getElementById('selfieVideo');var cv=t==='cover'?document.getElementById('coverCanvas'):document.getElementById('selfieCanvas');var m=t==='cover'?document.getElementById('coverCamMsg'):document.getElementById('camMsg');if(!v.videoWidth){m.textContent='Wait, camera still loading...';m.style.display='block';return;}cv.width=v.videoWidth;cv.height=v.videoHeight;cv.getContext('2d').drawImage(v,0,0);var d=cv.toDataURL('image/jpeg',0.85);cancelSelfie(t);if(t==='cover'){var c=document.getElementById('coverPreview');c.src=d;c.style.display='block';document.getElementById('coverIcon').style.display='none';saveField('cover',d);}else{var im=document.getElementById('selfiePreview');im.src=d;im.style.display='block';document.getElementById('selfieIcon').style.display='none';setVerified(true);saveField('selfie',d);saveField('selfieVerified',true);saveField('selfieUploaded',false);}updateUI();}
-document.getElementById('selfieInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('selfiePreview');im.src=d;im.style.display='block';document.getElementById('selfieIcon').style.display='none';setVerified(true);saveField('selfie',d);saveField('selfieVerified',true);saveField('selfieUploaded',false);updateUI();});};
-document.getElementById('uploadInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('selfiePreview');im.src=d;im.style.display='block';document.getElementById('selfieIcon').style.display='none';setVerified(false);saveField('selfie',d);saveField('selfieVerified',false);saveField('selfieUploaded',true);updateUI();});};
-document.getElementById('coverInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('coverPreview');im.src=d;im.style.display='block';document.getElementById('coverIcon').style.display='none';saveField('cover',d);});};
-document.getElementById('coverSelfieInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('coverPreview');im.src=d;im.style.display='block';document.getElementById('coverIcon').style.display='none';saveField('cover',d);});};
-// Load profile
+function snapSelfie(t){t=t||'profile';var v=t==='cover'?document.getElementById('coverVideo'):document.getElementById('selfieVideo');var cv=t==='cover'?document.getElementById('coverCanvas'):document.getElementById('selfieCanvas');var m=t==='cover'?document.getElementById('coverCamMsg'):document.getElementById('camMsg');if(!v.videoWidth){m.textContent='Wait, camera still loading...';m.style.display='block';return;}cv.width=v.videoWidth;cv.height=v.videoHeight;cv.getContext('2d').drawImage(v,0,0);var d=cv.toDataURL('image/jpeg',0.85);cancelSelfie(t);if(t==='cover'){var c=document.getElementById('coverPreview');c.src=d;c.style.display='block';document.getElementById('coverIcon').style.display='none';saveField('cover',d);}else{var im=document.getElementById('selfiePreview');im.src=d;im.style.display='block';document.getElementById('selfieIcon').style.display='none';setVerified(true);saveField('selfie',d);saveField('selfieVerified',true);saveField('selfieUploaded',false);}syncRegisterToCloud();updateUI();}
+document.getElementById('selfieInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('selfiePreview');im.src=d;im.style.display='block';document.getElementById('selfieIcon').style.display='none';setVerified(true);saveField('selfie',d);saveField('selfieVerified',true);saveField('selfieUploaded',false);syncRegisterToCloud();updateUI();});};
+document.getElementById('uploadInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('selfiePreview');im.src=d;im.style.display='block';document.getElementById('selfieIcon').style.display='none';setVerified(false);saveField('selfie',d);saveField('selfieVerified',false);saveField('selfieUploaded',true);syncRegisterToCloud();updateUI();});};
+document.getElementById('coverInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('coverPreview');im.src=d;im.style.display='block';document.getElementById('coverIcon').style.display='none';saveField('cover',d);syncRegisterToCloud();});};
+document.getElementById('coverSelfieInput').onchange=function(){readFile(this,function(d){var im=document.getElementById('coverPreview');im.src=d;im.style.display='block';document.getElementById('coverIcon').style.display='none';saveField('cover',d);syncRegisterToCloud();});};
 (function(){var p=getProfile();if(p.name)document.getElementById('myName').value=p.name;if(p.number){var s=splitSaved(p.number);var sel=document.getElementById('myCountryCode');for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===s.code){sel.selectedIndex=i;break;}}document.getElementById('myCodeDisplay').textContent=sel.value;document.getElementById('myNumber').value=s.num;validateNumber('myCountryCode','myNumber','myNumMsg');}if(p.about)document.getElementById('myAbout').value=p.about;if(p.selfie){var im=document.getElementById('selfiePreview');im.src=p.selfie;im.style.display='block';document.getElementById('selfieIcon').style.display='none';}if(p.selfieVerified)setVerified(true);if(p.selfieUploaded)setVerified(false);if(p.cover){var c=document.getElementById('coverPreview');c.src=p.cover;c.style.display='block';document.getElementById('coverIcon').style.display='none';}})();
-// === PEOPLE + CHAT ===
 var selectedNum=null;
+var lastMsgSince=0;
 function getReq(){try{return JSON.parse(localStorage.getItem('tati_requests')||'[]')}catch(e){return[]}}
 function getInc(){try{return JSON.parse(localStorage.getItem('tati_incoming')||'[]')}catch(e){return[]}}
 function toggleAdd(){document.getElementById('addBox').classList.toggle('hidden');document.getElementById('reqBox').classList.add('hidden');}
-function toggleReq(){document.getElementById('reqBox').classList.toggle('hidden');document.getElementById('addBox').classList.add('hidden');}
+function toggleReq(){document.getElementById('reqBox').classList.toggle('hidden');document.getElementById('addBox').classList.add('hidden'); pollCloud();}
+async function pollCloud(){
+  var me=myCleanPhone(); if(!me) return;
+  var d=await cloudCall({action:"get_requests", me: me});
+  if(d && d.requests){
+    var inc=getInc(); var changed=false;
+    d.requests.forEach(function(r){
+      var exists=inc.some(function(x){return cleanPhone(x.number)===cleanPhone(r.from) && x.status==='pending'});
+      if(!exists){ inc.unshift({name:r.fromName||r.from, number:"+258 "+r.from, country:"Mozambique", countryCode:"+258", status:"pending", photo:r.fromProfilePic||"", cover:r.fromCoverPic||"", cloudId:r.id}); changed=true; }
+    });
+    if(changed){ localStorage.setItem('tati_incoming', JSON.stringify(inc)); }
+    var sent=getReq();
+    for(var i=0;i<sent.length;i++){
+      if(sent[i].status==='pending'){
+        var chk=await cloudCall({action:"check_request", from: me, to: cleanPhone(sent[i].number)});
+        if(chk && chk.status==='accepted'){ sent[i].status='accepted'; localStorage.setItem('tati_requests', JSON.stringify(sent)); }
+        if(chk && chk.status==='declined'){ sent[i].status='denied'; localStorage.setItem('tati_requests', JSON.stringify(sent)); }
+      }
+    }
+    renderAll();
+  }
+  if(selectedNum) pollMessages();
+}
+async function pollMessages(){
+  if(!selectedNum) return; var me=myCleanPhone(); if(!me) return;
+  var d=await cloudCall({action:"get_messages", me: me, since: lastMsgSince});
+  if(d && d.messages && d.messages.length){
+    var key='tati_chat_'+selectedNum; var msgs=[]; try{msgs=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){}
+    d.messages.forEach(function(m){
+      if(cleanPhone(m.from)===cleanPhone(selectedNum)){ msgs.push({me:false, text:m.text, time:m.at}); if(m.at>lastMsgSince) lastMsgSince=m.at; }
+    });
+    localStorage.setItem(key, JSON.stringify(msgs)); renderChat(); renderAll();
+  }
+}
 function renderAll(){
 var q=(document.getElementById('searchPeople').value||'').toLowerCase();
 var inc=getInc();var pending=inc.filter(function(r){return r.status==='pending'}).length;document.getElementById('reqCount').textContent=pending;
-// incoming
 var ib=document.getElementById('incomingList');
 if(!inc.length){ib.innerHTML='<p class="notice">No new requests.</p>';}else{ib.innerHTML=inc.map(function(r,i){if(r.status!=='pending')return '<div style="font-size:13px;margin:6px 0"><b>'+(r.name||r.number)+'</b> - '+(r.status==='accepted'?'✅ Accepted':'❌ Declined')+'</div>';var country=r.country||countryFromNumber(r.number);return '<div class="reqCard"><b>💬 '+(r.name||r.number)+' requested to chat</b><div style="display:flex;gap:10px;margin-top:8px;align-items:center"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'" style="width:48px;height:48px;border-radius:50%;object-fit:cover"><div style="font-size:13px"><b>'+(r.name||r.number)+'</b><br>'+r.number+'<br>'+(country||'')+'</div></div><div class="reqPhotos"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><img class="cover" src="'+(r.cover||'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400')+'"></div><p class="notice"><b>Check if you know this person or if you recognise the face.</b><br>Check face + name + number + country. Accept or Decline - it\'s your choice.</p><div style="display:flex;gap:8px;margin-top:10px"><button class="accBtn" style="background:#00a884;color:#fff" onclick="answerIncoming('+i+',\'accepted\')">✅ Accept</button><button class="accBtn" style="background:#ffe0e0;color:#b00020" onclick="answerIncoming('+i+',\'denied\')">❌ Decline</button></div></div>';}).join('');}
-// sent
 var list=getReq();var sb=document.getElementById('sentList');sb.innerHTML=!list.length?'<p class="notice">No requests sent yet.</p>':list.map(function(r){var st=r.status||'pending';return '<div style="font-size:13px;margin-bottom:6px"><b>'+(r.name||r.number)+'</b> - '+r.number+' - '+(st==='accepted'?'✅ Accepted':st==='denied'?'❌ Denied':'⏳ Waiting')+'</div>';}).join('');
-// people
 var ppl=getReq().filter(function(r){return r.status==='accepted'}).concat(getInc().filter(function(r){return r.status==='accepted'}));
 var filtered=ppl.filter(function(r){return (r.name||'').toLowerCase().includes(q)||(r.number||'').includes(q);});
 var pl=document.getElementById('peopleList');
@@ -228,12 +249,37 @@ if(!filtered.length){pl.innerHTML='<p class="notice" style="padding:12px">No peo
 if(selectedNum) renderChat();
 }
 function getLastMsg(num){try{var m=JSON.parse(localStorage.getItem('tati_chat_'+num)||'[]');return m.length?m[m.length-1].text:''}catch(e){return''}}
-function openChat(encNum){selectedNum=decodeURIComponent(encNum);renderAll();document.getElementById('chatEmpty').classList.add('hidden');var a=document.getElementById('chatActive');a.classList.remove('hidden');a.style.display='flex';var ppl=getReq().filter(function(r){return r.status==='accepted'}).concat(getInc().filter(function(r){return r.status==='accepted'}));var r=ppl.find(function(x){return x.number===selectedNum})||{number:selectedNum};document.getElementById('chatImg').src=r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200';document.getElementById('chatName').textContent=r.name||r.number;document.getElementById('chatSub').textContent=r.number+' • '+(r.country||countryFromNumber(r.number));renderChat();}
+function openChat(encNum){selectedNum=decodeURIComponent(encNum);lastMsgSince=Date.now()-100000;renderAll();document.getElementById('chatEmpty').classList.add('hidden');var a=document.getElementById('chatActive');a.classList.remove('hidden');a.style.display='flex';var ppl=getReq().filter(function(r){return r.status==='accepted'}).concat(getInc().filter(function(r){return r.status==='accepted'}));var r=ppl.find(function(x){return x.number===selectedNum})||{number:selectedNum};document.getElementById('chatImg').src=r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200';document.getElementById('chatName').textContent=r.name||r.number;document.getElementById('chatSub').textContent=r.number+' • '+(r.country||countryFromNumber(r.number));renderChat();pollMessages();}
 function renderChat(){if(!selectedNum)return;var msgs=[];try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){}var body=document.getElementById('chatBody');body.innerHTML=msgs.length?msgs.map(function(m){return '<div class="msg '+(m.me?'me':'them')+'">'+m.text+'</div>';}).join(''):'<p class="notice" style="text-align:center">No messages yet. Say hello 👋</p>';body.scrollTop=body.scrollHeight;}
-function sendChat(){if(!selectedNum)return;var inp=document.getElementById('chatText');var t=inp.value.trim();if(!t)return;var msgs=[];try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){}msgs.push({me:true,text:t,time:Date.now()});localStorage.setItem('tati_chat_'+selectedNum,JSON.stringify(msgs));inp.value='';renderChat();renderAll();}
-function sendRequest(){var num=getFullNumber('addCountryCode','addNumber');var country=getCountryName('addCountryCode');var name=document.getElementById('addName').value.trim();if(!num){document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>';return;}if(!validateNumber('addCountryCode','addNumber','addNumMsg')){document.getElementById('addMsg').innerHTML='<b>❌ Fix their number first.</b>';return;}var me=getProfile();var list=getReq();list.push({number:num,name:name||'',country:country,countryCode:document.getElementById('addCountryCode').value,status:'pending',date:new Date().toLocaleString(),photo:me.selfie||'',cover:me.cover||'',fromName:me.name||'',fromNumber:me.number||''});localStorage.setItem('tati_requests',JSON.stringify(list));document.getElementById('addMsg').innerHTML='✅ Request Sent to '+num+' ('+country+')!';document.getElementById('addNumber').value='';document.getElementById('addName').value='';renderAll();}
-function answerIncoming(i,ans){var inc=getInc();inc[i].status=ans;localStorage.setItem('tati_incoming',JSON.stringify(inc));if(ans==='accepted'){var n=JSON.parse(localStorage.getItem('tati_notifications')||'[]');n.unshift({type:'accepted',name:inc[i].name||inc[i].number,number:inc[i].number,date:new Date().toLocaleString(),text:'Accepted your request - Chat is now open'});localStorage.setItem('tati_notifications',JSON.stringify(n));}renderAll();alert(ans==='accepted'?'✅ You Accepted! Chat is now open.':'❌ You Declined.');}
+async function sendChat(){
+  if(!selectedNum)return;var inp=document.getElementById('chatText');var t=inp.value.trim();if(!t)return;
+  var msgs=[];try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){}
+  msgs.push({me:true,text:t,time:Date.now()});localStorage.setItem('tati_chat_'+selectedNum,JSON.stringify(msgs));inp.value='';renderChat();renderAll();
+  var me=myCleanPhone(); await cloudCall({action:"send_message", from: me, to: cleanPhone(selectedNum), text: t, type:"text"});
+}
+async function sendRequest(){
+  var num=getFullNumber('addCountryCode','addNumber');var country=getCountryName('addCountryCode');var name=document.getElementById('addName').value.trim();
+  if(!num){document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>';return;}
+  if(!validateNumber('addCountryCode','addNumber','addNumMsg')){document.getElementById('addMsg').innerHTML='<b>❌ Fix their number first.</b>';return;}
+  var me=getProfile();
+  var look=await cloudCall({action:"lookup", phone: cleanPhone(num)});
+  if(!look.onTati){ document.getElementById('addMsg').innerHTML='⚠️ Friend not on Tati yet. Ask them to open People and Finish Setup first, then try again.'; return; }
+  var list=getReq();list.push({number:num,name:look.name||name||'',country:country,countryCode:document.getElementById('addCountryCode').value,status:'pending',date:new Date().toLocaleString(),photo:look.profilePic||'',cover:look.coverPic||'',fromName:me.name||'',fromNumber:me.number||''});localStorage.setItem('tati_requests',JSON.stringify(list));
+  var res=await cloudCall({action:"send_request", from: myCleanPhone(), to: cleanPhone(num)});
+  if(res.ok){ document.getElementById('addMsg').innerHTML='✅ Request Sent to '+num+' ('+country+')!'; }
+  else{ document.getElementById('addMsg').innerHTML='⚠️ Saved locally but Cloud failed. Check Worker Deploy + TATI_KV.'; }
+  document.getElementById('addNumber').value='';document.getElementById('addName').value='';renderAll();
+}
+async function answerIncoming(i,ans){
+  var inc=getInc(); var req=inc[i]; inc[i].status=ans;localStorage.setItem('tati_incoming',JSON.stringify(inc));
+  if(req && req.cloudId){ await cloudCall({action:"respond_request", requestId: req.cloudId, accept: ans==='accepted'}); }
+  else { var d=await cloudCall({action:"get_requests", me: myCleanPhone()}); if(d && d.requests){ var found=d.requests.find(function(r){return cleanPhone(r.from)===cleanPhone(req.number)}); if(found) await cloudCall({action:"respond_request", requestId: found.id, accept: ans==='accepted'}); } }
+  if(ans==='accepted'){var n=JSON.parse(localStorage.getItem('tati_notifications')||'[]');n.unshift({type:'accepted',name:inc[i].name||inc[i].number,number:inc[i].number,date:new Date().toLocaleString(),text:'Accepted your request - Chat is now open'});localStorage.setItem('tati_notifications',JSON.stringify(n));}
+  renderAll();alert(ans==='accepted'?'✅ You Accepted! Chat is now open.':'❌ You Declined.');
+}
 function demoIncoming(){var inc=getInc();if(inc.some(function(r){return r.number==='+27 84 123 4567'})){alert('👀 Test request is already there.');renderAll();return;}inc.unshift({name:'Thabo M.',number:'+27 84 123 4567',country:'South Africa',countryCode:'+27',status:'pending',photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',cover:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400'});localStorage.setItem('tati_incoming',JSON.stringify(inc));renderAll();}
 updateUI();renderAll();
+setInterval(pollCloud, 3000);
+pollCloud();
 </script>
 </body></html>
