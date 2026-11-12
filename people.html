@@ -44,7 +44,6 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 .lockBox h2{font-size:17px;margin-bottom:6px}
 .step{font-size:12px;font-weight:800;color:#856404}
 .hidden{display:none!important}
-/* ADDED BY ASH FIX - Camera modal only, no design change */
 #cameraModal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
 #cameraModal.open{display:flex}
 #cameraBox{background:#fff;border-radius:16px;padding:14px;width:100%;max-width:380px;text-align:center}
@@ -54,7 +53,6 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <h1>👥 People</h1>
 <p class="sub">Before you talk to people, YOU must register first. Your name + number + your selfies. Then you are good to go.</p>
 
-<!-- SETUP GATE - SHOWS FIRST IF NOT REGISTERED -->
 <div id="setupGate" class="lockBox">
 <h2>🔒 Finish YOUR Setup First</h2>
 <p class="notice" style="color:#111;font-size:13px">You cannot talk to people until YOU register.<br>1. Your Name + Number<br>2. Your Profile Selfie - camera<br>3. Your Cover Photo<br>Then you are good to go!</p>
@@ -82,8 +80,8 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <div class="avatarBox" onclick="openSelfieCamera('profile')"><img id="selfiePreview"><span id="selfieIcon">📸</span></div>
 <div style="text-align:center"><span id="selfieBadge" class="badge warn">⚠️ NOT VERIFIED - No selfie yet</span><p class="notice" id="selfieNotice">Take a selfie with camera to prove YOU are a real person. <b>If you only upload a photo, we show NOT VERIFIED.</b></p></div>
 <input type="file" id="selfieInput" accept="image/*" class="hidden">
-<button class="btn btn-green" onclick="openSelfieCamera('profile')">📸 Take Selfie - Face + Chest - YOURSELF</button>
-<button class="btn btn-grey" onclick="document.getElementById('uploadInput').click()">🖼️ Upload Photo Instead - Shows NOT VERIFIED</button>
+<button class="btn btn-green" type="button" onclick="openSelfieCamera('profile')">📸 Take Selfie - Face + Chest - YOURSELF</button>
+<button class="btn btn-grey" type="button" onclick="document.getElementById('uploadInput').click()">🖼️ Upload Photo Instead - Shows NOT VERIFIED</button>
 <input type="file" id="uploadInput" accept="image/*" class="hidden">
 <p class="notice">Selfie tip: Look at camera, smile, show face + chest. So people know it is really YOU.</p>
 </div>
@@ -92,7 +90,7 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <h2>3️⃣ COVER PHOTO - Required</h2>
 <div class="photoBox" onclick="document.getElementById('coverInput').click()"><img id="coverPreview"><span id="coverIcon">🖼️ Tap to add cover</span></div>
 <input type="file" id="coverInput" accept="image/*" class="hidden">
-<div style="display:flex;gap:8px"><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverInput').click()">Upload Cover</button><button class="btn btn-grey" style="flex:1" onclick="openSelfieCamera('cover')">📸 Take Selfie</button></div>
+<div style="display:flex;gap:8px"><button class="btn btn-grey" type="button" style="flex:1" onclick="document.getElementById('coverInput').click()">Upload Cover</button><button class="btn btn-grey" type="button" style="flex:1" onclick="openSelfieCamera('cover')">📸 Take Selfie</button></div>
 <input type="file" id="coverSelfieInput" accept="image/*" class="hidden">
 <p class="notice">Cover can be upload OR selfie - both okay.</p>
 </div>
@@ -129,29 +127,40 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <div class="card"><h2>👥 My People <span id="peopleCount"></span></h2><div id="peopleList"><p class="notice">No people yet.</p></div></div>
 </div>
 
-<!-- CAMERA MODAL - ADDED FOR ASH, FRONT CAMERA FIX -->
-<div id="cameraModal"><div id="cameraBox"><h2 style="margin-bottom:8px">📸 Take Selfie</h2><p class="notice" style="margin-bottom:8px">Look at camera, smile, show face + chest.</p><video id="cameraVideo" playsinline autoplay muted></video><canvas id="cameraCanvas" style="display:none"></canvas><button class="btn btn-green" onclick="takeSelfiePhoto()">✅ Take Photo</button><button class="btn btn-grey" onclick="closeSelfieCamera()">❌ Cancel</button><p class="notice" id="cameraError" style="display:none;color:#b00020"></p></div></div>
+<div id="cameraModal"><div id="cameraBox"><h2 style="margin-bottom:8px">📸 Take Selfie</h2><p class="notice" style="margin-bottom:8px">Look at camera, smile, show face + chest. Camera will stay open until you tap Take Photo.</p><video id="cameraVideo" playsinline autoplay muted></video><canvas id="cameraCanvas" style="display:none"></canvas><button class="btn btn-green" type="button" onclick="takeSelfiePhoto()">✅ Take Photo</button><button class="btn btn-grey" type="button" onclick="closeSelfieCamera()">❌ Cancel</button><p class="notice" id="cameraError" style="display:none;color:#b00020"></p><button id="cameraRetryBtn" class="btn btn-dark hidden" type="button" onclick="retryCamera()">🔄 Try Camera Again</button><button id="cameraFileBtn" class="btn btn-grey hidden" type="button" onclick="cameraChooseFile()">🖼️ Choose File Instead</button></div></div>
 
 <script>
-// --- FRONT CAMERA FIX FOR ASH ---
 let _selfieStream = null;
 let _selfieTarget = 'profile';
+let _cameraBusy = false;
 async function openSelfieCamera(target){
+  if(_cameraBusy) return;
+  _cameraBusy = true;
   _selfieTarget = target || 'profile';
   var modal = document.getElementById('cameraModal');
   var err = document.getElementById('cameraError');
   err.style.display='none'; err.textContent='';
+  document.getElementById('cameraRetryBtn').classList.add('hidden');
+  document.getElementById('cameraFileBtn').classList.add('hidden');
   modal.classList.add('open');
   try{
     if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();});
     _selfieStream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false });
-    document.getElementById('cameraVideo').srcObject = _selfieStream;
+    var v = document.getElementById('cameraVideo');
+    v.srcObject = _selfieStream;
+    await v.play().catch(function(){});
   }catch(e){
     err.style.display='block';
-    err.textContent='Camera blocked, Ash. Tap Allow in browser, or use Upload instead. ('+e.message+')';
-    // Fallback: open file picker
-    setTimeout(function(){ closeSelfieCamera(); if(_selfieTarget==='profile') document.getElementById('selfieInput').click(); else document.getElementById('coverSelfieInput').click(); }, 800);
+    err.textContent='Camera blocked, Ash. Tap Allow, then tap Try Camera Again. Camera will stay here, it will NOT open folder by itself.';
+    document.getElementById('cameraRetryBtn').classList.remove('hidden');
+    document.getElementById('cameraFileBtn').classList.remove('hidden');
   }
+  _cameraBusy = false;
+}
+function retryCamera(){ openSelfieCamera(_selfieTarget); }
+function cameraChooseFile(){
+  if(_selfieTarget==='profile') document.getElementById('selfieInput').click();
+  else document.getElementById('coverSelfieInput').click();
 }
 function closeSelfieCamera(){
   if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();});
