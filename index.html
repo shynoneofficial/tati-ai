@@ -33,7 +33,6 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 .bubble{max-width:80%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:pre-wrap;word-break:break-word}
 .user{align-self:flex-end;background:#d9fdd3}
 .tati{align-self:flex-start;background:#fff}
-.tati img{max-width:100%;border-radius:10px;margin-top:6px;display:block}
 #inputArea{background:#f0f2f5;padding:8px;display:flex;gap:6px;flex-shrink:0}
 #textBox{flex:1;background:#fff;border-radius:22px;padding:9px 12px;display:flex}
 #textInput{flex:1;border:none;outline:none;font-size:16px;resize:none}
@@ -68,17 +67,17 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 <div id="modeSwitch">
 <a class="modeBtn" href="./people.html">👥 People</a>
 <div class="doubleBtn">
-<a id="textLink" href="#" onclick="openTextPage();return false;">💬 Text</a>
+<a id="textLink" href="#" onclick="openTextPage();return false;">💬 Text Tati</a>
 <div class="divider"></div>
-<a href="./voice.html">🎤 Talk</a>
+<a href="./voice.html">🎤 Talk to Tati</a>
 </div>
 <button id="listenBtn" onclick="toggleListenMain()">👂 Listen</button>
 </div>
 
 <div class="page" id="homeView">
 <div class="homeCard">
-<h2>👋 Alixeni! Hi mina Tati.</h2>
-<p>Your friend. Your helper. Your music.<br>Choose how you want to talk to me.</p>
+<h2>👋 Alixeni! Hi, I'm Tati.</h2>
+<p>Your friend. Your helper. Your music.<br>Talk to me, or go to People to talk to other people.</p>
 </div>
 </div>
 
@@ -88,29 +87,31 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 
 <script>
 const WORKER_URL = "https://tati-server.dilemahluza.workers.dev";
-
+let chatHistory = [];
 function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+t+"</span>";document.getElementById("chat").appendChild(b);var c=document.getElementById("chatView");c.scrollTop=c.scrollHeight}
-function addImageBubble(text,imgUrl){var b=document.createElement("div");b.className="bubble tati";b.innerHTML="<span>"+text+"</span><br><img src='"+imgUrl+"' alt='Tati image'>";document.getElementById("chat").appendChild(b);var c=document.getElementById("chatView");c.scrollTop=c.scrollHeight}
 function openTextPage(){
   document.getElementById("homeView").classList.add("hidden");
   document.getElementById("chatView").classList.remove("hidden");
   document.getElementById("inputArea").classList.remove("hidden");
   document.getElementById("textLink").classList.add("active");
-  if(document.getElementById("chat").children.length===0){ addBubble("Alixeni! Hi mina Tati. How can I help?","tati"); }
+  if(document.getElementById("chat").children.length===0){ addBubble("Alixeni! Hi, I'm Tati. How can I help you today, my friend?","tati"); }
   document.getElementById("textInput").focus();
 }
 async function sendToTati(q){
+  chatHistory.push({role:"user", content:q});
   addBubble("...", "tati");
   var thinking = document.getElementById("chat").lastChild;
   try{
-    var res = await fetch(WORKER_URL, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({message:q})});
+    var res = await fetch(WORKER_URL + "/chat", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({messages: chatHistory})});
     var data = await res.json();
     thinking.remove();
-    if(data.image){ addImageBubble(data.reply || "Here you go, Ash ❤️", data.image); }
-    else { addBubble(data.reply || "Sorry Ash, I had a small problem. Try again?", "tati"); }
+    var reply = data.reply || "Sorry, try again, my friend?";
+    chatHistory.push({role:"assistant", content: reply});
+    if(chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+    addBubble(reply, "tati");
   }catch(e){
     thinking.remove();
-    addBubble("Ash, I can't reach my brain right now. Check your Worker - is it deployed?", "tati");
+    addBubble("Sorry, I can't reach my brain right now. Please try again.", "tati");
   }
 }
 document.getElementById("sendBtn").onclick=function(){
