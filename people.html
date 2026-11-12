@@ -47,21 +47,17 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 </style></head><body>
 <a class="back" href="./index.html">← Back to Tati</a>
 <h1>👥 People</h1>
-<p class="sub">Before you talk to people, YOU must register first. Your name + number + your selfies. Then you are good to go.</p>
-
-<!-- SETUP GATE - SHOWS FIRST IF NOT REGISTERED -->
+<p class="sub">Before you talk to people, YOU must register first. Your name + number + your selfie. Then you are good to go.</p>
 <div id="setupGate" class="lockBox">
 <h2>🔒 Finish YOUR Setup First</h2>
-<p class="notice" style="color:#111;font-size:13px">You cannot talk to people until YOU register.<br>1. Your Name + Number<br>2. Your Profile Selfie - camera<br>3. Your Cover Photo<br>Then you are good to go!</p>
-<p class="notice" id="setupProgress">⏳ Setup: 0 / 3 done</p>
+<p class="notice" style="color:#111;font-size:13px">You cannot talk to people until YOU register.<br>1. Your Name + Number<br>2. Your Profile Selfie - camera<br>Cover is OPTIONAL - add later if you want.<br>Then you are good to go!</p>
+<p class="notice" id="setupProgress">⏳ Setup: 0 / 2 done</p>
 </div>
-
 <div class="tabs">
 <button id="tabProfile" class="on" onclick="showTab('profile')">My Profile - Setup</button>
 <button id="tabAdd" onclick="tryShowTab('add')">Add People</button>
 <button id="tabList" onclick="tryShowTab('list')">My People</button>
 </div>
-
 <div id="view-profile">
 <div class="card">
 <h2>1️⃣ YOUR NAME + NUMBER - Required</h2>
@@ -71,37 +67,38 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <button class="btn btn-dark" onclick="saveProfile()">💾 Save Name + Number</button>
 <p class="notice" id="saveMsg"></p>
 </div>
-
 <div class="card">
 <h2>2️⃣ PROFILE SELFIE - Take It Yourself - Required</h2>
-<div class="avatarBox" onclick="takeSelfie()"><img id="selfiePreview"><span id="selfieIcon">📸</span></div>
+<div class="avatarBox" onclick="takeSelfie('profile')"><img id="selfiePreview"><span id="selfieIcon">📸</span></div>
 <div style="text-align:center"><span id="selfieBadge" class="badge warn">⚠️ NOT VERIFIED - No selfie yet</span><p class="notice" id="selfieNotice">Take a selfie with camera to prove YOU are a real person. <b>If you only upload a photo, we show NOT VERIFIED.</b></p></div>
 <video id="selfieVideo" playsinline autoplay muted style="display:none;width:100%;max-width:300px;border-radius:12px;margin:10px auto;background:#000"></video>
 <canvas id="selfieCanvas" style="display:none"></canvas>
-<div id="selfieCameraBtns" style="display:none;text-align:center"><button class="btn btn-green" type="button" onclick="snapSelfie()">✅ Take Photo</button><button class="btn btn-grey" type="button" onclick="cancelSelfie()">❌ Cancel</button></div>
+<div id="selfieCameraBtns" style="display:none;text-align:center"><button class="btn btn-green" type="button" onclick="snapSelfie('profile')">✅ Take Photo</button><button class="btn btn-grey" type="button" onclick="cancelSelfie('profile')">❌ Cancel</button></div>
+<p id="camMsg" class="notice" style="display:none;color:#b00020;text-align:center"></p>
 <input type="file" id="selfieInput" accept="image/*" class="hidden">
-<button class="btn btn-green" onclick="takeSelfie()">📸 Take Selfie - Face + Chest - YOURSELF</button>
+<button class="btn btn-green" onclick="takeSelfie('profile')">📸 Take Selfie - Face + Chest - YOURSELF</button>
 <button class="btn btn-grey" onclick="document.getElementById('uploadInput').click()">🖼️ Upload Photo Instead - Shows NOT VERIFIED</button>
 <input type="file" id="uploadInput" accept="image/*" class="hidden">
-<p class="notice">Selfie tip: Look at camera, smile, show face + chest. So people know it is really YOU.</p>
+<p class="notice">Selfie tip: Look at camera, smile, show face + chest. So people know it is really YOU. On phone, if it opens back camera, tap the flip camera icon to switch to front.</p>
 </div>
-
 <div class="card">
-<h2>3️⃣ COVER PHOTO - Required</h2>
-<div class="photoBox" onclick="document.getElementById('coverInput').click()"><img id="coverPreview"><span id="coverIcon">🖼️ Tap to add cover</span></div>
+<h2>3️⃣ COVER PHOTO - Optional</h2>
+<div class="photoBox" onclick="document.getElementById('coverInput').click()"><img id="coverPreview"><span id="coverIcon">🖼️ Tap to add cover (optional)</span></div>
+<video id="coverVideo" playsinline autoplay muted style="display:none;width:100%;border-radius:12px;margin:10px auto;background:#000"></video>
+<canvas id="coverCanvas" style="display:none"></canvas>
+<div id="coverCameraBtns" style="display:none;text-align:center"><button class="btn btn-green" type="button" onclick="snapSelfie('cover')">✅ Take Photo</button><button class="btn btn-grey" type="button" onclick="cancelSelfie('cover')">❌ Cancel</button></div>
+<p id="coverCamMsg" class="notice" style="display:none;color:#b00020;text-align:center"></p>
 <input type="file" id="coverInput" accept="image/*" class="hidden">
-<div style="display:flex;gap:8px"><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverInput').click()">Upload Cover</button><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverSelfieInput').click()">📸 Take Selfie</button></div>
-<input type="file" id="coverSelfieInput" accept="image/*" capture="user" class="hidden">
-<p class="notice">Cover can be upload OR selfie - both okay.</p>
+<input type="file" id="coverSelfieInput" accept="image/*" class="hidden">
+<div style="display:flex;gap:8px"><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverInput').click()">Upload Cover</button><button class="btn btn-grey" style="flex:1" onclick="takeSelfie('cover')">📸 Take Selfie</button></div>
+<p class="notice">Cover is OPTIONAL. You can skip it and finish setup. Add it later if you want - by Upload OR by Selfie, whatever you decide.</p>
 </div>
-
 <div class="card" id="finishCard">
 <h2>✅ Finish Setup</h2>
-<p class="notice" id="finishMsg">Fill Name + Number, take Profile Selfie, add Cover. Then tap below.</p>
+<p class="notice" id="finishMsg">Fill Name + Number, take Profile Selfie. Cover is optional. Then tap below.</p>
 <button class="btn btn-green" onclick="finishSetup()">✅ I Am Done - I Am Good To Go →</button>
 </div>
 </div>
-
 <div id="view-add" class="hidden">
 <div class="card">
 <h2>➕ Add Person by Number</h2>
@@ -122,64 +119,81 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <button class="btn btn-grey" onclick="demoIncoming()">👀 Test: Show me how a request looks</button>
 </div>
 </div>
-
 <div id="view-list" class="hidden">
 <div class="card"><h2>👥 My People <span id="peopleCount"></span></h2><div id="peopleList"><p class="notice">No people yet.</p></div></div>
 </div>
-
 <script>
 function isSetupDone(){
   try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
-    return !!(p.name && p.number && p.selfieVerified && p.cover && p.setupDone);
+    return !!(p.name && p.number && p.selfieVerified && p.setupDone);
   }catch(e){ return false; }
 }
 function updateGate(){
   var done=isSetupDone();
   document.getElementById('setupGate').style.display = done ? 'none' : 'block';
   try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
-    var c=0; if(p.name && p.number) c++; if(p.selfieVerified) c++; if(p.cover) c++;
-    document.getElementById('setupProgress').textContent='⏳ Setup: '+c+' / 3 done'+(done?' - ✅ YOU ARE GOOD TO GO!':'');
-    document.getElementById('finishMsg').innerHTML = done ? '✅ Setup Complete! You can now talk to people.' : 'Fill Name + Number, take Profile Selfie, add Cover. Then tap below.';
+    var c=0; if(p.name && p.number) c++; if(p.selfieVerified) c++;
+    document.getElementById('setupProgress').textContent='⏳ Setup: '+c+' / 2 done'+(done?' - ✅ YOU ARE GOOD TO GO!':'');
+    document.getElementById('finishMsg').innerHTML = done ? '✅ Setup Complete! You can now talk to people.' : 'Fill Name + Number, take Profile Selfie. Cover is optional. Then tap below.';
   }catch(e){}
 }
 function tryShowTab(t){
-  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first!\n\n1. Your Name + Number\n2. Your Profile Selfie - take it yourself\n3. Your Cover Photo\n\nThen you are good to go!'); showTab('profile'); return; }
+  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first!\n\n1. Your Name + Number\n2. Your Profile Selfie - take it yourself\n\nCover is optional.\n\nThen you are good to go!'); showTab('profile'); return; }
   showTab(t);
 }
 function showTab(t){ ['profile','add','list'].forEach(function(x){ document.getElementById('view-'+x).classList.toggle('hidden', x!==t); document.getElementById('tab'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on', x===t); }); }
 try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(p.name) document.getElementById('myName').value=p.name; if(p.number) document.getElementById('myNumber').value=p.number; if(p.about) document.getElementById('myAbout').value=p.about; if(p.selfie){ var im=document.getElementById('selfiePreview'); im.src=p.selfie; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; } if(p.selfieVerified) setVerified(true); if(p.selfieUploaded) setVerified(false); if(p.cover){ var c=document.getElementById('coverPreview'); c.src=p.cover; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; } }catch(e){}
 function setVerified(isSelfie){ var b=document.getElementById('selfieBadge'); if(isSelfie){ b.className='badge ok'; b.textContent='✅ VERIFIED - Real Person - Selfie taken'; document.getElementById('selfieNotice').innerHTML='Great! You took a selfie YOURSELF. People can trust you are real.'; } else { b.className='badge no'; b.textContent='⚠️ NOT VERIFIED - Uploaded photo, not selfie'; document.getElementById('selfieNotice').innerHTML='<b>Not Verified.</b> You uploaded a photo, you did not prove YOU are real with selfie. Take a selfie yourself to become Verified.'; } }
 function readFile(input,cb){ var f=input.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ cb(r.result); }; r.readAsDataURL(f); }
-var _selfieStream=null;
-function takeSelfie(){
+// SAME FIX for profile AND cover - one function, two targets
+var _selfieStream=null; var _coverStream=null;
+function takeSelfie(target){
+  target = target || 'profile';
   var isPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  if(isPhone){ document.getElementById('selfieInput').value=''; document.getElementById('selfieInput').click(); return; }
-  var video=document.getElementById('selfieVideo');
-  document.getElementById('selfieCameraBtns').style.display='block';
-  video.style.display='block';
-  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){ alert('Your browser does not support camera. Please use Chrome.'); return; }
+  // On phone: open phone camera app - same for profile and cover
+  if(isPhone){
+    if(target==='cover'){ document.getElementById('coverSelfieInput').value=''; document.getElementById('coverSelfieInput').click(); }
+    else { document.getElementById('selfieInput').value=''; document.getElementById('selfieInput').click(); }
+    return;
+  }
+  // On computer: live webcam in the same card - same fix for both
+  var video = target==='cover' ? document.getElementById('coverVideo') : document.getElementById('selfieVideo');
+  var btns = target==='cover' ? document.getElementById('coverCameraBtns') : document.getElementById('selfieCameraBtns');
+  var msg = target==='cover' ? document.getElementById('coverCamMsg') : document.getElementById('camMsg');
+  msg.style.display='none';
+  btns.style.display='block'; video.style.display='block';
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){ msg.textContent='Browser does not support camera. Use Chrome.'; msg.style.display='block'; return; }
   navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640}},audio:false}).then(function(s){
-    _selfieStream=s; video.srcObject=s; video.play();
+    if(target==='cover'){ _coverStream=s; } else { _selfieStream=s; }
+    video.srcObject=s; video.play();
   }).catch(function(e){
-    alert('Camera blocked. Click Allow in address bar, or choose a file. ('+e.message+')');
-    document.getElementById('selfieInput').click();
+    msg.style.display='block';
+    msg.textContent='Camera blocked. Click the lock / camera icon in address bar -> Camera -> Allow -> Refresh page (F5) -> Tap Take Selfie again. ('+e.message+')';
+    btns.style.display='none'; video.style.display='none';
   });
 }
-function cancelSelfie(){
-  if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();});
-  document.getElementById('selfieVideo').style.display='none';
-  document.getElementById('selfieCameraBtns').style.display='none';
+function cancelSelfie(target){
+  target = target || 'profile';
+  if(target==='cover'){ if(_coverStream) _coverStream.getTracks().forEach(function(t){t.stop();}); _coverStream=null; document.getElementById('coverVideo').style.display='none'; document.getElementById('coverCameraBtns').style.display='none'; }
+  else { if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();}); _selfieStream=null; document.getElementById('selfieVideo').style.display='none'; document.getElementById('selfieCameraBtns').style.display='none'; }
 }
-function snapSelfie(){
-  var video=document.getElementById('selfieVideo');
-  var canvas=document.getElementById('selfieCanvas');
-  if(!video.videoWidth){ alert('Wait, camera still loading...'); return; }
+function snapSelfie(target){
+  target = target || 'profile';
+  var video = target==='cover' ? document.getElementById('coverVideo') : document.getElementById('selfieVideo');
+  var canvas = target==='cover' ? document.getElementById('coverCanvas') : document.getElementById('selfieCanvas');
+  var msg = target==='cover' ? document.getElementById('coverCamMsg') : document.getElementById('camMsg');
+  if(!video.videoWidth){ msg.textContent='Wait, camera still loading...'; msg.style.display='block'; return; }
   canvas.width=video.videoWidth; canvas.height=video.videoHeight;
   var ctx=canvas.getContext('2d'); ctx.drawImage(video,0,0);
   var d=canvas.toDataURL('image/jpeg',0.85);
-  cancelSelfie();
-  var im=document.getElementById('selfiePreview'); im.src=d; im.style.display='block'; document.getElementById('selfieIcon').style.display='none';
-  setVerified(true); saveField('selfie',d); saveField('selfieVerified',true); saveField('selfieUploaded',false); updateGate();
+  cancelSelfie(target);
+  if(target==='cover'){
+    var c=document.getElementById('coverPreview'); c.src=d; c.style.display='block'; document.getElementById('coverIcon').style.display='none';
+    saveField('cover',d); updateGate();
+  } else {
+    var im=document.getElementById('selfiePreview'); im.src=d; im.style.display='block'; document.getElementById('selfieIcon').style.display='none';
+    setVerified(true); saveField('selfie',d); saveField('selfieVerified',true); saveField('selfieUploaded',false); updateGate();
+  }
 }
 document.getElementById('selfieInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('selfiePreview'); im.src=d; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; setVerified(true); saveField('selfie',d); saveField('selfieVerified',true); saveField('selfieUploaded',false); updateGate(); }); };
 document.getElementById('uploadInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('selfiePreview'); im.src=d; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; setVerified(false); saveField('selfie',d); saveField('selfieVerified',false); saveField('selfieUploaded',true); updateGate(); }); };
@@ -191,7 +205,6 @@ function finishSetup(){
   try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
     if(!p.name || !p.number){ alert('❌ Missing: YOUR Name + Number. Fill them first.'); return; }
     if(!p.selfieVerified){ alert('❌ Missing: YOUR Profile Selfie. You must take it YOURSELF with camera. Upload does NOT count - it shows NOT VERIFIED.'); return; }
-    if(!p.cover){ alert('❌ Missing: YOUR Cover Photo. Add cover first.'); return; }
     p.setupDone=true; localStorage.setItem('tati_my_profile', JSON.stringify(p));
     alert('✅ SETUP DONE! You are good to go! Now you can Add People and Talk to people.');
     updateGate(); showTab('add');
@@ -213,7 +226,7 @@ function renderAll(){
   else { plist.innerHTML=ppl.map(function(r){ return '<div class="row" style="margin-bottom:12px"><img src="'+(r.photo||'')+'"><div class="info"><b>'+(r.name||r.number)+'</b><span>'+r.number+' • ✅ Accepted</span></div><a class="smallBtn" style="background:#00a884;color:#fff;text-decoration:none" href="./index.html?chat='+encodeURIComponent(r.number)+'">💬 Chat</a></div>'; }).join(''); }
 }
 function sendRequest(){
-  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first! Your Name + Number + Your Selfies. Then you can send requests.'); showTab('profile'); return; }
+  if(!isSetupDone()){ alert('🔒 Finish YOUR setup first! Your Name + Number + Your Selfie. Then you can send requests.'); showTab('profile'); return; }
   var num=document.getElementById('addNumber').value.trim(); var name=document.getElementById('addName').value.trim(); if(!num){ document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>'; return; } var list=getReq(); list.push({number:num,name:name||'',status:'pending',date:new Date().toLocaleString()}); localStorage.setItem('tati_requests', JSON.stringify(list)); document.getElementById('addMsg').innerHTML='✅ Request Sent to '+num+'! When they Accept, it will say <b>Request Accepted</b> and chat will open.'; document.getElementById('addNumber').value=''; document.getElementById('addName').value=''; renderAll(); }
 function answerIncoming(i,ans){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first before you Accept / Deny.'); showTab('profile'); return; } var inc=getInc(); inc[i].status=ans; localStorage.setItem('tati_incoming', JSON.stringify(inc)); if(ans==='accepted'){ var n=JSON.parse(localStorage.getItem('tati_notifications')||'[]'); n.unshift({type:'accepted',name:inc[i].name||inc[i].number,number:inc[i].number,date:new Date().toLocaleString(),text:'Accepted your request - Chat is now open'}); localStorage.setItem('tati_notifications', JSON.stringify(n)); } renderAll(); alert(ans==='accepted'?'✅ You Accepted! Chat is now open for you two.':'❌ You Denied. Request removed.'); }
 function demoIncoming(){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first to test.'); showTab('profile'); return; } var inc=getInc(); inc.unshift({name:'Thabo M.',number:'+258 84 123 4567',status:'pending',photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',cover:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400'}); localStorage.setItem('tati_incoming', JSON.stringify(inc)); renderAll(); showTab('add'); }
