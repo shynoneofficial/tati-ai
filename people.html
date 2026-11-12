@@ -44,6 +44,11 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 .lockBox h2{font-size:17px;margin-bottom:6px}
 .step{font-size:12px;font-weight:800;color:#856404}
 .hidden{display:none!important}
+/* ADDED BY ASH FIX - Camera modal only, no design change */
+#cameraModal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
+#cameraModal.open{display:flex}
+#cameraBox{background:#fff;border-radius:16px;padding:14px;width:100%;max-width:380px;text-align:center}
+#cameraVideo{width:100%;border-radius:12px;background:#000;transform:scaleX(-1)}
 </style></head><body>
 <a class="back" href="./index.html">← Back to Tati</a>
 <h1>👥 People</h1>
@@ -74,10 +79,10 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 
 <div class="card">
 <h2>2️⃣ PROFILE SELFIE - Take It Yourself - Required</h2>
-<div class="avatarBox" onclick="document.getElementById('selfieInput').click()"><img id="selfiePreview"><span id="selfieIcon">📸</span></div>
+<div class="avatarBox" onclick="openSelfieCamera('profile')"><img id="selfiePreview"><span id="selfieIcon">📸</span></div>
 <div style="text-align:center"><span id="selfieBadge" class="badge warn">⚠️ NOT VERIFIED - No selfie yet</span><p class="notice" id="selfieNotice">Take a selfie with camera to prove YOU are a real person. <b>If you only upload a photo, we show NOT VERIFIED.</b></p></div>
-<input type="file" id="selfieInput" accept="image/*" capture="user" class="hidden">
-<button class="btn btn-green" onclick="document.getElementById('selfieInput').click()">📸 Take Selfie - Face + Chest - YOURSELF</button>
+<input type="file" id="selfieInput" accept="image/*" class="hidden">
+<button class="btn btn-green" onclick="openSelfieCamera('profile')">📸 Take Selfie - Face + Chest - YOURSELF</button>
 <button class="btn btn-grey" onclick="document.getElementById('uploadInput').click()">🖼️ Upload Photo Instead - Shows NOT VERIFIED</button>
 <input type="file" id="uploadInput" accept="image/*" class="hidden">
 <p class="notice">Selfie tip: Look at camera, smile, show face + chest. So people know it is really YOU.</p>
@@ -87,8 +92,8 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <h2>3️⃣ COVER PHOTO - Required</h2>
 <div class="photoBox" onclick="document.getElementById('coverInput').click()"><img id="coverPreview"><span id="coverIcon">🖼️ Tap to add cover</span></div>
 <input type="file" id="coverInput" accept="image/*" class="hidden">
-<div style="display:flex;gap:8px"><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverInput').click()">Upload Cover</button><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverSelfieInput').click()">📸 Take Selfie</button></div>
-<input type="file" id="coverSelfieInput" accept="image/*" capture="user" class="hidden">
+<div style="display:flex;gap:8px"><button class="btn btn-grey" style="flex:1" onclick="document.getElementById('coverInput').click()">Upload Cover</button><button class="btn btn-grey" style="flex:1" onclick="openSelfieCamera('cover')">📸 Take Selfie</button></div>
+<input type="file" id="coverSelfieInput" accept="image/*" class="hidden">
 <p class="notice">Cover can be upload OR selfie - both okay.</p>
 </div>
 
@@ -124,7 +129,53 @@ input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size
 <div class="card"><h2>👥 My People <span id="peopleCount"></span></h2><div id="peopleList"><p class="notice">No people yet.</p></div></div>
 </div>
 
+<!-- CAMERA MODAL - ADDED FOR ASH, FRONT CAMERA FIX -->
+<div id="cameraModal"><div id="cameraBox"><h2 style="margin-bottom:8px">📸 Take Selfie</h2><p class="notice" style="margin-bottom:8px">Look at camera, smile, show face + chest.</p><video id="cameraVideo" playsinline autoplay muted></video><canvas id="cameraCanvas" style="display:none"></canvas><button class="btn btn-green" onclick="takeSelfiePhoto()">✅ Take Photo</button><button class="btn btn-grey" onclick="closeSelfieCamera()">❌ Cancel</button><p class="notice" id="cameraError" style="display:none;color:#b00020"></p></div></div>
+
 <script>
+// --- FRONT CAMERA FIX FOR ASH ---
+let _selfieStream = null;
+let _selfieTarget = 'profile';
+async function openSelfieCamera(target){
+  _selfieTarget = target || 'profile';
+  var modal = document.getElementById('cameraModal');
+  var err = document.getElementById('cameraError');
+  err.style.display='none'; err.textContent='';
+  modal.classList.add('open');
+  try{
+    if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();});
+    _selfieStream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false });
+    document.getElementById('cameraVideo').srcObject = _selfieStream;
+  }catch(e){
+    err.style.display='block';
+    err.textContent='Camera blocked, Ash. Tap Allow in browser, or use Upload instead. ('+e.message+')';
+    // Fallback: open file picker
+    setTimeout(function(){ closeSelfieCamera(); if(_selfieTarget==='profile') document.getElementById('selfieInput').click(); else document.getElementById('coverSelfieInput').click(); }, 800);
+  }
+}
+function closeSelfieCamera(){
+  if(_selfieStream) _selfieStream.getTracks().forEach(function(t){t.stop();});
+  _selfieStream=null;
+  document.getElementById('cameraModal').classList.remove('open');
+}
+function takeSelfiePhoto(){
+  var video=document.getElementById('cameraVideo');
+  var canvas=document.getElementById('cameraCanvas');
+  if(!video.videoWidth){ alert('Wait a second, Ash, camera still loading...'); return; }
+  canvas.width=video.videoWidth; canvas.height=video.videoHeight;
+  var ctx=canvas.getContext('2d');
+  ctx.translate(canvas.width,0); ctx.scale(-1,1);
+  ctx.drawImage(video,0,0);
+  var data=canvas.toDataURL('image/jpeg',0.85);
+  closeSelfieCamera();
+  if(_selfieTarget==='profile'){
+    var im=document.getElementById('selfiePreview'); im.src=data; im.style.display='block'; document.getElementById('selfieIcon').style.display='none';
+    setVerified(true); saveField('selfie',data); saveField('selfieVerified',true); saveField('selfieUploaded',false);
+  } else {
+    var c=document.getElementById('coverPreview'); c.src=data; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',data);
+  }
+  updateGate();
+}
 function isSetupDone(){
   try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
     return !!(p.name && p.number && p.selfieVerified && p.cover && p.setupDone);
