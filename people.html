@@ -8,19 +8,23 @@ body{background:#f6f3ee;padding:12px;padding-bottom:30px}
 a.back{color:#0a192f;text-decoration:none;font-weight:800;font-size:14px}
 h1{font-size:22px;margin:12px 0 4px}
 p.sub{color:#667781;font-size:13px;margin-bottom:12px;line-height:1.4}
-.tabs{display:flex;background:#fff;padding:4px;border-radius:12px;gap:4px;margin-bottom:14px}
-.tabs button{flex:1;padding:11px;border:none;border-radius:9px;font-weight:800;font-size:14px;background:transparent;cursor:pointer}
+/* FIXED TABS - No more long line from right to left. Small pills only */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;justify-content:flex-start}
+.tabs button{padding:10px 14px;border:none;border-radius:999px;font-weight:800;font-size:13px;background:#fff;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.08);width:auto;flex:none}
 .tabs button.on{background:#0a192f;color:#fff}
-.tabs button:disabled{opacity:.4}
-.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);max-width:520px}
 .card h2{font-size:16px;margin-bottom:8px}
 label{font-size:12px;font-weight:800;color:#667781;display:block;margin:10px 0 4px}
 input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none}
-select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none;background:#fff;font-weight:600}
-.btn{display:block;width:100%;padding:13px;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;text-align:center;text-decoration:none;margin-top:12px}
+input.error{border:2px solid #ff3b30;background:#fff0f0}
+input.ok{border:2px solid #00a884;background:#f0fff4}
+select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none;background:#fff;font-weight:600;max-width:520px}
+/* FIXED BUTTONS - Not full width centre anymore. Small, left aligned */
+.btn{display:inline-block;padding:12px 20px;border:none;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;text-align:center;text-decoration:none;margin-top:12px;width:auto}
 .btn-green{background:#00a884;color:#fff}
 .btn-dark{background:#0a192f;color:#fff}
 .btn-grey{background:#f0f2f5;color:#111}
+.btn-full{display:block;width:100%}
 .avatarBox{width:90px;height:90px;border-radius:50%;overflow:hidden;background:#eee;margin:0 auto;display:flex;align-items:center;justify-content:center;border:3px solid #00a884}
 .avatarBox img{width:100%;height:100%;object-fit:cover;display:none}
 .photoBox{width:100%;height:150px;border-radius:12px;overflow:hidden;background:#eee;display:flex;align-items:center;justify-content:center}
@@ -31,6 +35,8 @@ select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-siz
 .badge.warn{background:#fff3cd;color:#856404}
 .notice{font-size:12px;line-height:1.4;color:#667781;margin-top:6px}
 .notice b{color:#111}
+.notice.err{color:#b00020;font-weight:700}
+.notice.good{color:#075e54;font-weight:700}
 .row{display:flex;gap:10px;align-items:center}
 .row img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee}
 .row .info{flex:1}
@@ -41,13 +47,13 @@ select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-siz
 .reqPhotos img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee;border:2px solid #00a884}
 .reqPhotos img.cover{border-radius:10px;width:90px;height:48px;border-color:#ddd}
 .accBtn{flex:1;padding:11px;border:none;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
-.lockBox{background:#fff3cd;border:2px solid #ffcc00;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center}
+.lockBox{background:#fff3cd;border:2px solid #ffcc00;border-radius:14px;padding:14px;margin-bottom:12px;text-align:left;max-width:520px}
 .lockBox h2{font-size:17px;margin-bottom:6px}
 .hidden{display:none!important}
 .phoneRow{display:flex;gap:8px;margin-top:8px;align-items:stretch}
 .codeBox{flex:0 0 78px;background:#0a192f;color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
 .phoneRow input{flex:1}
-.reqCard{border:2px solid #00a884;border-radius:14px;padding:14px;margin-bottom:12px;background:#f9fff9}
+.reqCard{border:2px solid #00a884;border-radius:14px;padding:14px;margin-bottom:12px;background:#f9fff9;max-width:520px}
 .reqCard h3{font-size:16px;margin-bottom:4px}
 .reqCard .meta{font-size:13px;color:#333;line-height:1.5;margin:8px 0}
 </style></head><body>
@@ -71,8 +77,8 @@ select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-siz
 <label>YOUR COUNTRY *</label>
 <select id="myCountryCode"></select>
 <label>YOUR NUMBER *</label>
-<div class="phoneRow"><div class="codeBox" id="myCodeDisplay">+258</div><input id="myNumber" placeholder="84 000 0000" inputmode="tel"></div>
-<p class="notice">Pick your country at the top, then type your number. Code is next to the number.</p>
+<div class="phoneRow"><div class="codeBox" id="myCodeDisplay">+258</div><input id="myNumber" placeholder="84 000 0000" inputmode="tel" oninput="validateNumber('myCountryCode','myNumber','myNumMsg')"></div>
+<p class="notice" id="myNumMsg">Pick your country at the top, then type your number. Code is next to the number.</p>
 <label>ABOUT ME</label><input id="myAbout" placeholder="Ex: I love music">
 <button class="btn btn-dark" onclick="saveProfile()">💾 Save Name + Number</button>
 <p class="notice" id="saveMsg"></p>
@@ -86,7 +92,7 @@ select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-siz
 <div id="selfieCameraBtns" style="display:none;text-align:center"><button class="btn btn-green" type="button" onclick="snapSelfie('profile')">✅ Take Photo</button><button class="btn btn-grey" type="button" onclick="cancelSelfie('profile')">❌ Cancel</button></div>
 <p id="camMsg" class="notice" style="display:none;color:#b00020;text-align:center"></p>
 <input type="file" id="selfieInput" accept="image/*" class="hidden">
-<button class="btn btn-green" onclick="takeSelfie('profile')">📸 Take Selfie - Face + Chest - YOURSELF</button>
+<button class="btn btn-green" onclick="takeSelfie('profile')">📸 Take Selfie - Face + Chest - YOURSELF</button><br>
 <button class="btn btn-grey" onclick="document.getElementById('uploadInput').click()">🖼️ Upload Photo Instead - Shows NOT VERIFIED</button>
 <input type="file" id="uploadInput" accept="image/*" class="hidden">
 <p class="notice">Selfie tip: Look at camera, smile, show face + chest. On phone, if it opens back camera, tap the flip icon to switch to front.</p>
@@ -116,7 +122,8 @@ select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-siz
 <label>PERSON'S COUNTRY *</label>
 <select id="addCountryCode"></select>
 <label>PERSON'S NUMBER *</label>
-<div class="phoneRow"><div class="codeBox" id="addCodeDisplay">+258</div><input id="addNumber" placeholder="84 000 0000" inputmode="tel"></div>
+<div class="phoneRow"><div class="codeBox" id="addCodeDisplay">+258</div><input id="addNumber" placeholder="84 000 0000" inputmode="tel" oninput="validateNumber('addCountryCode','addNumber','addNumMsg')"></div>
+<p class="notice" id="addNumMsg">Pick their country, then type their number.</p>
 <label>PERSON'S NAME (if you know it)</label><input id="addName" placeholder="Ex: Mama / Thabo / Leave empty">
 <button class="btn btn-green" onclick="sendRequest()">📩 Send Request</button>
 <p class="notice" id="addMsg"></p>
@@ -136,11 +143,10 @@ select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-siz
 <div class="card"><h2>👥 My People <span id="peopleCount"></span></h2><div id="peopleList"><p class="notice">No people yet.</p></div></div>
 </div>
 <script>
-// ALL COUNTRIES - Name + Code
 var COUNTRIES=[
-["Afghanistan","+93"],["Albania","+355"],["Algeria","+213"],["Andorra","+376"],["Angola","+244"],["Antigua and Barbuda","+1268"],["Argentina","+54"],["Armenia","+374"],["Australia","+61"],["Austria","+43"],["Azerbaijan","+994"],["Bahamas","+1242"],["Bahrain","+973"],["Bangladesh","+880"],["Barbados","+1246"],["Belarus","+375"],["Belgium","+32"],["Belize","+501"],["Benin","+229"],["Bhutan","+975"],["Bolivia","+591"],["Bosnia and Herzegovina","+387"],["Botswana","+267"],["Brazil","+55"],["Brunei","+673"],["Bulgaria","+359"],["Burkina Faso","+226"],["Burundi","+257"],["Cambodia","+855"],["Cameroon","+237"],["Canada","+1"],["Cape Verde","+238"],["Central African Republic","+236"],["Chad","+235"],["Chile","+56"],["China","+86"],["Colombia","+57"],["Comoros","+269"],["Congo","+242"],["Congo (DRC)","+243"],["Costa Rica","+506"],["Croatia","+385"],["Cuba","+53"],["Cyprus","+357"],["Czechia","+420"],["Denmark","+45"],["Djibouti","+253"],["Dominica","+1767"],["Dominican Republic","+1809"],["Ecuador","+593"],["Egypt","+20"],["El Salvador","+503"],["Equatorial Guinea","+240"],["Eritrea","+291"],["Estonia","+372"],["Eswatini","+268"],["Ethiopia","+251"],["Fiji","+679"],["Finland","+358"],["France","+33"],["Gabon","+241"],["Gambia","+220"],["Georgia","+995"],["Germany","+49"],["Ghana","+233"],["Greece","+30"],["Grenada","+1473"],["Guatemala","+502"],["Guinea","+224"],["Guinea-Bissau","+245"],["Guyana","+592"],["Haiti","+509"],["Honduras","+504"],["Hong Kong","+852"],["Hungary","+36"],["Iceland","+354"],["India","+91"],["Indonesia","+62"],["Iran","+98"],["Iraq","+964"],["Ireland","+353"],["Israel","+972"],["Italy","+39"],["Jamaica","+1876"],["Japan","+81"],["Jordan","+962"],["Kazakhstan","+7"],["Kenya","+254"],["Kiribati","+686"],["Kuwait","+965"],["Kyrgyzstan","+996"],["Laos","+856"],["Latvia","+371"],["Lebanon","+961"],["Lesotho","+266"],["Liberia","+231"],["Libya","+218"],["Liechtenstein","+423"],["Lithuania","+370"],["Luxembourg","+352"],["Madagascar","+261"],["Malawi","+265"],["Malaysia","+60"],["Maldives","+960"],["Mali","+223"],["Malta","+356"],["Marshall Islands","+692"],["Mauritania","+222"],["Mauritius","+230"],["Mexico","+52"],["Micronesia","+691"],["Moldova","+373"],["Monaco","+377"],["Mongolia","+976"],["Montenegro","+382"],["Morocco","+212"],["Mozambique","+258"],["Myanmar","+95"],["Namibia","+264"],["Nauru","+674"],["Nepal","+977"],["Netherlands","+31"],["New Zealand","+64"],["Nicaragua","+505"],["Niger","+227"],["Nigeria","+234"],["North Korea","+850"],["North Macedonia","+389"],["Norway","+47"],["Oman","+968"],["Pakistan","+92"],["Palau","+680"],["Palestine","+970"],["Panama","+507"],["Papua New Guinea","+675"],["Paraguay","+595"],["Peru","+51"],["Philippines","+63"],["Poland","+48"],["Portugal","+351"],["Qatar","+974"],["Romania","+40"],["Russia","+7"],["Rwanda","+250"],["Saint Kitts and Nevis","+1869"],["Saint Lucia","+1758"],["Saint Vincent","+1784"],["Samoa","+685"],["San Marino","+378"],["Sao Tome and Principe","+239"],["Saudi Arabia","+966"],["Senegal","+221"],["Serbia","+381"],["Seychelles","+248"],["Sierra Leone","+232"],["Singapore","+65"],["Slovakia","+421"],["Slovenia","+386"],["Solomon Islands","+677"],["Somalia","+252"],["South Africa","+27"],["South Korea","+82"],["South Sudan","+211"],["Spain","+34"],["Sri Lanka","+94"],["Sudan","+249"],["Suriname","+597"],["Sweden","+46"],["Switzerland","+41"],["Syria","+963"],["Taiwan","+886"],["Tajikistan","+992"],["Tanzania","+255"],["Thailand","+66"],["Timor-Leste","+670"],["Togo","+228"],["Tonga","+676"],["Trinidad and Tobago","+1868"],["Tunisia","+216"],["Turkey","+90"],["Turkmenistan","+993"],["Tuvalu","+688"],["Uganda","+256"],["Ukraine","+380"],["United Arab Emirates","+971"],["United Kingdom","+44"],["United States","+1"],["Uruguay","+598"],["Uzbekistan","+998"],["Vanuatu","+678"],["Vatican City","+379"],["Venezuela","+58"],["Vietnam","+84"],["Yemen","+967"],["Zambia","+260"],["Zimbabwe","+263"]
+["Afghanistan","+93",9],["Albania","+355",9],["Algeria","+213",9],["Andorra","+376",6],["Angola","+244",9],["Antigua and Barbuda","+1268",7],["Argentina","+54",10],["Armenia","+374",8],["Australia","+61",9],["Austria","+43",10],["Azerbaijan","+994",9],["Bahamas","+1242",7],["Bahrain","+973",8],["Bangladesh","+880",10],["Barbados","+1246",7],["Belarus","+375",9],["Belgium","+32",9],["Belize","+501",7],["Benin","+229",8],["Bhutan","+975",8],["Bolivia","+591",8],["Bosnia and Herzegovina","+387",8],["Botswana","+267",7],["Brazil","+55",11],["Brunei","+673",7],["Bulgaria","+359",9],["Burkina Faso","+226",8],["Burundi","+257",8],["Cambodia","+855",9],["Cameroon","+237",9],["Canada","+1",10],["Cape Verde","+238",7],["Central African Republic","+236",8],["Chad","+235",8],["Chile","+56",9],["China","+86",11],["Colombia","+57",10],["Comoros","+269",7],["Congo","+242",9],["Congo (DRC)","+243",9],["Costa Rica","+506",8],["Croatia","+385",9],["Cuba","+53",8],["Cyprus","+357",8],["Czechia","+420",9],["Denmark","+45",8],["Djibouti","+253",8],["Dominica","+1767",7],["Dominican Republic","+1809",10],["Ecuador","+593",9],["Egypt","+20",10],["El Salvador","+503",8],["Equatorial Guinea","+240",9],["Eritrea","+291",7],["Estonia","+372",7],["Eswatini","+268",8],["Ethiopia","+251",9],["Fiji","+679",7],["Finland","+358",10],["France","+33",9],["Gabon","+241",8],["Gambia","+220",7],["Georgia","+995",9],["Germany","+49",10],["Ghana","+233",9],["Greece","+30",10],["Grenada","+1473",7],["Guatemala","+502",8],["Guinea","+224",9],["Guinea-Bissau","+245",9],["Guyana","+592",7],["Haiti","+509",8],["Honduras","+504",8],["Hong Kong","+852",8],["Hungary","+36",9],["Iceland","+354",7],["India","+91",10],["Indonesia","+62",10],["Iran","+98",10],["Iraq","+964",10],["Ireland","+353",9],["Israel","+972",9],["Italy","+39",10],["Jamaica","+1876",7],["Japan","+81",10],["Jordan","+962",9],["Kazakhstan","+7",10],["Kenya","+254",9],["Kiribati","+686",8],["Kuwait","+965",8],["Kyrgyzstan","+996",9],["Laos","+856",9],["Latvia","+371",8],["Lebanon","+961",7],["Lesotho","+266",8],["Liberia","+231",7],["Libya","+218",9],["Liechtenstein","+423",7],["Lithuania","+370",8],["Luxembourg","+352",9],["Madagascar","+261",9],["Malawi","+265",9],["Malaysia","+60",9],["Maldives","+960",7],["Mali","+223",8],["Malta","+356",8],["Marshall Islands","+692",7],["Mauritania","+222",8],["Mauritius","+230",8],["Mexico","+52",10],["Micronesia","+691",7],["Moldova","+373",8],["Monaco","+377",8],["Mongolia","+976",8],["Montenegro","+382",8],["Morocco","+212",9],["Mozambique","+258",9],["Myanmar","+95",9],["Namibia","+264",9],["Nauru","+674",7],["Nepal","+977",10],["Netherlands","+31",9],["New Zealand","+64",9],["Nicaragua","+505",8],["Niger","+227",8],["Nigeria","+234",10],["North Korea","+850",9],["North Macedonia","+389",8],["Norway","+47",8],["Oman","+968",8],["Pakistan","+92",10],["Palau","+680",7],["Palestine","+970",9],["Panama","+507",8],["Papua New Guinea","+675",7],["Paraguay","+595",9],["Peru","+51",9],["Philippines","+63",10],["Poland","+48",9],["Portugal","+351",9],["Qatar","+974",8],["Romania","+40",10],["Russia","+7",10],["Rwanda","+250",9],["Saint Kitts and Nevis","+1869",7],["Saint Lucia","+1758",7],["Saint Vincent","+1784",7],["Samoa","+685",7],["San Marino","+378",7],["Sao Tome and Principe","+239",7],["Saudi Arabia","+966",9],["Senegal","+221",9],["Serbia","+381",9],["Seychelles","+248",7],["Sierra Leone","+232",8],["Singapore","+65",8],["Slovakia","+421",9],["Slovenia","+386",8],["Solomon Islands","+677",7],["Somalia","+252",8],["South Africa","+27",9],["South Korea","+82",10],["South Sudan","+211",9],["Spain","+34",9],["Sri Lanka","+94",9],["Sudan","+249",9],["Suriname","+597",7],["Sweden","+46",9],["Switzerland","+41",9],["Syria","+963",9],["Taiwan","+886",9],["Tajikistan","+992",9],["Tanzania","+255",9],["Thailand","+66",9],["Timor-Leste","+670",8],["Togo","+228",8],["Tonga","+676",7],["Trinidad and Tobago","+1868",7],["Tunisia","+216",8],["Turkey","+90",10],["Turkmenistan","+993",8],["Tuvalu","+688",7],["Uganda","+256",9],["Ukraine","+380",9],["United Arab Emirates","+971",9],["United Kingdom","+44",10],["United States","+1",10],["Uruguay","+598",8],["Uzbekistan","+998",9],["Vanuatu","+678",7],["Vatican City","+379",8],["Venezuela","+58",10],["Vietnam","+84",9],["Yemen","+967",9],["Zambia","+260",9],["Zimbabwe","+263",9]
 ];
-var COUNTRY_BY_CODE={}; COUNTRIES.forEach(function(c){ COUNTRY_BY_CODE[c[1]]=c[0]; });
+var COUNTRY_BY_CODE={}; var LENGTH_BY_CODE={}; COUNTRIES.forEach(function(c){ COUNTRY_BY_CODE[c[1]]=c[0]; LENGTH_BY_CODE[c[1]]=c[2]; });
 function buildCountrySelect(selId, displayId, defaultCode){
   var sel=document.getElementById(selId);
   sel.innerHTML='';
@@ -149,11 +155,46 @@ function buildCountrySelect(selId, displayId, defaultCode){
     if(c[1]===defaultCode) o.selected=true;
     sel.appendChild(o);
   });
-  sel.onchange=function(){ document.getElementById(displayId).textContent=sel.value; };
+  sel.onchange=function(){
+    document.getElementById(displayId).textContent=sel.value;
+    var numId = selId==='myCountryCode' ? 'myNumber' : 'addNumber';
+    var msgId = selId==='myCountryCode' ? 'myNumMsg' : 'addNumMsg';
+    validateNumber(selId, numId, msgId);
+  };
   document.getElementById(displayId).textContent=sel.value;
 }
 buildCountrySelect('myCountryCode','myCodeDisplay','+258');
 buildCountrySelect('addCountryCode','addCodeDisplay','+258');
+// NEW: Check digits per country - red if wrong, green if correct
+function validateNumber(selId, numId, msgId){
+  var sel=document.getElementById(selId);
+  var input=document.getElementById(numId);
+  var msg=document.getElementById(msgId);
+  var code=sel.value;
+  var country=sel.options[sel.selectedIndex].getAttribute('data-country');
+  var need=LENGTH_BY_CODE[code]||9;
+  var digits=input.value.replace(/\D/g,'').replace(/^0+/,'');
+  // Show cleaned digits count - remove spaces
+  var typed=digits.length;
+  if(typed===0){
+    input.className=''; input.classList.remove('error','ok');
+    msg.className='notice'; msg.textContent=country+' needs '+need+' digits. Ex: type '+need+' digits.';
+    return false;
+  }
+  if(typed < need){
+    input.classList.add('error'); input.classList.remove('ok');
+    msg.className='notice err'; msg.textContent='❌ Wrong! '+country+' needs '+need+' digits. You typed '+typed+'. Add '+(need-typed)+' more digit(s).';
+    return false;
+  }
+  if(typed > need){
+    input.classList.add('error'); input.classList.remove('ok');
+    msg.className='notice err'; msg.textContent='❌ Too many! '+country+' needs '+need+' digits. You typed '+typed+'. Remove '+(typed-need)+' digit(s).';
+    return false;
+  }
+  input.classList.remove('error'); input.classList.add('ok');
+  msg.className='notice good'; msg.textContent='✅ Correct! '+country+' - '+need+' digits. Good!';
+  return true;
+}
 function getCountryNameFromSelect(selId){
   var sel=document.getElementById(selId);
   var opt=sel.options[sel.selectedIndex];
@@ -197,7 +238,7 @@ function tryShowTab(t){
   showTab(t);
 }
 function showTab(t){ ['profile','add','list'].forEach(function(x){ document.getElementById('view-'+x).classList.toggle('hidden', x!==t); document.getElementById('tab'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('on', x===t); }); }
-try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(p.name) document.getElementById('myName').value=p.name; if(p.number){ var s=splitSavedNumber(p.number); var sel=document.getElementById('myCountryCode'); if(s.code){ for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value===s.code){ sel.selectedIndex=i; break; } } } document.getElementById('myCodeDisplay').textContent=sel.value; document.getElementById('myNumber').value=s.num; } if(p.about) document.getElementById('myAbout').value=p.about; if(p.selfie){ var im=document.getElementById('selfiePreview'); im.src=p.selfie; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; } if(p.selfieVerified) setVerified(true); if(p.selfieUploaded) setVerified(false); if(p.cover){ var c=document.getElementById('coverPreview'); c.src=p.cover; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; } }catch(e){}
+try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(p.name) document.getElementById('myName').value=p.name; if(p.number){ var s=splitSavedNumber(p.number); var sel=document.getElementById('myCountryCode'); if(s.code){ for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value===s.code){ sel.selectedIndex=i; break; } } } document.getElementById('myCodeDisplay').textContent=sel.value; document.getElementById('myNumber').value=s.num; validateNumber('myCountryCode','myNumber','myNumMsg'); } if(p.about) document.getElementById('myAbout').value=p.about; if(p.selfie){ var im=document.getElementById('selfiePreview'); im.src=p.selfie; im.style.display='block'; document.getElementById('selfieIcon').style.display='none'; } if(p.selfieVerified) setVerified(true); if(p.selfieUploaded) setVerified(false); if(p.cover){ var c=document.getElementById('coverPreview'); c.src=p.cover; c.style.display='block'; document.getElementById('coverIcon').style.display='none'; } }catch(e){}
 function setVerified(isSelfie){ var b=document.getElementById('selfieBadge'); if(isSelfie){ b.className='badge ok'; b.textContent='✅ VERIFIED - Real Person - Selfie taken'; document.getElementById('selfieNotice').innerHTML='Great! You took a selfie YOURSELF. People can trust you are real.'; } else { b.className='badge no'; b.textContent='⚠️ NOT VERIFIED - Uploaded photo, not selfie'; document.getElementById('selfieNotice').innerHTML='<b>Not Verified.</b> You uploaded a photo, you did not prove YOU are real with selfie. Take a selfie yourself to become Verified.'; } }
 function readFile(input,cb){ var f=input.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ cb(r.result); }; r.readAsDataURL(f); }
 var _selfieStream=null; var _coverStream=null;
@@ -252,7 +293,7 @@ document.getElementById('uploadInput').onchange=function(){ readFile(this,functi
 document.getElementById('coverInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('coverPreview'); im.src=d; im.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',d); updateGate(); }); };
 document.getElementById('coverSelfieInput').onchange=function(){ readFile(this,function(d){ var im=document.getElementById('coverPreview'); im.src=d; im.style.display='block'; document.getElementById('coverIcon').style.display='none'; saveField('cover',d); updateGate(); }); };
 function saveField(k,v){ try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); p[k]=v; localStorage.setItem('tati_my_profile', JSON.stringify(p)); }catch(e){} }
-function saveProfile(){ var name=document.getElementById('myName').value.trim(); var fullNum=getFullNumber('myCountryCode','myNumber'); var country=getCountryNameFromSelect('myCountryCode'); if(!name||!fullNum){ document.getElementById('saveMsg').innerHTML='<b>Please fill YOUR Name + YOUR Number.</b>'; return; } saveField('name',name); saveField('number',fullNum); saveField('countryCode',document.getElementById('myCountryCode').value); saveField('country',country); saveField('about', document.getElementById('myAbout').value.trim()); document.getElementById('saveMsg').textContent='✅ Saved! '+fullNum+' - '+country+' - Now take your selfie.'; updateGate(); }
+function saveProfile(){ var name=document.getElementById('myName').value.trim(); var fullNum=getFullNumber('myCountryCode','myNumber'); var country=getCountryNameFromSelect('myCountryCode'); if(!name||!fullNum){ document.getElementById('saveMsg').innerHTML='<b>Please fill YOUR Name + YOUR Number.</b>'; return; } if(!validateNumber('myCountryCode','myNumber','myNumMsg')){ document.getElementById('saveMsg').innerHTML='<b>❌ Fix your number first - check red message above.</b>'; return; } saveField('name',name); saveField('number',fullNum); saveField('countryCode',document.getElementById('myCountryCode').value); saveField('country',country); saveField('about', document.getElementById('myAbout').value.trim()); document.getElementById('saveMsg').textContent='✅ Saved! '+fullNum+' - '+country+' - Now take your selfie.'; updateGate(); }
 function finishSetup(){
   try{ var p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
     if(!p.name || !p.number){ alert('❌ Missing: YOUR Name + Number. Fill them first.'); return; }
@@ -279,7 +320,8 @@ function renderAll(){
 }
 function sendRequest(){
   if(!isSetupDone()){ alert('🔒 Finish YOUR setup first! Your Name + Number + Your Selfie. Then you can send requests.'); showTab('profile'); return; }
-  var num=getFullNumber('addCountryCode','addNumber'); var country=getCountryNameFromSelect('addCountryCode'); var name=document.getElementById('addName').value.trim(); if(!num){ document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>'; return; } 
+  var num=getFullNumber('addCountryCode','addNumber'); var country=getCountryNameFromSelect('addCountryCode'); var name=document.getElementById('addName').value.trim(); if(!num){ document.getElementById('addMsg').innerHTML='<b>Please add the number.</b>'; return; }
+  if(!validateNumber('addCountryCode','addNumber','addNumMsg')){ document.getElementById('addMsg').innerHTML='<b>❌ Fix their number first - check red message above.</b>'; return; }
   var me={}; try{ me=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); }catch(e){}
   var list=getReq(); list.push({number:num,name:name||'',country:country,countryCode:document.getElementById('addCountryCode').value,status:'pending',date:new Date().toLocaleString(),photo:me.selfie||'',cover:me.cover||'',fromName:me.name||'',fromNumber:me.number||'',fromCountry:me.country||''}); localStorage.setItem('tati_requests', JSON.stringify(list)); document.getElementById('addMsg').innerHTML='✅ Request Sent to '+num+' ('+country+')! When they Accept, it will say <b>Request Accepted</b> and chat will open.'; document.getElementById('addNumber').value=''; document.getElementById('addName').value=''; renderAll(); }
 function answerIncoming(i,ans){ if(!isSetupDone()){ alert('🔒 Finish YOUR setup first before you Accept / Decline.'); showTab('profile'); return; } var inc=getInc(); inc[i].status=ans; localStorage.setItem('tati_incoming', JSON.stringify(inc)); if(ans==='accepted'){ var n=JSON.parse(localStorage.getItem('tati_notifications')||'[]'); n.unshift({type:'accepted',name:inc[i].name||inc[i].number,number:inc[i].number,date:new Date().toLocaleString(),text:'Accepted your request - Chat is now open'}); localStorage.setItem('tati_notifications', JSON.stringify(n)); } renderAll(); alert(ans==='accepted'?'✅ You Accepted! Chat is now open for you two.':'❌ You Declined. Request removed.'); }
