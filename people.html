@@ -15,7 +15,7 @@ body{background:#f6f3ee;padding-bottom:20px}
 .meBar img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #00a884;background:#eee}
 .meBar .info{flex:1;min-width:0}
 .meBar .info b{font-size:17px;display:flex;align-items:center;gap:6px}
-.dot{width:10px;height:10px;background:#00a884;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px #d9fdd3}
+.dot{width:10px;height:10px;background:#00a884;border-radius:50%;display:inline-block}
 .meBar .info span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .editBtn{padding:9px 14px;border-radius:999px;border:1px solid #ddd;background:#fff;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
 .layout{display:flex;gap:12px;align-items:flex-start}
@@ -40,8 +40,8 @@ body{background:#f6f3ee;padding-bottom:20px}
 .chatHead .info{flex:1}
 .chatHead .info b{font-size:16px}
 .chatHead .info span{font-size:12px;color:#667781;display:block}
-.callBtn{width:38px;height:38px;border:none;background:#e8e8e8;color:#111;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0}
-.callBtn.video{background:#e8e8e8;color:#111}
+.callBtn{width:38px;height:38px;border:none;background:#111;color:#fff;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0}
+.callBtn.video{background:#111;color:#fff}
 .backBtn{display:none;background:#0a192f;color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0}
 .chatBody{flex:1;min-height:0;padding:14px;padding-bottom:20px;overflow-y:auto;overscroll-behavior:contain;background:#efeae2;display:flex;flex-direction:column;align-items:flex-start}
 .empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;color:#667781}
@@ -59,10 +59,7 @@ body{background:#f6f3ee;padding-bottom:20px}
 .tatiStatus.read .tatiDot{width:6px;height:6px;background:#0a2a8a;border:1.5px solid #fff;box-shadow:0 0 0 1.5px #0a2a8a}
 .typingRow{display:none;align-items:center;gap:8px;background:#fff;padding:8px 12px;border-radius:14px;font-size:13px;color:#667781;margin:0 14px 8px 14px;align-self:flex-start}
 .typingDots{display:flex;gap:3px}
-.typingDots i{width:7px;height:7px;background:#00a884;border-radius:50%;display:block;animation:tb 1s infinite}
-.typingDots i:nth-child(2){animation-delay:.2s}
-.typingDots i:nth-child(3){animation-delay:.4s}
-@keyframes tb{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+.typingDots i{width:7px;height:7px;background:#00a884;border-radius:50%;display:block}
 .recDot{width:10px;height:10px;background:#00a884;border-radius:50%;display:inline-block}
 .chatInput{display:flex;gap:8px;padding:10px;border-top:1px solid #f0f2f5;background:#fff;flex-direction:column;position:sticky;bottom:0;z-index:20;flex-shrink:0}
 .chatInputRow{display:flex;gap:8px;align-items:center}
@@ -70,18 +67,9 @@ body{background:#f6f3ee;padding-bottom:20px}
 .send{width:40px;height:32px;border:none;background:transparent;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .send svg{width:26px;height:18px}
 .micBtn{width:46px;height:46px;border:none;border-radius:50%;background:#ffeedd;color:#0a192f;font-size:18px;cursor:pointer;flex-shrink:0}
-.recBar{display:none;background:#0a192f;color:#fff;padding:8px 10px;border-radius:999px;font-size:12px;align-items:center;gap:8px}
-.recBar button{border:none;padding:6px 10px;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer;flex-shrink:0}
-.waves{display:flex;gap:2px;align-items:center;height:18px;flex:1}
-.waves i{display:block;width:3px;background:#00a884;border-radius:2px;animation:wave 0.8s ease-in-out infinite}
-.waves i:nth-child(1){height:6px}
-.waves i:nth-child(2){height:12px;animation-delay:.1s}
-.waves i:nth-child(3){height:18px;animation-delay:.2s}
-.waves i:nth-child(4){height:12px;animation-delay:.3s}
-.waves i:nth-child(5){height:6px;animation-delay:.4s}
-.waves i:nth-child(6){height:14px;animation-delay:.15s}
-.waves i:nth-child(7){height:8px;animation-delay:.25s}
-@keyframes wave{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.recBar{display:none;background:#0a192f;color:#fff;padding:8px 10px;border-radius:999px;font-size:12px;align-items:center;gap:6px}
+.recBar button{border:none;padding:7px 10px;border-radius:999px;font-weight:800;font-size:13px;cursor:pointer;flex-shrink:0}
+.waveCanvas{flex:1;height:28px;background:transparent}
 .replyBar{display:none;background:#eef7f2;border-left:3px solid #00a884;padding:8px 10px;border-radius:8px;font-size:12px;align-items:center;justify-content:space-between}
 .card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);max-width:560px}
 .card h2{font-size:16px;margin-bottom:8px}
@@ -125,7 +113,7 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 </style></head><body>
 <div class="topbar"><a href="./index.html">←</a><div class="logo">Tati<span>.</span></div><div class="tag">People</div><div style="flex:1"></div><a href="./index.html">Home</a></div>
 <div id="incomingBar" class="incomingBar"><span id="incomingText">📞 Incoming call...</span><span><button style="background:#00a884;color:#fff" onclick="acceptIncomingCall()">✅ Accept</button><button style="background:#fff;color:#111" onclick="declineIncomingCall()">❌ Decline</button></span></div>
-<div id="callOverlay" class="callOverlay"><div id="callAvatar" style="font-size:56px;color:#fff">📞</div><h2 id="callTitle">Calling...</h2><p id="callSub" style="color:#ccc;font-size:13px">Calling...</p><video id="callVideo" playsinline autoplay muted></video><audio id="callAudio" autoplay></audio><p id="callTimer" style="font-size:14px;display:none">00:00</p><div><button style="background:#333;color:#fff" onclick="toggleMuteCall()">🔊 Mute / Unmute</button><button class="endBtn" onclick="endCall()">❌ End Call</button></div><p style="font-size:11px;color:#aaa;margin-top:10px">Calling = trying to reach. Ringing = ringing on other phone. Timer = only after answer.</p></div>
+<div id="callOverlay" class="callOverlay"><div id="callAvatar" style="font-size:56px;color:#fff">📞</div><h2 id="callTitle">Calling...</h2><p id="callSub" style="color:#ccc;font-size:13px">Calling...</p><video id="callVideo" playsinline autoplay muted></video><audio id="callAudio" autoplay></audio><p id="callTimer" style="font-size:14px;display:none">00:00</p><div><button style="background:#333;color:#fff" onclick="toggleMuteCall()">🔊 Mute / Unmute</button><button class="endBtn" onclick="endCall()">❌ End Call</button></div><p style="font-size:11px;color:#aaa;margin-top:10px">Calling = trying to reach. Ringing = ringing on other phone. Timer = only after answer. Call stays until you end it.</p></div>
 <div class="wrap">
 <div id="meBar" class="meBar hidden"><img id="meBarImg" src=""><div class="info"><b><span class="dot"></span><span id="meBarName">Jemi</span></b><span id="meBarSub">+258 • Mozambique • ✅ Verified</span></div><button class="editBtn" onclick="toggleEdit(true)">✏️ Edit Profile</button></div>
 <div id="setupGate" class="lockBox"><h2>🔒 Finish YOUR Setup First</h2><p class="notice" style="color:#111;font-size:13px">1. Your Name + Number<br>2. Your Profile Selfie - camera<br>Cover is OPTIONAL.<br>Then you are good to go!</p><p class="notice" id="setupProgress">⏳ Setup: 0 / 2 done</p></div>
@@ -153,9 +141,9 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 <div class="chatBody" id="chatBody"></div>
 <div id="typingRow" class="typingRow"><span id="typingText">typing...</span><span class="typingDots"><i></i><i></i><i></i></span></div>
 <div class="chatInput"><div id="replyBar" class="replyBar"><span id="replyBarText"></span><span onclick="cancelReply()" style="cursor:pointer;font-weight:800">✕</span></div>
-<div id="recBar" class="recBar"><button style="background:#fff;color:#111" onclick="cancelVoice()">🗑️</button><span class="waves"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span id="recBarText" style="font-weight:800;min-width:42px">00:00</span><button class="micBtn" id="micBtnInRec" onclick="toggleMic()" style="width:38px;height:38px;background:#00a884;color:#fff">🎤</button><button style="background:#00a884;color:#fff" onclick="sendVoice()">Send</button></div>
+<div id="recBar" class="recBar"><button style="background:#fff;color:#111" onclick="cancelVoice()">🗑️</button><button id="recPlayBtn" style="background:#00a884;color:#fff;display:none" onclick="toggleRecPreview()">▶️</button><canvas id="waveCanvas" class="waveCanvas" width="220" height="28"></canvas><span id="recBarText" style="font-weight:800;min-width:42px">00:00</span><button id="pauseBtn" style="background:#fff;color:#111" onclick="togglePauseVoice()">⏸️</button><button style="background:#fff;color:#111" onclick="stopVoiceRecording()">⏹️</button><button style="background:#00a884;color:#fff" onclick="sendVoice()">Send</button></div>
 <div class="chatInputRow" id="normalInputRow"><button class="micBtn" id="micBtn" onclick="toggleMic()" title="Tap to record voice">🎤</button><input id="chatText" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendChat()" oninput="onTyping()"><button class="send" onclick="sendChat()" title="Send"><svg viewBox="0 0 32 22" fill="none" stroke="#0a2a8a" stroke-width="1.6"><rect x="2" y="2" width="28" height="18" rx="2" fill="#fff"/><path d="M2 4 L16 12 L30 4"/></svg></button></div>
-<div id="voicePreview" style="display:none;background:#ffeedd;padding:10px;border-radius:12px;font-size:13px"><b>🎤 Voice ready</b><br><audio id="voiceAudio" controls style="width:100%;margin-top:6px"></audio><div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-green" style="margin:0;flex:1;padding:10px" onclick="sendVoice()">Send Voice</button><button class="btn btn-grey" style="margin:0;flex:1;padding:10px" onclick="cancelVoice()">🗑️ Delete</button></div></div></div>
+</div>
 </div>
 </div>
 </div>
@@ -212,10 +200,11 @@ function getMutedMap(){try{return JSON.parse(localStorage.getItem('tati_muted')|
 function isMuted(num){return !!getMutedMap()[cleanPhone(num)]}
 function toggleMute(num){var m=getMutedMap();var k=cleanPhone(num);if(m[k])delete m[k];else m[k]=true;localStorage.setItem('tati_muted',JSON.stringify(m));renderAll()}
 async function callSoon(t){ if(!selectedNum){alert('Pick a person first');return;} startCall(t); }
-var callStream=null,callTimerInt=null,callSecs=0,callMuted=false,incomingFrom=null,incomingType='voice',callState='idle',callRingTimer=null,callTypeNow='voice';
+var callStream=null,callTimerInt=null,callSecs=0,callMuted=false,incomingFrom=null,incomingType='voice',callState='idle',callTypeNow='voice';
+function currentCallName(){ return document.getElementById('chatName').textContent || (incomingFrom||selectedNum||''); }
 async function startCall(type){
   callTypeNow=type;
-  var name=document.getElementById('chatName').textContent||selectedNum;
+  var name=currentCallName();
   callState='calling';
   document.getElementById('callTitle').textContent=(type==='video'?'📹 Video calling ':'📞 Voice calling ')+name;
   document.getElementById('callAvatar').textContent=type==='video'?'📹':'📞';
@@ -224,12 +213,10 @@ async function startCall(type){
   document.getElementById('callTimer').style.display='none';
   var on = await cloudCall({action:"is_online", phone: cleanPhone(selectedNum)});
   if(!on.online){
-    document.getElementById('callSub').textContent='Calling... '+name+' is offline. Call will not go through.';
-    callRingTimer=setTimeout(function(){ if(callState==='calling'){ document.getElementById('callSub').textContent=name+' is offline - No answer.'; setTimeout(endCall,2000); } },15000);
+    document.getElementById('callSub').textContent=name+' is offline.';
     return;
   }
   await cloudCall({action:"set_call", from: myCleanPhone(), to: cleanPhone(selectedNum), fromName: getProfile().name||'', type: type, status:"calling"});
-  callRingTimer=setTimeout(function(){ if(callState==='calling'||callState==='ringing'){ document.getElementById('callSub').textContent='No answer.'; setTimeout(endCall,2000); } },30000);
 }
 function startCallTimer(){
   callState='connected'; callSecs=0; document.getElementById('callTimer').style.display='block'; document.getElementById('callSub').textContent='Connected - Call in progress';
@@ -239,19 +226,15 @@ async function pollCallStatus(){
   if((callState!=='calling' && callState!=='ringing') || !selectedNum) return;
   var d=await cloudCall({action:"get_call_status", from: myCleanPhone(), to: cleanPhone(selectedNum)});
   if(!d) return;
-  if(d.status==='ringing' && callState==='calling'){
-    callState='ringing';
-    document.getElementById('callSub').textContent='Ringing... Ringing on '+ (document.getElementById('chatName').textContent||'other phone');
-  }
+  if(d.status==='ringing' && callState==='calling'){ callState='ringing'; document.getElementById('callSub').textContent='Ringing... Ringing on '+currentCallName()+' phone'; }
   if(d.status==='accepted'){
-    clearTimeout(callRingTimer);
     try{ callStream=await navigator.mediaDevices.getUserMedia(d.type==='video'?{audio:true,video:{facingMode:'user'}}:{audio:true,video:false}); var v=document.getElementById('callVideo'); v.srcObject=callStream; v.style.display=d.type==='video'?'block':'none'; }catch(e){ document.getElementById('callSub').textContent='Mic blocked: '+e.message; }
     startCallTimer();
   }
-  if(d.status==='declined'){ clearTimeout(callRingTimer); document.getElementById('callSub').textContent='Declined.'; setTimeout(endCall,1200); }
+  if(d.status==='declined'){ document.getElementById('callSub').textContent='Declined.'; setTimeout(endCall,1200); }
 }
 async function endCall(){
-  clearTimeout(callRingTimer); callState='idle';
+  callState='idle';
   if(callStream) callStream.getTracks().forEach(function(t){t.stop()}); callStream=null; clearInterval(callTimerInt);
   document.getElementById('callOverlay').style.display='none';
   if(selectedNum) await cloudCall({action:"end_call", from: myCleanPhone(), to: cleanPhone(selectedNum)});
@@ -288,12 +271,75 @@ async function refreshFriendPhotos(){ var ppl=getReq().filter(function(r){return
 var typingTimer=null, lastTypingSent=0;
 function onTyping(){ if(!selectedNum) return; var now=Date.now(); if(now-lastTypingSent>800){ lastTypingSent=now; cloudCall({action:"set_typing", from: myCleanPhone(), to: cleanPhone(selectedNum), typing:true, recording:false}); } clearTimeout(typingTimer); typingTimer=setTimeout(function(){ cloudCall({action:"set_typing", from: myCleanPhone(), to: cleanPhone(selectedNum), typing:false, recording:false}); }, 2000); }
 async function pollTyping(){ if(!selectedNum) return; var d=await cloudCall({action:"get_typing", me: myCleanPhone(), from: cleanPhone(selectedNum)}); var row=document.getElementById('typingRow'); var txt=document.getElementById('typingText'); if(!row||!txt) return; if(d && d.recording){ row.style.display='flex'; txt.textContent='Recording voice...'; } else if(d && d.typing){ row.style.display='flex'; txt.textContent='typing...'; } else { row.style.display='none'; } }
-var isRecording=false, mediaRecorder=null, voiceChunks=[], voiceBlob=null, voiceUrl='', recTimerInt=null, recSecs=0;
+var isRecording=false, isPaused=false, mediaRecorder=null, voiceChunks=[], voiceBlob=null, voiceUrl='', recTimerInt=null, recSecs=0, audioCtx=null, analyser=null, micStream=null, waveLevels=[], waveRAF=null, previewAudio=null, isPreviewPlaying=false;
+function drawWave(){
+  var cv=document.getElementById('waveCanvas'); if(!cv) return; var ctx=cv.getContext('2d'); ctx.clearRect(0,0,cv.width,cv.height); ctx.strokeStyle='#00a884'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(0,14);
+  for(var i=0;i<waveLevels.length;i++){ var x=(i/Math.max(1,waveLevels.length-1))*cv.width; var y=14 - (waveLevels[i]*12); ctx.lineTo(x,y); }
+  ctx.stroke();
+  ctx.fillStyle='#00a884'; for(var j=0;j<waveLevels.length;j++){ var xx=(j/Math.max(1,waveLevels.length-1))*cv.width; var yy=14 - (waveLevels[j]*12); ctx.beginPath(); ctx.arc(xx,yy,1.5,0,Math.PI*2); ctx.fill(); }
+}
+function drawFlatWave(){ var cv=document.getElementById('waveCanvas'); if(!cv) return; var ctx=cv.getContext('2d'); ctx.clearRect(0,0,cv.width,cv.height); ctx.strokeStyle='#00a884'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(0,14); ctx.lineTo(cv.width,14); ctx.stroke(); }
 async function toggleMic(){ if(!selectedNum){ alert('Pick a person first'); return; } if(!isRecording){ await startVoiceRecording(); } else { stopVoiceRecording(); } }
-async function startVoiceRecording(){ try{ var stream=await navigator.mediaDevices.getUserMedia({audio:true}); mediaRecorder=new MediaRecorder(stream); voiceChunks=[]; mediaRecorder.ondataavailable=function(e){ if(e.data.size) voiceChunks.push(e.data); }; mediaRecorder.onstop=function(){ voiceBlob=new Blob(voiceChunks,{type:'audio/webm'}); voiceUrl=URL.createObjectURL(voiceBlob); document.getElementById('voiceAudio').src=voiceUrl; document.getElementById('voicePreview').style.display='block'; document.getElementById('recBar').style.display='none'; document.getElementById('normalInputRow').style.display='flex'; stream.getTracks().forEach(function(t){t.stop()}); }; mediaRecorder.start(); isRecording=true; document.getElementById('recBar').style.display='flex'; document.getElementById('normalInputRow').style.display='none'; document.getElementById('voicePreview').style.display='none'; cloudCall({action:"set_typing", from: myCleanPhone(), to: cleanPhone(selectedNum), typing:false, recording:true}); recSecs=0; clearInterval(recTimerInt); recTimerInt=setInterval(function(){ recSecs++; var m=Math.floor(recSecs/60),s=recSecs%60; document.getElementById('recBarText').textContent=(m<10?'0'+m:m)+':'+(s<10?'0'+s:s); },1000); }catch(e){ alert('Mic blocked: '+e.message+' - Allow mic in browser bar, then tap again.'); } }
-function stopVoiceRecording(){ if(!isRecording) return; isRecording=false; clearInterval(recTimerInt); cloudCall({action:"set_typing", from: myCleanPhone(), to: cleanPhone(selectedNum), typing:false, recording:false}); if(mediaRecorder && mediaRecorder.state!=='inactive') mediaRecorder.stop(); }
-function cancelVoice(){ voiceBlob=null; voiceUrl=''; document.getElementById('voicePreview').style.display='none'; document.getElementById('recBar').style.display='none'; document.getElementById('normalInputRow').style.display='flex'; if(isRecording) stopVoiceRecording(); }
-async function sendVoice(){ if(!voiceBlob){ alert('No voice yet - Tap mic, talk, tap mic again to stop.'); return; } var reader=new FileReader(); reader.onload=async function(){ var data=reader.result; var msgs=[]; try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){} var myId="m_"+Date.now()+"_"+Math.floor(Math.random()*10000); msgs.push({id:myId, me:true, text:'🎤 Voice message ('+recSecs+'s)', replyTo:replyToText||"", time:Date.now(), status:"sent", type:"voice", data:data}); localStorage.setItem('tati_chat_'+selectedNum, JSON.stringify(msgs)); renderChat(true); renderAll(); await cloudCall({action:"send_message", from: myCleanPhone(), to: cleanPhone(selectedNum), text:'🎤 Voice message ('+recSecs+'s)', type:"voice", data:data, replyTo: replyToText||""}); cancelVoice(); cancelReply(); }; reader.readAsDataURL(voiceBlob); }
+async function startVoiceRecording(){
+  try{
+    micStream=await navigator.mediaDevices.getUserMedia({audio:true});
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)(); var src=audioCtx.createMediaStreamSource(micStream); analyser=audioCtx.createAnalyser(); analyser.fftSize=256; src.connect(analyser);
+    mediaRecorder=new MediaRecorder(micStream); voiceChunks=[]; waveLevels=[]; isPaused=false;
+    mediaRecorder.ondataavailable=function(e){ if(e.data.size) voiceChunks.push(e.data); };
+    mediaRecorder.onstop=function(){
+      voiceBlob=new Blob(voiceChunks,{type:'audio/webm'}); voiceUrl=URL.createObjectURL(voiceBlob);
+      document.getElementById('recPlayBtn').style.display='block';
+      document.getElementById('pauseBtn').style.display='none';
+      if(micStream) micStream.getTracks().forEach(function(t){t.stop()});
+      if(audioCtx) audioCtx.close();
+      cancelAnimationFrame(waveRAF);
+    };
+    mediaRecorder.start(250); isRecording=true;
+    document.getElementById('recBar').style.display='flex';
+    document.getElementById('normalInputRow').style.display='none';
+    document.getElementById('recPlayBtn').style.display='none';
+    document.getElementById('pauseBtn').style.display='block';
+    document.getElementById('pauseBtn').textContent='⏸️';
+    cloudCall({action:"set_typing", from: myCleanPhone(), to: cleanPhone(selectedNum), typing:false, recording:true});
+    recSecs=0; clearInterval(recTimerInt); recTimerInt=setInterval(function(){ if(!isPaused){ recSecs++; var m=Math.floor(recSecs/60),s=recSecs%60; document.getElementById('recBarText').textContent=(m<10?'0'+m:m)+':'+(s<10?'0'+s:s); } },1000);
+    var dataArr=new Uint8Array(analyser.frequencyBinCount);
+    function loop(){
+      if(!isRecording) return;
+      if(!isPaused && analyser){ analyser.getByteTimeDomainData(dataArr); var sum=0; for(var i=0;i<dataArr.length;i++){ var v=(dataArr[i]-128)/128; sum+=v*v; } var rms=Math.sqrt(sum/dataArr.length); var level=Math.min(1, rms*6); waveLevels.push(level); if(waveLevels.length>80) waveLevels.shift(); }
+      drawWave(); waveRAF=requestAnimationFrame(loop);
+    }
+    loop();
+  }catch(e){ alert('Mic blocked: '+e.message); }
+}
+function togglePauseVoice(){
+  if(!mediaRecorder) return;
+  if(!isPaused){ try{ mediaRecorder.pause(); }catch(e){} isPaused=true; document.getElementById('pauseBtn').textContent='▶️'; }
+  else { try{ mediaRecorder.resume(); }catch(e){} isPaused=false; document.getElementById('pauseBtn').textContent='⏸️'; }
+}
+function stopVoiceRecording(){
+  if(!isRecording) return; isRecording=false; isPaused=false; clearInterval(recTimerInt);
+  cloudCall({action:"set_typing", from: myCleanPhone(), to: cleanPhone(selectedNum), typing:false, recording:false});
+  if(mediaRecorder && mediaRecorder.state!=='inactive') mediaRecorder.stop();
+}
+function toggleRecPreview(){
+  if(!voiceUrl) return;
+  if(!previewAudio){ previewAudio=new Audio(voiceUrl); previewAudio.onended=function(){ isPreviewPlaying=false; document.getElementById('recPlayBtn').textContent='▶️'; }; }
+  if(!isPreviewPlaying){ previewAudio.play(); isPreviewPlaying=true; document.getElementById('recPlayBtn').textContent='⏸️'; }
+  else { previewAudio.pause(); isPreviewPlaying=false; document.getElementById('recPlayBtn').textContent='▶️'; }
+}
+function cancelVoice(){ voiceBlob=null; voiceUrl=''; waveLevels=[]; drawFlatWave(); if(previewAudio){ previewAudio.pause(); previewAudio=null; } isPreviewPlaying=false; document.getElementById('recBar').style.display='none'; document.getElementById('normalInputRow').style.display='flex'; document.getElementById('recPlayBtn').style.display='none'; if(isRecording) stopVoiceRecording(); }
+async function sendVoice(){
+  if(!voiceBlob && !isRecording){ alert('No voice yet - Tap mic, talk, tap ⏹️ to stop.'); return; }
+  if(isRecording){ stopVoiceRecording(); setTimeout(sendVoice,400); return; }
+  var reader=new FileReader(); reader.onload=async function(){
+    var data=reader.result;
+    var msgs=[]; try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){}
+    var myId="m_"+Date.now()+"_"+Math.floor(Math.random()*10000);
+    msgs.push({id:myId, me:true, text:'🎤 Voice message ('+recSecs+'s)', replyTo:replyToText||"", time:Date.now(), status:"sent", type:"voice", data:data}); localStorage.setItem('tati_chat_'+selectedNum, JSON.stringify(msgs)); renderChat(true); renderAll();
+    await cloudCall({action:"send_message", from: myCleanPhone(), to: cleanPhone(selectedNum), text:'🎤 Voice message ('+recSecs+'s)', type:"voice", data:data, replyTo: replyToText||""});
+    cancelVoice(); cancelReply();
+  }; reader.readAsDataURL(voiceBlob);
+}
 function statusHTML(s){ return '<div class="tatiStatus '+s+'"><span class="tatiDot"></span></div>'; }
 function renderAll(){
 var q=(document.getElementById('searchPeople').value||'').toLowerCase();
