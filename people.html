@@ -27,18 +27,20 @@ body{background:#f6f3ee;padding-bottom:20px}
 .topActions button{flex:1;padding:10px;border:none;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer}
 .btnAdd{background:#0a192f;color:#fff}
 .btnReq{background:#fff3cd;color:#111}
-.person{padding:11px 12px;display:flex;gap:10px;align-items:center;cursor:pointer;border-bottom:1px solid #f0f2f5}
+.person{padding:11px 12px;display:flex;gap:10px;align-items:center;cursor:pointer;border-bottom:1px solid #f0f2f5;user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .person.active{background:#eef7f2;border-left:4px solid #00a884}
 .person img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee}
 .person .info{flex:1;min-width:0}
 .person .info b{font-size:14px;display:flex;gap:6px;align-items:center}
 .person .info span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .person .time{font-size:11px;color:#667781}
+.unreadBadge{min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#00a884;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .chatHead{padding:12px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0f2f5}
 .chatHead img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee}
 .chatHead .info{flex:1}
 .chatHead .info b{font-size:16px}
 .chatHead .info span{font-size:12px;color:#667781;display:block}
+.callBtn{width:38px;height:38px;border:none;background:#f0f2f5;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0}
 .backBtn{display:none;background:#0a192f;color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0}
 .chatBody{flex:1;padding:14px;overflow-y:auto;background:#efeae2;min-height:340px;display:flex;flex-direction:column;align-items:flex-start}
 .empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;color:#667781}
@@ -46,8 +48,9 @@ body{background:#f6f3ee;padding-bottom:20px}
 .msg{width:fit-content;max-width:78%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.4;margin-bottom:8px;word-break:break-word}
 .msg.me{background:#d9fdd3;margin-left:auto;align-self:flex-end;border-bottom-right-radius:4px}
 .msg.them{background:#fff;margin-right:auto;align-self:flex-start;border-bottom-left-radius:4px}
-.tick{font-size:10px;color:#667781;margin-left:6px;white-space:nowrap}
-.tick.blue{color:#00a884}
+.tatiTick{display:inline-flex;gap:3px;margin-left:6px;align-items:center;vertical-align:middle}
+.tatiTick i{width:3.5px;height:12px;background:#8696a0;border-radius:3px;display:block}
+.tatiTick.read i{background:linear-gradient(90deg,#001a5c,#eaf6ff,#001a5c);box-shadow:inset 0 0 3px #ffffff}
 .chatInput{display:flex;gap:8px;padding:10px;border-top:1px solid #f0f2f5;background:#fff}
 .chatInput input{flex:1;padding:12px;border:1px solid #ddd;border-radius:999px;outline:none;font-size:14px}
 .send{width:46px;height:46px;border:none;border-radius:50%;background:#00a884;color:#fff;font-size:18px;cursor:pointer;flex-shrink:0}
@@ -79,6 +82,10 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 .accBtn{flex:1;padding:11px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
 .hidden{display:none!important}
 .lockBox{background:#fff3cd;border:2px solid #ffcc00;border-radius:14px;padding:14px;margin-bottom:12px;max-width:560px}
+.holdOverlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99;display:none;align-items:flex-end;justify-content:center}
+.holdBox{background:#fff;width:100%;max-width:420px;border-radius:18px 18px 0 0;padding:16px 16px 22px}
+.holdBox button{width:100%;padding:13px;border:none;background:#f0f2f5;border-radius:12px;font-weight:800;font-size:14px;margin-top:8px;cursor:pointer;text-align:left}
+.holdBox button.danger{background:#ffe0e0;color:#b00020}
 @media(max-width:820px){ .layout{flex-direction:column} .left,.right{width:100%} .right{min-height:480px} .backBtn{display:block} body.chatOpen .left{display:none} body.chatOpen .right{margin-top:0;min-height:calc(100vh - 90px)} body.chatOpen .meBar, body.chatOpen #setupGate, body.chatOpen #setupForm{display:none} body:not(.chatOpen) #chatPane{display:none} body.chatOpen #chatPane{display:flex} }
 </style></head><body>
 
@@ -129,6 +136,7 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 <div class="leftHead">
 <input class="search" id="searchPeople" placeholder="🔍 Search my people..." oninput="renderAll()">
 <div class="topActions"><button class="btnAdd" onclick="toggleAdd()">➕ Add Person</button><button class="btnReq" onclick="toggleReq()">🔔 Requests (<span id="reqCount">0</span>)</button></div>
+<div style="margin-top:8px"><button class="btn btn-grey" style="width:100%;margin:0;padding:10px;font-size:12px" onclick="toggleContacts()">👥 Show My Contacts - People I deleted chat with</button><div id="contactsBox" class="hidden" style="margin-top:8px"></div></div>
 <div id="addBox" class="hidden" style="margin-top:12px;border-top:1px solid #eee;padding-top:12px">
 <label>PERSON'S COUNTRY *</label><select id="addCountryCode"></select>
 <label>PERSON'S NUMBER *</label><div class="phoneRow"><div class="codeBox" id="addCodeDisplay">+258</div><input id="addNumber" placeholder="84 000 0000" inputmode="tel" oninput="validateNumber('addCountryCode','addNumber','addNumMsg')"></div>
@@ -148,7 +156,7 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 <div class="right" id="chatPane">
 <div id="chatEmpty" class="empty"><div style="font-size:48px">👋</div><h2>Pick a person on the left to start chatting</h2><p>Your people are on the left. Tap one and chat here.<br>Like WhatsApp Web.</p></div>
 <div id="chatActive" class="hidden" style="display:flex;flex-direction:column;flex:1;min-height:560px">
-<div class="chatHead"><button class="backBtn" onclick="goBackToList()">←</button><img id="chatImg"><div class="info"><b id="chatName"></b><span id="chatSub"></span></div><span class="dot"></span></div>
+<div class="chatHead"><button class="backBtn" onclick="goBackToList()">←</button><img id="chatImg"><div class="info"><b id="chatName"></b><span id="chatSub"></span></div><button class="callBtn" onclick="callSoon('voice')" title="Voice call">📞</button><button class="callBtn" onclick="callSoon('video')" title="Video call">📹</button><span class="dot"></span></div>
 <div class="chatBody" id="chatBody"></div>
 <div class="chatInput"><input id="chatText" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendChat()"><button class="send" onclick="sendChat()">➤</button></div>
 </div>
@@ -156,8 +164,9 @@ input.ok{border:2px solid #00a884;background:#f0fff4}
 </div>
 </div>
 
+<div id="holdOverlay" class="holdOverlay" onclick="closeHoldMenu()"><div class="holdBox" onclick="event.stopPropagation()"><b id="holdName" style="font-size:16px">Person</b><div id="holdButtons"></div><button onclick="closeHoldMenu()">❌ Close</button></div></div>
+
 <script>
-// FIXED CORD ONLY - NO APPEARANCE CHANGE - CONNECTS TO CLOUDFLARE
 var WORKER_URL = "https://tati-server.dilemahluza.workers.dev";
 function cleanPhone(p){ var s=String(p||"").replace(/\D/g,""); if(s.startsWith("258")&&s.length===12) s=s.slice(3); if(s.startsWith("0")&&s.length===10) s=s.slice(1); return s; }
 function myCleanPhone(){ var p=getProfile(); return cleanPhone(p.number||""); }
@@ -204,6 +213,16 @@ var selectedNum=null;
 var lastMsgSince=0;
 function getReq(){try{return JSON.parse(localStorage.getItem('tati_requests')||'[]')}catch(e){return[]}}
 function getInc(){try{return JSON.parse(localStorage.getItem('tati_incoming')||'[]')}catch(e){return[]}}
+function getContacts(){try{return JSON.parse(localStorage.getItem('tati_contacts')||'[]')}catch(e){return[]}}
+function getUnreadMap(){try{return JSON.parse(localStorage.getItem('tati_unread')||'{}')}catch(e){return{}}}
+function setUnreadMap(m){localStorage.setItem('tati_unread',JSON.stringify(m))}
+function getUnread(num){var m=getUnreadMap();return m[cleanPhone(num)]||0}
+function clearUnread(num){var m=getUnreadMap();delete m[cleanPhone(num)];setUnreadMap(m)}
+function addUnread(num,n){var m=getUnreadMap();var k=cleanPhone(num);m[k]=(m[k]||0)+(n||1);setUnreadMap(m)}
+function getMutedMap(){try{return JSON.parse(localStorage.getItem('tati_muted')||'{}')}catch(e){return{}}}
+function isMuted(num){return !!getMutedMap()[cleanPhone(num)]}
+function toggleMute(num){var m=getMutedMap();var k=cleanPhone(num);if(m[k])delete m[k];else m[k]=true;localStorage.setItem('tati_muted',JSON.stringify(m));renderAll()}
+function callSoon(t){alert(t==='video'?'📹 Video call coming soon, my friend.':'📞 Voice call coming soon, my friend.')}
 function toggleAdd(){document.getElementById('addBox').classList.toggle('hidden');document.getElementById('reqBox').classList.add('hidden');}
 function toggleReq(){document.getElementById('reqBox').classList.toggle('hidden');document.getElementById('addBox').classList.add('hidden'); pollCloud();}
 async function pollCloud(){
@@ -226,7 +245,37 @@ async function pollCloud(){
     }
     renderAll();
   }
+  pollAllMessages();
   if(selectedNum) pollMessages();
+}
+async function pollAllMessages(){
+  var me=myCleanPhone(); if(!me) return;
+  var d=await cloudCall({action:"get_messages", me: me, since: 0});
+  if(!d || !d.messages) return;
+  var changed=false;
+  d.messages.forEach(function(m){
+    var fromNum=cleanPhone(m.from);
+    if(!fromNum || fromNum===me) return;
+    var key='tati_chat_'+fromNum; var key2='tati_chat_+258 '+fromNum; var msgs=[];
+    try{msgs=JSON.parse(localStorage.getItem(key)||localStorage.getItem(key2)||'[]')}catch(e){}
+    // also try to find existing chat key by scanning accepted people
+    var ppl=getReq().filter(function(r){return r.status==='accepted'}).concat(getInc().filter(function(r){return r.status==='accepted'}));
+    var person=ppl.find(function(x){return cleanPhone(x.number)===fromNum});
+    if(person){ key='tati_chat_'+person.number; try{msgs=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){msgs=[]} }
+    var exists=msgs.some(function(x){return x.text===m.text && Math.abs((x.time||0)-m.at)<5000});
+    if(!exists){
+      msgs.push({me:false,text:m.text,time:m.at,status:"read"});
+      localStorage.setItem(key, JSON.stringify(msgs));
+      changed=true;
+      if(!selectedNum || cleanPhone(selectedNum)!==fromNum){
+        addUnread(fromNum,1);
+      } else {
+        cloudCall({action:"mark_read", me: me, from: fromNum});
+      }
+    }
+  });
+  if(changed) renderAll();
+  if(selectedNum) renderChat();
 }
 async function pollMessages(){
   if(!selectedNum) return; var me=myCleanPhone(); if(!me) return;
@@ -250,6 +299,23 @@ async function pollMessages(){
     if(ch2){ localStorage.setItem(key2, JSON.stringify(msgs2)); renderChat(); }
   }
 }
+async function refreshFriendPhotos(){
+  var ppl=getReq().filter(function(r){return r.status==='accepted'}).concat(getInc().filter(function(r){return r.status==='accepted'}));
+  var myMe=myCleanPhone(); var changed=false;
+  for(var i=0;i<ppl.length;i++){
+    var num=cleanPhone(ppl[i].number); if(!num||num===myMe) continue;
+    var lk=await cloudCall({action:"lookup", phone:num});
+    if(lk && lk.onTati){
+      var freshPic=lk.profilePic||""; var freshName=lk.name||"";
+      if(freshPic && freshPic!==getProfile().selfie){
+        var req=getReq(); req.forEach(function(x){ if(cleanPhone(x.number)===num){ if(x.photo!==freshPic||x.name!==freshName){ x.photo=freshPic; if(freshName) x.name=freshName; changed=true; } } }); localStorage.setItem('tati_requests', JSON.stringify(req));
+        var inc=getInc(); inc.forEach(function(x){ if(cleanPhone(x.number)===num){ if(x.photo!==freshPic||x.name!==freshName){ x.photo=freshPic; if(freshName) x.name=freshName; changed=true; } } }); localStorage.setItem('tati_incoming', JSON.stringify(inc));
+        var contacts=getContacts(); contacts.forEach(function(x){ if(cleanPhone(x.number)===num){ if(x.photo!==freshPic||x.name!==freshName){ x.photo=freshPic; if(freshName) x.name=freshName; } } }); localStorage.setItem('tati_contacts', JSON.stringify(contacts));
+      }
+    }
+  }
+  if(changed) renderAll();
+}
 function renderAll(){
 var q=(document.getElementById('searchPeople').value||'').toLowerCase();
 var inc=getInc();var pending=inc.filter(function(r){return r.status==='pending'}).length;document.getElementById('reqCount').textContent=pending;
@@ -270,14 +336,93 @@ ppl.sort(function(a,b){
 });
 var filtered=ppl.filter(function(r){return (r.name||'').toLowerCase().includes(q)||(r.number||'').includes(q);});
 var pl=document.getElementById('peopleList');
-if(!filtered.length){pl.innerHTML='<p class="notice" style="padding:12px">No people yet. Tap ➕ Add Person to add someone.</p>';}else{pl.innerHTML=filtered.map(function(r){var country=r.country||countryFromNumber(r.number);var last=getLastMsg(r.number);return '<div class="person '+(selectedNum===r.number?'active':'')+'" onclick="openChat(\''+encodeURIComponent(r.number)+'\')"><img src="'+(r.photo||'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')+'"><div class="info"><b><span class="dot"></span>'+(r.name||r.number)+'</b><span>'+(last||r.number+' • '+(country||''))+'</span></div><span class="time">›</span></div>';}).join('');}
+if(!filtered.length){pl.innerHTML='<p class="notice" style="padding:12px">No people yet. Tap ➕ Add Person to add someone.</p>';}else{pl.innerHTML=filtered.map(function(r){
+  var country=r.country||countryFromNumber(r.number);var last=getLastMsg(r.number);
+  var myPic=getProfile().selfie||""; var pic=r.photo||""; if(!pic||pic===myPic) pic="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200";
+  var dispName=(r.name && !/^\+\d/.test(r.name)) ? r.name : r.number;
+  var un=getUnread(r.number); var unHtml=un>0?'<span class="unreadBadge">'+(un>99?'99+':un)+'</span>':'';
+  var muteHtml=isMuted(r.number)?' 🔕':'';
+  return '<div class="person '+(selectedNum===r.number?'active':'')+'" onclick="openChat(\''+encodeURIComponent(r.number)+'\')" oncontextmenu="openHoldMenu(event,\''+encodeURIComponent(r.number)+'\');return false;" onmousedown="startHold(event,\''+encodeURIComponent(r.number)+'\')" onmouseup="endHold()" onmouseleave="endHold()" ontouchstart="startHold(event,\''+encodeURIComponent(r.number)+'\')" ontouchend="endHold()" ontouchmove="endHold()"><img src="'+pic+'"><div class="info"><b><span class="dot"></span>'+dispName+muteHtml+'</b><span>'+(last||r.number+' • '+(country||''))+'</span></div>'+unHtml+'<span class="time">›</span></div>';
+}).join('');}
 if(selectedNum) renderChat();
 }
 function getLastMsg(num){try{var m=JSON.parse(localStorage.getItem('tati_chat_'+num)||'[]');return m.length?m[m.length-1].text:''}catch(e){return''}}
+var holdTimer=null, holdNum=null;
+function startHold(e,num){ holdNum=num; clearTimeout(holdTimer); holdTimer=setTimeout(function(){ openHoldMenu(e,num); },600); }
+function endHold(){ clearTimeout(holdTimer); }
+function openHoldMenu(e,num){
+  endHold();
+  if(e) e.preventDefault();
+  var dec=decodeURIComponent(num); holdNum=num;
+  var ppl=getReq().filter(function(r){return r.status==='accepted'}).concat(getInc().filter(function(r){return r.status==='accepted'}));
+  var r=ppl.find(function(x){return cleanPhone(x.number)===cleanPhone(dec)})||{number:dec};
+  var dispName=(r.name && !/^\+\d/.test(r.name)) ? r.name : dec;
+  document.getElementById('holdName').textContent=dispName;
+  var un=getUnread(dec);
+  var isM=isMuted(dec);
+  document.getElementById('holdButtons').innerHTML=
+    '<button onclick="holdMarkRead()">'+(un>0?'✅ Mark as Read':'📌 Mark as Unread')+'</button>'+
+    '<button onclick="holdMute()">'+(isM?'🔊 Unmute':'🔕 Mute')+'</button>'+
+    '<button class="danger" onclick="holdDelete()">🗑️ Delete Chat - Keep Contact</button>';
+  document.getElementById('holdOverlay').style.display='flex';
+}
+function closeHoldMenu(){ document.getElementById('holdOverlay').style.display='none'; holdNum=null; }
+function holdMarkRead(){
+  if(!holdNum) return; var num=decodeURIComponent(holdNum);
+  if(getUnread(num)>0){ clearUnread(num); } else { addUnread(num,1); }
+  closeHoldMenu(); renderAll();
+}
+function holdMute(){ if(!holdNum) return; var num=decodeURIComponent(holdNum); toggleMute(num); closeHoldMenu(); }
+function holdDelete(){ if(!holdNum) return; var num=decodeURIComponent(holdNum); closeHoldMenu(); deleteChat(encodeURIComponent(num)); }
+function deleteChat(encNum){
+  var num=decodeURIComponent(encNum);
+  var ppl=getReq().filter(function(r){return r.status==='accepted'}).concat(getInc().filter(function(r){return r.status==='accepted'}));
+  var r=ppl.find(function(x){ return cleanPhone(x.number)===cleanPhone(num); })||{number:num};
+  var dispName=(r.name && !/^\+\d/.test(r.name)) ? r.name : r.number;
+  if(!confirm("Delete chat with "+dispName+"?\n\nMessages will be cleared.\n"+dispName+" will stay in My Contacts, you can chat again any time.")) return;
+  localStorage.removeItem('tati_chat_'+num);
+  var contacts=getContacts();
+  if(!contacts.find(function(c){ return cleanPhone(c.number)===cleanPhone(num); })){
+    contacts.push({number:r.number, name:r.name||"", photo:r.photo||"", country:r.country||""});
+    localStorage.setItem('tati_contacts', JSON.stringify(contacts));
+  }
+  var req=getReq().filter(function(x){ return cleanPhone(x.number)!==cleanPhone(num); });
+  localStorage.setItem('tati_requests', JSON.stringify(req));
+  var inc=getInc().filter(function(x){ return cleanPhone(x.number)!==cleanPhone(num); });
+  localStorage.setItem('tati_incoming', JSON.stringify(inc));
+  clearUnread(num);
+  if(cleanPhone(selectedNum)===cleanPhone(num)) goBackToList();
+  if(cleanPhone(localStorage.getItem("tati_last_tapped")||"")===cleanPhone(num)) localStorage.removeItem("tati_last_tapped");
+  renderAll();
+  alert("Chat deleted. "+dispName+" is still in My Contacts 👥");
+}
+function toggleContacts(){
+  var box=document.getElementById('contactsBox');
+  box.classList.toggle('hidden');
+  if(box.classList.contains('hidden')) return;
+  var contacts=getContacts();
+  if(!contacts.length){ box.innerHTML='<p class="notice">No contacts yet. When you delete a chat, the person goes here.</p>'; return; }
+  box.innerHTML=contacts.map(function(c,i){
+    var myPic=getProfile().selfie||""; var pic=c.photo||""; if(!pic||pic===myPic) pic="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200";
+    return '<div style="display:flex;gap:8px;align-items:center;padding:8px;background:#f9f9f9;border-radius:10px;margin-bottom:6px"><img src="'+pic+'" style="width:36px;height:36px;border-radius:50%;object-fit:cover"><b style="flex:1;font-size:13px">'+(c.name||c.number)+'</b><button onclick="restoreChat('+i+')" style="background:#00a884;color:#fff;border:none;padding:7px 12px;border-radius:999px;font-weight:800;font-size:12px">Chat Again</button></div>';
+  }).join('');
+}
+function restoreChat(i){
+  var contacts=getContacts(); var c=contacts[i]; if(!c) return;
+  var req=getReq();
+  if(!req.find(function(x){ return cleanPhone(x.number)===cleanPhone(c.number); })){
+    req.push({number:c.number, name:c.name, photo:c.photo, country:c.country, status:"accepted"});
+    localStorage.setItem('tati_requests', JSON.stringify(req));
+  }
+  document.getElementById('contactsBox').classList.add('hidden');
+  renderAll();
+  openChat(c.number);
+}
 function openChat(encNum){
   selectedNum=decodeURIComponent(encNum);
   if(cleanPhone(selectedNum)===myCleanPhone()){ alert("That is you, my friend. Pick another person."); selectedNum=null; return; }
   localStorage.setItem("tati_last_tapped", cleanPhone(selectedNum));
+  clearUnread(selectedNum);
   lastMsgSince=0;
   document.body.classList.add("chatOpen");
   renderAll();
@@ -302,7 +447,7 @@ function goBackToList(){
   document.getElementById('chatEmpty').classList.remove('hidden');
   renderAll();
 }
-function renderChat(){if(!selectedNum)return;var msgs=[];try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){}var body=document.getElementById('chatBody');body.innerHTML=msgs.length?msgs.map(function(m){ var tick=""; if(m.me){ var s=m.status||"sent"; tick='<span class="tick '+(s==="read"?"blue":"")+'">'+(s==="read"?"✓✓":s==="delivered"?"✓✓":"✓")+'</span>'; } return '<div class="msg '+(m.me?'me':'them')+'">'+m.text+tick+'</div>';}).join(''):'<p class="notice" style="text-align:center">No messages yet. Say hello 👋</p>';body.scrollTop=body.scrollHeight;}
+function renderChat(){if(!selectedNum)return;var msgs=[];try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){}var body=document.getElementById('chatBody');body.innerHTML=msgs.length?msgs.map(function(m){ var tick=""; if(m.me){ var s=m.status||"sent"; if(s==="sent") tick='<span class="tatiTick"><i></i></span>'; else if(s==="delivered") tick='<span class="tatiTick"><i></i><i></i></span>'; else tick='<span class="tatiTick read"><i></i><i></i></span>'; } return '<div class="msg '+(m.me?'me':'them')+'">'+m.text+tick+'</div>';}).join(''):'<p class="notice" style="text-align:center">No messages yet. Say hello 👋</p>';body.scrollTop=body.scrollHeight;}
 async function sendChat(){
   if(!selectedNum)return;var inp=document.getElementById('chatText');var t=inp.value.trim();if(!t)return;
   var msgs=[];try{msgs=JSON.parse(localStorage.getItem('tati_chat_'+selectedNum)||'[]')}catch(e){}
@@ -334,6 +479,8 @@ function demoIncoming(){var inc=getInc();if(inc.some(function(r){return r.number
 updateUI();renderAll();
 setInterval(pollCloud, 500);
 setInterval(pollMessages, 500);
+setTimeout(refreshFriendPhotos, 1000);
+setInterval(refreshFriendPhotos, 15000);
 pollCloud();
 </script>
 </body></html>
