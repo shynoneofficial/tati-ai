@@ -360,12 +360,12 @@ async function answerIncoming(i,ans){ var inc=getInc(); var req=inc[i]; inc[i].s
 function demoIncoming(){var inc=getInc();if(inc.some(function(r){return r.number==='+27 84 123 4567'})){alert('👀 Test request is already there.');renderAll();return;}inc.unshift({name:'Thabo M.',number:'+27 84 123 4567',country:'South Africa',countryCode:'+27',status:'pending',photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',cover:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400'});localStorage.setItem('tati_incoming',JSON.stringify(inc));renderAll();}
 updateUI();renderAll();
 (function(){ var saved=localStorage.getItem("tati_selected"); if(saved && isSetupDone()){ setTimeout(function(){ try{ openChat(saved); }catch(e){} }, 600); } })();
-setInterval(pollCloud, 2000);
-setInterval(pollMessages, 2000);
-setInterval(pollTyping, 1000);
-setInterval(pollCalls, 1500);
-setInterval(pollCallStatus, 1000);
-setInterval(sendHeartbeat, 5000);
+setInterval(pollCloud, 800);
+setInterval(pollMessages, 800);
+setInterval(pollTyping, 700);
+setInterval(pollCalls, 800);
+setInterval(pollCallStatus, 800);
+setInterval(sendHeartbeat, 3000);
 setTimeout(refreshFriendPhotos, 1000);
 setInterval(refreshFriendPhotos, 15000);
 sendHeartbeat();
