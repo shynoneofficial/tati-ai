@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Tati - SHYNONE MUSIC</title>
+<title>Secret Room - SHYNONE MUSIC</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
 body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:hidden}
-#header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;flex-shrink:0;position:relative}
-#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain;background:transparent;border:none;flex-shrink:0;padding:0}
+#header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;flex-shrink:0}
+#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain}
 #tatiOnline{font-size:12px;color:#00a884;font-weight:800}
 #centerLogo{flex:1;text-align:center;line-height:1.1;cursor:pointer}
-#centerLogo b{font-size:16px;font-weight:900;letter-spacing:.5px}
+#centerLogo b{font-size:16px;font-weight:900}
 #centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
 .topBtn{padding:11px 12px;border-radius:16px;border:none;font-size:16px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111}
 #greenLine{height:4mm;background:#00a884;flex-shrink:0}
-#safeBar{display:flex;gap:10px;padding:12px 10px;flex-shrink:0;justify-content:space-between;align-items:center}
-.pill{padding:10px 14px;border-radius:999px;border:none;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none;flex-shrink:0}
-#modeSwitch{display:flex;background:#f0f2f5;padding:6px;margin:0 8px 10px;border-radius:14px;gap:10px;flex-shrink:0;align-items:center;overflow-x:auto;scrollbar-width:none}
-#modeSwitch::-webkit-scrollbar{display:none}
-.modeBtn{padding:12px 14px;border-radius:10px;border:none;font-weight:800;font-size:14px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center;flex-shrink:0}
-.modeBtn.active{background:#0a192f;color:#fff}
-.doubleBtn{display:flex;background:#fff;border:1px solid #ddd;border-radius:10px;overflow:hidden;white-space:nowrap;padding:0;margin:0;flex-shrink:0}
-.doubleBtn a{padding:12px 16px;border:none;background:#fff;font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;color:#111;text-align:center;margin:0;line-height:1.2}
-.doubleBtn .divider{width:1px;background:#bbb;flex:none;flex-shrink:0;margin:8px 2px}
-.doubleBtn a.active{background:#0a192f;color:#fff}
-#listenBtn{padding:12px 18px;border:1px solid #ddd;border-radius:10px;background:#fff;font-weight:800;font-size:14px;cursor:pointer;color:#111;white-space:nowrap;flex-shrink:0}
-#listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
-#createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
-#createBtnTop.active{background:#0a192f;color:#fff}
-.page{flex:1;overflow-y:auto;padding:12px;background:#f6f3ee;display:flex;flex-direction:column;gap:10px}
-.homeCard{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.homeCard h2{font-size:20px;margin-bottom:6px}
-.homeCard p{font-size:14px;color:#667781;line-height:1.4}
+.page{flex:1;overflow-y:auto;padding:8px 0 8px 8px;background:#f6f3ee;text-align:left}
+.card{background:#fff;border-radius:0 14px 14px 0;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin:0;margin-right:auto;display:flex;gap:18px;width:fit-content;max-width:100%;text-align:left;justify-content:flex-start}
+.left{width:280px;flex-shrink:0;text-align:left}
+.right{flex:1;text-align:left;border-left:1px solid #eee;padding-left:16px;min-height:200px;min-width:180px}
+.card h2{font-size:20px;margin-bottom:6px;text-align:left}
+.card p{font-size:14px;color:#667781;line-height:1.5;text-align:left}
+label{font-size:13px;font-weight:800;color:#111;display:block;margin-top:12px;text-align:left}
+select{width:260px;padding:11px;border:2px solid #0a192f;border-radius:10px;font-size:14px;outline:none;background:#fff;cursor:pointer}
+.payBox{background:#f0f2f5;border-radius:12px;padding:12px;margin-top:10px;width:260px;font-size:14px;line-height:1.5;text-align:left}
+.coming{background:#fff3cd;border:1px solid #ffd966;border-radius:12px;padding:12px;margin-top:10px;width:260px;font-size:14px;line-height:1.5;text-align:left}
+input{width:260px;padding:11px;border:2px solid #0a192f;border-radius:10px;font-size:14px;margin-top:8px;outline:none;display:block}
+.bigBtn{width:180px;padding:12px;border:none;border-radius:12px;background:#00a884;color:#fff;font-weight:800;font-size:14px;cursor:pointer;margin-top:12px}
+.bigBtn.dark{background:#0a192f;width:180px}
+.bigBtn:disabled{background:#ccc;cursor:not-allowed}
+.small{font-size:12px;color:#667781;margin-top:8px;line-height:1.4;text-align:left}
+.expired{background:#ffe8e8;border:1px solid #ff9999;border-radius:12px;padding:10px;margin-top:10px;color:#b00000;font-weight:700;font-size:13px;width:260px}
 .bubble{max-width:80%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:pre-wrap;word-break:break-word}
 .user{align-self:flex-end;background:#d9fdd3}
 .tati{align-self:flex-start;background:#fff}
@@ -38,102 +36,296 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #textBox{flex:1;background:#fff;border-radius:22px;padding:9px 12px;display:flex}
 #textInput{flex:1;border:none;outline:none;font-size:16px;resize:none}
 #sendBtn{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
-#kbHint{font-size:11px;color:#667781;text-align:center;padding:4px 12px 10px;line-height:1.4;white-space:normal}
 .hidden{display:none!important}
-#langMenu{position:absolute;top:72px;right:8px;background:#fff;border:2px solid #0a192f;border-radius:14px;z-index:20000;width:260px;box-shadow:0 8px 24px rgba(0,0,0,.2);display:none;overflow-y:auto;max-height:80vh}
-#langMenu div{padding:13px 14px;font-size:15px;font-weight:700;cursor:pointer;border-bottom:1px solid #eee}
-#langMenu div:hover{background:#f0f2f5}
-#langMenu input{width:100%;padding:12px;border:none;border-bottom:2px solid #0a192f;outline:none;font-size:15px}
-#secretDot{position:fixed;width:60px;height:60px;right:8px;bottom:110px;z-index:9999;touch-action:none;display:flex;align-items:center;justify-content:center;background:#0a192f;color:#fff;font-size:26px;border-radius:50%;border:2px solid #00a884;box-shadow:0 4px 14px rgba(0,0,0,.35);cursor:grab;user-select:none}
-#secretDot:active{cursor:grabbing}
-#secretLock{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center}
-#secretLockBox{background:#fff;padding:22px;border-radius:16px;text-align:center;width:280px}
-#secretLockBox input{width:100%;padding:12px;font-size:20px;text-align:center;letter-spacing:8px;margin:12px 0;border:2px solid #0a192f;border-radius:10px}
-#secretLockBox button{padding:12px 18px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:15px;cursor:pointer;width:100%}
+#adminBox{background:#fff;border:2px solid #0a192f;border-radius:14px;padding:16px;position:fixed;inset:auto 10px 10px 10px;z-index:10000;display:none}
+#spotBar{background:#fff3cd;border:1px solid #ffd966;border-radius:12px;padding:12px;margin:0 8px 8px;text-align:left}
+#spotOverlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center}
+#spotBox{background:#fff;padding:22px;border-radius:16px;text-align:center;width:280px;touch-action:none}
+#spotHandle{cursor:grab;font-size:13px;font-weight:800;color:#00a884;padding-bottom:8px}
+#spotHandle:active{cursor:grabbing}
+@media(max-width:600px){.card{flex-direction:column;width:calc(100% - 8px)}.right{border-left:none;padding-left:0;border-top:1px solid #eee;padding-top:14px}}
 </style></head><body>
 <div id="header">
 <img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'">
 <div><div id="tatiOnline">● Online</div></div>
 <div id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></div>
-<div style="display:flex;gap:6px;align-items:center">
-<a class="topBtn" href="./pages.html" style="background:#0a192f;color:#fff">📄 Pages</a>
-<button class="topBtn" id="globeBtn" onclick="toggleLangMenu(event)">🌐 ▼</button>
-</div>
-<div id="langMenu"><input id="langSearch" placeholder="🔍 Search language..." oninput="filterLang()"><div id="langList"></div></div>
+<a class="topBtn" href="./index.html">🏠 Home</a>
 </div>
 <div id="greenLine"></div>
-<div id="safeBar">
-<a class="pill" href="./safe.html">📦 SAFE BOX</a>
-<a class="pill" href="./knowledge.html">💡 DID YOU KNOW</a>
-<a class="pill" href="./groups.html">👥 GROUPS</a>
+
+<div class="page" id="payView">
+<div class="card">
+<div class="left">
+<h2>🔒 Secret Room</h2>
+<p>Private chat with your people.<br>Pay once, enjoy for <b>30 days</b>.</p>
+<div id="expiredMsg" class="expired" style="display:none">⏰ Your 30 days finished. Pay again for another 30 days.</div>
+<label>Select country</label>
+<select id="countrySelect" onchange="pickCountry(this.value)">
+<option value="MZ">🇲🇿 Mozambique</option>
+<option value="ZA">🇿🇦 South Africa</option>
+<option value="PH">🇵🇭 Philippines</option>
+<option value="ZW">🇿🇼 Zimbabwe</option>
+<option value="BW">🇧🇼 Botswana</option>
+<option disabled>──────────</option>
+<option value="AF">🇦🇫 Afghanistan</option>
+<option value="AL">🇦🇱 Albania</option>
+<option value="DZ">🇩🇿 Algeria</option>
+<option value="AD">🇦🇩 Andorra</option>
+<option value="AO">🇦🇴 Angola</option>
+<option value="AR">🇦🇷 Argentina</option>
+<option value="AM">🇦🇲 Armenia</option>
+<option value="AU">🇦🇺 Australia</option>
+<option value="AT">🇦🇹 Austria</option>
+<option value="AZ">🇦🇿 Azerbaijan</option>
+<option value="BS">🇧🇸 Bahamas</option>
+<option value="BH">🇧🇭 Bahrain</option>
+<option value="BD">🇧🇩 Bangladesh</option>
+<option value="BB">🇧🇧 Barbados</option>
+<option value="BY">🇧🇾 Belarus</option>
+<option value="BE">🇧🇪 Belgium</option>
+<option value="BZ">🇧🇿 Belize</option>
+<option value="BJ">🇧🇯 Benin</option>
+<option value="BT">🇧🇹 Bhutan</option>
+<option value="BO">🇧🇴 Bolivia</option>
+<option value="BA">🇧🇦 Bosnia</option>
+<option value="BR">🇧🇷 Brazil</option>
+<option value="BN">🇧🇳 Brunei</option>
+<option value="BG">🇧🇬 Bulgaria</option>
+<option value="BF">🇧🇫 Burkina Faso</option>
+<option value="BI">🇧🇮 Burundi</option>
+<option value="KH">🇰🇭 Cambodia</option>
+<option value="CM">🇨🇲 Cameroon</option>
+<option value="CA">🇨🇦 Canada</option>
+<option value="CV">🇨🇻 Cape Verde</option>
+<option value="CF">🇨🇫 Central African Republic</option>
+<option value="TD">🇹🇩 Chad</option>
+<option value="CL">🇨🇱 Chile</option>
+<option value="CN">🇨🇳 China</option>
+<option value="CO">🇨🇴 Colombia</option>
+<option value="KM">🇰🇲 Comoros</option>
+<option value="CG">🇨🇬 Congo</option>
+<option value="CD">🇨🇩 DR Congo</option>
+<option value="CR">🇨🇷 Costa Rica</option>
+<option value="CI">🇨🇮 Ivory Coast</option>
+<option value="HR">🇭🇷 Croatia</option>
+<option value="CU">🇨🇺 Cuba</option>
+<option value="CY">🇨🇾 Cyprus</option>
+<option value="CZ">🇨🇿 Czech Republic</option>
+<option value="DK">🇩🇰 Denmark</option>
+<option value="DJ">🇩🇯 Djibouti</option>
+<option value="DO">🇩🇴 Dominican Republic</option>
+<option value="EC">🇪🇨 Ecuador</option>
+<option value="EG">🇪🇬 Egypt</option>
+<option value="SV">🇸🇻 El Salvador</option>
+<option value="GQ">🇬🇶 Equatorial Guinea</option>
+<option value="ER">🇪🇷 Eritrea</option>
+<option value="EE">🇪🇪 Estonia</option>
+<option value="SZ">🇸🇿 Eswatini</option>
+<option value="ET">🇪🇹 Ethiopia</option>
+<option value="FJ">🇫🇯 Fiji</option>
+<option value="FI">🇫🇮 Finland</option>
+<option value="FR">🇫🇷 France</option>
+<option value="GA">🇬🇦 Gabon</option>
+<option value="GM">🇬🇲 Gambia</option>
+<option value="GE">🇬🇪 Georgia</option>
+<option value="DE">🇩🇪 Germany</option>
+<option value="GH">🇬🇭 Ghana</option>
+<option value="GR">🇬🇷 Greece</option>
+<option value="GT">🇬🇹 Guatemala</option>
+<option value="GN">🇬🇳 Guinea</option>
+<option value="GW">🇬🇼 Guinea-Bissau</option>
+<option value="GY">🇬🇾 Guyana</option>
+<option value="HT">🇭🇹 Haiti</option>
+<option value="HN">🇭🇳 Honduras</option>
+<option value="HU">🇭🇺 Hungary</option>
+<option value="IS">🇮🇸 Iceland</option>
+<option value="IN">🇮🇳 India</option>
+<option value="ID">🇮🇩 Indonesia</option>
+<option value="IR">🇮🇷 Iran</option>
+<option value="IQ">🇮🇶 Iraq</option>
+<option value="IE">🇮🇪 Ireland</option>
+<option value="IL">🇮🇱 Israel</option>
+<option value="IT">🇮🇹 Italy</option>
+<option value="JM">🇯🇲 Jamaica</option>
+<option value="JP">🇯🇵 Japan</option>
+<option value="JO">🇯🇴 Jordan</option>
+<option value="KZ">🇰🇿 Kazakhstan</option>
+<option value="KE">🇰🇪 Kenya</option>
+<option value="KW">🇰🇼 Kuwait</option>
+<option value="KG">🇰🇬 Kyrgyzstan</option>
+<option value="LA">🇱🇦 Laos</option>
+<option value="LV">🇱🇻 Latvia</option>
+<option value="LB">🇱🇧 Lebanon</option>
+<option value="LS">🇱🇸 Lesotho</option>
+<option value="LR">🇱🇷 Liberia</option>
+<option value="LY">🇱🇾 Libya</option>
+<option value="LT">🇱🇹 Lithuania</option>
+<option value="LU">🇱🇺 Luxembourg</option>
+<option value="MG">🇲🇬 Madagascar</option>
+<option value="MW">🇲🇼 Malawi</option>
+<option value="MY">🇲🇾 Malaysia</option>
+<option value="ML">🇲🇱 Mali</option>
+<option value="MT">🇲🇹 Malta</option>
+<option value="MR">🇲🇷 Mauritania</option>
+<option value="MU">🇲🇺 Mauritius</option>
+<option value="MX">🇲🇽 Mexico</option>
+<option value="MD">🇲🇩 Moldova</option>
+<option value="MC">🇲🇨 Monaco</option>
+<option value="MN">🇲🇳 Mongolia</option>
+<option value="ME">🇲🇪 Montenegro</option>
+<option value="MA">🇲🇦 Morocco</option>
+<option value="MM">🇲🇲 Myanmar</option>
+<option value="NA">🇳🇦 Namibia</option>
+<option value="NP">🇳🇵 Nepal</option>
+<option value="NL">🇳🇱 Netherlands</option>
+<option value="NZ">🇳🇿 New Zealand</option>
+<option value="NI">🇳🇮 Nicaragua</option>
+<option value="NE">🇳🇪 Niger</option>
+<option value="NG">🇳🇬 Nigeria</option>
+<option value="KP">🇰🇵 North Korea</option>
+<option value="MK">🇲🇰 North Macedonia</option>
+<option value="NO">🇳🇴 Norway</option>
+<option value="OM">🇴🇲 Oman</option>
+<option value="PK">🇵🇰 Pakistan</option>
+<option value="PA">🇵🇦 Panama</option>
+<option value="PG">🇵🇬 Papua New Guinea</option>
+<option value="PY">🇵🇾 Paraguay</option>
+<option value="PE">🇵🇪 Peru</option>
+<option value="PL">🇵🇱 Poland</option>
+<option value="PT">🇵🇹 Portugal</option>
+<option value="QA">🇶🇦 Qatar</option>
+<option value="RO">🇷🇴 Romania</option>
+<option value="RU">🇷🇺 Russia</option>
+<option value="RW">🇷🇼 Rwanda</option>
+<option value="SA">🇸🇦 Saudi Arabia</option>
+<option value="SN">🇸🇳 Senegal</option>
+<option value="RS">🇷🇸 Serbia</option>
+<option value="SC">🇸🇨 Seychelles</option>
+<option value="SL">🇸🇱 Sierra Leone</option>
+<option value="SG">🇸🇬 Singapore</option>
+<option value="SK">🇸🇰 Slovakia</option>
+<option value="SI">🇸🇮 Slovenia</option>
+<option value="SB">🇸🇧 Solomon Islands</option>
+<option value="SO">🇸🇴 Somalia</option>
+<option value="KR">🇰🇷 South Korea</option>
+<option value="SS">🇸🇸 South Sudan</option>
+<option value="ES">🇪🇸 Spain</option>
+<option value="LK">🇱🇰 Sri Lanka</option>
+<option value="SD">🇸🇩 Sudan</option>
+<option value="SR">🇸🇷 Suriname</option>
+<option value="SE">🇸🇪 Sweden</option>
+<option value="CH">🇨🇭 Switzerland</option>
+<option value="SY">🇸🇾 Syria</option>
+<option value="TW">🇹🇼 Taiwan</option>
+<option value="TJ">🇹🇯 Tajikistan</option>
+<option value="TZ">🇹🇿 Tanzania</option>
+<option value="TH">🇹🇭 Thailand</option>
+<option value="TG">🇹🇬 Togo</option>
+<option value="TO">🇹🇴 Tonga</option>
+<option value="TT">🇹🇹 Trinidad and Tobago</option>
+<option value="TN">🇹🇳 Tunisia</option>
+<option value="TR">🇹🇷 Turkey</option>
+<option value="TM">🇹🇲 Turkmenistan</option>
+<option value="UG">🇺🇬 Uganda</option>
+<option value="UA">🇺🇦 Ukraine</option>
+<option value="AE">🇦🇪 United Arab Emirates</option>
+<option value="GB">🇬🇧 United Kingdom</option>
+<option value="US">🇺🇸 United States</option>
+<option value="UY">🇺🇾 Uruguay</option>
+<option value="UZ">🇺🇿 Uzbekistan</option>
+<option value="VU">🇻🇺 Vanuatu</option>
+<option value="VE">🇻🇪 Venezuela</option>
+<option value="VN">🇻🇳 Vietnam</option>
+<option value="YE">🇾🇪 Yemen</option>
+<option value="ZM">🇿🇲 Zambia</option>
+</select>
+<div class="payBox" id="payMZ"><b>🇲🇿 Paga Facil</b><br>Merchant Code: <b>0112434</b><br>Titular: <b>HOYISELDA</b><br>Amount: <b>50 Meticais</b><br>Pay 50 MT, copy your code, type it below.</div>
+<div class="coming" id="payOther" style="display:none"><b id="comingTitle">Coming Soon</b><br>Payments for this country are coming soon.<br>Please select Mozambique for now.</div>
+<input id="pName" placeholder="Your name">
+<input id="pPhone" placeholder="Your phone number">
+<input id="pCode" placeholder="Payment Code">
+<button class="bigBtn" id="sendProofBtn" onclick="sendProof()">📩 Send</button>
+<p class="small">Tati gets it instantly. Keep page open, it unlocks automatically.</p>
 </div>
-<div id="modeSwitch">
-<a class="modeBtn" href="./people.html">💬 Chats</a>
-<div class="doubleBtn"><a id="textLink" href="#" onclick="openTextPage();return false;">💬 Text Tati</a><div class="divider"></div><a href="./voice.html">🎤 Talk to Tati</a></div>
-<button id="listenBtn" onclick="toggleListenMain()">👂 Listen</button>
-<a id="createBtnTop" href="./create.html">✨ Create</a>
-</div>
-<div class="page" id="homeView">
-<div class="homeCard">
-<h2>👋 Alixeni! Hi, I'm Tati.</h2>
-<p>Your friend. Your helper. Your music.<br>Talk to me, or go to Chats to talk to other people.</p>
-<div style="margin-top:14px;background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
-<p style="color:#111;font-weight:800;font-size:15px">🔒 Secret Room</p>
-<p style="margin-top:4px">Private chat with your people. <a href="./premium.html" style="color:#00a884;font-weight:800">Learn more →</a></p>
-</div>
-<div style="margin-top:10px;background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
-<p style="color:#111;font-weight:800;font-size:15px">📦 Safe Box</p>
-<p style="margin-top:4px">Keep your documents, photos &amp; contacts safe in one place. <a href="./safe.html" style="color:#00a884;font-weight:800">Open Safe Box →</a></p>
+<div class="right">
+<h3 style="font-size:16px;color:#111">Status</h3>
+<p id="rightStatus" class="small" style="font-size:14px;color:#111;margin-top:8px">Select your country, pay, then type your payment code on the left and tap Send.</p>
+<div id="waitingBox" style="display:none;margin-top:14px">
+<p style="color:#111;font-weight:800">⏳ Waiting for approval...</p>
+<p class="small" id="waitingText">Proof sent. Waiting.</p>
+<p style="color:#111;font-weight:800;font-size:14px;margin-top:12px">Or enter unlock code:</p>
+<input id="unlockCode" placeholder="Unlock code from Tati">
+<button class="bigBtn dark" onclick="tryUnlock()">🔓 Unlock</button>
+<p id="unlockErr" style="color:red;font-size:13px;margin-top:8px"></p>
 </div>
 </div>
 </div>
-<div class="page hidden" id="chatView"><div id="chat"></div></div>
-<div id="inputArea" class="hidden"><div id="textBox"><textarea id="textInput" placeholder="Message Tati..." rows="1"></textarea></div><button id="sendBtn">✉️</button></div>
-<div id="kbHint">⌨️ Keyboard is built-in inside Tati - CH / EN / PT included. New languages from 🌐 go to keyboard automatically.</div>
-<div id="secretDot">🔒</div>
-<div id="secretLock"><div id="secretLockBox"><h3>🔒 Secret Room</h3><p style="font-size:13px;color:#666">Enter your code - Encrypted &amp; Hidden</p><input id="secretCode" type="password" inputmode="numeric" maxlength="6" placeholder="••••"><button onclick="unlockSecret()">Unlock</button><p id="secretErr" style="color:red;font-size:13px;margin-top:8px"></p><button onclick="closeSecret()" style="background:#eee;color:#111;margin-top:8px">Close</button></div></div>
+</div>
+
+<div class="page hidden" id="roomView">
+<div id="spotBar">
+<p style="color:#111;font-weight:800;font-size:14px">⚙️ Your Secret Spot</p>
+<p style="font-size:12px;color:#111;margin-top:4px;line-height:1.4">You can drag the PIN box to where you prefer. It will stay there — it will NOT come back to the middle. Next time, tap 5 times in that spot on the home page.</p>
+<button class="bigBtn" style="width:auto;padding:10px 14px;margin-top:8px" onclick="openSpotSetting()">⚙️ Change My Secret Spot</button>
+</div>
+<div id="chat" style="display:flex;flex-direction:column;gap:8px"></div>
+<p id="roomDays" class="small" style="text-align:center"></p>
+</div>
+<div id="inputArea" class="hidden"><div id="textBox"><textarea id="textInput" placeholder="Message your people..." rows="1"></textarea></div><button id="sendBtn">✉️</button></div>
+
+<div id="adminBox">
+<h3>🔑 Admin</h3>
+<input id="masterCode" type="password" placeholder="Master code" style="width:260px">
+<input id="newCode" placeholder="New unlock code" style="width:260px">
+<button class="bigBtn" onclick="createCode()">Create Code</button>
+<p id="adminMsg" style="font-size:13px;margin-top:8px;color:#00a884"></p>
+<button class="bigBtn dark" onclick="closeAdmin()">Close</button>
+</div>
+
+<div id="spotOverlay"><div id="spotBox"><div id="spotHandle">↕️ DRAG ME — Hold here to move</div><div style="background:#fff3cd;border:1px solid #ffd966;border-radius:10px;padding:10px;font-size:12px;color:#111;line-height:1.4;margin-bottom:10px;text-align:left">✋ <b>You can drag this box to your secret spot.</b><br>Hold the top and drag it where you prefer. It will stay there — it will NOT come back to the middle. Next time, tap 5 times in that spot to open it.</div><h3>🔒 Secret Room</h3><p style="font-size:13px;color:#666">This is where your PIN box will appear</p><p style="font-size:13px;color:#111;margin-top:10px">Drag it, then tap Save.</p><button class="bigBtn" style="width:100%" onclick="saveSpotSetting()">✅ Save My Secret Spot</button><button class="bigBtn dark" style="width:100%" onclick="closeSpotSetting()">Close</button></div></div>
+
 <script>
-const WORKER_URL="https://tati-server.dilemahluza.workers.dev";
-let chatHistory=[];
+var SCRIPT_URL="YOUR_APPS_SCRIPT_URL_HERE";
+var selectedCountry="MZ";
+var pollTimer=null;
+function countryName(c){var s=document.getElementById("countrySelect");for(var i=0;i<s.options.length;i++){if(s.options[i].value===c) return s.options[i].text}return c}
+function pickCountry(c){selectedCountry=c;document.getElementById("payMZ").style.display=(c==="MZ"?"block":"none");document.getElementById("payOther").style.display=(c==="MZ"?"none":"block");var btn=document.getElementById("sendProofBtn");if(c==="MZ"){btn.disabled=false;btn.textContent="📩 Send";document.getElementById("rightStatus").textContent="You selected Mozambique. Pay with Paga Facil on the left, then send your code.";}else{btn.disabled=true;btn.textContent="Coming Soon";document.getElementById("comingTitle").textContent=countryName(c)+" — Coming Soon";document.getElementById("rightStatus").textContent=countryName(c)+" payments are coming soon. Please select Mozambique for now.";}}
+pickCountry("MZ");
+function getCodes(){try{return JSON.parse(localStorage.getItem("tati_secret_allowed")||"[]")}catch(e){return[]}}
+function isExpired(){var d=localStorage.getItem("tati_secret_unlocked_date");if(!d) return true;return (Date.now()-parseInt(d,10))/(1000*60*60*24)>30}
+function daysLeft(){var d=parseInt(localStorage.getItem("tati_secret_unlocked_date")||"0",10);return Math.max(0,Math.ceil(30-(Date.now()-d)/(1000*60*60*24)))}
+function checkExpiry(){if(localStorage.getItem("tati_secret_unlocked")==="1"&&isExpired()){localStorage.removeItem("tati_secret_unlocked");document.getElementById("expiredMsg").style.display="block";return true}return false}
+function sendProof(){if(selectedCountry!=="MZ"){alert("Payments for this country are coming soon. Please select Mozambique for now.");return}var name=document.getElementById("pName").value.trim();var phone=document.getElementById("pPhone").value.trim();var code=document.getElementById("pCode").value.trim();if(!name||!phone||!code){alert("Please fill name + phone + payment code");return}document.getElementById("sendProofBtn").textContent="Sending...";localStorage.setItem("tati_secret_pending",JSON.stringify({name:name,phone:phone,code:code,country:selectedCountry}));if(SCRIPT_URL&&SCRIPT_URL!=="YOUR_APPS_SCRIPT_URL_HERE"){fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:name,phone:phone,country:selectedCountry,code:code})}).catch(function(){});}document.getElementById("waitingBox").style.display="block";document.getElementById("rightStatus").textContent="✅ Proof sent for "+name+". Waiting for Tati to approve.";document.getElementById("sendProofBtn").textContent="✅ Sent - Waiting...";document.getElementById("waitingText").textContent="Keep this page open. It will unlock automatically when Tati approves you for 30 days.";startPolling(phone);}
+function startPolling(phone){if(pollTimer) clearInterval(pollTimer);if(!SCRIPT_URL||SCRIPT_URL==="YOUR_APPS_SCRIPT_URL_HERE") return;pollTimer=setInterval(function(){fetch(SCRIPT_URL+"?phone="+encodeURIComponent(phone)).then(function(r){return r.json()}).then(function(d){if(d.status==="APPROVED"){localStorage.setItem("tati_secret_unlocked","1");localStorage.setItem("tati_secret_unlocked_date",String(Date.now()));clearInterval(pollTimer);alert("✅ Approved by Tati! Welcome. You have 30 days.");openRoom();}}).catch(function(){});},10000);}
+function tryUnlock(){var v=document.getElementById("unlockCode").value.trim();if(!v){document.getElementById("unlockErr").textContent="Type your unlock code.";return}var codes=getCodes();if(v==="2580"||codes.indexOf(v)>-1){localStorage.setItem("tati_secret_unlocked","1");localStorage.setItem("tati_secret_unlocked_date",String(Date.now()));openRoom();}else{document.getElementById("unlockErr").textContent="Wrong code. Wait for Tati."}}
+function openRoom(){if(checkExpiry()){return}document.getElementById("payView").classList.add("hidden");document.getElementById("roomView").classList.remove("hidden");document.getElementById("inputArea").classList.remove("hidden");document.getElementById("roomDays").textContent="⏰ "+daysLeft()+" days left. After that, pay again.";if(document.getElementById("chat").children.length===0){addBubble("Welcome to Secret Room 🔒 Private chat with your people. You have 30 days.","tati")}}
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+esc(t)+"</span>";document.getElementById("chat").appendChild(b);var c=document.getElementById("chatView");c.scrollTop=c.scrollHeight}
-function openTextPage(){document.getElementById("homeView").classList.add("hidden");document.getElementById("chatView").classList.remove("hidden");document.getElementById("inputArea").classList.remove("hidden");document.getElementById("textLink").classList.add("active");if(document.getElementById("chat").children.length===0){addBubble("Alixeni! Hi, I'm Tati. How can I help you today, my friend?","tati")}document.getElementById("textInput").focus()}
-async function sendToTati(q){chatHistory.push({role:"user",content:q});addBubble("...","tati");var thinking=document.getElementById("chat").lastChild;try{var res=await fetch(WORKER_URL+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:chatHistory})});var data=await res.json().catch(()=>({}));thinking.remove();if(!res.ok||!data.reply){addBubble("Brain error: "+(data.error||("Worker said "+res.status))+". Check GROQ key in Worker, my friend.","tati");return}var reply=data.reply;chatHistory.push({role:"assistant",content:reply});if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);addBubble(reply,"tati")}catch(e){thinking.remove();addBubble("Sorry, I can't reach my brain right now ("+e.message+"). Check data / Worker URL.","tati")}}
-document.getElementById("sendBtn").onclick=function(){var q=document.getElementById("textInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("textInput").value="";sendToTati(q)};
+function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+esc(t)+"</span>";document.getElementById("chat").appendChild(b);var c=document.getElementById("roomView");c.scrollTop=c.scrollHeight}
+document.getElementById("sendBtn").onclick=function(){var q=document.getElementById("textInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("textInput").value=""};
 document.getElementById("textInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();document.getElementById("sendBtn").click()}});
-document.getElementById("centerLogo").onclick=function(){window.open('https://shynoneofficial.github.io/shynone-music/','_blank')};
-function getAllLanguages(){return["Changana","Portuguese","English","Zulu","Siswati","Cebuano","Tagalog","Afrikaans","Akan","Albanian","Amharic","Arabic","Armenian","Assamese","Aymara","Azerbaijani","Bambara","Basque","Belarusian","Bengali","Bhojpuri","Bosnian","Bulgarian","Burmese","Catalan","Chewa","Chichewa","Chinese (Simplified)","Chinese (Traditional)","Corsican","Croatian","Czech","Danish","Dinka","Dutch","Dzongkha","Ewe","Finnish","French","Frisian","Galician","Georgian","German","Greek","Guarani","Gujarati","Haitian Creole","Hausa","Hawaiian","Hebrew","Hindi","Hmong","Hungarian","Icelandic","Igbo","Ilocano","Indonesian","Irish","Italian","Japanese","Javanese","Kannada","Kazakh","Khmer","Kinyarwanda","Konkani","Korean","Krio","Kurdish","Kyrgyz","Lao","Latin","Latvian","Lingala","Lithuanian","Luganda","Luxembourgish","Macedonian","Maithili","Malagasy","Malay","Malayalam","Maltese","Maori","Marathi","Mongolian","Nepali","Northern Sotho","Norwegian","Odia","Oromo","Pashto","Persian","Polish","Punjabi","Quechua","Romanian","Ronga","Russian","Samoan","Sanskrit","Scots Gaelic","Sepedi","Serbian","Sesotho","Shona","Sindhi","Sinhala","Slovak","Slovenian","Somali","Southern Sotho","Spanish","Sundanese","Swahili","Swedish","Tajik","Tamil","Tatar","Telugu","Thai","Tigrinya","Tsonga","Turkish","Turkmen","Twi","Ukrainian","Urdu","Uyghur","Uzbek","Vietnamese","Welsh","Xhosa","Yiddish","Yoruba"]}
-var ALL_LANGS=getAllLanguages();
-function renderLang(list){var el=document.getElementById("langList");el.innerHTML="";list.forEach(function(n){var d=document.createElement("div");d.textContent="🗣️ "+n;d.onclick=function(){pickLang(n)};el.appendChild(d)})}
-function filterLang(){var q=document.getElementById("langSearch").value.toLowerCase();renderLang(ALL_LANGS.filter(function(n){return n.toLowerCase().indexOf(q)>-1}))}
-function toggleLangMenu(e){if(e)e.stopPropagation();var m=document.getElementById("langMenu");var open=m.style.display==="block";m.style.display=open?"none":"block";if(!open){renderLang(ALL_LANGS);setTimeout(function(){document.getElementById("langSearch").focus()},50)}}
-function pickLang(name){localStorage.setItem("tati_lang",name);localStorage.setItem("tati_lang_name",name);document.getElementById("langMenu").style.display="none";alert("Language set to: "+name+" - Tati will now speak "+name)}
-document.addEventListener("click",function(e){var m=document.getElementById("langMenu");if(m&&m.style.display==="block"&&!e.target.closest("#langMenu")&&e.target.id!=="globeBtn"){m.style.display="none"}});
-function getSecretCfg(){try{return JSON.parse(localStorage.getItem("tati_secret_cfg")||'{"taps":5,"code":"2580"}')}catch(e){return{taps:5,code:"2580"}}}
-let tapCount=0,tapTimer=null;
-function handleSecretTap(){
-var cfg=getSecretCfg();
-tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{tapCount=0},2000);
-if(tapCount>=cfg.taps){tapCount=0;document.getElementById("secretLock").style.display="flex"}
-}
+if(!checkExpiry()&&localStorage.getItem("tati_secret_unlocked")==="1"){openRoom()}
+if(localStorage.getItem("tati_secret_unlocked")!=="1"&&localStorage.getItem("tati_secret_unlocked_date")){document.getElementById("expiredMsg").style.display="block"}
+var logoTaps=0,logoTimer=null;
+document.getElementById("centerLogo").onclick=function(){logoTaps++;clearTimeout(logoTimer);logoTimer=setTimeout(function(){logoTaps=0},2000);if(logoTaps>=5){logoTaps=0;document.getElementById("adminBox").style.display="block"}};
+function createCode(){if(document.getElementById("masterCode").value!=="2580"){document.getElementById("adminMsg").textContent="Wrong master code.";return}var nc=document.getElementById("newCode").value.trim();if(!nc){document.getElementById("adminMsg").textContent="Type a new code.";return}var codes=getCodes();if(codes.indexOf(nc)===-1){codes.push(nc);localStorage.setItem("tati_secret_allowed",JSON.stringify(codes))}document.getElementById("adminMsg").textContent="Code created: "+nc;}
+function closeAdmin(){document.getElementById("adminBox").style.display="none"}
+try{var p=JSON.parse(localStorage.getItem("tati_secret_pending")||"null");if(p&&localStorage.getItem("tati_secret_unlocked")!=="1"){document.getElementById("pName").value=p.name;document.getElementById("pPhone").value=p.phone;document.getElementById("pCode").value=p.code;document.getElementById("countrySelect").value=p.country;pickCountry(p.country);document.getElementById("waitingBox").style.display="block";startPolling(p.phone);}}catch(e){}
+// INSIDE SECRET ROOM - CHANGE SECRET SPOT - same memory as index.html
+function openSpotSetting(){var o=document.getElementById("spotOverlay");o.style.display="flex";var box=document.getElementById("spotBox");try{var saved=JSON.parse(localStorage.getItem("tati_secret_lock_pos")||"null");if(saved){o.style.alignItems="flex-start";o.style.justifyContent="flex-start";box.style.marginLeft=saved.x+"px";box.style.marginTop=saved.y+"px";}}catch(e){}}
+function closeSpotSetting(){document.getElementById("spotOverlay").style.display="none"}
+function saveSpotSetting(){var box=document.getElementById("spotBox");localStorage.setItem("tati_secret_lock_pos",JSON.stringify({x:parseInt(box.style.marginLeft||"0"),y:parseInt(box.style.marginTop||"0")}));alert("✅ Saved! Your secret spot will stay there. It will NOT come back to the middle.");closeSpotSetting();}
 (function(){
-var dot=document.getElementById("secretDot");
-try{var saved=JSON.parse(localStorage.getItem("tati_secret_dot_pos")||"null");if(saved){dot.style.left=saved.x+"px";dot.style.top=saved.y+"px";dot.style.right="auto";dot.style.bottom="auto";}}catch(e){}
-var sX=0,sY=0,oX=0,oY=0,moved=false,down=false;
-function s(e){down=true;moved=false;var t=e.touches?e.touches[0]:e;sX=t.clientX;sY=t.clientY;var r=dot.getBoundingClientRect();oX=r.left;oY=r.top;dot.style.right="auto";dot.style.bottom="auto";}
-function m(e){if(!down)return;var t=e.touches?e.touches[0]:e;var dx=t.clientX-sX,dy=t.clientY-sY;if(Math.abs(dx)>7||Math.abs(dy)>7)moved=true;if(moved){e.preventDefault();var nx=Math.max(0,Math.min(window.innerWidth-dot.offsetWidth,oX+dx));var ny=Math.max(0,Math.min(window.innerHeight-dot.offsetHeight,oY+dy));dot.style.left=nx+"px";dot.style.top=ny+"px";}}
-function en(){if(!down)return;down=false;if(moved){localStorage.setItem("tati_secret_dot_pos",JSON.stringify({x:parseInt(dot.style.left),y:parseInt(dot.style.top)}));}else{handleSecretTap();}}
-dot.addEventListener("touchstart",s,{passive:true});
-dot.addEventListener("touchmove",m,{passive:false});
-dot.addEventListener("touchend",en);
-dot.addEventListener("mousedown",s);
+var box=document.getElementById("spotBox");var handle=document.getElementById("spotHandle");var overlay=document.getElementById("spotOverlay");
+var sX=0,sY=0,oX=0,oY=0,down=false;
+function s(e){down=true;var t=e.touches?e.touches[0]:e;sX=t.clientX;sY=t.clientY;var r=box.getBoundingClientRect();oX=r.left;oY=r.top;overlay.style.alignItems="flex-start";overlay.style.justifyContent="flex-start";box.style.marginLeft=oX+"px";box.style.marginTop=oY+"px";}
+function m(e){if(!down)return;var t=e.touches?e.touches[0]:e;var dx=t.clientX-sX,dy=t.clientY-sY;var nx=Math.max(0,Math.min(window.innerWidth-box.offsetWidth,oX+dx));var ny=Math.max(0,Math.min(window.innerHeight-box.offsetHeight,oY+dy));box.style.marginLeft=nx+"px";box.style.marginTop=ny+"px";e.preventDefault();}
+function en(){if(!down)return;down=false;localStorage.setItem("tati_secret_lock_pos",JSON.stringify({x:parseInt(box.style.marginLeft||"0"),y:parseInt(box.style.marginTop||"0")}));}
+handle.addEventListener("touchstart",s,{passive:true});
+handle.addEventListener("touchmove",m,{passive:false});
+handle.addEventListener("touchend",en);
+handle.addEventListener("mousedown",s);
 window.addEventListener("mousemove",m);
 window.addEventListener("mouseup",en);
 })();
-function unlockSecret(){var cfg=getSecretCfg();var v=document.getElementById("secretCode").value.trim();if(v===cfg.code){document.getElementById("secretLock").style.display="none";document.getElementById("secretCode").value="";window.location.href="./secret.html"}else{document.getElementById("secretErr").textContent="Wrong code. Try again."}}
-function closeSecret(){document.getElementById("secretLock").style.display="none"}
-var listenRec=null,listenOn=false;
-function getListenSettings(){try{return JSON.parse(localStorage.getItem("tati_listen_settings")||"{}")}catch(e){return{}}}
-function toggleListenMain(){if(listenOn){if(listenRec)listenRec.stop();return}var names=localStorage.getItem("tati_listen_names")||"";if(!names){var n=prompt("👂 Who is here? What are your names? (ex: Jemi, Mama, Thabo)");if(n){localStorage.setItem("tati_listen_names",n)}}var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}listenRec=new SR();listenRec.lang="pt-PT";listenRec.continuous=true;listenRec.interimResults=true;listenRec.onstart=function(){listenOn=true;localStorage.setItem("tati_listen_on","1");var btn=document.getElementById("listenBtn");btn.textContent="👂 Listening";btn.classList.add("on")};listenRec.onend=function(){listenOn=false;localStorage.setItem("tati_listen_on","0");var btn=document.getElementById("listenBtn");btn.textContent="👂 Listen";btn.classList.remove("on")};listenRec.onresult=function(e){var txt="";for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" "}txt=txt.trim();if(!txt)return;var all=[];try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(err){}all.push({date:new Date().toLocaleString(),text:txt});localStorage.setItem("tati_listen",JSON.stringify(all));var s=getListenSettings();if(s.quiet)return;var low=txt.toLowerCase();if(low.indexOf("tati")>-1){addBubble("👂 I heard my name! How can I help?","tati")}else if(low.indexOf("haha")>-1||low.indexOf("funny")>-1){if(s.funny!==false)addBubble("😂 Hahaha! That was funny!","tati")}};listenRec.start()}
 </script>
 </body></html>
