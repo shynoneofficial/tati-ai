@@ -27,8 +27,8 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
 #createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
 #createBtnTop.active{background:#0a192f;color:#fff}
-.page{flex:1;overflow-y:auto;padding:12px;background:#f6f3ee;display:flex;flex-direction:column;gap:10px}
-.homeCard{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.page{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px;padding-bottom:30px;background:#f6f3ee;display:flex;flex-direction:column;gap:10px;min-height:0}
+.homeCard{background:#fff;border-radius:14px;padding:18px;padding-bottom:24px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .homeCard h2{font-size:20px;margin-bottom:6px}
 .homeCard p{font-size:14px;color:#667781;line-height:1.4}
 .bubble{max-width:80%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:pre-wrap;word-break:break-word}
@@ -38,20 +38,21 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #textBox{flex:1;background:#fff;border-radius:22px;padding:9px 12px;display:flex}
 #textInput{flex:1;border:none;outline:none;font-size:16px;resize:none}
 #sendBtn{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
-#kbHint{font-size:11px;color:#667781;text-align:center;padding:4px 12px 10px;line-height:1.4;white-space:normal}
+#kbHint{font-size:11px;color:#667781;text-align:center;padding:4px 12px 10px;line-height:1.4;white-space:normal;flex-shrink:0}
 .hidden{display:none!important}
 #langMenu{position:absolute;top:72px;right:8px;background:#fff;border:2px solid #0a192f;border-radius:14px;z-index:20000;width:260px;box-shadow:0 8px 24px rgba(0,0,0,.2);display:none;overflow-y:auto;max-height:80vh}
 #langMenu div{padding:13px 14px;font-size:15px;font-weight:700;cursor:pointer;border-bottom:1px solid #eee}
 #langMenu div:hover{background:#f0f2f5}
 #langMenu input{width:100%;padding:12px;border:none;border-bottom:2px solid #0a192f;outline:none;font-size:15px}
-#secretDot{position:fixed;width:60px;height:60px;right:8px;bottom:110px;z-index:9999;opacity:0;touch-action:none}
+#secretDot{position:fixed;width:64px;height:64px;right:8px;bottom:110px;z-index:9999;opacity:0;touch-action:manipulation}
 #secretLock{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center}
-#secretLockBox{background:#fff;padding:22px;border-radius:16px;text-align:center;width:280px;touch-action:none}
+#secretLockBox{background:#fff;padding:22px;border-radius:16px;text-align:center;width:280px;position:relative}
 #secretLockBox input{width:100%;padding:12px;font-size:20px;text-align:center;letter-spacing:8px;margin:12px 0;border:2px solid #0a192f;border-radius:10px}
 #secretLockBox button{padding:12px 18px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:15px;cursor:pointer;width:100%}
-#dragHandle{cursor:grab;font-size:13px;font-weight:800;color:#00a884;padding-bottom:8px}
-#dragHandle:active{cursor:grabbing}
 #dragHint{background:#fff3cd;border:1px solid #ffd966;border-radius:10px;padding:10px;font-size:12px;color:#111;line-height:1.4;margin-bottom:10px;text-align:left}
+#spotMarker{position:fixed;width:28px;height:28px;border-radius:50%;background:#00a884;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4);z-index:10001;display:none;touch-action:none;cursor:grab}
+#spotMarker:active{cursor:grabbing}
+#spotLabel{position:fixed;z-index:10001;display:none;background:#111;color:#fff;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;pointer-events:none;white-space:nowrap}
 </style></head><body>
 <div id="header">
 <img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'">
@@ -77,58 +78,73 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 </div>
 <div class="page" id="homeView">
 <div class="homeCard">
-<h2>👋 Alixeni! Hi, I'm Tati.</h2>
-<p>Your friend. Your helper. Your music.<br>Talk to me, or go to Chats to talk to other people.</p>
+<h2 id="welcomeTitle">👋 Alixeni! Himina Tati, xaka la wena!</h2>
+<p id="welcomeSub">U njhani namuntlha? U lava ni ku pfuna hi yini?<br><br>Vulavula na mina hi Xichangana, hi xiPutukezi, kumbe hi xiNghiza — ni ta ku twisisa.</p>
 <div style="margin-top:14px;background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
-<p style="color:#111;font-weight:800;font-size:15px">🔒 Secret Room</p>
-<p style="margin-top:4px">Private chat with your people. <a href="./premium.html" style="color:#00a884;font-weight:800">Learn more →</a></p>
+<p id="secretTitle" style="color:#111;font-weight:800;font-size:15px">🔒 Xumba ra Xihundla</p>
+<p id="secretDesc" style="margin-top:4px">Vulavula hi xihundla na vanhu va wena. <a href="./premium.html" style="color:#00a884;font-weight:800">Dyondza swo tala →</a></p>
 </div>
 <div style="margin-top:10px;background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
-<p style="color:#111;font-weight:800;font-size:15px">📦 Safe Box</p>
-<p style="margin-top:4px">Keep your documents, photos &amp; contacts safe in one place. <a href="./safe.html" style="color:#00a884;font-weight:800">Open Safe Box →</a></p>
+<p id="safeTitle" style="color:#111;font-weight:800;font-size:15px">📦 Bokisi ra Vuhlayiseki</p>
+<p id="safeDesc" style="margin-top:4px">Hlayisa mapapila, swifaniso ni tinomboro ta wena hi ku hlayiseka eka ndhawu yin'we. <a href="./safe.html" style="color:#00a884;font-weight:800">Pfula Bokisi ra Vuhlayiseki →</a></p>
 </div>
+<div style="height:20px"></div>
 </div>
 </div>
 <div class="page hidden" id="chatView"><div id="chat"></div></div>
 <div id="inputArea" class="hidden"><div id="textBox"><textarea id="textInput" placeholder="Message Tati..." rows="1"></textarea></div><button id="sendBtn">✉️</button></div>
 <div id="kbHint">⌨️ Keyboard is built-in inside Tati - CH / EN / PT included. New languages from 🌐 go to keyboard automatically.</div>
 <div id="secretDot"></div>
-<div id="secretLock"><div id="secretLockBox"><div id="dragHandle">↕️ DRAG ME — Hold here to move</div><div id="dragHint">✋ <b>You can drag this box to your secret spot.</b><br>Hold the top and drag it where you prefer. It will stay there — it will NOT come back to the middle. Next time, tap 5 times in that spot to open it.</div><h3>🔒 Secret Room</h3><p style="font-size:13px;color:#666">Enter your code - Encrypted &amp; Hidden</p><input id="secretCode" type="password" inputmode="numeric" maxlength="6" placeholder="••••"><button onclick="unlockSecret()">Unlock</button><p id="secretErr" style="color:red;font-size:13px;margin-top:8px"></p><button onclick="window.location.href='./secret.html'" style="background:#0a192f;margin-top:8px">Don't have a code yet? Get Code →</button><button onclick="closeSecret()" style="background:#eee;color:#111;margin-top:8px">Close</button></div></div>
+<div id="secretLock"><div id="secretLockBox"><div id="dragHint">🟢 <b>Drag the small green dot to your secret spot.</b><br>Hold the small dot and drag it anywhere. The big box stays here. That small dot is where you will tap 5 times next time. It will stay there — it will NOT come back.</div><h3>🔒 Secret Room</h3><p style="font-size:13px;color:#666">Enter your code - Encrypted &amp; Hidden</p><input id="secretCode" type="password" inputmode="numeric" maxlength="6" placeholder="••••"><button onclick="unlockSecret()">Unlock</button><p id="secretErr" style="color:red;font-size:13px;margin-top:8px"></p><button onclick="window.location.href='./secret.html'" style="background:#0a192f;margin-top:8px">Don't have a code yet? Get Code →</button><button onclick="closeSecret()" style="background:#eee;color:#111;margin-top:8px">Close</button></div></div>
+<div id="spotMarker"></div><div id="spotLabel">↕️ Drag me to your secret spot</div>
 <script>
 const WORKER_URL="https://tati-server.dilemahluza.workers.dev";
 let chatHistory=[];
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+esc(t)+"</span>";document.getElementById("chat").appendChild(b);var c=document.getElementById("chatView");c.scrollTop=c.scrollHeight}
-function openTextPage(){document.getElementById("homeView").classList.add("hidden");document.getElementById("chatView").classList.remove("hidden");document.getElementById("inputArea").classList.remove("hidden");document.getElementById("textLink").classList.add("active");if(document.getElementById("chat").children.length===0){addBubble("Alixeni! Hi, I'm Tati. How can I help you today, my friend?","tati")}document.getElementById("textInput").focus()}
+function openTextPage(){document.getElementById("homeView").classList.add("hidden");document.getElementById("chatView").classList.remove("hidden");document.getElementById("inputArea").classList.remove("hidden");document.getElementById("textLink").classList.add("active");if(document.getElementById("chat").children.length===0){var t=applyHomeLang(localStorage.getItem("tati_lang")||"Changana");addBubble(t.greet,"tati")}document.getElementById("textInput").focus()}
 async function sendToTati(q){chatHistory.push({role:"user",content:q});addBubble("...","tati");var thinking=document.getElementById("chat").lastChild;try{var res=await fetch(WORKER_URL+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:chatHistory})});var data=await res.json().catch(()=>({}));thinking.remove();if(!res.ok||!data.reply){addBubble("Brain error: "+(data.error||("Worker said "+res.status))+". Check GROQ key in Worker, my friend.","tati");return}var reply=data.reply;chatHistory.push({role:"assistant",content:reply});if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);addBubble(reply,"tati")}catch(e){thinking.remove();addBubble("Sorry, I can't reach my brain right now ("+e.message+"). Check data / Worker URL.","tati")}}
 document.getElementById("sendBtn").onclick=function(){var q=document.getElementById("textInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("textInput").value="";sendToTati(q)};
 document.getElementById("textInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();document.getElementById("sendBtn").click()}});
 document.getElementById("centerLogo").onclick=function(){window.open('https://shynoneofficial.github.io/shynone-music/','_blank')};
+// WELCOME IN TOP 5 LANGUAGES - default Changana - Changana message is YOUR exact words
+var HOME_TEXT={
+"Changana":{title:"👋 Alixeni! Himina Tati, xaka la wena!",sub:"U njhani namuntlha? U lava ni ku pfuna hi yini?<br><br>Vulavula na mina hi Xichangana, hi xiPutukezi, kumbe hi xiNghiza — ni ta ku twisisa.",secretT:"🔒 Xumba ra Xihundla",secretD:"Vulavula hi xihundla na vanhu va wena. <a href='./premium.html' style='color:#00a884;font-weight:800'>Dyondza swo tala →</a>",safeT:"📦 Bokisi ra Vuhlayiseki",safeD:"Hlayisa mapapila, swifaniso ni tinomboro ta wena hi ku hlayiseka eka ndhawu yin'we. <a href='./safe.html' style='color:#00a884;font-weight:800'>Pfula Bokisi ra Vuhlayiseki →</a>",ph:"Message Tati...",greet:"Alixeni! Himina Tati, xaka la wena! U njhani namuntlha? U lava ni ku pfuna hi yini? Vulavula na mina hi Xichangana, hi xiPutukezi, kumbe hi xiNghiza — ni ta ku twisisa."},
+"Portuguese":{title:"👋 Olá! Olá, eu sou a Tati.",sub:"A tua amiga. A tua ajudante. A tua música.<br>Fala comigo, ou vai a Chats para falar com outras pessoas.",secretT:"🔒 Sala Secreta",secretD:"Conversa privada com as tuas pessoas. <a href='./premium.html' style='color:#00a884;font-weight:800'>Saber mais →</a>",safeT:"📦 Caixa Segura",safeD:"Guarda os teus documentos, fotos e contactos em segurança num só lugar. <a href='./safe.html' style='color:#00a884;font-weight:800'>Abrir Caixa Segura →</a>",ph:"Mensagem para Tati...",greet:"Olá! Olá, eu sou a Tati. Como posso ajudar-te hoje, meu amigo?"},
+"English":{title:"👋 Hello! Hi, I'm Tati.",sub:"Your friend. Your helper. Your music.<br>Talk to me, or go to Chats to talk to other people.",secretT:"🔒 Secret Room",secretD:"Private chat with your people. <a href='./premium.html' style='color:#00a884;font-weight:800'>Learn more →</a>",safeT:"📦 Safe Box",safeD:"Keep your documents, photos & contacts safe in one place. <a href='./safe.html' style='color:#00a884;font-weight:800'>Open Safe Box →</a>",ph:"Message Tati...",greet:"Hello! Hi, I'm Tati. How can I help you today, my friend?"},
+"Zulu":{title:"👋 Sawubona! Sawubona, ngingu Tati.",sub:"Umngane wakho. Umsizi wakho. Umculo wakho.<br>Khuluma nami, noma uye ku-Chats ukhulume nabanye abantu.",secretT:"🔒 Igumbi Elifihliwe",secretD:"Ingxoxo yangasese nabantu bakho. <a href='./premium.html' style='color:#00a884;font-weight:800'>Funda kabanzi →</a>",safeT:"📦 Ibhokisi Eliphephile",safeD:"Gcina imibhalo yakho, izithombe kanye noxhumana nabo kuphephile endaweni eyodwa. <a href='./safe.html' style='color:#00a884;font-weight:800'>Vula Ibhokisi Eliphephile →</a>",ph:"Mlayezo ku-Tati...",greet:"Sawubona! Sawubona, ngingu Tati. Ngingakusiza kanjani namuhla, mngane wami?"},
+"Siswati":{title:"👋 Sawubona! Sawubona, ngingu Tati.",sub:"Umngani wakho. Umsiti wakho. Umculo wakho.<br>Khuluma nami, noma uye ku-Chats ukhulume nalabanye bantfu.",secretT:"🔒 Likamelo Lekufihlakala",secretD:"Ingcoco leyimfihlo nebantfu bakho. <a href='./premium.html' style='color:#00a884;font-weight:800'>Fundza kabanti →</a>",safeT:"📦 Libhokisi Leliphephile",safeD:"Gcina emaphepha akho, tifombe kanye nebantfu bakutsintsa endzaweni yinye lephephile. <a href='./safe.html' style='color:#00a884;font-weight:800'>Vula Libhokisi Leliphephile →</a>",ph:"Umlayezo ku-Tati...",greet:"Sawubona! Sawubona, ngingu Tati. Ngingakusita njani lamuhla, mngani wami?"}
+};
+function applyHomeLang(name){var t=HOME_TEXT[name]||HOME_TEXT["English"];document.getElementById("welcomeTitle").innerHTML=t.title;document.getElementById("welcomeSub").innerHTML=t.sub;document.getElementById("secretTitle").textContent=t.secretT;document.getElementById("secretDesc").innerHTML=t.secretD;document.getElementById("safeTitle").textContent=t.safeT;document.getElementById("safeDesc").innerHTML=t.safeD;document.getElementById("textInput").placeholder=t.ph;return t;}
 function getAllLanguages(){return["Changana","Portuguese","English","Zulu","Siswati","Cebuano","Tagalog","Afrikaans","Akan","Albanian","Amharic","Arabic","Armenian","Assamese","Aymara","Azerbaijani","Bambara","Basque","Belarusian","Bengali","Bhojpuri","Bosnian","Bulgarian","Burmese","Catalan","Chewa","Chichewa","Chinese (Simplified)","Chinese (Traditional)","Corsican","Croatian","Czech","Danish","Dinka","Dutch","Dzongkha","Ewe","Finnish","French","Frisian","Galician","Georgian","German","Greek","Guarani","Gujarati","Haitian Creole","Hausa","Hawaiian","Hebrew","Hindi","Hmong","Hungarian","Icelandic","Igbo","Ilocano","Indonesian","Irish","Italian","Japanese","Javanese","Kannada","Kazakh","Khmer","Kinyarwanda","Konkani","Korean","Krio","Kurdish","Kyrgyz","Lao","Latin","Latvian","Lingala","Lithuanian","Luganda","Luxembourgish","Macedonian","Maithili","Malagasy","Malay","Malayalam","Maltese","Maori","Marathi","Mongolian","Nepali","Northern Sotho","Norwegian","Odia","Oromo","Pashto","Persian","Polish","Punjabi","Quechua","Romanian","Ronga","Russian","Samoan","Sanskrit","Scots Gaelic","Sepedi","Serbian","Sesotho","Shona","Sindhi","Sinhala","Slovak","Slovenian","Somali","Southern Sotho","Spanish","Sundanese","Swahili","Swedish","Tajik","Tamil","Tatar","Telugu","Thai","Tigrinya","Tsonga","Turkish","Turkmen","Twi","Ukrainian","Urdu","Uyghur","Uzbek","Vietnamese","Welsh","Xhosa","Yiddish","Yoruba"]}
 var ALL_LANGS=getAllLanguages();
 function renderLang(list){var el=document.getElementById("langList");el.innerHTML="";list.forEach(function(n){var d=document.createElement("div");d.textContent="🗣️ "+n;d.onclick=function(){pickLang(n)};el.appendChild(d)})}
 function filterLang(){var q=document.getElementById("langSearch").value.toLowerCase();renderLang(ALL_LANGS.filter(function(n){return n.toLowerCase().indexOf(q)>-1}))}
 function toggleLangMenu(e){if(e)e.stopPropagation();var m=document.getElementById("langMenu");var open=m.style.display==="block";m.style.display=open?"none":"block";if(!open){renderLang(ALL_LANGS);setTimeout(function(){document.getElementById("langSearch").focus()},50)}}
-function pickLang(name){localStorage.setItem("tati_lang",name);localStorage.setItem("tati_lang_name",name);document.getElementById("langMenu").style.display="none";alert("Language set to: "+name+" - Tati will now speak "+name)}
+function pickLang(name){localStorage.setItem("tati_lang",name);localStorage.setItem("tati_lang_name",name);document.getElementById("langMenu").style.display="none";applyHomeLang(name);alert("Language set to: "+name+" - Tati will now speak "+name)}
+var savedLang=localStorage.getItem("tati_lang")||"Changana";if(!localStorage.getItem("tati_lang")){localStorage.setItem("tati_lang","Changana");localStorage.setItem("tati_lang_name","Changana");}applyHomeLang(savedLang);
 document.addEventListener("click",function(e){var m=document.getElementById("langMenu");if(m&&m.style.display==="block"&&!e.target.closest("#langMenu")&&e.target.id!=="globeBtn"){m.style.display="none"}});
 function getSecretCfg(){try{return JSON.parse(localStorage.getItem("tati_secret_cfg")||'{"taps":5,"code":"2580"}')}catch(e){return{taps:5,code:"2580"}}}
+function applySecretSpot(){var dot=document.getElementById("secretDot");try{var p=JSON.parse(localStorage.getItem("tati_secret_spot")||"null");if(p){dot.style.right="auto";dot.style.bottom="auto";dot.style.left=p.x+"px";dot.style.top=p.y+"px";}}catch(e){}}
+applySecretSpot();
 let tapCount=0,tapTimer=null;
-function openSecretLock(){var lock=document.getElementById("secretLock");var box=document.getElementById("secretLockBox");lock.style.display="flex";try{var saved=JSON.parse(localStorage.getItem("tati_secret_lock_pos")||"null");if(saved){lock.style.alignItems="flex-start";lock.style.justifyContent="flex-start";box.style.marginLeft=saved.x+"px";box.style.marginTop=saved.y+"px";}else{lock.style.alignItems="center";lock.style.justifyContent="center";box.style.marginLeft="0px";box.style.marginTop="0px";}}catch(e){}}
-document.getElementById("secretDot").addEventListener("click",function(){var cfg=getSecretCfg();tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{tapCount=0},2000);if(tapCount>=cfg.taps){tapCount=0;openSecretLock()}});
-function unlockSecret(){var cfg=getSecretCfg();var v=document.getElementById("secretCode").value.trim();if(v===cfg.code){document.getElementById("secretLock").style.display="none";document.getElementById("secretCode").value="";window.location.href="./secret.html"}else{document.getElementById("secretErr").textContent="Wrong code. Try again."}}
-function closeSecret(){document.getElementById("secretLock").style.display="none"}
-// DRAGGABLE PIN BOX - only handle drags, so typing still works. Saves position, will NOT come back to middle.
+function doSecretTap(){var cfg=getSecretCfg();tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(function(){tapCount=0},2000);if(tapCount>=cfg.taps){tapCount=0;openSecretLock()}}
+document.getElementById("secretDot").addEventListener("click",doSecretTap);
+document.getElementById("secretDot").addEventListener("touchstart",function(e){e.preventDefault();doSecretTap()},{passive:false});
+function openSecretLock(){document.getElementById("secretLock").style.display="flex";var box=document.getElementById("secretLockBox");var r=box.getBoundingClientRect();var m=document.getElementById("spotMarker");var l=document.getElementById("spotLabel");m.style.display="block";l.style.display="block";try{var p=JSON.parse(localStorage.getItem("tati_secret_spot")||"null");if(p){m.style.left=p.x+"px";m.style.top=p.y+"px";}else{m.style.left=(r.left+r.width/2-14)+"px";m.style.top=(r.top-14)+"px";}}catch(e){m.style.left=(r.left+r.width/2-14)+"px";m.style.top=(r.top-14)+"px";}var mr=m.getBoundingClientRect();l.style.left=Math.max(4,Math.min(window.innerWidth-170,mr.left-60))+"px";l.style.top=(mr.top-30)+"px";}
+function unlockSecret(){var cfg=getSecretCfg();var v=document.getElementById("secretCode").value.trim();if(v===cfg.code){document.getElementById("secretLock").style.display="none";document.getElementById("spotMarker").style.display="none";document.getElementById("spotLabel").style.display="none";document.getElementById("secretCode").value="";window.location.href="./secret.html"}else{document.getElementById("secretErr").textContent="Wrong code. Try again."}}
+function closeSecret(){document.getElementById("secretLock").style.display="none";document.getElementById("spotMarker").style.display="none";document.getElementById("spotLabel").style.display="none"}
 (function(){
-var box=document.getElementById("secretLockBox");var handle=document.getElementById("dragHandle");var lock=document.getElementById("secretLock");
+var m=document.getElementById("spotMarker");var l=document.getElementById("spotLabel");var dot=document.getElementById("secretDot");
 var sX=0,sY=0,oX=0,oY=0,down=false;
-function s(e){down=true;var t=e.touches?e.touches[0]:e;sX=t.clientX;sY=t.clientY;var r=box.getBoundingClientRect();oX=r.left;oY=r.top;lock.style.alignItems="flex-start";lock.style.justifyContent="flex-start";box.style.marginLeft=oX+"px";box.style.marginTop=oY+"px";}
-function m(e){if(!down)return;var t=e.touches?e.touches[0]:e;var dx=t.clientX-sX,dy=t.clientY-sY;var nx=Math.max(0,Math.min(window.innerWidth-box.offsetWidth,oX+dx));var ny=Math.max(0,Math.min(window.innerHeight-box.offsetHeight,oY+dy));box.style.marginLeft=nx+"px";box.style.marginTop=ny+"px";e.preventDefault();}
-function en(){if(!down)return;down=false;localStorage.setItem("tati_secret_lock_pos",JSON.stringify({x:parseInt(box.style.marginLeft||"0"),y:parseInt(box.style.marginTop||"0")}));}
-handle.addEventListener("touchstart",s,{passive:true});
-handle.addEventListener("touchmove",m,{passive:false});
-handle.addEventListener("touchend",en);
-handle.addEventListener("mousedown",s);
-window.addEventListener("mousemove",m);
+function s(e){down=true;var t=e.touches?e.touches[0]:e;sX=t.clientX;sY=t.clientY;var r=m.getBoundingClientRect();oX=r.left;oY=r.top;e.preventDefault();}
+function mv(e){if(!down)return;var t=e.touches?e.touches[0]:e;var nx=Math.max(0,Math.min(window.innerWidth-28,oX+(t.clientX-sX)));var ny=Math.max(0,Math.min(window.innerHeight-28,oY+(t.clientY-sY)));m.style.left=nx+"px";m.style.top=ny+"px";l.style.left=Math.max(4,Math.min(window.innerWidth-170,nx-60))+"px";l.style.top=Math.max(4,ny-30)+"px";if(e.cancelable) e.preventDefault();}
+function en(){if(!down)return;down=false;var r=m.getBoundingClientRect();var cx=Math.max(0,r.left+r.width/2-32);var cy=Math.max(0,r.top+r.height/2-32);localStorage.setItem("tati_secret_spot",JSON.stringify({x:cx,y:cy}));dot.style.right="auto";dot.style.bottom="auto";dot.style.left=cx+"px";dot.style.top=cy+"px";l.textContent="✅ Saved! Tap 5 times here next time";}
+m.addEventListener("touchstart",s,{passive:false});
+m.addEventListener("touchmove",mv,{passive:false});
+m.addEventListener("touchend",en);
+m.addEventListener("mousedown",s);
+window.addEventListener("mousemove",mv);
 window.addEventListener("mouseup",en);
 })();
 var listenRec=null,listenOn=false;
