@@ -6,11 +6,11 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
 body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:hidden}
 #header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;flex-shrink:0;position:relative}
-#avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #00a884;flex-shrink:0}
+#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain;background:#fff;border:2px solid #00a884;flex-shrink:0;padding:2px}
 #tatiName{font-size:19px;font-weight:900;line-height:1.1}
 #tatiOnline{font-size:12px;color:#00a884;font-weight:800}
-#centerLogo{flex:1;text-align:center;line-height:1.1;cursor:pointer;border-left:1px solid #ddd;border-right:1px solid #ddd;margin:0 8px;padding:0 4px}
-#centerLogo b{font-size:16px;font-weight:900;letter-spacing:0.5px}
+#centerLogo{flex:1;text-align:center;line-height:1.1;cursor:pointer}
+#centerLogo b{font-size:16px;font-weight:900;letter-spacing:.5px}
 #centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
 .topBtn{padding:11px 12px;border-radius:16px;border:none;font-size:16px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111}
 #greenLine{height:4mm;background:#00a884;flex-shrink:0}
@@ -26,7 +26,8 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 .doubleBtn a.active{background:#0a192f;color:#fff}
 #listenBtn{padding:12px 18px;border:1px solid #ddd;border-radius:10px;background:#fff;font-weight:800;font-size:14px;cursor:pointer;color:#111;white-space:nowrap;flex-shrink:0}
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
-#createBtnTop{padding:12px 16px;border-radius:10px;background:#0a192f;color:#fff;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:none}
+#createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
+#createBtnTop.active{background:#0a192f;color:#fff}
 .page{flex:1;overflow-y:auto;padding:12px;background:#f6f3ee;display:flex;flex-direction:column;gap:10px}
 .homeCard{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .homeCard h2{font-size:20px;margin-bottom:6px}
@@ -40,165 +41,81 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #sendBtn{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
 #kbHint{font-size:11px;color:#667781;text-align:center;padding:4px 12px 10px;line-height:1.4;white-space:normal}
 .hidden{display:none!important}
-#langMenu{position:absolute;top:72px;right:8px;background:#fff;border:2px solid #0a192f;border-radius:14px;z-index:20000;width:240px;box-shadow:0 8px 24px rgba(0,0,0,.2);display:none;overflow:hidden}
+#langMenu{position:absolute;top:72px;right:8px;background:#fff;border:2px solid #0a192f;border-radius:14px;z-index:20000;width:260px;box-shadow:0 8px 24px rgba(0,0,0,.2);display:none;overflow-y:auto;max-height:80vh}
 #langMenu div{padding:13px 14px;font-size:15px;font-weight:700;cursor:pointer;border-bottom:1px solid #eee}
 #langMenu div:hover{background:#f0f2f5}
-#langMenu div span{float:right;color:#00a884;font-size:12px}
+#langMenu input{width:100%;padding:12px;border:none;border-bottom:2px solid #0a192f;outline:none;font-size:15px}
 #secretDot{position:fixed;width:60px;height:60px;right:8px;bottom:110px;z-index:9999;opacity:0;touch-action:none}
 #secretLock{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center}
 #secretLockBox{background:#fff;padding:22px;border-radius:16px;text-align:center;width:280px}
 #secretLockBox input{width:100%;padding:12px;font-size:20px;text-align:center;letter-spacing:8px;margin:12px 0;border:2px solid #0a192f;border-radius:10px}
 #secretLockBox button{padding:12px 18px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:15px;cursor:pointer;width:100%}
 </style></head><body>
-
 <div id="header">
-<div id="centerLogo" style="flex:none;text-align:left;border:none;margin:0;padding:0"><b>SHYNONE</b><br><i>MUSIC</i></div>
-<div style="display:flex;gap:10px;align-items:center">
-<img id="avatar" src="./Tate.jpg" onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400'">
-<div>
-<div id="tatiName">Tati</div>
-<div id="tatiOnline">● Online</div>
-</div>
-</div>
+<img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'">
+<div><div id="tatiName">Tati</div><div id="tatiOnline">● Online</div></div>
+<div id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></div>
 <div style="display:flex;gap:6px;align-items:center">
 <a class="topBtn" href="./pages.html" style="background:#0a192f;color:#fff">📄 Pages</a>
 <button class="topBtn" id="globeBtn" onclick="toggleLangMenu(event)">🌐 ▼</button>
 </div>
-<div id="langMenu">
-<div onclick="pickLang('Mozambique - Portuguese','pt')">🇲🇿 Mozambique - Portuguese <span>PT</span></div>
-<div onclick="pickLang('Mozambique - Changana','ch')">🇲🇿 Mozambique - Changana <span>CH</span></div>
-<div onclick="pickLang('South Africa - English','en')">🇿🇦 South Africa - English <span>EN</span></div>
-<div onclick="pickLang('South Africa - Zulu','zu')">🇿🇦 South Africa - Zulu <span>ZU</span></div>
-<div onclick="pickLang('Thailand - Thai','th')">🇹🇭 Thailand - Thai <span>TH</span></div>
-<div onclick="pickLang('USA / UK - English','en')">🇺🇸 USA / UK - English <span>EN</span></div>
+<div id="langMenu"><input id="langSearch" placeholder="🔍 Search country..." oninput="filterLang()"><div id="langList"></div></div>
 </div>
-</div>
-
 <div id="greenLine"></div>
-
 <div id="safeBar">
 <a class="pill" href="./safe.html">📦 SAFE BOX</a>
 <a class="pill" href="./knowledge.html">💡 DID YOU KNOW</a>
 <a class="pill" href="./groups.html">👥 GROUPS</a>
 </div>
-
 <div id="modeSwitch">
 <a class="modeBtn" href="./people.html">💬 Chats</a>
-<div class="doubleBtn">
-<a id="textLink" href="#" onclick="openTextPage();return false;">💬 Text Tati</a>
-<div class="divider"></div>
-<a href="./voice.html">🎤 Talk to Tati</a>
-</div>
+<div class="doubleBtn"><a id="textLink" href="#" onclick="openTextPage();return false;">💬 Text Tati</a><div class="divider"></div><a href="./voice.html">🎤 Talk to Tati</a></div>
 <button id="listenBtn" onclick="toggleListenMain()">👂 Listen</button>
 <a id="createBtnTop" href="./create.html">✨ Create</a>
 </div>
-
 <div class="page" id="homeView">
 <div class="homeCard">
 <h2>👋 Alixeni! Hi, I'm Tati.</h2>
 <p>Your friend. Your helper. Your music.<br>Talk to me, or go to Chats to talk to other people.</p>
 <div style="margin-top:14px;background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
-<p style="color:#111;font-weight:800;font-size:15px">🔒 Secret Room - Your Private Chat</p>
-<p style="margin-top:4px">Have a private chat with your person, your friend, or your people - and nobody else will see it. Not even if someone takes your phone. It is hidden, and it is locked just for you.</p>
-<p style="margin-top:8px;color:#0a192f;font-weight:800">Only R50 / month - Premium</p>
-<p style="margin-top:4px"><a href="./premium.html" style="color:#00a884;font-weight:800">Learn more & Unlock →</a></p>
+<p style="color:#111;font-weight:800;font-size:15px">🔒 Secret Room</p>
+<p style="margin-top:4px">Private chat with your people. <a href="./premium.html" style="color:#00a884;font-weight:800">Learn more →</a></p>
 </div>
 <div style="margin-top:10px;background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
 <p style="color:#111;font-weight:800;font-size:15px">📦 Safe Box</p>
-<p style="margin-top:4px">Keep your documents, photos & contacts safe in one place. <a href="./safe.html" style="color:#00a884;font-weight:800">Open Safe Box →</a></p>
+<p style="margin-top:4px">Keep your documents, photos &amp; contacts safe in one place. <a href="./safe.html" style="color:#00a884;font-weight:800">Open Safe Box →</a></p>
 </div>
 </div>
 </div>
-
 <div class="page hidden" id="chatView"><div id="chat"></div></div>
 <div id="inputArea" class="hidden"><div id="textBox"><textarea id="textInput" placeholder="Message Tati..." rows="1"></textarea></div><button id="sendBtn">➤</button></div>
 <div id="kbHint">⌨️ Keyboard is built-in inside Tati - CH / EN / PT included. New languages from 🌐 go to keyboard automatically.</div>
-
 <div id="secretDot"></div>
-<div id="secretLock"><div id="secretLockBox"><h3>🔒 Secret Room</h3><p style="font-size:13px;color:#666">Enter your code - Encrypted & Hidden</p><input id="secretCode" type="password" inputmode="numeric" maxlength="6" placeholder="••••"><button onclick="unlockSecret()">Unlock</button><p id="secretErr" style="color:red;font-size:13px;margin-top:8px"></p><button onclick="closeSecret()" style="background:#eee;color:#111;margin-top:8px">Close</button></div></div>
-
+<div id="secretLock"><div id="secretLockBox"><h3>🔒 Secret Room</h3><p style="font-size:13px;color:#666">Enter your code - Encrypted &amp; Hidden</p><input id="secretCode" type="password" inputmode="numeric" maxlength="6" placeholder="••••"><button onclick="unlockSecret()">Unlock</button><p id="secretErr" style="color:red;font-size:13px;margin-top:8px"></p><button onclick="closeSecret()" style="background:#eee;color:#111;margin-top:8px">Close</button></div></div>
 <script>
-const WORKER_URL = "https://tati-server.dilemahluza.workers.dev";
-let chatHistory = [];
+const WORKER_URL="https://tati-server.dilemahluza.workers.dev";
+let chatHistory=[];
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+esc(t)+"</span>";document.getElementById("chat").appendChild(b);var c=document.getElementById("chatView");c.scrollTop=c.scrollHeight}
-function openTextPage(){
-  document.getElementById("homeView").classList.add("hidden");
-  document.getElementById("chatView").classList.remove("hidden");
-  document.getElementById("inputArea").classList.remove("hidden");
-  document.getElementById("textLink").classList.add("active");
-  if(document.getElementById("chat").children.length===0){ addBubble("Alixeni! Hi, I'm Tati. How can I help you today, my friend?","tati"); }
-  document.getElementById("textInput").focus();
-}
-async function sendToTati(q){
-  chatHistory.push({role:"user", content:q});
-  addBubble("...", "tati");
-  var thinking = document.getElementById("chat").lastChild;
-  try{
-    var res = await fetch(WORKER_URL + "/chat", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({messages: chatHistory})});
-    var data = await res.json().catch(()=>({}));
-    thinking.remove();
-    if(!res.ok || !data.reply){
-      addBubble("Brain error: " + (data.error || ("Worker said " + res.status)) + ". Check GROQ key in Worker, my friend.", "tati");
-      return;
-    }
-    var reply = data.reply;
-    chatHistory.push({role:"assistant", content: reply});
-    if(chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
-    addBubble(reply, "tati");
-  }catch(e){
-    thinking.remove();
-    addBubble("Sorry, I can't reach my brain right now ("+e.message+"). Check data / Worker URL.", "tati");
-  }
-}
-document.getElementById("sendBtn").onclick=function(){
-  var q=document.getElementById("textInput").value.trim(); if(!q) return;
-  addBubble(q,"user"); document.getElementById("textInput").value="";
-  sendToTati(q);
-};
-document.getElementById("textInput").addEventListener("keydown", function(e){ if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); document.getElementById("sendBtn").click(); }});
+function openTextPage(){document.getElementById("homeView").classList.add("hidden");document.getElementById("chatView").classList.remove("hidden");document.getElementById("inputArea").classList.remove("hidden");document.getElementById("textLink").classList.add("active");if(document.getElementById("chat").children.length===0){addBubble("Alixeni! Hi, I'm Tati. How can I help you today, my friend?","tati")}document.getElementById("textInput").focus()}
+async function sendToTati(q){chatHistory.push({role:"user",content:q});addBubble("...","tati");var thinking=document.getElementById("chat").lastChild;try{var res=await fetch(WORKER_URL+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:chatHistory})});var data=await res.json().catch(()=>({}));thinking.remove();if(!res.ok||!data.reply){addBubble("Brain error: "+(data.error||("Worker said "+res.status))+". Check GROQ key in Worker, my friend.","tati");return}var reply=data.reply;chatHistory.push({role:"assistant",content:reply});if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);addBubble(reply,"tati")}catch(e){thinking.remove();addBubble("Sorry, I can't reach my brain right now ("+e.message+"). Check data / Worker URL.","tati")}}
+document.getElementById("sendBtn").onclick=function(){var q=document.getElementById("textInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("textInput").value="";sendToTati(q)};
+document.getElementById("textInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();document.getElementById("sendBtn").click()}});
 document.getElementById("centerLogo").onclick=function(){window.open('https://shynoneofficial.github.io/shynone-music/','_blank')};
-function toggleLangMenu(e){ if(e) e.stopPropagation(); var m=document.getElementById("langMenu"); m.style.display = (m.style.display==="block" ? "none" : "block"); }
-function pickLang(name,code){ localStorage.setItem("tati_lang",code); localStorage.setItem("tati_lang_name",name); document.getElementById("langMenu").style.display="none"; alert("Language set to: " + name + " - Tati will now speak " + name); }
-document.addEventListener("click", function(e){ var m=document.getElementById("langMenu"); if(m && m.style.display==="block" && !e.target.closest("#langMenu") && e.target.id!=="globeBtn"){ m.style.display="none"; } });
-function getSecretCfg(){try{return JSON.parse(localStorage.getItem("tati_secret_cfg")||'{"taps":5,"code":"2580"}')}catch(e){return {taps:5,code:"2580"}}}
-let tapCount=0, tapTimer=null;
-document.getElementById("secretDot").addEventListener("click", function(){
-  var cfg=getSecretCfg();
-  tapCount++;
-  clearTimeout(tapTimer);
-  tapTimer=setTimeout(()=>{tapCount=0}, 2000);
-  if(tapCount>=cfg.taps){ tapCount=0; document.getElementById("secretLock").style.display="flex"; }
-});
-function unlockSecret(){
-  var cfg=getSecretCfg();
-  var v=document.getElementById("secretCode").value.trim();
-  if(v===cfg.code){ document.getElementById("secretLock").style.display="none"; document.getElementById("secretCode").value=""; window.location.href="./secret.html"; }
-  else { document.getElementById("secretErr").textContent="Wrong code. Try again."; }
-}
-function closeSecret(){ document.getElementById("secretLock").style.display="none"; }
-var listenRec=null, listenOn=false;
-function getListenSettings(){try{return JSON.parse(localStorage.getItem("tati_listen_settings")||"{}")}catch(e){return {}}}
-function toggleListenMain(){
-  if(listenOn){ if(listenRec) listenRec.stop(); return; }
-  var names=localStorage.getItem("tati_listen_names")||"";
-  if(!names){ var n=prompt("👂 Who is here? What are your names? (ex: Jemi, Mama, Thabo)"); if(n){ localStorage.setItem("tati_listen_names",n); } }
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}
-  listenRec=new SR(); listenRec.lang="pt-PT"; listenRec.continuous=true; listenRec.interimResults=true;
-  listenRec.onstart=function(){ listenOn=true; localStorage.setItem("tati_listen_on","1"); var btn=document.getElementById("listenBtn"); btn.textContent="👂 Listening"; btn.classList.add("on"); };
-  listenRec.onend=function(){ listenOn=false; localStorage.setItem("tati_listen_on","0"); var btn=document.getElementById("listenBtn"); btn.textContent="👂 Listen"; btn.classList.remove("on"); };
-  listenRec.onresult=function(e){
-    var txt=""; for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" ";}
-    txt=txt.trim(); if(!txt) return;
-    var all=[]; try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(err){}
-    all.push({date:new Date().toLocaleString(),text:txt}); localStorage.setItem("tati_listen",JSON.stringify(all));
-    var s=getListenSettings(); if(s.quiet) return;
-    var low=txt.toLowerCase();
-    if(low.indexOf("tati")>-1){ addBubble("👂 I heard my name! How can I help?","tati"); }
-    else if(low.indexOf("haha")>-1 || low.indexOf("funny")>-1){ if(s.funny!==false) addBubble("😂 Hahaha! That was funny!","tati"); }
-  };
-  listenRec.start();
-}
+function getAllCountries(){try{var dn=new Intl.DisplayNames(['en'],{type:'region'});var list=[];for(var a=65;a<=90;a++){for(var b=65;b<=90;b++){var code=String.fromCharCode(a)+String.fromCharCode(b);try{var name=dn.of(code);if(name&&name!==code&&list.indexOf(name)===-1){list.push(name)}}catch(e){}}}return list.sort()}catch(e){return["Mozambique","South Africa","Thailand","United States","United Kingdom","Portugal","Brazil","Nigeria","Kenya","India","China","France","Germany"]}}
+var ALL_LANGS=getAllCountries();
+function renderLang(list){var el=document.getElementById("langList");el.innerHTML="";list.forEach(function(n){var d=document.createElement("div");d.textContent="🌍 "+n;d.onclick=function(){pickLang(n)};el.appendChild(d)})}
+function filterLang(){var q=document.getElementById("langSearch").value.toLowerCase();renderLang(ALL_LANGS.filter(function(n){return n.toLowerCase().indexOf(q)>-1}))}
+function toggleLangMenu(e){if(e)e.stopPropagation();var m=document.getElementById("langMenu");var open=m.style.display==="block";m.style.display=open?"none":"block";if(!open){renderLang(ALL_LANGS);setTimeout(function(){document.getElementById("langSearch").focus()},50)}}
+function pickLang(name){localStorage.setItem("tati_lang",name);localStorage.setItem("tati_lang_name",name);document.getElementById("langMenu").style.display="none";alert("Language set to: "+name+" - Tati will now speak "+name)}
+document.addEventListener("click",function(e){var m=document.getElementById("langMenu");if(m&&m.style.display==="block"&&!e.target.closest("#langMenu")&&e.target.id!=="globeBtn"){m.style.display="none"}});
+function getSecretCfg(){try{return JSON.parse(localStorage.getItem("tati_secret_cfg")||'{"taps":5,"code":"2580"}')}catch(e){return{taps:5,code:"2580"}}}
+let tapCount=0,tapTimer=null;
+document.getElementById("secretDot").addEventListener("click",function(){var cfg=getSecretCfg();tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{tapCount=0},2000);if(tapCount>=cfg.taps){tapCount=0;document.getElementById("secretLock").style.display="flex"}});
+function unlockSecret(){var cfg=getSecretCfg();var v=document.getElementById("secretCode").value.trim();if(v===cfg.code){document.getElementById("secretLock").style.display="none";document.getElementById("secretCode").value="";window.location.href="./secret.html"}else{document.getElementById("secretErr").textContent="Wrong code. Try again."}}
+function closeSecret(){document.getElementById("secretLock").style.display="none"}
+var listenRec=null,listenOn=false;
+function getListenSettings(){try{return JSON.parse(localStorage.getItem("tati_listen_settings")||"{}")}catch(e){return{}}}
+function toggleListenMain(){if(listenOn){if(listenRec)listenRec.stop();return}var names=localStorage.getItem("tati_listen_names")||"";if(!names){var n=prompt("👂 Who is here? What are your names? (ex: Jemi, Mama, Thabo)");if(n){localStorage.setItem("tati_listen_names",n)}}var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}listenRec=new SR();listenRec.lang="pt-PT";listenRec.continuous=true;listenRec.interimResults=true;listenRec.onstart=function(){listenOn=true;localStorage.setItem("tati_listen_on","1");var btn=document.getElementById("listenBtn");btn.textContent="👂 Listening";btn.classList.add("on")};listenRec.onend=function(){listenOn=false;localStorage.setItem("tati_listen_on","0");var btn=document.getElementById("listenBtn");btn.textContent="👂 Listen";btn.classList.remove("on")};listenRec.onresult=function(e){var txt="";for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" "}txt=txt.trim();if(!txt)return;var all=[];try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(err){}all.push({date:new Date().toLocaleString(),text:txt});localStorage.setItem("tati_listen",JSON.stringify(all));var s=getListenSettings();if(s.quiet)return;var low=txt.toLowerCase();if(low.indexOf("tati")>-1){addBubble("👂 I heard my name! How can I help?","tati")}else if(low.indexOf("haha")>-1||low.indexOf("funny")>-1){if(s.funny!==false)addBubble("😂 Hahaha! That was funny!","tati")}};listenRec.start()}
 </script>
 </body></html>
