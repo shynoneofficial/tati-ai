@@ -6,8 +6,7 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
 body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:hidden}
 #header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;flex-shrink:0;position:relative}
-#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain;background:#fff;border:2px solid #00a884;flex-shrink:0;padding:2px}
-#tatiName{font-size:19px;font-weight:900;line-height:1.1}
+#avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #00a884;flex-shrink:0}
 #tatiOnline{font-size:12px;color:#00a884;font-weight:800}
 #centerLogo{flex:1;text-align:center;line-height:1.1;cursor:pointer}
 #centerLogo b{font-size:16px;font-weight:900;letter-spacing:.5px}
@@ -52,14 +51,14 @@ body{display:flex;flex-direction:column;height:100dvh;background:#fff;overflow:h
 #secretLockBox button{padding:12px 18px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:15px;cursor:pointer;width:100%}
 </style></head><body>
 <div id="header">
-<img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'">
-<div><div id="tatiName">Tati</div><div id="tatiOnline">● Online</div></div>
+<img id="avatar" src="./Tate.jpg" onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400'">
+<div><div id="tatiOnline">● Online</div></div>
 <div id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></div>
 <div style="display:flex;gap:6px;align-items:center">
 <a class="topBtn" href="./pages.html" style="background:#0a192f;color:#fff">📄 Pages</a>
 <button class="topBtn" id="globeBtn" onclick="toggleLangMenu(event)">🌐 ▼</button>
 </div>
-<div id="langMenu"><input id="langSearch" placeholder="🔍 Search country..." oninput="filterLang()"><div id="langList"></div></div>
+<div id="langMenu"><input id="langSearch" placeholder="🔍 Search language..." oninput="filterLang()"><div id="langList"></div></div>
 </div>
 <div id="greenLine"></div>
 <div id="safeBar">
@@ -102,9 +101,9 @@ async function sendToTati(q){chatHistory.push({role:"user",content:q});addBubble
 document.getElementById("sendBtn").onclick=function(){var q=document.getElementById("textInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("textInput").value="";sendToTati(q)};
 document.getElementById("textInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();document.getElementById("sendBtn").click()}});
 document.getElementById("centerLogo").onclick=function(){window.open('https://shynoneofficial.github.io/shynone-music/','_blank')};
-function getAllCountries(){try{var dn=new Intl.DisplayNames(['en'],{type:'region'});var list=[];for(var a=65;a<=90;a++){for(var b=65;b<=90;b++){var code=String.fromCharCode(a)+String.fromCharCode(b);try{var name=dn.of(code);if(name&&name!==code&&list.indexOf(name)===-1){list.push(name)}}catch(e){}}}return list.sort()}catch(e){return["Mozambique","South Africa","Thailand","United States","United Kingdom","Portugal","Brazil","Nigeria","Kenya","India","China","France","Germany"]}}
-var ALL_LANGS=getAllCountries();
-function renderLang(list){var el=document.getElementById("langList");el.innerHTML="";list.forEach(function(n){var d=document.createElement("div");d.textContent="🌍 "+n;d.onclick=function(){pickLang(n)};el.appendChild(d)})}
+function getAllLanguages(){return["Changana","Portuguese","English","Zulu","Siswati","Cebuano","Tagalog","Afrikaans","Akan","Albanian","Amharic","Arabic","Armenian","Assamese","Aymara","Azerbaijani","Bambara","Basque","Belarusian","Bengali","Bhojpuri","Bosnian","Bulgarian","Burmese","Catalan","Chewa","Chichewa","Chinese (Simplified)","Chinese (Traditional)","Corsican","Croatian","Czech","Danish","Dinka","Dutch","Dzongkha","Ewe","Finnish","French","Frisian","Galician","Georgian","German","Greek","Guarani","Gujarati","Haitian Creole","Hausa","Hawaiian","Hebrew","Hindi","Hmong","Hungarian","Icelandic","Igbo","Ilocano","Indonesian","Irish","Italian","Japanese","Javanese","Kannada","Kazakh","Khmer","Kinyarwanda","Konkani","Korean","Krio","Kurdish","Kyrgyz","Lao","Latin","Latvian","Lingala","Lithuanian","Luganda","Luxembourgish","Macedonian","Maithili","Malagasy","Malay","Malayalam","Maltese","Maori","Marathi","Mongolian","Nepali","Northern Sotho","Norwegian","Odia","Oromo","Pashto","Persian","Polish","Punjabi","Quechua","Romanian","Ronga","Russian","Samoan","Sanskrit","Scots Gaelic","Sepedi","Serbian","Sesotho","Shona","Sindhi","Sinhala","Slovak","Slovenian","Somali","Southern Sotho","Spanish","Sundanese","Swahili","Swedish","Tajik","Tamil","Tatar","Telugu","Thai","Tigrinya","Tsonga","Turkish","Turkmen","Twi","Ukrainian","Urdu","Uyghur","Uzbek","Vietnamese","Welsh","Xhosa","Yiddish","Yoruba"]}
+var ALL_LANGS=getAllLanguages();
+function renderLang(list){var el=document.getElementById("langList");el.innerHTML="";list.forEach(function(n){var d=document.createElement("div");d.textContent="🗣️ "+n;d.onclick=function(){pickLang(n)};el.appendChild(d)})}
 function filterLang(){var q=document.getElementById("langSearch").value.toLowerCase();renderLang(ALL_LANGS.filter(function(n){return n.toLowerCase().indexOf(q)>-1}))}
 function toggleLangMenu(e){if(e)e.stopPropagation();var m=document.getElementById("langMenu");var open=m.style.display==="block";m.style.display=open?"none":"block";if(!open){renderLang(ALL_LANGS);setTimeout(function(){document.getElementById("langSearch").focus()},50)}}
 function pickLang(name){localStorage.setItem("tati_lang",name);localStorage.setItem("tati_lang_name",name);document.getElementById("langMenu").style.display="none";alert("Language set to: "+name+" - Tati will now speak "+name)}
