@@ -4,93 +4,130 @@
 <title>English Classroom - Tati</title>
 <style>*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}body{background:#f6f3ee;padding:12px;padding-bottom:40px} .top{max-width:560px;margin:0 auto} .card{background:#fff;border-radius:16px;padding:18px;margin-top:12px} h1{font-size:22px} h2{font-size:18px;margin-top:4px} p,li{font-size:15px;line-height:1.5;color:#333;margin-top:8px} .btn{display:block;text-align:center;margin-top:12px;padding:14px;border-radius:12px;background:#0a192f;color:#fff;text-decoration:none;font-weight:800;border:none;width:100%;cursor:pointer;font-size:15px} .btn2{background:#00a884} .btn3{background:#fff;color:#111;border:1px solid #ddd} .word{background:#f0f2f5;border-radius:10px;padding:10px;margin-top:8px} .word b{font-size:16px} .quizOpt{display:block;width:100%;text-align:left;padding:12px;margin-top:8px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-size:15px} .quizOpt.correct{background:#d9fdd3;border-color:#00a884} .quizOpt.wrong{background:#ffe1e1;border-color:red} .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#e8f5e9;font-size:12px;font-weight:800;color:#00a884} .hidden{display:none!important}</style></head><body>
 <div class="top">
-<a href="./index.html" style="text-decoration:none;color:#00a884;font-weight:800">← Back to Tati</a>
+<a href="./index.html" style="text-decoration:none;color:#00a884;font-weight:800">← <span id="backTxt">Back to Tati</span></a>
 <div class="card">
-<h1>📚 English Classroom</h1>
-<p>Learn English with Tati, every day. Day 1, Day 2, Day 3... like a normal classroom. Only <b>5 words a day</b> so you remember.</p>
-<p><span class="pill">🎁 3 DAYS FREE TRIAL</span> <span class="pill">💳 Then pay monthly — price coming soon</span></p>
+<h1 id="classTitle">📚 Xikolo xa XiNghezi</h1>
+<p id="classSub">Dyondza XiNghezi na Tati siku rin'wana na rin'wana.</p>
+<p><span class="pill" id="trialPill">🎁 3 DAYS FREE</span> <span class="pill">💳 Then pay monthly — price coming soon</span></p>
+<p id="langLine" style="font-size:13px;color:#666"></p>
 </div>
-
 <div class="card" id="levelBox">
-<h2>1. What is your level?</h2>
-<p>Tell Tati which level you want to learn:</p>
-<button class="btn btn2" onclick="pickLevel('Beginner')">🟢 Beginner — I know very little English</button>
-<button class="btn" onclick="pickLevel('Intermediate')">🟡 Intermediate — I know a little, I want to speak better</button>
-<button class="btn" onclick="pickLevel('Advanced')">🔴 Advanced — I want to speak fluently / for work</button>
+<h2 id="levelQ">1. What is your level?</h2>
+<p id="levelQ2">Tell Tati which level you want to learn:</p>
+<button class="btn btn2" onclick="pickLevel('Beginner')">🟢 <span id="begTxt">Beginner</span></button>
+<button class="btn" onclick="pickLevel('Intermediate')">🟡 <span id="intTxt">Intermediate</span></button>
+<button class="btn" onclick="pickLevel('Advanced')">🔴 <span id="advTxt">Advanced</span></button>
 <p id="savedInfo" style="font-size:13px;color:#666"></p>
 </div>
-
 <div class="card hidden" id="lessonBox">
 <h2 id="dayTitle">Day 1 — Beginner</h2>
 <p id="levelLabel" style="font-size:13px;color:#666"></p>
 <h3 id="lessonTitle" style="margin-top:12px"></h3>
 <p id="lessonText"></p>
-<h3 style="margin-top:14px">📖 5 Words Today</h3>
+<p id="explainBox" style="background:#fff3cd;padding:10px;border-radius:10px"></p>
+<h3 style="margin-top:14px" id="wordsHead">📖 5 Words Today</h3>
 <div id="wordsBox"></div>
-<h3 style="margin-top:14px">💬 Conversation</h3>
+<h3 style="margin-top:14px" id="convHead">💬 Conversation</h3>
 <p id="convBox" style="background:#f0f2f5;padding:12px;border-radius:10px"></p>
-<h3 style="margin-top:14px">✍️ Mini Test — Answer to continue</h3>
+<h3 style="margin-top:14px" id="testHead">✍️ Mini Test</h3>
 <p id="quizQ" style="font-weight:800"></p>
 <div id="quizBox"></div>
 <p id="quizMsg" style="font-weight:800;color:#00a884"></p>
-<button class="btn btn2 hidden" id="nextDayBtn" onclick="nextDay()">✅ I finished — Go to Next Day →</button>
-<button class="btn btn3" id="moreBtn" onclick="learnMore()">➕ I want to learn MORE today — Continue</button>
+<button class="btn btn2 hidden" id="nextDayBtn" onclick="nextDay()">✅ <span id="nextTxt">Next Day →</span></button>
+<button class="btn btn3" id="moreBtn" onclick="learnMore()">➕ <span id="moreTxt">Learn MORE today</span></button>
 <p id="moreMsg" style="font-size:13px;color:#666"></p>
 <div id="extraBox"></div>
-<button class="btn btn3" onclick="resetProgress()">↺ Change level / Start again</button>
+<button class="btn btn3" onclick="resetProgress()">↺ <span id="resetTxt">Change level / Start again</span></button>
 </div>
-
 <div class="card hidden" id="payBox">
-<h2>🔒 Trial finished</h2>
-<p>You finished your <b>3 days free trial</b>. Well done! 👏</p>
-<p>To continue to Day 4 and the full classroom, please pay <b>monthly</b>. Price coming soon.</p>
+<h2 id="payTitle">🔒 Trial finished</h2>
+<p id="payText">You finished your 3 days free trial. Well done!</p>
 <button class="btn btn2" onclick="window.open('https://wa.me/258840000000?text=Hi Tati, I want to pay for English Classroom monthly','_blank')">💬 Ask about payment on WhatsApp →</button>
 <button class="btn btn3" onclick="document.getElementById('payBox').classList.add('hidden');document.getElementById('lessonBox').classList.remove('hidden')">← Back to Day 3 to revise</button>
-<p style="font-size:12px;color:#999">For now, payment is manual via WhatsApp. Automatic M-Pesa / e-Mola / GCash will be added later.</p>
 </div>
-
 <div class="card hidden" id="examBox">
 <h2>🎓 Exam — End of Level</h2>
-<p>You finished 30 days! Now the exam. Tati will mark it.</p>
+<p id="examSub">You finished 30 days! Now the exam.</p>
 <p id="examQ" style="font-weight:800"></p>
 <div id="examOpts"></div>
 <p id="examMsg"></p>
 </div>
 </div>
 <script>
-var LEVELS={
+var userLang=localStorage.getItem("tati_lang")||localStorage.getItem("tati_lang_name")||"Changana";
+var UI={
+"Changana":{title:"📚 Xikolo xa XiNghezi",sub:"Dyondza XiNghezi na Tati siku rin'wana na rin'wana. XiNghezi xi hlamuseriwa hi Xichangana.",back:"Back to Tati",levelQ:"1. Hi xihi xiyimo xa wena?",levelQ2:"Byela Tati leswaku u lava ku dyondza xiyimo xihi:",beg:"Beginner — Ndzi tiva XiNghezi ntsongo",int:"Intermediate — Ndzi tiva ntsongo, ndzi lava ku vulavula kahle",adv:"Advanced — Ndzi lava ku vulavula kahle / ku tirha",words:"📖 Marito ya 5 Namuntlha",conv:"💬 Mbulavulo",test:"✍️ Xikambelo Xitsongo — Hlamula ku ya emahlweni",next:"Ndzi hetile — Ya eka Siku leri landzelaka →",more:"Ndzi lava ku dyondza SWO TALA namuntlha — Yisa emahlweni",reset:"Cinca xiyimo / Sungula nakambe",explain:"Hlamusela hi Xichangana: ",trial:"🎁 3 WA MASIKU YA MAHALA",pay:"🔒 Masiku ya 3 ya mahala ya helile",payT:"U hetile masiku ya wena ya 3 ya mahala. U tirhile kahle!"},
+"Portuguese":{title:"📚 Aula de Inglês",sub:"Aprende Inglês com a Tati todos os dias. Inglês explicado em Português.",back:"Voltar para Tati",levelQ:"1. Qual é o teu nível?",levelQ2:"Diz à Tati qual nível queres aprender:",beg:"Iniciante — Sei muito pouco Inglês",int:"Intermédio — Sei um pouco, quero falar melhor",adv:"Avançado — Quero falar fluentemente / para trabalho",words:"📖 5 Palavras Hoje",conv:"💬 Conversa",test:"✍️ Mini Teste — Responde para continuar",next:"Terminei — Ir para o Próximo Dia →",more:"Quero aprender MAIS hoje — Continuar",reset:"Mudar nível / Começar de novo",explain:"Explicado em Português: ",trial:"🎁 3 DIAS GRÁTIS",pay:"🔒 Trial terminado",payT:"Terminaste os teus 3 dias grátis. Muito bem!"},
+"English":{title:"📚 English Classroom",sub:"Learn English with Tati, every day. English explained in English.",back:"Back to Tati",levelQ:"1. What is your level?",levelQ2:"Tell Tati which level you want to learn:",beg:"Beginner — I know very little English",int:"Intermediate — I know a little, I want to speak better",adv:"Advanced — I want to speak fluently / for work",words:"📖 5 Words Today",conv:"💬 Conversation",test:"✍️ Mini Test — Answer to continue",next:"I finished — Go to Next Day →",more:"I want to learn MORE today — Continue",reset:"Change level / Start again",explain:"Explained in English: ",trial:"🎁 3 DAYS FREE",pay:"🔒 Trial finished",payT:"You finished your 3 days free trial. Well done!"},
+"Zulu":{title:"📚 Isikole sesiNgisi",sub:"Funda isiNgisi no-Tati nsuku zonke. IsiNgisi sichazwe ngesiZulu.",back:"Buyela ku-Tati",levelQ:"1. Liyini izinga lakho?",levelQ2:"Tshela u-Tati ukuthi ufuna ukufunda liphi izinga:",beg:"Beginner — Ngazi isiNgisi esincane",int:"Intermediate — Ngazi kancane, ngifuna ukukhuluma kangcono",adv:"Advanced — Ngifuna ukukhuluma kahle / ngomsebenzi",words:"📖 Amagama ama-5 Namuhla",conv:"💬 Ingxoxo",test:"✍️ Ukuhlola Okuncane — Phendula ukuze uqhubeke",next:"Ngiqedile — Yiya osukwini olulandelayo →",more:"Ngifuna ukufunda OKWENGEZIWE namuhla — Qhubeka",reset:"Shintsha izinga / Qala futhi",explain:"Kuchazwe ngesiZulu: ",trial:"🎁 IZINSUKU EZI-3 MAHHALA",pay:"🔒 Trial iphelile",payT:"Uqedile izinsuku zakho ezi-3 zamahhala. Kuhle!"},
+"Siswati":{title:"📚 Sikolo sesiNgisi",sub:"Fundza siNgisi na-Tati onkhe emalanga. SiNgisi sichazwe ngesiSwati.",back:"Buyela ku-Tati",levelQ:"1. Liyini lizinga lakho?",levelQ2:"Tjela Tati kutsi ufuna kufundza liphi lizinga:",beg:"Beginner — Ngati siNgisi lesincane",int:"Intermediate — Ngati kancane, ngifuna kukhuluma kahle",adv:"Advanced — Ngifuna kukhuluma kahle / ngemsebenti",words:"📖 Emagama ema-5 Lamuhla",conv:"💬 Ingcoco",test:"✍️ Sivivinyo Lesincane — Phendvula kuze uchubeke",next:"Ngicedzile — Yiya elusukwini lolulandzelako →",more:"Ngifuna kufundza LOKUNINGI lamuhla — Chubeka",reset:"Shintja lizinga / Cala futsi",explain:"Kuchazwe ngesiSwati: ",trial:"🎁 EMALANGA EMA-3 MAHHALA",pay:"🔒 Trial iphelile",payT:"Ucedzile emalanga akho ema-3 mahhala. Kuhle!"},
+"Tagalog":{title:"📚 English Classroom",sub:"Matuto ng Ingles kasama si Tati araw-araw. Ingles na ipinaliwanag sa Tagalog.",back:"Bumalik kay Tati",levelQ:"1. Ano ang level mo?",levelQ2:"Sabihin kay Tati kung anong level ang gusto mong matutunan:",beg:"Beginner — Kaunti lang alam ko sa Ingles",int:"Intermediate — Kaunti lang alam ko, gusto kong magsalita nang mas mabuti",adv:"Advanced — Gusto kong magsalita nang matatas / para sa trabaho",words:"📖 5 Salita Ngayon",conv:"💬 Pag-uusap",test:"✍️ Mini Test — Sumagot para magpatuloy",next:"Tapos na ako — Pumunta sa Susunod na Araw →",more:"Gusto kong matuto ng HIGIT PA ngayon — Magpatuloy",reset:"Baguhin ang level / Magsimula ulit",explain:"Ipinaliwanag sa Tagalog: ",trial:"🎁 3 ARAW NA LIBRE",pay:"🔒 Tapos na ang trial",payT:"Natapos mo ang 3 araw na libreng trial. Magaling!"},
+"Spanish":{title:"📚 Clase de Inglés",sub:"Aprende Inglés con Tati todos los días. Inglés explicado en Español.",back:"Volver a Tati",levelQ:"1. ¿Cuál es tu nivel?",levelQ2:"Dile a Tati qué nivel quieres aprender:",beg:"Principiante — Sé muy poco Inglés",int:"Intermedio — Sé un poco, quiero hablar mejor",adv:"Avanzado — Quiero hablar con fluidez / para trabajo",words:"📖 5 Palabras Hoy",conv:"💬 Conversación",test:"✍️ Mini Test — Responde para continuar",next:"Terminé — Ir al Día Siguiente →",more:"Quiero aprender MÁS hoy — Continuar",reset:"Cambiar nivel / Empezar de nuevo",explain:"Explicado en Español: ",trial:"🎁 3 DÍAS GRATIS",pay:"🔒 Trial terminado",payT:"Terminaste tus 3 días gratis. ¡Muy bien!"},
+"French":{title:"📚 Cours d'Anglais",sub:"Apprends l'Anglais avec Tati chaque jour. Anglais expliqué en Français.",back:"Retour à Tati",levelQ:"1. Quel est ton niveau?",levelQ2:"Dis à Tati quel niveau tu veux apprendre:",beg:"Débutant — Je sais très peu d'Anglais",int:"Intermédiaire — Je sais un peu, je veux mieux parler",adv:"Avancé — Je veux parler couramment / pour le travail",words:"📖 5 Mots Aujourd'hui",conv:"💬 Conversation",test:"✍️ Mini Test — Réponds pour continuer",next:"J'ai fini — Aller au Jour Suivant →",more:"Je veux apprendre PLUS aujourd'hui — Continuer",reset:"Changer de niveau / Recommencer",explain:"Expliqué en Français: ",trial:"🎁 3 JOURS GRATUITS",pay:"🔒 Trial terminé",payT:"Tu as terminé tes 3 jours gratuits. Bravo!"}
+};
+var U=UI[userLang]||UI["English"];
+document.getElementById("classTitle").textContent=U.title;
+document.getElementById("classSub").textContent=U.sub;
+document.getElementById("backTxt").textContent=U.back;
+document.getElementById("levelQ").textContent=U.levelQ;
+document.getElementById("levelQ2").textContent=U.levelQ2;
+document.getElementById("begTxt").textContent=U.beg;
+document.getElementById("intTxt").textContent=U.int;
+document.getElementById("advTxt").textContent=U.adv;
+document.getElementById("wordsHead").textContent=U.words;
+document.getElementById("convHead").textContent=U.conv;
+document.getElementById("testHead").textContent=U.test;
+document.getElementById("nextTxt").textContent=U.next;
+document.getElementById("moreTxt").textContent=U.more;
+document.getElementById("resetTxt").textContent=U.reset;
+document.getElementById("trialPill").textContent=U.trial;
+document.getElementById("payTitle").textContent=U.pay;
+document.getElementById("payText").textContent=U.payT;
+document.getElementById("langLine").textContent="🌐 Your language: "+userLang+" — English explained in "+userLang;
+var WORDS={
+"Changana":{Hello:"Alixeni",Thank:"Ndza khensa",Friend:"Xaka",Mother:"Manana",Father:"Tatana"},
+"Portuguese":{Hello:"Olá",Thank:"Obrigado",Friend:"Amigo",Mother:"Mãe",Father:"Pai"},
+"English":{Hello:"Hello",Thank:"Thank you",Friend:"Friend",Mother:"Mother",Father:"Father"},
+"Zulu":{Hello:"Sawubona",Thank:"Ngiyabonga",Friend:"Umngane",Mother:"Umama",Father:"Ubaba"},
+"Siswati":{Hello:"Sawubona",Thank:"Ngiyabonga",Friend:"Umngani",Mother:"Umama",Father:"Ubabe"},
+"Tagalog":{Hello:"Kamusta",Thank:"Salamat",Friend:"Kaibigan",Mother:"Nanay",Father:"Tatay"},
+"Spanish":{Hello:"Hola",Thank:"Gracias",Friend:"Amigo",Mother:"Madre",Father:"Padre"},
+"French":{Hello:"Bonjour",Thank:"Merci",Friend:"Ami",Mother:"Mère",Father:"Père"}
+};
+var W=WORDS[userLang]||WORDS["English"];
+var LESSONS={
 Beginner:[
-{title:"Greetings",text:"Today we learn how to greet. In English we say: Hello, Good morning, Good afternoon, How are you? Answer: I am fine, thank you.",words:[["Hello","Alixeni / Olá"],["Good morning","Mixo lowunene"],["How are you?","U njhani?"],["Thank you","Ndza khensa"],["Friend","Xaka"]],conv:"Tati: Hello! How are you?<br>You: I am fine, thank you. And you?",q:"How do you say 'Alixeni' in English?",opts:["Hello","Goodbye","Thank you"],a:0},
-{title:"Introducing yourself",text:"My name is... I am from... I live in... Practice: My name is Jemi. I am from Mozambique.",words:[["My name is","Vito ra mina i..."],["I am from","Ndzi huma e..."],["I live in","Ndzi tshama e..."],["Mozambique","Muzambiki"],["Philippines","Filipinas"]],conv:"Tati: What is your name?<br>You: My name is Jemi. I am from Mozambique.",q:"'My name is Jemi' means?",opts:["Vito ra mina i Jemi","Ndzi lava Jemi","Ndzi tshama Jemi"],a:0},
-{title:"Numbers 1-5",text:"One, two, three, four, five. We use numbers every day: I have two brothers.",words:[["One","N'we"],["Two","Mbiri"],["Three","Nharhu"],["Four","Mune"],["Five","Ntlhanu"]],conv:"Tati: How many brothers do you have?<br>You: I have two brothers.",q:"What is 'Three' in numbers?",opts:["2","3","5"],a:1},
-{title:"Family",text:"Mother, father, sister, brother, baby. Family is important.",words:[["Mother","Manana"],["Father","Tatana"],["Sister","Sesi"],["Brother","Bhuti"],["Baby","N'wana"]],conv:"Tati: Who is this?<br>You: This is my mother.",q:"'Father' means?",opts:["Tatana","Manana","Sesi"],a:0},
-{title:"TEST Day 5 — Greetings + Family",text:"Today is TEST. Answer 3 questions. If you pass, you go to Day 6.",words:[["Test","Xikambelo"],["Pass","Ku hundza"],["Good job","U tirhile kahle"],["Try again","Ringeta nakambe"],["Exam","Xikambelo xikulu"]],conv:"Tati: Are you ready for the test?<br>You: Yes, I am ready!",q:"'Thank you' in English is?",opts:["Thank you","Hello","Goodbye"],a:0}
+{title:"Greetings",text:"Hello, Good morning, How are you? Answer: I am fine, thank you.",explain:U.explain+"Hello = "+W.Hello+". Thank you = "+W.Thank+".",words:[["Hello",W.Hello],["Good morning","Good morning"],["How are you?","How are you?"],["Thank you",W.Thank],["Friend",W.Friend]],conv:"Tati: Hello! How are you?<br>You: I am fine, thank you.",q:"How do you say '"+W.Hello+"' in English?",opts:["Hello","Goodbye","Thank you"],a:0},
+{title:"Family",text:"Mother, father, sister, brother, baby.",explain:U.explain+"Mother = "+W.Mother+", Father = "+W.Father+".",words:[["Mother",W.Mother],["Father",W.Father],["Sister","Sister"],["Brother","Brother"],["Baby","Baby"]],conv:"Tati: Who is this?<br>You: This is my mother.",q:"'Father' means?",opts:[W.Father,W.Mother,"Sister"],a:0},
+{title:"Numbers",text:"One, two, three, four, five.",explain:U.explain+"One, Two, Three, Four, Five.",words:[["One","1"],["Two","2"],["Three","3"],["Four","4"],["Five","5"]],conv:"Tati: How many brothers?<br>You: I have two brothers.",q:"What is 'Three'?",opts:["2","3","5"],a:1},
+{title:"Introducing yourself",text:"My name is... I am from...",explain:U.explain+"My name is... I am from...",words:[["My name is","My name is"],["I am from","I am from"],["I live in","I live in"],["Mozambique","Mozambique"],["Philippines","Philippines"]],conv:"Tati: What is your name?<br>You: My name is Jemi.",q:"'My name is Jemi' means?",opts:["My name is Jemi","I want Jemi","I live Jemi"],a:0},
+{title:"TEST Day 5",text:"Test — Greetings + Family",explain:U.explain+"Test today.",words:[["Test","Test"],["Pass","Pass"],["Good job","Good job"],["Try again","Try again"],["Exam","Exam"]],conv:"Tati: Ready?<br>You: Yes!",q:"'Thank you' in English is?",opts:["Thank you","Hello","Goodbye"],a:0}
 ],
 Intermediate:[
-{title:"Daily routine",text:"I wake up, I eat breakfast, I go to work, I come home. Use present simple.",words:[["Wake up","Ku pfuka"],["Breakfast","Xifihlulo"],["Work","Ntirho"],["Home","Kaya"],["Every day","Siku rin'wana na rin'wana"]],conv:"Tati: What do you do every day?<br>You: I wake up, I eat breakfast, I go to work.",q:"'I wake up' means?",opts:["Ndzi pfuka","Ndzi dya","Ndzi tirha"],a:0},
-{title:"At the market",text:"How much is this? It is 100 meticais. I want two kilos, please.",words:[["How much?","Hi mali muni?"],["Please","Ndzi kombela"],["Expensive","Hi durha"],["Cheap","Hi chipile"],["Market","Makete"]],conv:"Tati: How much is this?<br>You: It is 100 meticais.",q:"How do you ask price?",opts:["How much is this?","Where are you?","What is your name?"],a:0},
-{title:"Talking about past",text:"Yesterday I went to school. I saw my friend. Past: went, saw, ate.",words:[["Yesterday","Tolweni"],["Went","Ndzi yile"],["Saw","Ndzi vonile"],["Ate","Ndzi dyile"],["Yesterday I went","Tolweni ndzi yile"]],conv:"Tati: What did you do yesterday?<br>You: Yesterday I went to school.",q:"'Yesterday' means?",opts:["Tolweni","Namuntlha","Mundzuku"],a:0},
-{title:"Making plans",text:"Tomorrow I will study. Next week I will visit my family.",words:[["Tomorrow","Mundzuku"],["Will","Ndzi ta"],["Next week","Viki leri taka"],["Visit","Ku endzela"],["Study","Ku dyondza"]],conv:"Tati: What will you do tomorrow?<br>You: Tomorrow I will study English.",q:"'Tomorrow I will study' means?",opts:["Mundzuku ndzi ta dyondza","Tolweni ndzi dyondzile","Namuntlha ndzi dyondza"],a:0},
-{title:"TEST Day 5 — Routine + Market",text:"Test time. Show Tati what you learned.",words:[["Test","Xikambelo"],["Market","Makete"],["Routine","Leswi ndzi swi endlaka siku rin'wana"],["Past","Leswi hundzeke"],["Future","Leswi taka"]],conv:"Tati: Ready?<br>You: Yes, ready!",q:"'How much is this?' is used at?",opts:["Market","School","Home"],a:0}
+{title:"Daily routine",text:"I wake up, I eat breakfast, I go to work.",explain:U.explain+"I wake up, I eat, I go to work.",words:[["Wake up","Wake up"],["Breakfast","Breakfast"],["Work","Work"],["Home","Home"],["Every day","Every day"]],conv:"Tati: What do you do?<br>You: I wake up, I eat, I go to work.",q:"'I wake up' means?",opts:["I wake up","I eat","I work"],a:0},
+{title:"At the market",text:"How much is this? It is 100.",explain:U.explain+"How much is this?",words:[["How much?","How much?"],["Please","Please"],["Expensive","Expensive"],["Cheap","Cheap"],["Market","Market"]],conv:"Tati: How much?<br>You: It is 100.",q:"How do you ask price?",opts:["How much is this?","Where are you?","What is your name?"],a:0},
+{title:"Past",text:"Yesterday I went to school.",explain:U.explain+"Yesterday = past.",words:[["Yesterday","Yesterday"],["Went","Went"],["Saw","Saw"],["Ate","Ate"],["Yesterday I went","Yesterday I went"]],conv:"Tati: What did you do?<br>You: Yesterday I went to school.",q:"'Yesterday' means?",opts:["Yesterday","Today","Tomorrow"],a:0},
+{title:"Plans",text:"Tomorrow I will study.",explain:U.explain+"Tomorrow = future.",words:[["Tomorrow","Tomorrow"],["Will","Will"],["Next week","Next week"],["Visit","Visit"],["Study","Study"]],conv:"Tati: What will you do?<br>You: Tomorrow I will study.",q:"'Tomorrow I will study' means?",opts:["Tomorrow I will study","Yesterday I studied","Today I study"],a:0},
+{title:"TEST Day 5",text:"Test — Routine + Market",explain:U.explain+"Test today.",words:[["Test","Test"],["Market","Market"],["Routine","Routine"],["Past","Past"],["Future","Future"]],conv:"Tati: Ready?<br>You: Yes!",q:"'How much is this?' is used at?",opts:["Market","School","Home"],a:0}
 ],
 Advanced:[
-{title:"Job interview",text:"Tell me about yourself. I am hardworking. I can speak English and Portuguese.",words:[["Hardworking","Ndzi tirha hi matimba"],["Experience","Ntokoto"],["Skill","Vuswikoti"],["Interview","Xikambelo xa ntirho"],["Job","Ntirho"]],conv:"Tati: Tell me about yourself.<br>You: I am hardworking. I have experience in sales.",q:"'I am hardworking' means?",opts:["Ndzi tirha hi matimba","Ndzi karhele","Ndzi lava mali"],a:0},
-{title:"Business English",text:"Can we schedule a meeting? I will send you an email. Let's discuss the price.",words:[["Meeting","Nhlengeletano"],["Schedule","Ku lulamisa nkarhi"],["Email","Imeyili"],["Discuss","Ku burisana"],["Price","Ntsengo"]],conv:"Tati: Can we schedule a meeting?<br>You: Yes, tomorrow at 10am.",q:"'Meeting' means?",opts:["Nhlengeletano","Xikolo","Makete"],a:0},
-{title:"Giving opinions",text:"I think... In my opinion... I agree / I disagree. Use in discussions.",words:[["I think","Ndzi ehleketa"],["In my opinion","Hi ku vona ka mina"],["I agree","Ndzi pfumela"],["I disagree","A ndzi pfumeli"],["Opinion","Ku vona"]],conv:"Tati: What is your opinion?<br>You: In my opinion, English is important.",q:"'I agree' means?",opts:["Ndzi pfumela","A ndzi pfumeli","Ndzi karhele"],a:0},
-{title:"Presenting",text:"Good morning everyone. Today I will talk about... Thank you for listening.",words:[["Everyone","Hinkwavo"],["Present","Ku kombisa"],["Topic","Nhlamuselo"],["Thank you for listening","Ndza khensa ku yingisa"],["Conclusion","Ku hetelela"]],conv:"Tati: Start your presentation.<br>You: Good morning everyone. Today I will talk about my work.",q:"'Thank you for listening' is used at?",opts:["End of presentation","Start of day","At market"],a:0},
-{title:"TEST Day 5 — Work English",text:"Test for Advanced.",words:[["Interview","Xikambelo xa ntirho"],["Meeting","Nhlengeletano"],["Opinion","Ku vona"],["Presentation","Ku kombisa"],["Business","Bindzu"]],conv:"Tati: Ready for test?<br>You: Yes!",q:"'Meeting' in Changana is?",opts:["Nhlengeletano","Makete","Xikolo"],a:0}
+{title:"Job interview",text:"Tell me about yourself. I am hardworking.",explain:U.explain+"Tell me about yourself.",words:[["Hardworking","Hardworking"],["Experience","Experience"],["Skill","Skill"],["Interview","Interview"],["Job","Job"]],conv:"Tati: Tell me about yourself.<br>You: I am hardworking.",q:"'I am hardworking' means?",opts:["I am hardworking","I am tired","I want money"],a:0},
+{title:"Business",text:"Can we schedule a meeting?",explain:U.explain+"Can we schedule a meeting?",words:[["Meeting","Meeting"],["Schedule","Schedule"],["Email","Email"],["Discuss","Discuss"],["Price","Price"]],conv:"Tati: Can we schedule a meeting?<br>You: Yes, tomorrow.",q:"'Meeting' means?",opts:["Meeting","School","Market"],a:0},
+{title:"Opinions",text:"I think... I agree / I disagree.",explain:U.explain+"I think, I agree.",words:[["I think","I think"],["In my opinion","In my opinion"],["I agree","I agree"],["I disagree","I disagree"],["Opinion","Opinion"]],conv:"Tati: What is your opinion?<br>You: In my opinion, English is important.",q:"'I agree' means?",opts:["I agree","I disagree","I am tired"],a:0},
+{title:"Presenting",text:"Good morning everyone. Today I will talk about...",explain:U.explain+"Good morning everyone.",words:[["Everyone","Everyone"],["Present","Present"],["Topic","Topic"],["Thank you for listening","Thank you for listening"],["Conclusion","Conclusion"]],conv:"Tati: Start.<br>You: Good morning everyone.",q:"'Thank you for listening' is used at?",opts:["End of presentation","Start of day","At market"],a:0},
+{title:"TEST Day 5",text:"Test — Work English",explain:U.explain+"Test today.",words:[["Interview","Interview"],["Meeting","Meeting"],["Opinion","Opinion"],["Presentation","Presentation"],["Business","Business"]],conv:"Tati: Ready?<br>You: Yes!",q:"'Meeting' means?",opts:["Meeting","Market","School"],a:0}
 ]
 };
 function getState(){try{return JSON.parse(localStorage.getItem("tati_classroom")||"{}")}catch(e){return{}}}
 function saveState(s){localStorage.setItem("tati_classroom",JSON.stringify(s))}
 var state=getState();
-if(state.level){document.getElementById("savedInfo").textContent="You are on "+state.level+" — Day "+(state.day||1)+". Tap your level again to continue."}
+if(state.level){document.getElementById("savedInfo").textContent="You are on "+state.level+" — Day "+(state.day||1)}
 function pickLevel(lv){var s=getState();if(s.level!==lv){s={level:lv,day:1,extra:0,paid:false}}s.level=lv;saveState(s);showLesson()}
-function showLesson(){var s=getState();if(!s.level)return;var lessons=LEVELS[s.level];var day=s.day||1;if(day>3&&!s.paid){document.getElementById("levelBox").classList.add("hidden");document.getElementById("lessonBox").classList.add("hidden");document.getElementById("payBox").classList.remove("hidden");return}document.getElementById("levelBox").classList.add("hidden");document.getElementById("payBox").classList.add("hidden");document.getElementById("lessonBox").classList.remove("hidden");var idx=(day-1)%lessons.length;var L=lessons[idx];document.getElementById("dayTitle").textContent="Day "+day+" — "+s.level;document.getElementById("levelLabel").textContent="Trial: Day "+day+" of 3 free. After Day 3, pay monthly.";document.getElementById("lessonTitle").textContent=L.title;document.getElementById("lessonText").textContent=L.text;var wb=document.getElementById("wordsBox");wb.innerHTML="";L.words.forEach(function(w){var d=document.createElement("div");d.className="word";d.innerHTML="<b>"+w[0]+"</b><br><span style='color:#666'>"+w[1]+"</span>";wb.appendChild(d)});document.getElementById("convBox").innerHTML=L.conv;document.getElementById("quizQ").textContent=L.q;var qb=document.getElementById("quizBox");qb.innerHTML="";document.getElementById("quizMsg").textContent="";document.getElementById("nextDayBtn").classList.add("hidden");document.getElementById("moreMsg").textContent="";document.getElementById("extraBox").innerHTML="";s.extra=0;saveState(s);L.opts.forEach(function(o,i){var b=document.createElement("button");b.className="quizOpt";b.textContent=o;b.onclick=function(){if(i===L.a){b.classList.add("correct");document.getElementById("quizMsg").textContent="✅ Correct! Well done! You can go to next day.";document.getElementById("nextDayBtn").classList.remove("hidden")}else{b.classList.add("wrong");document.getElementById("quizMsg").textContent="❌ Not quite, try again. Listen: "+L.words[0][0]}};qb.appendChild(b)})}
+function showLesson(){var s=getState();if(!s.level)return;var lessons=LESSONS[s.level];var day=s.day||1;if(day>3&&!s.paid){document.getElementById("levelBox").classList.add("hidden");document.getElementById("lessonBox").classList.add("hidden");document.getElementById("payBox").classList.remove("hidden");return}document.getElementById("levelBox").classList.add("hidden");document.getElementById("payBox").classList.add("hidden");document.getElementById("lessonBox").classList.remove("hidden");var idx=(day-1)%lessons.length;var L=lessons[idx];document.getElementById("dayTitle").textContent="Day "+day+" — "+s.level;document.getElementById("levelLabel").textContent="Trial: Day "+day+" of 3 free. Language: "+userLang;document.getElementById("lessonTitle").textContent=L.title;document.getElementById("lessonText").textContent=L.text;document.getElementById("explainBox").textContent=L.explain;var wb=document.getElementById("wordsBox");wb.innerHTML="";L.words.forEach(function(w){var d=document.createElement("div");d.className="word";d.innerHTML="<b>"+w[0]+"</b><br><span style='color:#666'>"+w[1]+"</span>";wb.appendChild(d)});document.getElementById("convBox").innerHTML=L.conv;document.getElementById("quizQ").textContent=L.q;var qb=document.getElementById("quizBox");qb.innerHTML="";document.getElementById("quizMsg").textContent="";document.getElementById("nextDayBtn").classList.add("hidden");document.getElementById("moreMsg").textContent="";document.getElementById("extraBox").innerHTML="";document.getElementById("moreBtn").style.display="block";s.extra=0;saveState(s);L.opts.forEach(function(o,i){var b=document.createElement("button");b.className="quizOpt";b.textContent=o;b.onclick=function(){if(i===L.a){b.classList.add("correct");document.getElementById("quizMsg").textContent="✅ Correct!";document.getElementById("nextDayBtn").classList.remove("hidden")}else{b.classList.add("wrong");document.getElementById("quizMsg").textContent="❌ Try again."}};qb.appendChild(b)})}
 function nextDay(){var s=getState();s.day=(s.day||1)+1;s.extra=0;saveState(s);if(s.day>30){document.getElementById("lessonBox").classList.add("hidden");document.getElementById("examBox").classList.remove("hidden");startExam();return}showLesson();window.scrollTo(0,0)}
-function learnMore(){var s=getState();s.extra=(s.extra||0)+1;if(s.extra>2){document.getElementById("moreMsg").textContent="🛑 That's enough for today, my friend. You learned a lot. Rest. Come back tomorrow. If you learn too much at once, you will forget everything. See you tomorrow!";document.getElementById("moreBtn").style.display="none";return}saveState(s);var extras=["Extra 1 — Practice speaking: Say these 5 times out loud: Hello, Thank you, My name is..., I am from..., I want to learn English. Good!","Extra 2 — Listening: Listen to Tati say: Good morning, How are you? I am fine. Repeat after Tati. Now write them in your notebook."];var d=document.createElement("div");d.className="card";d.style.marginTop="12px";d.innerHTML="<h3>➕ Extra — Learn More Today ("+s.extra+"/2)</h3><p>"+extras[s.extra-1]+"</p><p><b>5 extra words:</b> Learn, Speak, Listen, Read, Write</p>";document.getElementById("extraBox").appendChild(d);if(s.extra===2){document.getElementById("moreMsg").textContent="🛑 That's enough for today. You did extra work, well done! Come back tomorrow for Day "+((s.day||1)+1)+".";document.getElementById("moreBtn").style.display="none"}}
+function learnMore(){var s=getState();s.extra=(s.extra||0)+1;if(s.extra>2){document.getElementById("moreMsg").textContent="🛑 That's enough for today. Rest. Come back tomorrow.";document.getElementById("moreBtn").style.display="none";return}saveState(s);var d=document.createElement("div");d.className="card";d.style.marginTop="12px";d.innerHTML="<h3>➕ Extra ("+s.extra+"/2)</h3><p>Practice: Say 5 times: Hello, Thank you, My name is..., I am from..., I want to learn English.</p><p><b>5 extra words:</b> Learn, Speak, Listen, Read, Write</p>";document.getElementById("extraBox").appendChild(d);if(s.extra===2){document.getElementById("moreMsg").textContent="🛑 That's enough for today. Come back tomorrow.";document.getElementById("moreBtn").style.display="none"}}
 function resetProgress(){localStorage.removeItem("tati_classroom");location.reload()}
-function startExam(){var s=getState();document.getElementById("examQ").textContent="Final Exam: How do you say 'Alixeni' in English?";var eb=document.getElementById("examOpts");eb.innerHTML="";["Hello","Goodbye","Thank you"].forEach(function(o,i){var b=document.createElement("button");b.className="quizOpt";b.textContent=o;b.onclick=function(){if(i===0){document.getElementById("examMsg").textContent="🎓 PASSED! Congratulations! You finished "+s.level+"! You can start next level or revise."}else{document.getElementById("examMsg").textContent="❌ Try again."}};eb.appendChild(b)})}
+function startExam(){document.getElementById("examQ").textContent="Final Exam: How do you say '"+W.Hello+"' in English?";var eb=document.getElementById("examOpts");eb.innerHTML="";["Hello","Goodbye","Thank you"].forEach(function(o,i){var b=document.createElement("button");b.className="quizOpt";b.textContent=o;b.onclick=function(){if(i===0){document.getElementById("examMsg").textContent="🎓 PASSED!"}else{document.getElementById("examMsg").textContent="❌ Try again."}};eb.appendChild(b)})}
 if(state.level) showLesson();
 </script>
 </body></html>
