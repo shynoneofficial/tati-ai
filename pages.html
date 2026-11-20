@@ -1,34 +1,74 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Secret Room - How it works</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}body{background:#f6f3ee;padding:14px}.card{background:#fff;border-radius:16px;padding:18px;margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto}h1{font-size:22px}p,li{font-size:15px;line-height:1.5;color:#333;margin-top:10px}.btn{display:block;text-align:center;margin-top:12px;padding:14px;border-radius:12px;background:#00a884;color:#fff;text-decoration:none;font-weight:800}.btn2{background:#0a192f}</style></head><body>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Pages - Tati</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}body{background:#f6f3ee;padding:12px;padding-bottom:60px}.top{max-width:580px;margin:0 auto}.card{background:#fff;border-radius:16px;padding:16px;margin-top:12px}h1{font-size:22px}h2{font-size:18px}p{font-size:15px;line-height:1.5;color:#333;margin-top:8px}input,textarea,select{width:100%;padding:12px;margin-top:8px;border:1px solid #ddd;border-radius:10px;font-size:15px} .btn{display:block;text-align:center;margin-top:12px;padding:14px;border-radius:12px;background:#00a884;color:#fff;text-decoration:none;font-weight:800;border:none;width:100%;cursor:pointer;font-size:15px}.btn2{background:#0a192f}.btn3{background:#fff;color:#111;border:1px solid #ddd}.post{background:#f8f8f8;border-radius:12px;padding:12px;margin-top:12px}.post img,.post video{width:100%;border-radius:10px;margin-top:8px;max-height:320px;object-fit:cover}.smallBtn{padding:8px 12px;border-radius:999px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:13px;font-weight:800;margin-top:8px;margin-right:6px}.smallBtn.on{background:#d9fdd3;border-color:#00a884}.comment{background:#fff;border-radius:8px;padding:8px;margin-top:6px;font-size:14px}.followBtn{background:#0a192f;color:#fff;border:none;padding:10px 16px;border-radius:999px;font-weight:800;cursor:pointer;margin-top:8px}.followBtn.on{background:#00a884}</style></head><body>
+<div class="top">
 <a href="./index.html" style="color:#00a884;font-weight:800;text-decoration:none">← Back to Tati</a>
 <div class="card">
-<h1 id="t">🔒 Secret Room — How it works</h1>
-<p id="d1"><b>What is it?</b> A private place where you talk to your people. Nobody else can see it. It is hidden.</p>
-<p id="d2"><b>1. Get a code:</b> Tap "Get Code" and choose your secret code, e.g. 2580. Keep it secret.</p>
-<p id="d3"><b>2. Drag the green dot:</b> When the lock box opens, you will see a small green dot. Hold it and drag it to your secret spot — anywhere on the screen. That spot is yours. It will stay there.</p>
-<p id="d4"><b>3. Tap 5 times:</b> Next time, go to your secret spot and tap it 5 times. The Secret Room will open. Nobody will know where it is.</p>
-<p id="d5"><b>4. Enter code:</b> Type your code to unlock. If you forget, tap "Get Code" again.</p>
-<p id="d6" style="background:#fff3cd;padding:10px;border-radius:10px">⚠️ Do not share your code. Do not share your secret spot. If someone knows both, they can open your room.</p>
-<a class="btn" href="./secret.html">Get My Code →</a>
-<a class="btn btn2" href="./index.html">← Back to Home</a>
+<h1>📄 Pages</h1>
+<p>Create your own Page — music, business, church, school, or yourself. Post photos, videos, get followers, likes, comments, share.</p>
+<p id="langLine" style="font-size:13px;color:#666"></p>
+</div>
+
+<div class="card">
+<h2>✨ Create a Page</h2>
+<input id="pageName" placeholder="Page name — e.g. SHYNONE MUSIC">
+<input id="pageAbout" placeholder="What is your Page about?">
+<select id="pageType"><option>🎵 Music</option><option>💼 Business</option><option>⛪ Church</option><option>🏫 School</option><option>👤 Personal</option><option>⚽ Sport</option><option>🛍️ Shop</option><option>🎬 Entertainment</option></select>
+<button class="btn" onclick="createPage()">+ Create My Page</button>
+</div>
+
+<div class="card">
+<h2>All Pages</h2>
+<div id="pagesList"><p style="color:#999">No pages yet. Create your first page above.</p></div>
+</div>
+
+<div class="card hidden" id="openBox">
+<h2 id="openName"></h2>
+<p id="openAbout" style="color:#666"></p>
+<p><b id="followerCount">0 followers</b> • <span id="postCount">0 posts</span></p>
+<button class="followBtn" id="followBtn" onclick="toggleFollow()">+ Follow this Page</button>
+<button class="btn3 btn" style="margin-top:8px" onclick="closePage()">← Close Page</button>
+
+<h2 style="margin-top:16px">📝 Create a Post</h2>
+<label style="font-size:14px;font-weight:800;margin-top:10px;display:block">✍️ Caption — write what you are posting:</label>
+<textarea id="postCaption" rows="2" placeholder="Write a caption... e.g. New song out now! 🔥"></textarea>
+<label style="font-size:14px;font-weight:800;margin-top:10px;display:block">🖼️ Add Photo:</label>
+<input type="file" id="postPhoto" accept="image/*">
+<label style="font-size:14px;font-weight:800;margin-top:10px;display:block">🎥 Add Video:</label>
+<input type="file" id="postVideo" accept="video/*">
+<button class="btn btn2" onclick="addPost()">📝 Publish Post</button>
+<div id="postsList"></div>
+</div>
 </div>
 <script>
-var L=localStorage.getItem("tati_lang")||"Changana";
-var T={
-"Changana":{t:"🔒 Axihundleni — Swi tirha njhani",d1:"I yini? Ndhawu ya xihundleni laha u vulavulaka na vanhu va wena. Ku hava munhu un'wana a vonaka.",d2:"1. Kuma khodi: Tshikilela 'Get Code' u hlawula khodi ya wena, xik. 2580. Yi hlayise yi ri xihundleni.",d3:"2. Kokela doti ya rihlaza: Loko bokisi ri pfuleka, u ta vona doti yitsongo ya rihlaza. Yi khoma u yi kokela eka ndhawu ya wena ya xihundleni.",d4:"3. Tshikilela 5: Siku leri landzelaka, ya eka ndhawu ya wena u tshikilela 5. Axihundleni xi ta pfuleka.",d5:"4. Nghenisa khodi: Tsala khodi ya wena ku pfulela.",d6:"⚠️ U nga avelani khodi ya wena. U nga avelani ndhawu ya wena ya xihundleni."},
-"Portuguese":{t:"🔒 Sala Secreta — Como funciona",d1:"O que é? Um lugar privado onde falas com as tuas pessoas. Ninguém mais vê.",d2:"1. Obter código: Toca em 'Get Code' e escolhe o teu código, ex. 2580.",d3:"2. Arrasta o ponto verde: Quando a caixa abrir, vais ver um ponto verde pequeno. Segura e arrasta para o teu lugar secreto.",d4:"3. Toca 5 vezes: Da próxima vez, vai ao teu lugar secreto e toca 5 vezes. A Sala Secreta abre.",d5:"4. Escreve o código: Escreve o teu código para desbloquear.",d6:"⚠️ Não partilhes o teu código nem o teu lugar secreto."},
-"English":{t:"🔒 Secret Room — How it works",d1:"What is it? A private place where you talk to your people. Nobody else can see it.",d2:"1. Get a code: Tap 'Get Code' and choose your code, e.g. 2580.",d3:"2. Drag the green dot: When the lock opens, you will see a small green dot. Hold and drag it to your secret spot.",d4:"3. Tap 5 times: Next time, go to your secret spot and tap 5 times. Secret Room opens.",d5:"4. Enter code: Type your code to unlock.",d6:"⚠️ Do not share your code or your secret spot."}
-};
-var x=T[L]||T["English"];
-document.getElementById("t").textContent=x.t;
-document.getElementById("d1").textContent=x.d1;
-document.getElementById("d2").textContent=x.d2;
-document.getElementById("d3").textContent=x.d3;
-document.getElementById("d4").textContent=x.d4;
-document.getElementById("d5").textContent=x.d5;
-document.getElementById("d6").textContent=x.d6;
+var lang=localStorage.getItem("tati_lang")||"Changana";
+document.getElementById("langLine").textContent="🌐 Language: "+lang+" — Pages change with your language. This is PAGES, not Secret Room.";
+function getPages(){try{return JSON.parse(localStorage.getItem("tati_pages_v2")||"[]")}catch(e){return[]}}
+function savePages(p){localStorage.setItem("tati_pages_v2",JSON.stringify(p))}
+var opened=-1;
+var tempPhoto="",tempVideo="";
+document.getElementById("postPhoto").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){tempPhoto=r.result};r.readAsDataURL(f)});
+document.getElementById("postVideo").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){tempVideo=r.result};r.readAsDataURL(f)});
+function renderPages(){var list=getPages();var el=document.getElementById("pagesList");if(!list.length){el.innerHTML="<p style='color:#999'>No pages yet. Create your first page above.</p>";return}el.innerHTML="";list.forEach(function(pg,i){var d=document.createElement("div");d.className="post";d.innerHTML="<b>📄 "+pg.name+"</b><br><span style='color:#666'>"+pg.type+" — "+pg.about+"</span><br><span style='font-size:13px;color:#00a884'>👥 "+(pg.followers||0)+" followers • 📝 "+pg.posts.length+" posts • Tap to open</span>";d.style.cursor="pointer";d.onclick=function(){openPage(i)};el.appendChild(d)})}
+function createPage(){var n=document.getElementById("pageName").value.trim();var a=document.getElementById("pageAbout").value.trim();var ty=document.getElementById("pageType").value;if(!n){alert("Please type a Page name");return}var list=getPages();list.push({name:n,about:a||ty,type:ty,followers:0,following:false,posts:[]});savePages(list);document.getElementById("pageName").value="";document.getElementById("pageAbout").value="";renderPages();alert("Page created: "+n+" 🎉")}
+function openPage(i){opened=i;var pg=getPages()[i];document.getElementById("openBox").classList.remove("hidden");document.getElementById("openName").textContent="📄 "+pg.name;document.getElementById("openAbout").textContent=pg.type+" — "+pg.about;document.getElementById("followerCount").textContent=pg.followers+" followers";document.getElementById("postCount").textContent=pg.posts.length+" posts";document.getElementById("followBtn").textContent=pg.following?"✓ Following — Tap to Unfollow":"+ Follow this Page";document.getElementById("followBtn").className=pg.following?"followBtn on":"followBtn";renderPosts();window.scrollTo(0,document.getElementById("openBox").offsetTop-20)}
+function closePage(){opened=-1;document.getElementById("openBox").classList.add("hidden")}
+function toggleFollow(){if(opened<0)return;var all=getPages();var pg=all[opened];if(pg.following){pg.following=false;pg.followers=Math.max(0,(pg.followers||0)-1)}else{pg.following=true;pg.followers=(pg.followers||0)+1}savePages(all);openPage(opened);renderPages()}
+function addPost(){if(opened<0)return;var cap=document.getElementById("postCaption").value.trim();if(!cap&&!tempPhoto&&!tempVideo){alert("Write a caption or add a photo / video");return}var all=getPages();all[opened].posts.push({caption:cap,photo:tempPhoto,video:tempVideo,date:new Date().toLocaleString(),likes:0,liked:false,comments:[]});savePages(all);document.getElementById("postCaption").value="";document.getElementById("postPhoto").value="";document.getElementById("postVideo").value="";tempPhoto="";tempVideo="";renderPosts();renderPages();openPage(opened)}
+function renderPosts(){var pg=getPages()[opened];var el=document.getElementById("postsList");el.innerHTML="<h2 style='margin-top:16px'>Feed</h2>";if(!pg.posts.length){el.innerHTML+="<p style='color:#999'>No posts yet.</p>";return}pg.posts.slice().reverse().forEach(function(post,idx){var realIdx=pg.posts.length-1-idx;var d=document.createElement("div");d.className="post";var html="<b>"+pg.name+"</b> <span style='font-size:12px;color:#999'>• "+post.date+"</span><p style='margin-top:8px'>"+(post.caption||"")+"</p>";if(post.photo)html+="<img src='"+post.photo+"'>";if(post.video)html+="<video src='"+post.video+"' controls></video>";d.innerHTML=html;
+var like=document.createElement("button");like.className=post.liked?"smallBtn on":"smallBtn";like.textContent="❤️ "+(post.likes||0)+" Like";like.onclick=function(){var all=getPages();var p=all[opened].posts[realIdx];if(p.liked){p.liked=false;p.likes--}else{p.liked=true;p.likes++}savePages(all);renderPosts()};
+var commentBtn=document.createElement("button");commentBtn.className="smallBtn";commentBtn.textContent="💬 "+(post.comments?post.comments.length:0)+" Comments";commentBtn.onclick=function(){var box=d.querySelector(".commentBox");box.style.display=box.style.display==="none"?"block":"none"};
+var share=document.createElement("button");share.className="smallBtn";share.textContent="↗️ Share";share.onclick=function(){var txt=pg.name+": "+(post.caption||"");if(navigator.share){navigator.share({title:pg.name,text:txt,url:location.href})}else{window.open("https://wa.me/?text="+encodeURIComponent(txt+" — via Tati Pages"),"_blank")}};
+var del=document.createElement("button");del.className="smallBtn";del.textContent="🗑️ Delete";del.onclick=function(){if(confirm("Delete this post?")){var all=getPages();all[opened].posts.splice(realIdx,1);savePages(all);renderPosts();renderPages();openPage(opened)}};
+d.appendChild(like);d.appendChild(commentBtn);d.appendChild(share);d.appendChild(del);
+var cBox=document.createElement("div");cBox.className="commentBox";cBox.style.display="none";cBox.style.marginTop="10px";
+var cList=document.createElement("div");(post.comments||[]).forEach(function(c){var cd=document.createElement("div");cd.className="comment";cd.textContent="💬 "+c; cList.appendChild(cd)});
+var cInput=document.createElement("input");cInput.placeholder="Write a comment...";cInput.style.marginTop="8px";
+var cSend=document.createElement("button");cSend.className="smallBtn";cSend.textContent="Send Comment";cSend.onclick=function(){var v=cInput.value.trim();if(!v)return;var all=getPages();all[opened].posts[realIdx].comments=all[opened].posts[realIdx].comments||[];all[opened].posts[realIdx].comments.push(v);savePages(all);renderPosts()};
+cBox.appendChild(cList);cBox.appendChild(cInput);cBox.appendChild(cSend);d.appendChild(cBox);
+el.appendChild(d)})}
+renderPages();
 </script>
 </body></html>
