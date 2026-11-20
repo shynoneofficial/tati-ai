@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Create Page - Tati</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#0f0f0f;min-height:100vh;color:#fff}
+.top{height:66px;background:#000;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:2px solid #d4af37;position:sticky;top:0}
+.top a{color:#d4af37;font-weight:800;text-decoration:none}
+.goldLine{height:3px;background:linear-gradient(90deg,#d4af37,#f5d76e,#00a884)}
+.wrap{max-width:720px;margin:0 auto;padding:20px;width:100%}
+.card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:18px;padding:22px}
+h1{font-size:24px} h1 span{color:#d4af37} p{color:#aaa;margin-top:8px;line-height:1.5}
+label{font-weight:800;margin-top:18px;display:block;font-size:14px;color:#f5d76e}
+input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #333;border-radius:10px;font-size:15px;outline:none;background:#111;color:#fff}
+.preview{margin-top:14px;display:flex;gap:14px;align-items:center;background:#111;border:1px solid #333;border-radius:12px;padding:12px}
+.avatar{width:64px;height:64px;border-radius:16px;background:#0a192f;color:#f5d76e;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;overflow:hidden;flex-shrink:0;border:2px solid #d4af37}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#f5d76e,#d4af37);color:#000;font-weight:900;font-size:16px;cursor:pointer}
+.btn2{width:100%;margin-top:10px;padding:12px;border:1px solid #333;border-radius:12px;background:#111;color:#fff;font-weight:700;cursor:pointer}
+.logoRow{display:flex;align-items:center;gap:12px}
+.logoRow .t{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#f5d76e,#d4af37);color:#000;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
+</style></head><body>
+<div class="top"><a href="./pages.html">← Pages</a><b>TATI • SHYNONE MUSIC</b></div>
+<div class="goldLine"></div>
+<div class="wrap">
+<div class="card">
+<div class="logoRow"><div class="t">T</div><div><h1>Create your Page <span>👑</span></h1><p style="margin:0">Tati style. Black + Gold. Yours.</p></div></div>
+<p>Make a Page for your music, business, church, school or yourself. After you create it, you will go back to Pages and you can post inside it.</p>
+<label>1. Page Name *</label>
+<input id="pageName" placeholder="e.g. SHYNONE MUSIC" oninput="updatePreview()">
+<label>2. What is your Page about?</label>
+<textarea id="pageAbout" rows="2" placeholder="e.g. We sing gospel, we make people happy..."></textarea>
+<label>3. Category</label>
+<select id="pageType"><option>🎵 Music</option><option>💼 Business</option><option>⛪ Church</option><option>🏫 School</option><option>👤 Personal</option><option>⚽ Sport</option><option>🛍️ Shop</option><option>🎬 Entertainment</option><option>🍽️ Food</option></select>
+<label>4. Go Live? (optional)</label>
+<select id="pageLive"><option value="">No - not live now</option><option value="1">🔴 Yes - I am LIVE now</option></select>
+<label>5. Page Profile Photo (optional)</label>
+<input type="file" id="pagePhoto" accept="image/*">
+<label>6. Cover Photo (optional)</label>
+<input type="file" id="pageCover" accept="image/*">
+<div class="preview"><div class="avatar" id="prevAvatar">T</div><div><b id="prevName">Your Page Name</b><p id="prevAbout" style="margin:0;font-size:13px;color:#aaa">Your about will show here...</p></div></div>
+<button class="btn" onclick="createPage()">👑 + Create My Page →</button>
+<button class="btn2" onclick="location.href='./pages.html'">Cancel</button>
+</div>
+</div>
+<script>
+var photo="",cover="";
+function updatePreview(){var n=document.getElementById("pageName").value.trim()||"Your Page Name";document.getElementById("prevName").textContent=n;document.getElementById("prevAvatar").textContent=n.charAt(0).toUpperCase();document.getElementById("prevAbout").textContent=document.getElementById("pageAbout").value.trim()||"Your about will show here...";}
+document.getElementById("pagePhoto").addEventListener("change",function(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){photo=r.result; document.getElementById("prevAvatar").innerHTML='<img src="'+photo+'">'}; r.readAsDataURL(f)});
+document.getElementById("pageCover").addEventListener("change",function(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){cover=r.result}; r.readAsDataURL(f)});
+function createPage(){var n=document.getElementById("pageName").value.trim();var a=document.getElementById("pageAbout").value.trim();var ty=document.getElementById("pageType").value;var live=document.getElementById("pageLive").value==="1";if(!n){alert("Please type Page name"); return}var list=[]; try{list=JSON.parse(localStorage.getItem("tati_pages_v2")||"[]")}catch(e){list=[]}list.push({name:n,about:a||ty,type:ty,photo:photo,cover:cover,followers:0,following:false,notifications:0,live:live,posts:[]});localStorage.setItem("tati_pages_v2",JSON.stringify(list));alert("Page created: "+n+" 👑🎉 Now you can create posts inside it!");location.href="./pages.html";}
+</script>
+</body></html>
