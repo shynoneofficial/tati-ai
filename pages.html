@@ -1,111 +1,118 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Pages - Tati | SHYNONE MUSIC</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Pages - Tati - SHYNONE MUSIC</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-body{background:#0f0f0f;color:#fff;min-height:100vh}
-/* TOP - BLACK + GOLD */
-.topbar{height:66px;background:#000;display:flex;align-items:center;gap:14px;padding:0 14px;position:sticky;top:0;z-index:100;border-bottom:2px solid #d4af37}
-.tatiLogo{display:flex;align-items:center;gap:10px}
-.tCircle{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#f5d76e,#d4af37);color:#000;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;box-shadow:0 0 0 2px #000,0 0 0 4px #d4af37;flex-shrink:0}
-.tatiLogo b{font-size:19px;letter-spacing:1px}
-.tatiLogo b span{color:#d4af37}
-.tatiLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
-.search{flex:0 1 280px;background:#1e1e1e;border:1px solid #333;border-radius:999px;padding:10px 14px;font-size:14px;color:#aaa;white-space:nowrap;overflow:hidden}
-.topNav{flex:1;display:flex;justify-content:center;gap:6px}
-.topNav div{padding:9px 16px;border-radius:999px;font-size:14px;font-weight:700;color:#aaa;cursor:pointer}
-.topNav div.active{background:#d4af37;color:#000}
-.topRight{display:flex;gap:8px;align-items:center}
-.circle{width:40px;height:40px;background:#1e1e1e;border:1px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;cursor:pointer;color:#fff}
-.badge{position:absolute;top:-3px;right:-3px;background:#e53935;color:#fff;font-size:11px;font-weight:800;min-width:19px;height:19px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 4px}
-.goldLine{height:3px;background:linear-gradient(90deg,#d4af37,#f5d76e,#00a884)}
-.layout{display:flex;min-height:calc(100vh - 69px);align-items:stretch}
-/* LEFT */
-.sidebar{width:320px;background:#141414;padding:20px 16px;flex-shrink:0;position:sticky;top:69px;height:calc(100vh - 69px);overflow-y:auto;border-right:1px solid #222}
-.sidebarHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.sidebarHead h1{font-size:26px;font-weight:900}.sidebarHead h1 span{color:#d4af37}
-.sidebarHead p{color:#aaa;font-size:13px;margin-top:4px}
-.createBtn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:linear-gradient(135deg,#f5d76e,#d4af37);color:#000;text-align:center;padding:14px;border-radius:14px;font-weight:900;text-decoration:none;font-size:16px;margin:14px 0;box-shadow:0 4px 16px rgba(212,175,55,.4)}
-.menuItem{display:flex;align-items:center;gap:12px;padding:11px 8px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:600;color:#eee}
-.menuItem:hover{background:#1e1e1e}
-.menuIcon{width:38px;height:38px;background:#1e1e1e;border:1px solid #333;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.menuItem small{display:block;font-size:12px;color:#d4af37;font-weight:800;margin-top:1px}
-.chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.chip{padding:8px 12px;border-radius:999px;background:#1e1e1e;border:1px solid #333;font-size:13px;font-weight:700;cursor:pointer;color:#ddd}
-.chip.on{background:#d4af37;color:#000;border-color:#d4af37}
-.trending{margin-top:18px;background:linear-gradient(135deg,#1a1a00,#0a192f);border:1px solid #d4af37;border-radius:14px;padding:14px}
-.trending b{color:#f5d76e}.trending p{font-size:13px;color:#ddd;margin-top:6px;line-height:1.5}
-/* RIGHT */
-.main{flex:1;padding:22px;max-width:840px;width:100%}
-.main h2{font-size:22px;font-weight:900}
-.main h2 span{color:#d4af37}
-.main .sub{color:#aaa;font-size:14px;margin:6px 0 16px}
-.pageCard{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,0,.4);position:relative;overflow:hidden}
-.pageCard.topPage{border:1px solid #d4af37}
-.crown{position:absolute;top:12px;right:12px;background:#d4af37;color:#000;font-size:11px;font-weight:900;padding:5px 9px;border-radius:999px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+html,body{width:100%;min-height:100dvh;background:#fff;overflow-x:hidden}
+body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;padding-top:72px}
+/* === EXACT SAME HEADER AS index.html === */
+#header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;flex-shrink:0;position:fixed;top:0;left:0;right:0;background:#fff;z-index:5000}
+#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain;background:transparent;border:none;flex-shrink:0;padding:0}
+#tatiOnline{font-size:12px;color:#00a884;font-weight:800}
+#centerLogo{flex:0 0 auto;margin:0 auto;text-align:center;line-height:1.1;cursor:pointer;padding:6px 12px;width:auto;max-width:130px}
+#centerLogo b{font-size:16px;font-weight:900;letter-spacing:.5px}
+#centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
+.topBtn{padding:11px 12px;border-radius:16px;border:none;font-size:16px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pagesBtn{padding:8px 10px;font-size:14px;background:#fff;color:#0a192f;border:1.5px solid #e53935;border-radius:12px;display:inline-flex;align-items:center;gap:4px}
+#pagesBtn .pageIcon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:#fff;color:#e53935;border:1.5px solid #e53935;border-radius:5px;font-size:13px;line-height:1}
+#greenLine{height:4mm;background:#00a884;flex-shrink:0}
+/* === SAME PILLS BAR AS index.html === */
+#safeBar{display:flex;gap:10px;padding:12px 10px;flex-shrink:0;justify-content:space-between;align-items:center;overflow-x:auto;background:#fff}
+.pill{padding:10px 14px;border-radius:999px;border:none;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none;flex-shrink:0}
+.pill.dark{background:#0a192f}
+.pill.active{background:#0a192f}
+/* === LAYOUT - LIKE FACEBOOK PHOTO, BUT TATI COLOURS === */
+.layout{display:flex;min-height:calc(100vh - 72px);align-items:stretch;background:#f6f3ee}
+.sidebar{width:320px;background:#fff;padding:16px;flex-shrink:0;position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto}
+.sidebar h1{font-size:22px;font-weight:900}
+.sidebar h1 span{color:#00a884}
+.sidebar p{font-size:13px;color:#667781;margin-top:4px;line-height:1.4}
+.createBtn{display:block;width:100%;background:#00a884;color:#fff;text-align:center;padding:13px;border-radius:12px;font-weight:800;text-decoration:none;font-size:15px;margin:14px 0}
+.menuItem{display:flex;align-items:center;gap:12px;padding:11px 8px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:700}
+.menuItem:hover{background:#f0f2f5}
+.menuIcon{width:38px;height:38px;background:#f0f2f5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.menuItem small{display:block;font-size:12px;color:#00a884;font-weight:800}
+.chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{padding:8px 12px;border-radius:999px;background:#f0f2f5;font-size:13px;font-weight:800;cursor:pointer}
+.chip.on{background:#0a192f;color:#fff}
+.tip{margin-top:16px;background:#0a192f;border-radius:14px;padding:14px}
+.tip b{color:#fff;font-size:14px}.tip p{color:#d8e2e8;font-size:13px;margin-top:6px;line-height:1.5}
+.main{flex:1;padding:16px;max-width:840px;width:100%}
+.main h2{font-size:20px;font-weight:900}
+.main .sub{color:#667781;font-size:14px;margin:6px 0 14px}
+/* PAGE BOX = one box for one Page */
+.pageCard{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .pageTop{display:flex;gap:13px;align-items:flex-start;cursor:pointer}
-.pAvatar{width:60px;height:60px;border-radius:16px;object-fit:cover;background:#0a192f;color:#f5d76e;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;flex-shrink:0;overflow:hidden;border:2px solid #d4af37}
+.pAvatar{width:56px;height:56px;border-radius:12px;object-fit:cover;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;flex-shrink:0;overflow:hidden}
 .pAvatar img{width:100%;height:100%;object-fit:cover}
-.pName{font-size:18px;font-weight:800;line-height:1.2;color:#fff}
-.pMeta{display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;font-size:13px;color:#bbb}
+.pName{font-size:18px;font-weight:800}
+.pMeta{display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;font-size:13px;color:#555}
 .pMeta span{display:flex;align-items:center;gap:6px}
 .greenDot{width:8px;height:8px;background:#00a884;border-radius:50%;display:inline-block}
-.live{background:#e53935;color:#fff;font-size:11px;font-weight:900;padding:4px 8px;border-radius:999px}
-.insights{display:flex;gap:10px;margin-top:12px}
-.insights div{flex:1;background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:8px;text-align:center}
-.insights b{display:block;font-size:16px;color:#f5d76e}.insights small{font-size:11px;color:#aaa}
-.btnRow{display:flex;gap:8px;margin-top:14px}
-.btnCreate{flex:1;background:#00a884;color:#fff;border:none;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
-.btnFollow{flex:1;background:#d4af37;color:#000;border:none;padding:11px;border-radius:10px;font-weight:900;font-size:14px;cursor:pointer}
-.btnPromote{flex:1;background:#fff;color:#000;border:none;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
-.btnMore{width:48px;background:#1e1e1e;color:#fff;border:1px solid #333;border-radius:10px;font-weight:800;cursor:pointer}
-.empty{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;padding:32px;text-align:center}
-.empty h3{font-size:20px}.empty p{color:#aaa;margin-top:8px;line-height:1.6}
-.hidden{display:none!important}
-.backBtn{background:#1e1e1e;color:#fff;border:1px solid #333;padding:9px 14px;border-radius:999px;font-weight:700;cursor:pointer;margin-bottom:14px}
-.cover{height:190px;background:linear-gradient(135deg,#000,#0a192f,#d4af37);border-radius:16px 16px 0 0;overflow:hidden}
+.live{background:#e53935;color:#fff;font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px}
+.insights{display:flex;gap:8px;margin-top:12px}
+.insights div{flex:1;background:#f0f2f5;border-radius:10px;padding:8px;text-align:center}
+.insights b{display:block;font-size:16px;color:#0a192f}.insights small{font-size:11px;color:#667781}
+.btnRow{display:flex;gap:8px;margin-top:12px}
+.btnCreate{flex:1;background:#fff;color:#111;border:1px solid #ddd;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.btnFollow{flex:1;background:#0a192f;color:#fff;border:none;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.btnPromote{flex:1;background:#00a884;color:#fff;border:none;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.btnMore{width:48px;background:#f0f2f5;border:none;border-radius:10px;font-weight:800;cursor:pointer}
+.empty{background:#fff;border-radius:14px;padding:28px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.empty h3{font-size:20px}.empty p{color:#667781;margin-top:8px;line-height:1.6}
+.backBtn{background:#fff;border:1px solid #ddd;padding:9px 14px;border-radius:999px;font-weight:700;cursor:pointer;margin-bottom:12px}
+.cover{height:180px;background:#0a192f;border-radius:14px 14px 0 0;overflow:hidden}
 .cover img{width:100%;height:100%;object-fit:cover}
-.pageHead{background:#1a1a1a;border:1px solid #2a2a2a;border-top:none;border-radius:0 0 16px 16px;padding:0 16px 16px;margin-bottom:16px}
+.pageHead{background:#fff;border-radius:0 0 14px 14px;padding:0 16px 16px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px}
 .headTop{display:flex;gap:14px;align-items:flex-end;margin-top:-28px}
-.bigAvatar{width:110px;height:110px;border-radius:22px;border:4px solid #1a1a1a;background:#0a192f;color:#f5d76e;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:900;overflow:hidden;flex-shrink:0}
+.bigAvatar{width:106px;height:106px;border-radius:14px;border:4px solid #fff;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;overflow:hidden;flex-shrink:0}
 .bigAvatar img{width:100%;height:100%;object-fit:cover}
-.followBtn{background:#d4af37;color:#000;border:none;padding:11px 22px;border-radius:10px;font-weight:900;cursor:pointer}
-.followBtn.on{background:#00a884;color:#fff}
-.postBox{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;padding:14px;margin-bottom:16px}
-.postBox textarea{width:100%;border:none;outline:none;font-size:16px;resize:none;padding:8px 0;min-height:60px;background:transparent;color:#fff}
-.tools{display:flex;gap:8px;border-top:1px solid #333;padding-top:10px}
-.toolBtn{flex:1;padding:10px;border-radius:10px;border:none;background:#222;color:#fff;font-weight:700;cursor:pointer;font-size:14px;text-align:center}
+.followBtn{background:#00a884;color:#fff;border:none;padding:11px 22px;border-radius:10px;font-weight:800;cursor:pointer}
+.followBtn.on{background:#0a192f}
+.postBox{background:#fff;border-radius:14px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px}
+.postBox textarea{width:100%;border:none;outline:none;font-size:16px;resize:none;padding:8px 0;min-height:60px}
+.tools{display:flex;gap:8px;border-top:1px solid #eee;padding-top:10px}
+.toolBtn{flex:1;padding:10px;border-radius:10px;border:none;background:#f0f2f5;font-weight:800;cursor:pointer;font-size:14px;text-align:center}
 .publishBtn{width:100%;margin-top:10px;padding:13px;background:#00a884;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer}
-.feedPost{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;padding:14px;margin-bottom:16px}
+.feedPost{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .feedPost img,.feedPost video{width:100%;border-radius:12px;margin-top:10px;max-height:420px;object-fit:cover}
-.actionRow{display:flex;gap:8px;margin-top:12px;border-top:1px solid #333;padding-top:10px}
-.actionRow button{flex:1;padding:10px;border:none;background:transparent;color:#ddd;font-weight:700;cursor:pointer;border-radius:10px;font-size:14px}
-.actionRow button:hover{background:#222}.actionRow button.on{color:#d4af37}
+.actionRow{display:flex;gap:8px;margin-top:12px;border-top:1px solid #eee;padding-top:10px}
+.actionRow button{flex:1;padding:10px;border:none;background:#fff;font-weight:800;cursor:pointer;border-radius:10px;font-size:14px}
+.actionRow button:hover{background:#f0f2f5}.actionRow button.on{color:#00a884}
 .commentBox{margin-top:12px;display:none}
-.commentBox input{width:100%;padding:11px;border:1px solid #333;border-radius:999px;font-size:14px;outline:none;background:#111;color:#fff}
-.comment{background:#222;border-radius:12px;padding:9px 12px;margin-top:8px;font-size:14px;color:#eee}
+.commentBox input{width:100%;padding:11px;border:1px solid #ddd;border-radius:999px;font-size:14px;outline:none}
+.comment{background:#f0f2f5;border-radius:12px;padding:9px 12px;margin-top:8px;font-size:14px}
 @media(max-width:820px){
-.search{display:none}.topNav{display:none}
 .layout{flex-direction:column}
 .sidebar{width:100%;height:auto;position:static;padding:12px}
 .main{padding:12px}
 }
 </style></head><body>
-
-<div class="topbar">
-<div class="tatiLogo"><div class="tCircle">T</div><div><b>TATI <span>• SHYNONE</span></b><br><i>MUSIC • PAGES</i></div></div>
-<div class="search">🔍 Search Tati Pages...</div>
-<div class="topNav"><div>⌂ Home</div><div class="active">📄 Pages</div><div>🎵 Music</div><div>👥 Groups</div></div>
-<div class="topRight"><div class="circle">🔔<span class="badge">2</span></div><div class="circle">💬</div><div class="circle" style="background:#d4af37;color:#000;font-weight:900">T</div></div>
+<!-- HEADER - EXACT COPY FROM index.html -->
+<div id="header">
+<img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'">
+<div><div id="tatiOnline">● Online</div></div>
+<div id="centerLogo" onclick="window.location.href='./index.html'"><b>SHYNONE</b><br><i>MUSIC</i></div>
+<div style="display:flex;gap:6px;align-items:center">
+<a class="topBtn" id="pagesBtn" href="./pages.html"><span class="pageIcon">≡</span> Pages</a>
+<a class="topBtn" href="./index.html">🌐 <span id="langTxt">Changana</span> ▼</a>
 </div>
-<div class="goldLine"></div>
+</div>
+<div id="greenLine"></div>
+<div id="safeBar">
+<a class="pill" href="./index.html">← Back to Tati</a>
+<a class="pill dark" href="./pages.html">📄 Pages</a>
+<a class="pill" href="./groups.html">👥 MINTLAWA</a>
+<a class="pill" href="./create-page.html">✨ Create Page</a>
+</div>
 
 <div class="layout">
 <div class="sidebar">
-<div class="sidebarHead"><div><h1>Pages <span>.</span></h1><p>Your world, your Pages, your music.</p></div><div style="font-size:26px">👑</div></div>
+<h1>Pages <span>.</span></h1>
+<p>Your world, your Pages, your music.</p>
 <a class="createBtn" href="./create-page.html">✨ + Create Page</a>
-<div class="menuItem" onclick="alert('Tati Business Suite - manage all your Pages')"><span class="menuIcon">📊</span> Tati Business Suite</div>
+<div class="menuItem" onclick="alert('Tati Business - manage all your Pages')"><span class="menuIcon">📊</span> Tati Business Suite</div>
 <div class="menuItem" onclick="alert('Discover - find Music, Church, School Pages')"><span class="menuIcon">🧭</span> Discover</div>
 <div class="menuItem" onclick="showFollowed()"><span class="menuIcon">⭐</span> Followed Pages</div>
 <div class="menuItem" onclick="alert('You have 56 new invites')"><span class="menuIcon">👥</span> <span>Invites<small>● 56 new</small></span></div>
@@ -115,14 +122,13 @@ body{background:#0f0f0f;color:#fff;min-height:100vh}
 <div class="chip" onclick="setFilter('Business',this)">💼 Business</div>
 <div class="chip" onclick="setFilter('Church',this)">⛪ Church</div>
 </div>
-<div class="trending"><b>🔥 Trending in Tati</b><p id="trendingTxt">Create a Page to be trending here. Most followers = Gold Crown 👑</p></div>
-<div style="margin-top:14px;background:#00a884;border-radius:14px;padding:14px;color:#fff"><b>🎵 Tati Tip</b><p style="font-size:13px;margin-top:6px;line-height:1.5">Post a song, a photo, a video. Followers grow when you post every day.</p></div>
+<div class="tip"><b>💡 How Pages work in Tati</b><p>1. Tap + Create Page<br>2. Create your Page<br>3. Click your Page → Create post inside it. You get followers, likes, comments, share.</p></div>
 </div>
 
 <div class="main">
 <div id="listView">
-<h2>Pages you manage <span>👑</span></h2>
-<p class="sub">Black + Gold. This is Tati. Not Facebook.</p>
+<h2>Pages you manage</h2>
+<p class="sub">Same Tati header, same colours, same logo as Home.</p>
 <div id="pagesList"></div>
 </div>
 
@@ -134,12 +140,12 @@ body{background:#0f0f0f;color:#fff;min-height:100vh}
 <div class="bigAvatar" id="bigAvatar">P</div>
 <div style="flex:1;padding-bottom:6px">
 <h2 id="pvName" style="margin:0;font-size:22px"></h2>
-<p id="pvMeta" style="color:#aaa;font-size:14px;margin-top:4px"></p>
+<p id="pvMeta" style="color:#667781;font-size:14px;margin-top:4px"></p>
 <p id="pvStats" style="font-size:14px;margin-top:4px"></p>
 </div>
 <button class="followBtn" id="followBtn" onclick="toggleFollow()">+ Follow</button>
 </div>
-<p id="pvAbout" style="color:#ddd;margin-top:10px;line-height:1.5"></p>
+<p id="pvAbout" style="color:#333;margin-top:10px;line-height:1.5"></p>
 </div>
 <div class="postBox">
 <b>✍️ Create post for this Page</b>
@@ -149,7 +155,7 @@ body{background:#0f0f0f;color:#fff;min-height:100vh}
 <label class="toolBtn">🎥 Video<input type="file" id="postVideo" accept="video/*" hidden></label>
 <button class="toolBtn" onclick="alert('Promote - share your Page to get more followers')">📣 Promote</button>
 </div>
-<p id="fileName" style="font-size:13px;color:#d4af37;margin-top:8px"></p>
+<p id="fileName" style="font-size:13px;color:#00a884;margin-top:8px"></p>
 <button class="publishBtn" onclick="addPost()">Publish Post</button>
 </div>
 <div id="postsList"></div>
@@ -158,6 +164,7 @@ body{background:#0f0f0f;color:#fff;min-height:100vh}
 </div>
 
 <script>
+document.getElementById("langTxt").textContent=localStorage.getItem("tati_lang")||"Changana";
 function getPages(){try{return JSON.parse(localStorage.getItem("tati_pages_v2")||"[]")}catch(e){return[]}}
 function savePages(p){localStorage.setItem("tati_pages_v2",JSON.stringify(p))}
 var opened=-1,tempPhoto="",tempVideo="",showOnlyFollowed=false,catFilter="all";
@@ -168,20 +175,17 @@ function renderPages(){
 var list=getPages(); var el=document.getElementById("pagesList");
 if(showOnlyFollowed) list=list.filter(function(p){return p.following});
 if(catFilter!=="all") list=list.filter(function(p){return (p.type||"").indexOf(catFilter)>-1});
-if(list.length) document.getElementById("trendingTxt").textContent="🔥 Top Page: "+list.slice().sort(function(a,b){return (b.followers||0)-(a.followers||0)})[0].name+" - "+(list.slice().sort(function(a,b){return (b.followers||0)-(a.followers||0)})[0].followers||0)+" followers";
 if(!list.length){
-el.innerHTML='<div class="empty"><h3>No Pages yet 👑</h3><p>You have not created a Page yet.<br>Tap <b>+ Create Page</b> to create your first Page.<br>You can only post AFTER you create a Page.</p><br><a href="./create-page.html" style="display:inline-block;background:#d4af37;color:#000;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:900">✨ + Create Page</a></div>'; return;
+el.innerHTML='<div class="empty"><h3>No Pages yet</h3><p>You have not created a Page yet.<br>Tap <b>+ Create Page</b> to create your first Page.<br>You can only post AFTER you create a Page.</p><br><a href="./create-page.html" style="display:inline-block;background:#00a884;color:#fff;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:800">✨ + Create Page</a></div>'; return;
 }
 el.innerHTML=""; var all=getPages();
-var maxF=Math.max.apply(null, list.map(function(p){return p.followers||0}));
 list.forEach(function(pg){
 var i=all.indexOf(pg); var letter=(pg.name||"P").charAt(0).toUpperCase();
 var notif=pg.notifications!=null?pg.notifications:Math.floor(Math.random()*18)+1;
 var likes=pg.posts.reduce(function(s,po){return s+(po.likes||0)},0);
 var comments=pg.posts.reduce(function(s,po){return s+((po.comments||[]).length)},0);
-var isTop=(pg.followers||0)===maxF && maxF>0;
-var d=document.createElement("div"); d.className="pageCard"+(isTop?" topPage":"");
-d.innerHTML=(isTop?'<div class="crown">👑 TOP PAGE</div>':"")+'<div class="pageTop" onclick="openPage('+i+')"><div class="pAvatar">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div style="flex:1"><div class="pName">'+esc(pg.name)+' '+(pg.live?'<span class="live">● LIVE</span>':"")+'</div><div class="pMeta"><span>🔔 '+notif+' Notifications <span class="greenDot"></span></span><span>💬 Messages</span><span>'+esc(pg.type||"")+'</span></div></div></div><div class="insights"><div><b>'+(pg.followers||0)+'</b><small>Followers</small></div><div><b>'+pg.posts.length+'</b><small>Posts</small></div><div><b>'+likes+'</b><small>Likes</small></div><div><b>'+comments+'</b><small>Comments</small></div></div><div class="btnRow"><button class="btnCreate" onclick="openPage('+i+');setTimeout(function(){document.getElementById(\'postCaption\').focus()},300)">✏️ Create post</button><button class="btnFollow" onclick="quickFollow('+i+')">'+(pg.following?"✓ Following":" + Follow")+'</button><button class="btnPromote" onclick="alert(\'Promote '+esc(pg.name)+'\')">📣 Promote</button><button class="btnMore" onclick="moreMenu('+i+')">•••</button></div>';
+var d=document.createElement("div"); d.className="pageCard";
+d.innerHTML='<div class="pageTop" onclick="openPage('+i+')"><div class="pAvatar">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div style="flex:1"><div class="pName">'+esc(pg.name)+' '+(pg.live?'<span class="live">● LIVE</span>':"")+'</div><div class="pMeta"><span>🔔 '+notif+' Notifications <span class="greenDot"></span></span><span>💬 Messages</span><span>'+esc(pg.type||"")+'</span></div></div></div><div class="insights"><div><b>'+(pg.followers||0)+'</b><small>Followers</small></div><div><b>'+pg.posts.length+'</b><small>Posts</small></div><div><b>'+likes+'</b><small>Likes</small></div><div><b>'+comments+'</b><small>Comments</small></div></div><div class="btnRow"><button class="btnCreate" onclick="openPage('+i+');setTimeout(function(){document.getElementById(\'postCaption\').focus()},300)">✏️ Create post</button><button class="btnFollow" onclick="quickFollow('+i+')">'+(pg.following?"✓ Following":" + Follow")+'</button><button class="btnPromote" onclick="alert(\'Promote '+esc(pg.name)+'\')">📣 Promote</button><button class="btnMore" onclick="moreMenu('+i+')">•••</button></div>';
 el.appendChild(d);
 });
 }
@@ -193,7 +197,7 @@ document.getElementById("listView").style.display="none";
 document.getElementById("pageView").style.display="block";
 document.getElementById("pvName").textContent=pg.name;
 document.getElementById("pvMeta").textContent=(pg.type||"")+" • "+(pg.about||"");
-document.getElementById("pvStats").innerHTML="<b style='color:#f5d76e'>"+(pg.followers||0)+" followers</b> • "+pg.posts.length+" posts";
+document.getElementById("pvStats").innerHTML="<b>"+(pg.followers||0)+" followers</b> • "+pg.posts.length+" posts";
 document.getElementById("pvAbout").textContent=pg.about||"";
 document.getElementById("bigAvatar").innerHTML=pg.photo?'<img src="'+pg.photo+'">':esc(pg.name.charAt(0).toUpperCase());
 document.getElementById("coverBox").innerHTML=pg.cover?'<img src="'+pg.cover+'">':"";
@@ -222,7 +226,7 @@ pg.posts.slice().reverse().forEach(function(post,idx){
 var realIdx=pg.posts.length-1-idx;
 var d=document.createElement("div"); d.className="feedPost";
 var letter=pg.name.charAt(0).toUpperCase();
-d.innerHTML='<div style="display:flex;gap:10px;align-items:center"><div class="pAvatar" style="width:44px;height:44px;font-size:18px">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div><b>'+esc(pg.name)+'</b><div style="font-size:12px;color:#aaa">'+post.date+'</div></div></div><p style="margin-top:10px;line-height:1.5;color:#eee">'+esc(post.caption||"")+'</p>'+(post.photo?'<img src="'+post.photo+'">':"")+(post.video?'<video src="'+post.video+'" controls></video>':"");
+d.innerHTML='<div style="display:flex;gap:10px;align-items:center"><div class="pAvatar" style="width:44px;height:44px;font-size:18px">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div><b>'+esc(pg.name)+'</b><div style="font-size:12px;color:#667781">'+post.date+'</div></div></div><p style="margin-top:10px;line-height:1.5">'+esc(post.caption||"")+'</p>'+(post.photo?'<img src="'+post.photo+'">':"")+(post.video?'<video src="'+post.video+'" controls></video>':"");
 var row=document.createElement("div"); row.className="actionRow";
 var like=document.createElement("button"); like.className=post.liked?"on":""; like.textContent="❤️ "+(post.likes||0)+" Like";
 like.onclick=function(){var all=getPages(); var p=all[opened].posts[realIdx]; if(p.liked){p.liked=false;p.likes--}else{p.liked=true;p.likes++} savePages(all); renderPosts()};
@@ -236,7 +240,7 @@ row.appendChild(like); row.appendChild(cBtn); row.appendChild(share); row.append
 var cBox=document.createElement("div"); cBox.className="commentBox";
 var cList=document.createElement("div"); (post.comments||[]).forEach(function(c){var cd=document.createElement("div"); cd.className="comment"; cd.textContent="💬 "+c; cList.appendChild(cd)});
 var cInput=document.createElement("input"); cInput.placeholder="Write a comment...";
-var cSend=document.createElement("button"); cSend.style.cssText="margin-top:8px;padding:10px 16px;border:none;background:#d4af37;color:#000;border-radius:999px;font-weight:800;cursor:pointer"; cSend.textContent="Send Comment";
+var cSend=document.createElement("button"); cSend.style.cssText="margin-top:8px;padding:10px 16px;border:none;background:#00a884;color:#fff;border-radius:999px;font-weight:700;cursor:pointer"; cSend.textContent="Send Comment";
 cSend.onclick=function(){var v=cInput.value.trim(); if(!v) return; var all=getPages(); all[opened].posts[realIdx].comments=all[opened].posts[realIdx].comments||[]; all[opened].posts[realIdx].comments.push(v); savePages(all); renderPosts()};
 cBox.appendChild(cList); cBox.appendChild(cInput); cBox.appendChild(cSend); d.appendChild(cBox);
 el.appendChild(d);
