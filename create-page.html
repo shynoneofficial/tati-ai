@@ -17,11 +17,20 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;paddin
 h1{font-size:22px} h1 span{color:#00a884} p{color:#667781;margin-top:8px;line-height:1.5;font-size:14px}
 label{font-weight:800;margin-top:18px;display:block;font-size:14px}
 input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none}
-.preview{margin-top:14px;display:flex;gap:14px;align-items:center;background:#f0f2f5;border-radius:12px;padding:12px}
-.avatar{width:60px;height:60px;border-radius:12px;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;overflow:hidden;flex-shrink:0}
-.avatar img{width:100%;height:100%;object-fit:cover}
 .btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;background:#0a192f;color:#fff;font-weight:800;font-size:16px;cursor:pointer}
 .btn2{width:100%;margin-top:10px;padding:12px;border:1px solid #ddd;border-radius:12px;background:#fff;font-weight:700;cursor:pointer}
+/* === SAME AS pages.html === */
+.fbPreview{margin-top:16px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.fbCover{height:180px;background:#0a192f;position:relative;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;overflow:hidden}
+.fbCover img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+.fbCover span{position:relative;z-index:1;background:rgba(0,0,0,.35);padding:6px 10px;border-radius:20px}
+.fbHead{padding:0 16px 16px}
+.fbHeadTop{display:flex;gap:14px;align-items:flex-end;margin-top:-28px}
+.fbAvatar{width:106px;height:106px;border-radius:14px;border:4px solid #fff;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;overflow:hidden;flex-shrink:0}
+.fbAvatar img{width:100%;height:100%;object-fit:cover}
+.fbInfo{padding-bottom:6px;min-width:0}
+.fbInfo b{font-size:19px;display:block}
+.fbInfo p{font-size:13px;margin:2px 0 0;color:#667781}
 </style></head><body>
 <div id="header">
 <img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'" onclick="window.location.href='./index.html'">
@@ -35,23 +44,31 @@ input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #d
 <label>1. Page Name *</label>
 <input id="pageName" placeholder="e.g. SHYNONE MUSIC" oninput="updatePreview()">
 <label>2. What is your Page about?</label>
-<textarea id="pageAbout" rows="2" placeholder="e.g. We sing gospel..."></textarea>
+<textarea id="pageAbout" rows="2" placeholder="e.g. We sing gospel..." oninput="updatePreview()"></textarea>
 <label>3. Category</label>
-<select id="pageType"><option>🎵 Music</option><option>💼 Business</option><option>⛪ Church</option><option>🏫 School</option><option>👤 Personal</option><option>⚽ Sport</option><option>🛍️ Shop</option><option>🎬 Entertainment</option><option>🍽️ Food</option></select>
+<select id="pageType" onchange="updatePreview()"><option>🎵 Music</option><option>💼 Business</option><option>⛪ Church</option><option>🏫 School</option><option>👤 Personal</option><option>⚽ Sport</option><option>🛍️ Shop</option><option>🎬 Entertainment</option><option>🍽️ Food</option></select>
 <label>4. Go Live?</label>
 <select id="pageLive"><option value="">No</option><option value="1">🔴 Yes - I am LIVE now</option></select>
-<label>5. Page Profile Photo (optional)</label>
+<label>5. Page Profile Photo (optional) - This is your PROFILE</label>
 <input type="file" id="pagePhoto" accept="image/*">
-<label>6. Cover Photo (optional)</label>
+<label>6. Cover Photo (optional) - This is your COVER on top</label>
 <input type="file" id="pageCover" accept="image/*">
-<div class="preview"><div class="avatar" id="prevAvatar">T</div><div><b id="prevName">Your Page Name</b><p id="prevAbout" style="margin:0;font-size:13px">Your about will show here...</p></div></div>
+
+<p style="font-weight:800;color:#0a192f;margin-top:18px">👀 PREVIEW - This is exactly how it will look in Pages:</p>
+<div class="fbPreview">
+  <div class="fbCover" id="prevCover"><span id="prevCoverText">COVER PHOTO - will show here</span></div>
+  <div class="fbHead"><div class="fbHeadTop">
+    <div class="fbAvatar" id="prevAvatar">T</div>
+    <div class="fbInfo"><b id="prevName">Your Page Name</b><p id="prevType">🎵 Music</p><p id="prevAbout">Your about will show here...</p></div>
+  </div></div>
+</div>
+
 <button class="btn" id="createBtn" onclick="createPage()">+ Create My Page →</button>
 <button class="btn2" onclick="goBack()">← Back</button>
 </div></div>
 <script>
 const PAGES_WORKER_URL="https://tati-pages.dilemahluza.workers.dev";
 function cleanPhone(p){ var s=String(p||"").trim().replace(/\D/g,""); if(s.startsWith("00")) s=s.slice(2); return s; }
-// EXACT same as people.html: tati_my_profile
 function getMainUser(){
   try{
     const p = JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
@@ -75,9 +92,15 @@ if(!me || !me.setupDone){
   document.getElementById("welcomeText").innerHTML = "Hello <b>"+me.name+"</b> 👋 — Uses your <b>People registration</b> ("+me.phone+"). Saved in <b>Tati Pages server</b>.";
 }
 var photo="",cover="";
-function updatePreview(){var n=document.getElementById("pageName").value.trim()||"Your Page Name";document.getElementById("prevName").textContent=n;document.getElementById("prevAvatar").textContent=n.charAt(0).toUpperCase();document.getElementById("prevAbout").textContent=document.getElementById("pageAbout").value.trim()||"Your about will show here...";}
+function updatePreview(){
+  var n=document.getElementById("pageName").value.trim()||"Your Page Name";
+  document.getElementById("prevName").textContent=n;
+  if(!photo) document.getElementById("prevAvatar").textContent=n.charAt(0).toUpperCase();
+  document.getElementById("prevAbout").textContent=document.getElementById("pageAbout").value.trim()||"Your about will show here...";
+  document.getElementById("prevType").textContent=document.getElementById("pageType").value;
+}
 document.getElementById("pagePhoto").addEventListener("change",function(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){photo=r.result; document.getElementById("prevAvatar").innerHTML='<img src="'+photo+'">'}; r.readAsDataURL(f)});
-document.getElementById("pageCover").addEventListener("change",function(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){cover=r.result}; r.readAsDataURL(f)});
+document.getElementById("pageCover").addEventListener("change",function(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){cover=r.result; document.getElementById("prevCover").innerHTML='<img src="'+cover+'">'}; r.readAsDataURL(f)});
 async function createPage(){
   var n=document.getElementById("pageName").value.trim();
   if(!n){alert("Please type Page name"); return;}
