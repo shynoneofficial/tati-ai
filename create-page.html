@@ -50,7 +50,7 @@ input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #d
 </div></div>
 <script>
 const PAGES_WORKER_URL="https://tati-pages.dilemahluza.workers.dev";
-function cleanPhone(p){ var s=String(p||"").replace(/\D/g,""); if(s.startsWith("258")&&s.length===12) s=s.slice(3); if(s.startsWith("0")&&s.length===10) s=s.slice(1); return s; }
+function cleanPhone(p){ var s=String(p||"").trim().replace(/\D/g,""); if(s.startsWith("00")) s=s.slice(2); return s; }
 // EXACT same as people.html: tati_my_profile
 function getMainUser(){
   try{
