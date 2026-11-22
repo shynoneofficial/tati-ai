@@ -1,239 +1,256 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Pages - Tati - SHYNONE MUSIC</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+html,body{width:100%;min-height:100dvh;background:#fff;overflow-x:hidden}
 body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;padding-top:72px}
-#header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;position:fixed;top:0;left:0;right:0;background:#fff;z-index:5000}
-#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain}
+#header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:3px solid #0a192f;flex-shrink:0;position:fixed;top:0;left:0;right:0;background:#fff;z-index:5000}
+#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain;flex-shrink:0;cursor:pointer}
 #tatiOnline{font-size:12px;color:#00a884;font-weight:800}
-#centerLogo{text-align:center;line-height:1.1;text-decoration:none;color:#111;padding:6px 12px}
-#centerLogo b{font-size:16px;font-weight:900}
+#centerLogo{margin:0 auto;text-align:center;line-height:1.1;cursor:pointer;padding:6px 12px;max-width:130px}
+#centerLogo b{font-size:16px;font-weight:900;letter-spacing:.5px}
 #centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
+.topBtn{padding:11px 14px;border-radius:12px;border:none;font-size:14px;font-weight:800;cursor:pointer;background:#0a192f;color:#fff;text-decoration:none;white-space:nowrap}
 #greenLine{height:4mm;background:#00a884}
-.layout{display:flex;min-height:calc(100vh - 72px);background:#f6f3ee}
-.sidebar{width:320px;background:#fff;padding:16px;flex-shrink:0}
-.sidebarTop{display:flex;align-items:center;gap:10px}
-.backSmall{font-size:15px;font-weight:800;color:#111;text-decoration:none;padding:8px 2px;white-space:nowrap}
-.sidebarTop h1{font-size:22px;font-weight:900}.sidebarTop h1 span{color:#00a884}
-.createBtn{display:block;width:100%;background:#0a192f;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:800;font-size:15px;margin:14px 0;min-height:48px;text-decoration:none}
-.menuItem{display:flex;align-items:center;gap:12px;padding:14px 8px;border-radius:12px;font-size:15px;font-weight:700;min-height:48px;text-decoration:none;color:#111}
-.menuItem:active{background:#d8e2e8}
+.layout{display:flex;min-height:calc(100vh - 72px);align-items:stretch;background:#f6f3ee}
+.sidebar{width:320px;background:#fff;padding:16px;flex-shrink:0;position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto}
+.sidebar h1{font-size:22px;font-weight:900}.sidebar h1 span{color:#00a884}
+.sidebar p{font-size:13px;color:#667781;margin-top:4px;line-height:1.4}
+.createBtn{display:block;width:100%;background:#0a192f;color:#fff;text-align:center;padding:13px;border-radius:12px;font-weight:800;text-decoration:none;font-size:15px;margin:14px 0;cursor:pointer;border:none}
+.menuItem{display:flex;align-items:center;gap:12px;padding:11px 8px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:700}
+.menuItem:hover{background:#f0f2f5}
 .menuIcon{width:38px;height:38px;background:#f0f2f5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;max-height:180px;overflow-y:auto}
-.chip{padding:11px 15px;border-radius:999px;background:#f0f2f5;font-size:13px;font-weight:800;min-height:40px;display:flex;align-items:center;white-space:nowrap;text-decoration:none;color:#111}
+.chipRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{padding:8px 12px;border-radius:999px;background:#f0f2f5;font-size:13px;font-weight:800;cursor:pointer}
 .chip.on{background:#0a192f;color:#fff}
+.tip{margin-top:16px;background:#0a192f;border-radius:14px;padding:14px}
+.tip b{color:#fff;font-size:14px}.tip p{color:#d8e2e8;font-size:13px;margin-top:6px;line-height:1.5}
 .main{flex:1;padding:16px;max-width:840px;width:100%}
-.main h2{font-size:20px;font-weight:900}.sub{color:#667781;font-size:14px;margin:6px 0 14px}
-.searchBox{display:flex!important;gap:8px;margin:0 0 12px;background:#fff;padding:10px;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);width:100%}
-.searchBox input{flex:1;border:1px solid #ddd;border-radius:999px;padding:13px 14px;font-size:16px;outline:none;min-width:0}
-.searchBox button{border:none;background:#0a192f;color:#fff;padding:13px 18px;border-radius:999px;font-weight:800;min-height:44px;font-size:15px;cursor:pointer}
+.main h2{font-size:20px;font-weight:900}.main .sub{color:#667781;font-size:14px;margin:6px 0 14px}
 .pageCard{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.pageTop{display:flex;gap:13px;align-items:flex-start;text-decoration:none;color:#111}
+.pageTop{display:flex;gap:13px;align-items:flex-start;cursor:pointer}
 .pAvatar{width:56px;height:56px;border-radius:12px;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;flex-shrink:0;overflow:hidden}
 .pAvatar img{width:100%;height:100%;object-fit:cover}
 .pName{font-size:18px;font-weight:800}
 .pMeta{display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;font-size:13px;color:#555}
+.pMeta span{display:flex;align-items:center;gap:6px}
 .greenDot{width:8px;height:8px;background:#00a884;border-radius:50%;display:inline-block}
 .live{background:#e53935;color:#fff;font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px}
 .insights{display:flex;gap:8px;margin-top:12px}
 .insights div{flex:1;background:#f0f2f5;border-radius:10px;padding:8px;text-align:center}
 .insights b{display:block;font-size:16px;color:#0a192f}.insights small{font-size:11px;color:#667781}
-.btnRow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.btnCreate{flex:1;background:#0a192f;color:#fff;padding:13px;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center}
-.btnFollow{flex:1;background:#fff;color:#0a192f;border:1.5px solid #0a192f;padding:13px;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;cursor:pointer}
-.btnPromote{flex:1;background:#f0f2f5;color:#111;border:none;padding:13px;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;cursor:pointer}
-.btnMore{width:48px;background:#f0f2f5;border:none;border-radius:10px;font-weight:800;min-height:44px;cursor:pointer}
+.btnRow{display:flex;gap:8px;margin-top:12px}
+.btnCreate{flex:1;background:#0a192f;color:#fff;border:none;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.btnFollow{flex:1;background:#fff;color:#0a192f;border:1.5px solid #0a192f;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.btnPromote{flex:1;background:#f0f2f5;color:#111;border:none;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.btnMore{width:48px;background:#f0f2f5;border:none;border-radius:10px;font-weight:800;cursor:pointer}
 .empty{background:#fff;border-radius:14px;padding:28px;text-align:center}
 .empty h3{font-size:20px}.empty p{color:#667781;margin-top:8px;line-height:1.6}
-.backBtn{background:#fff;border:1px solid #ddd;padding:11px 14px;border-radius:999px;font-weight:700;margin-bottom:12px;min-height:44px;text-decoration:none;color:#111;display:inline-block}
+.backBtn{background:#fff;border:1px solid #ddd;padding:9px 14px;border-radius:999px;font-weight:700;cursor:pointer;margin-bottom:12px}
 .cover{height:180px;background:#0a192f;border-radius:14px 14px 0 0;overflow:hidden}
 .cover img{width:100%;height:100%;object-fit:cover}
 .pageHead{background:#fff;border-radius:0 0 14px 14px;padding:0 16px 16px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px}
 .headTop{display:flex;gap:14px;align-items:flex-end;margin-top:-28px}
-.bigAvatar{width:106px;height:106px;border-radius:50%;border:4px solid #fff;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;overflow:hidden;flex-shrink:0}
+.bigAvatar{width:106px;height:106px;border-radius:14px;border:4px solid #fff;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;overflow:hidden;flex-shrink:0}
 .bigAvatar img{width:100%;height:100%;object-fit:cover}
-.followBtn{background:#0a192f;color:#fff;border:none;padding:13px 22px;border-radius:10px;font-weight:800;min-height:44px;cursor:pointer}
+.followBtn{background:#0a192f;color:#fff;border:none;padding:11px 22px;border-radius:10px;font-weight:800;cursor:pointer}
 .followBtn.on{background:#fff;color:#0a192f;border:1.5px solid #0a192f}
-.actionBtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.actionBtns button,.actionBtns a{flex:1;min-width:110px;padding:13px;border-radius:10px;border:1px solid #ddd;background:#fff;font-weight:800;font-size:13px;min-height:44px;cursor:pointer;text-decoration:none;color:#111;text-align:center}
-.actionBtns .primary{background:#0a192f;color:#fff;border-color:#0a192f}
 .postBox{background:#fff;border-radius:14px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px}
 .postBox textarea{width:100%;border:none;outline:none;font-size:16px;resize:none;padding:8px 0;min-height:60px}
-.tools{display:flex;gap:8px;border-top:1px solid #eee;padding-top:10px;flex-wrap:wrap}
-.toolBtn{flex:1;padding:12px;border-radius:10px;border:none;background:#f0f2f5;font-weight:800;font-size:14px;text-align:center;min-height:44px;cursor:pointer}
-.publishBtn{width:100%;margin-top:10px;padding:14px;background:#0a192f;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:15px;min-height:48px;cursor:pointer}
+.tools{display:flex;gap:8px;border-top:1px solid #eee;padding-top:10px}
+.toolBtn{flex:1;padding:10px;border-radius:10px;border:none;background:#f0f2f5;font-weight:800;cursor:pointer;font-size:14px;text-align:center}
+.publishBtn{width:100%;margin-top:10px;padding:13px;background:#0a192f;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer}
 .feedPost{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .feedPost img,.feedPost video{width:100%;border-radius:12px;margin-top:10px;max-height:420px;object-fit:cover}
 .actionRow{display:flex;gap:8px;margin-top:12px;border-top:1px solid #eee;padding-top:10px}
-.actionRow button{flex:1;padding:12px;border:none;background:#fff;font-weight:800;border-radius:10px;font-size:14px;min-height:44px;cursor:pointer}
+.actionRow button{flex:1;padding:10px;border:none;background:#fff;font-weight:800;cursor:pointer;border-radius:10px;font-size:14px}
+.actionRow button:hover{background:#f0f2f5}.actionRow button.on{color:#00a884}
 .commentBox{margin-top:12px;display:none}
-.commentBox input{width:100%;padding:12px;border:1px solid #ddd;border-radius:999px;font-size:16px;outline:none}
+.commentBox input{width:100%;padding:11px;border:1px solid #ddd;border-radius:999px;font-size:14px;outline:none}
 .comment{background:#f0f2f5;border-radius:12px;padding:9px 12px;margin-top:8px;font-size:14px}
-.tabs{display:flex;gap:8px;margin-bottom:12px}
-.tabs a{flex:1;padding:13px;border-radius:999px;background:#f0f2f5;font-weight:800;min-height:44px;text-decoration:none;color:#111;text-align:center;display:flex;align-items:center;justify-content:center}
-.tabs a.on{background:#0a192f;color:#fff}
-.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}
-.modalBox{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:440px;max-height:85vh;overflow:auto}
-.modalBox h3{font-size:19px}
-.modalBox p{color:#667781;font-size:14px;margin-top:6px;line-height:1.5}
-.modalBox input,.modalBox textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:10px;font-size:16px;outline:none}
-.modalBox button{width:100%;padding:14px;border:none;border-radius:10px;background:#0a192f;color:#fff;font-weight:800;margin-top:10px;min-height:48px;cursor:pointer}
-@media(max-width:820px){.layout{flex-direction:column}.sidebar{width:100%;padding:12px}.main{padding:12px}.headTop{flex-wrap:wrap}.followBtn{width:100%}}
+@media(max-width:820px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;padding:12px}.main{padding:12px}}
 </style></head><body>
 <div id="header">
-<a href="./index.html"><img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'"></a>
+<img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'" onclick="window.location.href='./index.html'">
 <div><div id="tatiOnline">● Online</div></div>
-<a href="./index.html" id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></a>
-<div style="display:flex;gap:6px;align-items:center"><span id="userName" style="font-size:13px;font-weight:800;max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></span></div>
+<div id="centerLogo" onclick="window.location.href='./index.html'"><b>SHYNONE</b><br><i>MUSIC</i></div>
+<div style="display:flex;gap:6px;align-items:center">
+<span id="userName" style="font-size:13px;font-weight:800;max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></span>
+<button class="topBtn" onclick="goBack()">← Back</button>
+</div>
 </div>
 <div id="greenLine"></div>
 <div class="layout">
 <div class="sidebar">
-<div class="sidebarTop"><a class="backSmall" href="./index.html">← Back</a><h1>Pages <span>.</span></h1></div>
-<a class="createBtn" href="./create-page.html">+ Create Page</a>
-<a class="menuItem" href="./pages.html?view=mine"><span class="menuIcon">⭐</span> My Pages</a>
-<a class="menuItem" href="./pages.html?view=discover"><span class="menuIcon">🧭</span> Discover</a>
-<a class="menuItem" href="./pages.html?view=messages"><span class="menuIcon">💬</span> Messages <span id="msgBadge" style="background:#e53935;color:#fff;font-size:11px;padding:2px 7px;border-radius:999px;display:none">0</span></a>
-<a class="menuItem" href="./pages.html?view=music"><span class="menuIcon">🎵</span> Music</a>
-<div class="chipRow" id="chipRow">
-<a class="chip" href="./pages.html?view=discover&cat=all">All</a>
-<a class="chip" href="./pages.html?view=discover&cat=Music">🎵 Music</a>
-<a class="chip" href="./pages.html?view=discover&cat=Business">💼 Business</a>
-<a class="chip" href="./pages.html?view=discover&cat=Church">⛪ Church</a>
-<a class="chip" href="./pages.html?view=discover&cat=School">🏫 School</a>
-<a class="chip" href="./pages.html?view=discover&cat=Personal">👤 Personal</a>
-<a class="chip" href="./pages.html?view=discover&cat=Sport">⚽ Sport</a>
-<a class="chip" href="./pages.html?view=discover&cat=Shop">🛍️ Shop</a>
-<a class="chip" href="./pages.html?view=discover&cat=Entertainment">🎬 Entertainment</a>
-<a class="chip" href="./pages.html?view=discover&cat=Food">🍽️ Food</a>
-<a class="chip" href="./pages.html?view=discover&cat=Fashion">👗 Fashion</a>
-<a class="chip" href="./pages.html?view=discover&cat=Beauty">💄 Beauty</a>
-<a class="chip" href="./pages.html?view=discover&cat=Health">❤️ Health</a>
-<a class="chip" href="./pages.html?view=discover&cat=Technology">💻 Technology</a>
-<a class="chip" href="./pages.html?view=discover&cat=News">📰 News</a>
-<a class="chip" href="./pages.html?view=discover&cat=Education">📚 Education</a>
-<a class="chip" href="./pages.html?view=discover&cat=Community">👥 Community</a>
-<a class="chip" href="./pages.html?view=discover&cat=NGO">🤝 NGO</a>
-<a class="chip" href="./pages.html?view=discover&cat=Art">🎨 Art</a>
-<a class="chip" href="./pages.html?view=discover&cat=Photography">📷 Photography</a>
-<a class="chip" href="./pages.html?view=discover&cat=Comedy">😂 Comedy</a>
-<a class="chip" href="./pages.html?view=discover&cat=Podcast">🎙️ Podcast</a>
-<a class="chip" href="./pages.html?view=discover&cat=Gaming">🎮 Gaming</a>
-<a class="chip" href="./pages.html?view=discover&cat=Travel">✈️ Travel</a>
-<a class="chip" href="./pages.html?view=discover&cat=Agriculture">🌾 Agriculture</a>
-<a class="chip" href="./pages.html?view=discover&cat=Other">✨ Other</a>
-</div>
+<h1>Pages <span>.</span></h1>
+<p>Only Pages here. Uses your People (Mabulu) registration.</p>
+<button class="createBtn" onclick="goCreate()">+ Create Page</button>
+<div class="menuItem" onclick="loadMine()"><span class="menuIcon">⭐</span> My Pages</div>
+<div class="menuItem" onclick="loadPublic()"><span class="menuIcon">🧭</span> Discover</div>
+<div class="chipRow"><div class="chip on" onclick="setFilter('all',this)">All</div><div class="chip" onclick="setFilter('Music',this)">🎵 Music</div><div class="chip" onclick="setFilter('Business',this)">💼 Business</div><div class="chip" onclick="setFilter('Church',this)">⛪ Church</div></div>
+<div class="tip"><b>How it works</b><p>1. Finish Setup in People (Mabulu)<br>2. Tap + Create Page<br>3. Click your Page → Post inside it.<br>Guest can VIEW, registered can CREATE / FOLLOW.</p></div>
 </div>
 <div class="main">
-<div id="listView">
-<form class="searchBox" action="./pages.html" method="get"><input type="hidden" name="view" value="discover"><input id="searchInput" name="q" placeholder="🔍 Search Pages..."><button type="submit">Search</button></form>
-<h2 id="listTitle">Pages</h2><p class="sub" id="listSub"></p><div id="pagesList"><p style="color:#667781">Loading Pages from server...</p></div></div>
+<div id="listView"><h2 id="listTitle">Pages</h2><p class="sub" id="listSub">Loading...</p><div id="pagesList"><p style="color:#667781">Loading Pages from server...</p></div></div>
 <div id="pageView" style="display:none">
-<a class="backBtn" href="./pages.html?view=mine">← Back to Pages</a>
+<button class="backBtn" onclick="backToList()">← Back to Pages</button>
 <div class="cover" id="coverBox"></div>
-<div class="pageHead"><div class="headTop"><div class="bigAvatar" id="bigAvatar">P</div><div style="flex:1;padding-bottom:6px"><h2 id="pvName" style="margin:0;font-size:22px"></h2><p id="pvMeta" style="color:#667781;font-size:14px;margin-top:4px"></p><p id="pvStats" style="font-size:14px;margin-top:4px"></p></div><button class="followBtn" id="followBtn" onclick="toggleFollow()">+ Follow</button></div><p id="pvAbout" style="color:#333;margin-top:10px;line-height:1.5"></p>
-<div class="actionBtns">
-<button class="primary" onclick="sendMessageToPage()">💬 Send Message</button>
-<a href="#" onclick="openPageMessages();return false;">📩 Messages</a>
-<a href="#" onclick="showPageMusic();return false;">🎵 Music</a>
-<button onclick="promotePage()">📣 Promote</button>
-</div>
-</div>
+<div class="pageHead"><div class="headTop"><div class="bigAvatar" id="bigAvatar">P</div><div style="flex:1;padding-bottom:6px"><h2 id="pvName" style="margin:0;font-size:22px"></h2><p id="pvMeta" style="color:#667781;font-size:14px;margin-top:4px"></p><p id="pvStats" style="font-size:14px;margin-top:4px"></p></div><button class="followBtn" id="followBtn" onclick="toggleFollow()">+ Follow</button></div><p id="pvAbout" style="color:#333;margin-top:10px;line-height:1.5"></p></div>
 <div id="guestNote" style="display:none;margin-bottom:12px"></div>
-<div class="tabs" id="pageTabs"><a id="tabPosts" class="on" href="#" onclick="switchTab('posts');return false;">📝 Posts</a><a id="tabMusic" href="#" onclick="switchTab('music');return false;">🎵 Music</a><a id="tabMessages" href="#" onclick="switchTab('messages');return false;">💬 Messages</a></div>
-<div class="postBox" id="postBoxArea"><b>✍️ Create post for this Page</b><textarea id="postCaption" placeholder="Write a caption..."></textarea><div class="tools"><label class="toolBtn">🖼️ Photo<input type="file" id="postPhoto" accept="image/*" hidden></label><label class="toolBtn">🎥 Video<input type="file" id="postVideo" accept="video/*" hidden></label><button class="toolBtn" onclick="promotePage()">📣 Promote</button></div><p id="fileName" style="font-size:13px;color:#00a884;margin-top:8px"></p><button class="publishBtn" onclick="addPost()">Publish Post</button></div>
+<div class="postBox" id="postBoxArea"><b>✍️ Create post for this Page</b><textarea id="postCaption" placeholder="Write a caption..."></textarea><div class="tools"><label class="toolBtn">🖼️ Photo<input type="file" id="postPhoto" accept="image/*" hidden></label><label class="toolBtn">🎥 Video<input type="file" id="postVideo" accept="video/*" hidden></label><button class="toolBtn" onclick="alert('Promote - share your Page')">📣 Promote</button></div><p id="fileName" style="font-size:13px;color:#00a884;margin-top:8px"></p><button class="publishBtn" onclick="addPost()">Publish Post</button></div>
 <div id="postsList"></div>
-<div id="musicList" style="display:none"></div>
-<div id="messagesList" style="display:none"></div>
 </div>
 </div>
 </div>
-<div class="modal" id="msgModal"><div class="modalBox"><h3>💬 Send Message to <span id="msgPageName"></span></h3><p>Your message is saved for the Page owner.</p><textarea id="msgText" rows="4" placeholder="Hi! I love your Page..."></textarea><button onclick="submitMessage()">Send Message →</button><button style="background:#f0f2f5;color:#111" onclick="closeModal('msgModal')">Cancel</button></div></div>
-<div class="modal" id="promoteModal"><div class="modalBox"><h3>📣 Promote <span id="promoteName"></span></h3><p id="promoteText"></p><button onclick="shareWhatsApp()">Share on WhatsApp ↗️</button><button onclick="copyPageLink()">Copy Page Link 🔗</button><button style="background:#00a884" onclick="markPromoted()">✅ Mark as Promoted - Show in Discover First</button><button style="background:#f0f2f5;color:#111" onclick="closeModal('promoteModal')">Close</button></div></div>
 <script>
-const _params=new URLSearchParams(location.search);
-const _view=_params.get("view")||"";
-const _cat=_params.get("cat")||"all";
-const _q=_params.get("q")||"";
-const _id=_params.get("id")||"";
-const _tab=_params.get("tab")||"posts";
 const PAGES_WORKER_URL="https://tati-pages.dilemahluza.workers.dev";
-function cleanPhone(p){var s=String(p||"").trim().replace(/\D/g,"");if(s.startsWith("00"))s=s.slice(2);return s;}
-function getMainUser(){try{const p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');if(p&&p.name&&p.number){return{id:cleanPhone(p.number),name:p.name,phone:p.number,setupDone:!!(p.setupDone||(p.selfieVerified&&p.name&&p.number))};}}catch(e){}const ph=localStorage.getItem('tati_my_phone')||"";const nm=localStorage.getItem('tati_my_name')||"";if(ph&&nm)return{id:cleanPhone(ph),name:nm,phone:ph,setupDone:true};if(ph)return{id:cleanPhone(ph),name:nm||ph,phone:ph,setupDone:true};return null;}
-function isRegistered(){const u=getMainUser();return !!(u&&u.setupDone);}
-function needRegister(){const u=getMainUser();if(u&&!u.setupDone){alert("Finish Setup in People first.");location.href="./people.html";return false;}if(!u){alert("Finish Setup in People first.");location.href="./people.html";return false;}return true;}
+
+// ===== EXACT REGISTRATION FROM people.html =====
+// people.html saves: localStorage 'tati_my_profile' = {name, number, country, about, selfie, selfieVerified, setupDone}
+// And also: 'tati_my_phone' and 'tati_my_name'
+// Registered = name + number + selfieVerified + setupDone (same as isSetupDone() in people.html)
+// We read EXACTLY that. No guessing, no tati_user, no tati_lang.
+
+function cleanPhone(p){ var s=String(p||"").replace(/\D/g,""); if(s.startsWith("258")&&s.length===12) s=s.slice(3); if(s.startsWith("0")&&s.length===10) s=s.slice(1); return s; }
+function getMainUser(){
+  try{
+    const p = JSON.parse(localStorage.getItem('tati_my_profile')||'{}');
+    // If setup is done in People, this is a registered user
+    if(p && p.name && p.number){
+      // Even if setupDone is missing in old versions, name+number+selfie = registered
+      const isDone = !!(p.setupDone || (p.selfieVerified && p.name && p.number));
+      // We return user even if not fully done, but mark setupDone so Pages can decide
+      return {
+        id: cleanPhone(p.number), // same ID people.html uses for cloud: cleanPhone(number)
+        name: p.name,
+        phone: p.number,
+        cleanPhone: cleanPhone(p.number),
+        selfie: p.selfie||"",
+        setupDone: isDone,
+        country: p.country||""
+      };
+    }
+  }catch(e){}
+  // Fallback: tati_my_phone + tati_my_name (saved by syncRegisterToCloud in people.html)
+  const ph = localStorage.getItem('tati_my_phone')||"";
+  const nm = localStorage.getItem('tati_my_name')||"";
+  if(ph && nm) return {id: cleanPhone(ph), name: nm, phone: ph, cleanPhone: cleanPhone(ph), selfie:"", setupDone:true, country:""};
+  if(ph) return {id: cleanPhone(ph), name: nm||ph, phone: ph, cleanPhone: cleanPhone(ph), selfie:"", setupDone:true, country:""};
+  return null;
+}
+function isRegistered(){
+  const u = getMainUser();
+  // Must have finished Setup in People to create / follow
+  return !!(u && u.setupDone);
+}
+function goBack(){
+  if(document.getElementById("pageView").style.display==="block"){ backToList(); return; }
+  if(window.history.length>1){ window.history.back(); } else { window.location.href="./index.html"; }
+}
+function needRegister(){
+  const u = getMainUser();
+  if(u && !u.setupDone){
+    alert("Almost done! Go to People (Mabulu) and finish Setup: take Selfie + tap 'I Am Done'. Then come back to Pages.");
+    location.href="./people.html";
+    return false;
+  }
+  if(!u){
+    alert("Please finish Setup in People (Mabulu) first: Name + Number + Selfie. One registration works for Chats + Pages.");
+    location.href="./people.html";
+    return false;
+  }
+  return true;
+}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-async function api(path,method,body){const r=await fetch(PAGES_WORKER_URL+path,{method:method||"GET",headers:{"Content-Type":"application/json"},body:body?JSON.stringify(body):undefined});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||("Server error "+r.status));return d;}
-function renderHeaderName(){const u=getMainUser();if(u)document.getElementById("userName").textContent="👋 "+u.name+(u.setupDone?"":" (Finish Setup)");}
-var openedId=null,openedPage=null,tempPhoto="",tempVideo="",catFilter=_cat,viewMode="mine",searchText=_q.toLowerCase(),currentTab=_tab;
-function getPageMessages(){try{return JSON.parse(localStorage.getItem("tati_page_messages")||"[]");}catch(e){return [];}}
-function savePageMessages(l){localStorage.setItem("tati_page_messages",JSON.stringify(l));updateMsgBadge();}
-function updateMsgBadge(){const m=getPageMessages();const b=document.getElementById("msgBadge");if(m.length){b.style.display="inline";b.textContent=m.length;}else{b.style.display="none";}}
-function closeModal(id){document.getElementById(id).style.display="none";}
+async function api(path, method, body){
+  const r=await fetch(PAGES_WORKER_URL+path,{method:method||"GET",headers:{"Content-Type":"application/json"},body:body?JSON.stringify(body):undefined});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(d.error||("Server error "+r.status));
+  return d;
+}
+function renderHeaderName(){ const u=getMainUser(); if(u && u.setupDone) document.getElementById("userName").textContent="👋 "+u.name; else if(u) document.getElementById("userName").textContent="👋 "+u.name+" (Finish Setup)"; }
+function goCreate(){ if(!isRegistered()){ needRegister(); return; } location.href="./create-page.html"; }
+var openedId=null, openedPage=null, tempPhoto="", tempVideo="", catFilter="all", viewMode="mine";
+function setFilter(c,el){ catFilter=c; document.querySelectorAll(".chip").forEach(function(ch){ch.classList.remove("on")}); el.classList.add("on"); renderPages(); }
+function loadMine(){ viewMode="mine"; renderPages(); }
+function loadPublic(){ viewMode="public"; renderPages(); }
 async function renderPages(){
-  const el=document.getElementById("pagesList");const u=getMainUser();
+  const el=document.getElementById("pagesList"); const u=getMainUser();
   try{
     let list;
-    if(searchText){document.getElementById("listTitle").textContent="Search Results";list=await api("/pages?public=1&user_id="+(u?encodeURIComponent(u.id):""));}
-    else if(viewMode==="public"||!isRegistered()){document.getElementById("listTitle").textContent=viewMode==="public"?"Discover - All Public Pages":"Public Pages";list=await api("/pages?public=1&user_id="+(u?encodeURIComponent(u.id):""));}
-    else{document.getElementById("listTitle").textContent="Pages you manage";list=await api("/pages?user_id="+encodeURIComponent(u.id));if(!list.length){try{const myIds=JSON.parse(localStorage.getItem("tati_my_page_ids")||"[]");const pub=await api("/pages?public=1&user_id="+encodeURIComponent(u.id));const mine=pub.filter(p=>myIds.includes(p.id));if(mine.length)list=mine;}catch(e){}}}
-    if(catFilter!=="all")list=list.filter(p=>((p.type||"")+" "+(p.category||"")).indexOf(catFilter)>-1);
-    if(searchText)list=list.filter(p=>((p.name||"")+" "+(p.about||"")+" "+(p.type||"")).toLowerCase().indexOf(searchText)>-1);
-    try{const prom=JSON.parse(localStorage.getItem("tati_promoted")||"[]");list.sort((a,b)=>(prom.includes(b.id)?1:0)-(prom.includes(a.id)?1:0));}catch(e){}
-    document.querySelectorAll(".chip").forEach(function(c){if(c.textContent.trim().toLowerCase().indexOf(catFilter.toLowerCase())>-1||(catFilter==="all"&&c.textContent.trim()==="All"))c.classList.add("on");});
-    if(!list.length){el.innerHTML='<div class="empty"><h3>'+(searchText?'No Pages for "'+esc(searchText)+'"':'No Pages yet')+'</h3><p><a href="./pages.html?view=discover" style="display:inline-block;margin-top:12px;padding:11px 16px;background:#00a884;color:#fff;border-radius:999px;font-weight:800;text-decoration:none">See All Pages in Discover →</a></p></div>';return;}
+    if(viewMode==="public" || !isRegistered()){
+      document.getElementById("listTitle").textContent=viewMode==="public"?"Public Pages in Tati":"Public Pages";
+      document.getElementById("listSub").textContent="Anyone can VIEW. Finish Setup in People (Mabulu) to CREATE / FOLLOW.";
+      list=await api("/pages?public=1&user_id="+(u?encodeURIComponent(u.id):""));
+    } else {
+      document.getElementById("listTitle").textContent="Pages you manage";
+      document.getElementById("listSub").textContent="Your Pages, saved in Tati Pages server. Click a Page to post.";
+      list=await api("/pages?user_id="+encodeURIComponent(u.id));
+    }
+    if(catFilter!=="all") list=list.filter(p=>(p.type||"").indexOf(catFilter)>-1);
+    if(!list.length){
+      el.innerHTML='<div class="empty"><h3>No Pages yet</h3><p>'+(isRegistered()?"Create your first Page.":"You can view Pages. To create or follow, finish Setup in People (Mabulu).")+'</p></div>';
+      return;
+    }
     el.innerHTML="";
     list.forEach(function(pg){
-      const letter=(pg.name||"P").charAt(0).toUpperCase();const d=document.createElement("div");d.className="pageCard";
-      const isProm=(()=>{try{return JSON.parse(localStorage.getItem("tati_promoted")||"[]").includes(pg.id);}catch(e){return false;}})();
-      const pageLink="./pages.html?view=page&id="+pg.id;
-      d.innerHTML='<a class="pageTop" href="'+pageLink+'"><div class="pAvatar">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div style="flex:1"><div class="pName">'+esc(pg.name)+' '+(pg.live?'<span class="live">● LIVE</span>':"")+(isProm?' <span style="background:#00a884;color:#fff;font-size:11px;padding:3px 7px;border-radius:999px">⭐ PROMOTED</span>':"")+'</div><div class="pMeta"><span>🔔 Notifications <span class="greenDot"></span></span><span>💬 Messages</span><span>'+esc(pg.type||"")+'</span></div></div></a><div class="insights"><div><b>'+(pg.followers||0)+'</b><small>Followers</small></div><div><b>'+(pg.post_count||0)+'</b><small>Posts</small></div></div><div class="btnRow"><a class="btnCreate" href="'+pageLink+'">'+(pg.is_owner?'✏️ Create post':'👀 View Page')+'</a><button class="btnFollow" onclick="quickFollow(\''+pg.id+'\')">'+(pg.following?"✓ Following":" + Follow")+'</button><button class="btnPromote" onclick="promoteFromList(\''+pg.id+'\')">📣 Promote</button>'+(pg.is_owner?'<button class="btnMore" onclick="moreMenu(\''+pg.id+'\')">•••</button>':"")+'</div>';
+      const letter=(pg.name||"P").charAt(0).toUpperCase();
+      const d=document.createElement("div"); d.className="pageCard";
+      const actionBtn=pg.is_owner?'<button class="btnCreate" onclick="openPage(\''+pg.id+'\')">✏️ Create post</button>':'<button class="btnCreate" onclick="openPage(\''+pg.id+'\')">👀 View Page</button>';
+      d.innerHTML='<div class="pageTop" onclick="openPage(\''+pg.id+'\')"><div class="pAvatar">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div style="flex:1"><div class="pName">'+esc(pg.name)+' '+(pg.live?'<span class="live">● LIVE</span>':"")+'</div><div class="pMeta"><span>🔔 Notifications <span class="greenDot"></span></span><span>💬 Messages</span><span>'+esc(pg.type||"")+'</span></div></div></div><div class="insights"><div><b>'+(pg.followers||0)+'</b><small>Followers</small></div><div><b>'+(pg.post_count||0)+'</b><small>Posts</small></div></div><div class="btnRow">'+actionBtn+'<button class="btnFollow" onclick="quickFollow(event,\''+pg.id+'\')">'+(pg.following?"✓ Following":" + Follow")+'</button><button class="btnPromote" onclick="event.stopPropagation();alert(\'Promote '+esc(pg.name)+'\')">📣 Promote</button>'+(pg.is_owner?'<button class="btnMore" onclick="moreMenu(event,\''+pg.id+'\')">•••</button>':"")+'</div>';
       el.appendChild(d);
     });
-  }catch(e){el.innerHTML='<div class="empty"><p>Cannot reach server.<br>'+esc(e.message)+'</p></div>';}
+  }catch(e){ el.innerHTML='<div class="empty"><p>Cannot reach Tati Pages server.<br>'+esc(e.message)+'</p></div>'; }
 }
-async function quickFollow(id){if(!isRegistered()){needRegister();return;}try{const u=getMainUser();await api("/pages/follow","POST",{page_id:id,user_id:u.id});renderPages();if(openedId===id)openPage(id);}catch(e){alert(e.message);}}
-async function promoteFromList(id){window.location.href="./pages.html?view=page&id="+id+"&tab=posts&promote=1";}
-async function moreMenu(id){if(confirm("Delete this Page?")){try{const u=getMainUser();await api("/pages?id="+id,"DELETE",{user_id:u.id});renderPages();}catch(e){alert(e.message);}}}
+async function quickFollow(e,id){ e.stopPropagation(); if(!isRegistered()){ needRegister(); return; } try{ const u=getMainUser(); await api("/pages/follow","POST",{page_id:id,user_id:u.id}); renderPages(); if(openedId===id) openPage(id); }catch(err){ alert(err.message); } }
+async function moreMenu(e,id){ e.stopPropagation(); if(confirm("Delete this Page? This deletes from server.")){ try{ const u=getMainUser(); await api("/pages?id="+id,"DELETE",{user_id:u.id}); renderPages(); }catch(err){ alert(err.message); } } }
 async function openPage(id){
-  try{const u=getMainUser();openedId=id;const pg=await api("/pages?id="+id+"&user_id="+(u?encodeURIComponent(u.id):""));openedPage=pg;
-  document.getElementById("listView").style.display="none";document.getElementById("pageView").style.display="block";
-  document.getElementById("pvName").textContent=pg.name;document.getElementById("pvMeta").textContent=(pg.type||"")+" • "+(pg.about||"");document.getElementById("pvStats").innerHTML="<b>"+(pg.followers||0)+" followers</b> • "+(pg.posts?pg.posts.length:0)+" posts";document.getElementById("pvAbout").textContent=pg.about||"";document.getElementById("bigAvatar").innerHTML=pg.photo?'<img src="'+pg.photo+'">':esc(pg.name.charAt(0).toUpperCase());document.getElementById("coverBox").innerHTML=pg.cover?'<img src="'+pg.cover+'">':"";
-  const fb=document.getElementById("followBtn");fb.textContent=pg.following?"✓ Following":" + Follow";fb.className=pg.following?"followBtn on":"followBtn";
-  const postBox=document.getElementById("postBoxArea");const guestNote=document.getElementById("guestNote");
-  if(pg.is_owner){postBox.style.display="block";guestNote.style.display="none";}else{postBox.style.display="none";guestNote.style.display="block";guestNote.innerHTML='<p style="background:#f0f2f5;border-radius:12px;padding:12px;font-size:14px">👀 You are viewing this Page. Only owner can post.</p>';}
-  document.getElementById("tabPosts").href="./pages.html?view=page&id="+id+"&tab=posts";
-  document.getElementById("tabMusic").href="./pages.html?view=page&id="+id+"&tab=music";
-  document.getElementById("tabMessages").href="./pages.html?view=page&id="+id+"&tab=messages";
-  switchTab(currentTab);renderPosts(pg);window.scrollTo(0,0);
-  if(_params.get("promote")==="1")setTimeout(promotePage,400);
-  }catch(e){alert(e.message);}
+  try{ const u=getMainUser(); openedId=id; const pg=await api("/pages?id="+id+"&user_id="+(u?encodeURIComponent(u.id):"")); openedPage=pg;
+  document.getElementById("listView").style.display="none"; document.getElementById("pageView").style.display="block";
+  document.getElementById("pvName").textContent=pg.name;
+  document.getElementById("pvMeta").textContent=(pg.type||"")+" • "+(pg.about||"");
+  document.getElementById("pvStats").innerHTML="<b>"+(pg.followers||0)+" followers</b> • "+(pg.posts?pg.posts.length:0)+" posts";
+  document.getElementById("pvAbout").textContent=pg.about||"";
+  document.getElementById("bigAvatar").innerHTML=pg.photo?'<img src="'+pg.photo+'">':esc(pg.name.charAt(0).toUpperCase());
+  document.getElementById("coverBox").innerHTML=pg.cover?'<img src="'+pg.cover+'">':"";
+  const fb=document.getElementById("followBtn"); fb.textContent=pg.following?"✓ Following":" + Follow"; fb.className=pg.following?"followBtn on":"followBtn";
+  const postBox=document.getElementById("postBoxArea"); const guestNote=document.getElementById("guestNote");
+  if(pg.is_owner){ postBox.style.display="block"; guestNote.style.display="none"; }
+  else{ postBox.style.display="none"; guestNote.style.display="block"; guestNote.innerHTML=isRegistered()?'<p style="background:#f0f2f5;border-radius:12px;padding:12px;font-size:14px">👀 You are viewing this Page. Only the owner can post here. <a href="#" onclick="goCreate();return false" style="color:#0a192f;font-weight:800">Create your own Page →</a></p>':'<p style="background:#f0f2f5;border-radius:12px;padding:12px;font-size:14px">👀 You are viewing as guest. <a href="#" onclick="needRegister();return false" style="color:#0a192f;font-weight:800">Finish Setup in People</a> to follow, like, comment and create your own Page.</p>'; }
+  renderPosts(pg); window.scrollTo(0,0);
+  }catch(e){ alert(e.message); }
 }
-async function toggleFollow(){if(!openedId)return;if(!isRegistered()){needRegister();return;}try{const u=getMainUser();await api("/pages/follow","POST",{page_id:openedId,user_id:u.id});openPage(openedId);renderPages();}catch(e){alert(e.message);}}
-function switchTab(tab){currentTab=tab;document.getElementById("tabPosts").className=tab==="posts"?"on":"";document.getElementById("tabMusic").className=tab==="music"?"on":"";document.getElementById("tabMessages").className=tab==="messages"?"on":"";document.getElementById("postsList").style.display=tab==="posts"?"block":"none";document.getElementById("musicList").style.display=tab==="music"?"block":"none";document.getElementById("messagesList").style.display=tab==="messages"?"block":"none";document.getElementById("postBoxArea").style.display=(tab==="posts"&&openedPage&&openedPage.is_owner)?"block":"none";if(tab==="music")renderMusic();if(tab==="messages")renderPageMessages();}
-function showPageMusic(){switchTab('music');}
-function renderMusic(){const el=document.getElementById("musicList");if(!openedPage)return;const posts=openedPage.posts||[];const mp=posts.filter(p=>((p.caption||"").toLowerCase().indexOf("🎵")>-1||(p.caption||"").toLowerCase().indexOf("music")>-1||(p.caption||"").toLowerCase().indexOf("song")>-1||p.video));if(!mp.length){el.innerHTML='<div class="empty"><h3>🎵 No Music yet</h3><p>Post a video / song with 🎵 in caption.</p></div>';return;}el.innerHTML='<h3 style="margin-bottom:10px">🎵 Music from '+esc(openedPage.name)+'</h3>';mp.forEach(function(post){const d=document.createElement("div");d.className="feedPost";d.innerHTML='<b>🎵 '+esc(post.caption||"Music")+'</b><p style="color:#667781;font-size:13px;margin-top:4px">'+esc(post.created_at||"")+'</p>'+(post.video?'<video src="'+post.video+'" controls></video>':"")+(post.photo?'<img src="'+post.photo+'">':"");el.appendChild(d);});}
-function sendMessageToPage(){if(!openedPage)return;if(!isRegistered()){needRegister();return;}if(openedPage.is_owner){alert("Your own Page.");switchTab('messages');return;}document.getElementById("msgPageName").textContent=openedPage.name;document.getElementById("msgText").value="";document.getElementById("msgModal").style.display="flex";}
-function submitMessage(){const txt=document.getElementById("msgText").value.trim();if(!txt){alert("Write a message first");return;}const u=getMainUser();const msgs=getPageMessages();msgs.unshift({page_id:openedId,page_name:openedPage.name,from_name:u.name,from_id:u.id,text:txt,time:new Date().toLocaleString()});savePageMessages(msgs);closeModal('msgModal');alert("Message sent ✅");}
-function openPageMessages(){switchTab('messages');}
-function renderPageMessages(){const el=document.getElementById("messagesList");const msgs=getPageMessages().filter(m=>!openedId||m.page_id===openedId);if(!msgs.length){el.innerHTML='<div class="empty"><h3>💬 No Messages yet</h3><p>No messages yet.</p></div>';return;}el.innerHTML='<h3 style="margin-bottom:10px">💬 Messages</h3>';msgs.forEach(function(m){const d=document.createElement("div");d.className="feedPost";d.innerHTML='<b>💬 '+esc(m.from_name)+'</b><div style="font-size:12px;color:#667781">'+esc(m.time||"")+'</div><p style="margin-top:8px;line-height:1.5">'+esc(m.text)+'</p>';el.appendChild(d);});}
-function openMyMessages(){document.getElementById("listView").style.display="none";document.getElementById("pageView").style.display="block";if(openedPage&&openedId){switchTab('messages');return;}const msgs=getPageMessages();document.getElementById("pvName").textContent="💬 My Messages";document.getElementById("pvMeta").textContent="Messages sent to your Pages";document.getElementById("pvStats").innerHTML="<b>"+msgs.length+" messages</b>";document.getElementById("pvAbout").textContent="All messages from followers.";document.getElementById("bigAvatar").textContent="💬";document.getElementById("coverBox").innerHTML="";document.getElementById("postBoxArea").style.display="none";openedId=null;openedPage={name:"My Messages",posts:[]};switchTab('messages');const el=document.getElementById("messagesList");el.style.display="block";if(!msgs.length){el.innerHTML='<div class="empty"><h3>💬 No Messages yet</h3><p>When someone sends a message to your Page, it will show here.</p></div>';return;}el.innerHTML="";msgs.forEach(function(m){const d=document.createElement("div");d.className="feedPost";d.innerHTML='<b>💬 '+esc(m.from_name)+' → '+esc(m.page_name)+'</b><div style="font-size:12px;color:#667781">'+esc(m.time||"")+'</div><p style="margin-top:8px">'+esc(m.text)+'</p>';el.appendChild(d);});}
-function promotePage(){if(!openedPage)return;document.getElementById("promoteName").textContent=openedPage.name;document.getElementById("promoteText").textContent="Share "+openedPage.name+". Promoted Pages show FIRST in Discover.";document.getElementById("promoteModal").style.display="flex";}
-function shareWhatsApp(){const txt="Check out "+(openedPage?openedPage.name:"this Page")+" on Tati Pages! "+(openedPage&&openedPage.about?openedPage.about:"");window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank");}
-function copyPageLink(){const link=location.origin+location.pathname+"?view=page&id="+openedId;if(navigator.clipboard)navigator.clipboard.writeText(link).then(()=>alert("Link copied! "+link));else alert("Page link: "+link);}
-function markPromoted(){try{const prom=JSON.parse(localStorage.getItem("tati_promoted")||"[]");if(!prom.includes(openedId))prom.push(openedId);localStorage.setItem("tati_promoted",JSON.stringify(prom));}catch(e){}closeModal('promoteModal');alert("✅ Promoted!");renderPages();}
-document.getElementById("postPhoto").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(){tempPhoto=r.result;document.getElementById("fileName").textContent="🖼️ Photo ready: "+f.name};r.readAsDataURL(f)});
-document.getElementById("postVideo").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(){tempVideo=r.result;document.getElementById("fileName").textContent="🎥 Video ready: "+f.name};r.readAsDataURL(f)});
-async function addPost(){if(!openedId)return;const cap=document.getElementById("postCaption").value.trim();if(!cap&&!tempPhoto&&!tempVideo){alert("Write caption or add photo/video");return;}try{const u=getMainUser();await api("/pages/post","POST",{page_id:openedId,user_id:u.id,caption:cap,photo:tempPhoto,video:tempVideo});document.getElementById("postCaption").value="";document.getElementById("postPhoto").value="";document.getElementById("postVideo").value="";document.getElementById("fileName").textContent="";tempPhoto="";tempVideo="";openPage(openedId);}catch(e){alert(e.message);}}
-function renderPosts(pg){const el=document.getElementById("postsList");el.innerHTML="";if(!pg.posts||!pg.posts.length){el.innerHTML='<div class="empty"><p>No posts yet.</p></div>';return;}pg.posts.forEach(function(post){const d=document.createElement("div");d.className="feedPost";const letter=pg.name.charAt(0).toUpperCase();d.innerHTML='<div style="display:flex;gap:10px;align-items:center"><div class="pAvatar" style="width:44px;height:44px;font-size:18px">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div><b>'+esc(pg.name)+'</b><div style="font-size:12px;color:#667781">'+esc(post.created_at||"")+'</div></div></div><p style="margin-top:10px;line-height:1.5">'+esc(post.caption||"")+'</p>'+(post.photo?'<img src="'+post.photo+'">':"")+(post.video?'<video src="'+post.video+'" controls></video>':"");const row=document.createElement("div");row.className="actionRow";const like=document.createElement("button");like.textContent="❤️ "+(post.likes||0)+" Like";like.onclick=async function(){if(!isRegistered()){needRegister();return;}try{const u=getMainUser();await api("/pages/like","POST",{post_id:post.id,user_id:u.id});openPage(openedId);}catch(e){alert(e.message);}};const cBtn=document.createElement("button");cBtn.textContent="💬 "+(post.comments?post.comments.length:0)+" Comments";cBtn.onclick=function(){const b=d.querySelector(".commentBox");b.style.display=b.style.display==="none"?"block":"none";};const share=document.createElement("button");share.textContent="↗️ Share";share.onclick=function(){const txt=pg.name+": "+(post.caption||"");if(navigator.share){navigator.share({title:pg.name,text:txt,url:location.href})}else{window.open("https://wa.me/?text="+encodeURIComponent(txt+" - via Tati Pages"),"_blank")}};row.appendChild(like);row.appendChild(cBtn);row.appendChild(share);d.appendChild(row);const cBox=document.createElement("div");cBox.className="commentBox";const cList=document.createElement("div");(post.comments||[]).forEach(function(c){const cd=document.createElement("div");cd.className="comment";cd.textContent="💬 "+c;cList.appendChild(cd);});const cInput=document.createElement("input");cInput.placeholder="Write a comment...";const cSend=document.createElement("button");cSend.style.cssText="margin-top:8px;padding:11px 16px;border:none;background:#0a192f;color:#fff;border-radius:999px;font-weight:700;cursor:pointer";cSend.textContent="Send Comment";cSend.onclick=async function(){if(!isRegistered()){needRegister();return;}const v=cInput.value.trim();if(!v)return;try{const u=getMainUser();await api("/pages/comment","POST",{post_id:post.id,user_id:u.id,text:v});openPage(openedId);}catch(e){alert(e.message);}};cBox.appendChild(cList);cBox.appendChild(cInput);cBox.appendChild(cSend);d.appendChild(cBox);el.appendChild(d);});}
-renderHeaderName();updateMsgBadge();
-if(_id){viewMode="public";openPage(_id);}
-else if(_view==="discover"){viewMode="public";if(_q)document.getElementById("searchInput").value=_q;renderPages();}
-else if(_view==="messages"){viewMode="mine";openMyMessages();}
-else if(_view==="music"){viewMode="public";renderPages();setTimeout(function(){alert("🎵 Music - Tap a Music Page, then tap Music tab inside it.");},600);}
-else{viewMode="mine";if(_q)document.getElementById("searchInput").value=_q;renderPages();}
+function backToList(){ openedId=null; document.getElementById("pageView").style.display="none"; document.getElementById("listView").style.display="block"; renderPages(); }
+async function toggleFollow(){ if(!openedId) return; if(!isRegistered()){ needRegister(); return; } try{ const u=getMainUser(); await api("/pages/follow","POST",{page_id:openedId,user_id:u.id}); openPage(openedId); renderPages(); }catch(e){ alert(e.message); } }
+document.getElementById("postPhoto").addEventListener("change",function(e){const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=function(){tempPhoto=r.result; document.getElementById("fileName").textContent="🖼️ Photo ready: "+f.name}; r.readAsDataURL(f)});
+document.getElementById("postVideo").addEventListener("change",function(e){const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=function(){tempVideo=r.result; document.getElementById("fileName").textContent="🎥 Video ready: "+f.name}; r.readAsDataURL(f)});
+async function addPost(){ if(!openedId) return; const cap=document.getElementById("postCaption").value.trim(); if(!cap&&!tempPhoto&&!tempVideo){ alert("Write a caption or add photo / video"); return; } try{ const u=getMainUser(); await api("/pages/post","POST",{page_id:openedId,user_id:u.id,caption:cap,photo:tempPhoto,video:tempVideo}); document.getElementById("postCaption").value=""; document.getElementById("postPhoto").value=""; document.getElementById("postVideo").value=""; document.getElementById("fileName").textContent=""; tempPhoto=""; tempVideo=""; openPage(openedId); }catch(e){ alert(e.message); } }
+function renderPosts(pg){
+  const el=document.getElementById("postsList"); el.innerHTML="";
+  if(!pg.posts||!pg.posts.length){ el.innerHTML='<div class="empty"><p>No posts yet for this Page.</p></div>'; return; }
+  pg.posts.forEach(function(post){
+    const d=document.createElement("div"); d.className="feedPost"; const letter=pg.name.charAt(0).toUpperCase();
+    d.innerHTML='<div style="display:flex;gap:10px;align-items:center"><div class="pAvatar" style="width:44px;height:44px;font-size:18px">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div><b>'+esc(pg.name)+'</b><div style="font-size:12px;color:#667781">'+esc(post.created_at||"")+'</div></div></div><p style="margin-top:10px;line-height:1.5">'+esc(post.caption||"")+'</p>'+(post.photo?'<img src="'+post.photo+'">':"")+(post.video?'<video src="'+post.video+'" controls></video>':"");
+    const row=document.createElement("div"); row.className="actionRow";
+    const like=document.createElement("button"); like.textContent="❤️ "+(post.likes||0)+" Like";
+    like.onclick=async function(){ if(!isRegistered()){ needRegister(); return; } try{ const u=getMainUser(); await api("/pages/like","POST",{post_id:post.id,user_id:u.id}); openPage(openedId); }catch(e){ alert(e.message); } };
+    const cBtn=document.createElement("button"); cBtn.textContent="💬 "+(post.comments?post.comments.length:0)+" Comments";
+    cBtn.onclick=function(){ const b=d.querySelector(".commentBox"); b.style.display=b.style.display==="none"?"block":"none"; };
+    const share=document.createElement("button"); share.textContent="↗️ Share";
+    share.onclick=function(){ const txt=pg.name+": "+(post.caption||""); if(navigator.share){navigator.share({title:pg.name,text:txt,url:location.href})}else{window.open("https://wa.me/?text="+encodeURIComponent(txt+" - via Tati Pages"),"_blank")} };
+    row.appendChild(like); row.appendChild(cBtn); row.appendChild(share); d.appendChild(row);
+    const cBox=document.createElement("div"); cBox.className="commentBox";
+    const cList=document.createElement("div"); (post.comments||[]).forEach(function(c){ const cd=document.createElement("div"); cd.className="comment"; cd.textContent="💬 "+c; cList.appendChild(cd); });
+    const cInput=document.createElement("input"); cInput.placeholder="Write a comment...";
+    const cSend=document.createElement("button"); cSend.style.cssText="margin-top:8px;padding:10px 16px;border:none;background:#0a192f;color:#fff;border-radius:999px;font-weight:700;cursor:pointer"; cSend.textContent="Send Comment";
+    cSend.onclick=async function(){ if(!isRegistered()){ needRegister(); return; } const v=cInput.value.trim(); if(!v) return; try{ const u=getMainUser(); await api("/pages/comment","POST",{post_id:post.id,user_id:u.id,text:v}); openPage(openedId); }catch(e){ alert(e.message); } };
+    cBox.appendChild(cList); cBox.appendChild(cInput); cBox.appendChild(cSend); d.appendChild(cBox);
+    el.appendChild(d);
+  });
+}
+renderHeaderName();
+renderPages();
 </script>
 </body></html>
