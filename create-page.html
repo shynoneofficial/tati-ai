@@ -9,7 +9,7 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;paddin
 #header{height:72px;display:flex;align-items:center;justify-content:center;padding:0 10px;border-bottom:3px solid #0a192f;position:fixed;top:0;left:0;right:0;background:#fff;z-index:5000}
 #avatar{width:52px;height:52px;border-radius:12px;object-fit:contain;cursor:pointer;position:absolute;left:10px}
 #tatiOnline{font-size:12px;color:#00a884;font-weight:800;position:absolute;left:68px}
-#centerLogo{text-align:center;line-height:1.1;cursor:pointer;padding:6px 12px}
+#centerLogo{text-align:center;line-height:1.1;cursor:pointer;padding:6px 12px;text-decoration:none;color:#111}
 #centerLogo b{font-size:16px;font-weight:900;letter-spacing:.5px}
 #centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
 #greenLine{height:4mm;background:#00a884}
@@ -19,7 +19,7 @@ h1{font-size:22px} h1 span{color:#00a884} p{color:#667781;margin-top:8px;line-he
 label{font-weight:800;margin-top:18px;display:block;font-size:14px}
 input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #ddd;border-radius:10px;font-size:16px;outline:none}
 .btn{width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;background:#0a192f;color:#fff;font-weight:800;font-size:16px;cursor:pointer;min-height:48px}
-.btn2{width:100%;margin-top:10px;padding:12px;border:1px solid #ddd;border-radius:12px;background:#fff;font-weight:700;cursor:pointer;min-height:44px}
+.btn2{width:100%;margin-top:10px;padding:12px;border:1px solid #ddd;border-radius:12px;background:#fff;font-weight:700;cursor:pointer;min-height:44px;text-decoration:none;color:#111;display:block;text-align:center}
 .fbPreview{margin-top:16px;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .fbCover{height:180px;background:#0a192f;position:relative;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;overflow:hidden}
 .fbCover img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
@@ -34,20 +34,21 @@ input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #d
 @media(max-width:820px){.card{padding:14px}.fbHeadTop{flex-wrap:wrap}}
 </style></head><body>
 <div id="header">
-<img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'" data-action="home">
+<a href="./index.html"><img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'"></a>
 <div id="tatiOnline">● Online</div>
-<div id="centerLogo" data-action="home"><b>SHYNONE</b><br><i>MUSIC</i></div>
+<a href="./index.html" id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></a>
 </div>
 <div id="greenLine"></div>
 <div class="wrap"><div class="card">
 <h1>Create your Page <span>.</span></h1>
 <p id="welcomeText"></p>
+<form action="javascript:createPage()">
 <label>1. Page Name *</label>
-<input id="pageName" placeholder="Page Name">
+<input id="pageName" placeholder="Page Name" required>
 <label>2. What is your Page about?</label>
 <textarea id="pageAbout" rows="2" placeholder="What is your Page about?"></textarea>
 <label>3. Category * - Choose one</label>
-<select id="pageType">
+<select id="pageType" onchange="checkOther()">
 <option>🎵 Music</option><option>💼 Business</option><option>⛪ Church</option><option>🏫 School</option><option>👤 Personal</option><option>⚽ Sport</option><option>🛍️ Shop</option><option>🎬 Entertainment</option><option>🍽️ Food</option><option>👗 Fashion</option><option>💄 Beauty</option><option>❤️ Health</option><option>💻 Technology</option><option>📰 News</option><option>📚 Education</option><option>👥 Community</option><option>🤝 NGO</option><option>🎨 Art</option><option>📷 Photography</option><option>😂 Comedy</option><option>🎙️ Podcast</option><option>🎮 Gaming</option><option>✈️ Travel</option><option>🌾 Agriculture</option><option>🚚 Transport</option><option>🏠 Real Estate</option><option>✨ Other</option>
 </select>
 <div id="otherBox" style="display:none">
@@ -57,11 +58,11 @@ input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #d
 </div>
 <label>4. Go Live?</label>
 <select id="pageLive"><option value="">No</option><option value="1">🔴 Yes - I am LIVE now</option></select>
-<label>5. Page Profile Photo (optional) - This is your PROFILE</label>
+<label>5. Page Profile Photo (optional)</label>
 <input type="file" id="pagePhoto" accept="image/*">
-<label>6. Cover Photo (optional) - This is your COVER on top</label>
+<label>6. Cover Photo (optional)</label>
 <input type="file" id="pageCover" accept="image/*">
-<p style="font-weight:800;color:#0a192f;margin-top:18px">👀 PREVIEW - This is exactly how it will look in Pages:</p>
+<p style="font-weight:800;color:#0a192f;margin-top:18px">👀 PREVIEW:</p>
 <div class="fbPreview">
   <div class="fbCover" id="prevCover"><span>COVER PHOTO - will show here</span></div>
   <div class="fbHead"><div class="fbHeadTop">
@@ -69,27 +70,26 @@ input,textarea,select{width:100%;padding:13px;margin-top:8px;border:1px solid #d
     <div class="fbInfo"><b id="prevName">Your Page Name</b><p id="prevType">🎵 Music</p><p id="prevAbout">Your about will show here...</p></div>
   </div></div>
 </div>
-<button class="btn" id="createBtn" data-action="create">+ Create My Page →</button>
-<button class="btn2" data-action="back">← Back</button>
-<p style="text-align:center;font-size:12px;margin-top:12px">v6 - PHONE FIXED</p>
+<button class="btn" id="createBtn" type="submit">+ Create My Page →</button>
+</form>
+<a class="btn2" href="./pages.html?v=7">← Back</a>
+<p style="text-align:center;font-size:12px;margin-top:12px">v7 - PHONE FIXED</p>
 </div></div>
 <script>
 const PAGES_WORKER_URL="https://tati-pages.dilemahluza.workers.dev";
 function cleanPhone(p){ var s=String(p||"").trim().replace(/\D/g,""); if(s.startsWith("00")) s=s.slice(2); return s; }
 function getMainUser(){ try{ const p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}'); if(p&&p.name&&p.number){ const isDone=!!(p.setupDone||(p.selfieVerified&&p.name&&p.number)); return {id:cleanPhone(p.number),name:p.name,phone:p.number,cleanPhone:cleanPhone(p.number),selfie:p.selfie||"",setupDone:isDone}; } }catch(e){} const ph=localStorage.getItem('tati_my_phone')||""; const nm=localStorage.getItem('tati_my_name')||""; if(ph&&nm) return {id:cleanPhone(ph),name:nm,phone:ph,cleanPhone:cleanPhone(ph),setupDone:true}; return null; }
-function goBack(){ if(window.history.length>1){ window.history.back(); } else { window.location.href="./pages.html?v=6"; } }
 const me=getMainUser();
-if(!me||!me.setupDone){ if(me&&!me.setupDone){ alert("Almost done! Go to People (Mabulu) and finish Setup."); } else { alert("Please finish Setup in People (Mabulu) first."); } location.href="./people.html"; } else { document.getElementById("welcomeText").innerHTML="Hello <b>"+me.name+"</b> 👋"; }
+if(!me||!me.setupDone){ alert("Please finish Setup in People (Mabulu) first."); location.href="./people.html"; } else { document.getElementById("welcomeText").innerHTML="Hello <b>"+me.name+"</b> 👋"; }
 var photo="",cover="";
+function checkOther(){ document.getElementById("otherBox").style.display=document.getElementById("pageType").value.indexOf("Other")>-1?"block":"none"; updatePreview(); }
 function getCategory(){ const sel=document.getElementById("pageType").value; if(sel.indexOf("Other")>-1){ const other=document.getElementById("otherText").value.trim(); return other?("✨ "+other):"✨ Other"; } return sel; }
-function updatePreview(){ var n=document.getElementById("pageName").value.trim()||"Your Page Name"; document.getElementById("prevName").textContent=n; if(!photo) document.getElementById("prevAvatar").textContent=n.charAt(0).toUpperCase(); document.getElementById("prevAbout").textContent=document.getElementById("pageAbout").value.trim()||"Your about will show here..."; document.getElementById("prevType").textContent=getCategory(); const sel=document.getElementById("pageType").value; document.getElementById("otherBox").style.display=sel.indexOf("Other")>-1?"block":"none"; }
+function updatePreview(){ var n=document.getElementById("pageName").value.trim()||"Your Page Name"; document.getElementById("prevName").textContent=n; if(!photo) document.getElementById("prevAvatar").textContent=n.charAt(0).toUpperCase(); document.getElementById("prevAbout").textContent=document.getElementById("pageAbout").value.trim()||"Your about will show here..."; document.getElementById("prevType").textContent=getCategory(); }
 document.getElementById("pageName").addEventListener("input",updatePreview);
 document.getElementById("pageAbout").addEventListener("input",updatePreview);
-document.getElementById("pageType").addEventListener("change",updatePreview);
 document.getElementById("otherText").addEventListener("input",updatePreview);
 document.getElementById("pagePhoto").addEventListener("change",function(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){photo=r.result; document.getElementById("prevAvatar").innerHTML='<img src="'+photo+'">'}; r.readAsDataURL(f)});
 document.getElementById("pageCover").addEventListener("change",function(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){cover=r.result; document.getElementById("prevCover").innerHTML='<img src="'+cover+'">'}; r.readAsDataURL(f)});
-async function createPage(){ var n=document.getElementById("pageName").value.trim(); if(!n){alert("Please type Page name"); return;} const cat=getCategory(); if(cat==="✨ Other"){ alert("Please type what is your Other category - e.g. Plumbing, Taxi, Hair Salon"); document.getElementById("otherText").focus(); return; } const u=getMainUser(); if(!u||!u.setupDone){ alert("Finish Setup in People first."); location.href="./people.html"; return; } document.getElementById("createBtn").textContent="Saving to Tati Pages server..."; document.getElementById("createBtn").disabled=true; try{ const res=await fetch(PAGES_WORKER_URL+"/pages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:u.id,user_name:u.name,name:n,about:document.getElementById("pageAbout").value.trim(),type:cat,live:document.getElementById("pageLive").value==="1",photo:photo,cover:cover})}); const data=await res.json(); if(!res.ok) throw new Error(data.error||"Server error"); try{ var newId=(data&&(data.id||(data.page&&data.page.id)||(data.data&&data.data.id)))||""; if(newId){ var ids=JSON.parse(localStorage.getItem("tati_my_page_ids")||"[]"); if(!ids.includes(newId)) ids.push(newId); localStorage.setItem("tati_my_page_ids",JSON.stringify(ids)); } }catch(e){} alert("Page created! 🎉 "+n); location.href="./pages.html?v=6"; }catch(e){ alert("Cannot save: "+e.message); document.getElementById("createBtn").textContent="+ Create My Page →"; document.getElementById("createBtn").disabled=false; } }
-document.addEventListener("click",function(e){ const t=e.target.closest("[data-action]"); if(!t) return; const a=t.getAttribute("data-action"); if(a==="home") window.location.href="./index.html"; else if(a==="back") goBack(); else if(a==="create") createPage(); });
+async function createPage(){ var n=document.getElementById("pageName").value.trim(); if(!n){alert("Please type Page name"); return;} const cat=getCategory(); if(cat==="✨ Other"){ alert("Please type what is your Other category"); document.getElementById("otherText").focus(); return; } const u=getMainUser(); if(!u||!u.setupDone){ alert("Finish Setup in People first."); location.href="./people.html"; return; } document.getElementById("createBtn").textContent="Saving..."; document.getElementById("createBtn").disabled=true; try{ const res=await fetch(PAGES_WORKER_URL+"/pages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:u.id,user_name:u.name,name:n,about:document.getElementById("pageAbout").value.trim(),type:cat,live:document.getElementById("pageLive").value==="1",photo:photo,cover:cover})}); const data=await res.json(); if(!res.ok) throw new Error(data.error||"Server error"); try{ var newId=(data&&(data.id||(data.page&&data.page.id)||(data.data&&data.data.id)))||""; if(newId){ var ids=JSON.parse(localStorage.getItem("tati_my_page_ids")||"[]"); if(!ids.includes(newId)) ids.push(newId); localStorage.setItem("tati_my_page_ids",JSON.stringify(ids)); } }catch(e){} alert("Page created! 🎉 "+n); location.href="./pages.html?v=7"; }catch(e){ alert("Cannot save: "+e.message); document.getElementById("createBtn").textContent="+ Create My Page →"; document.getElementById("createBtn").disabled=false; } }
 </script>
 </body></html>
