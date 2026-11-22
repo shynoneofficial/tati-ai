@@ -2,7 +2,7 @@
 <html><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>Pages v1 - Tati - SHYNONE MUSIC</title>
+<title>Pages - Tati - SHYNONE MUSIC</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
 body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;padding-top:72px}
@@ -12,11 +12,12 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;paddin
 #centerLogo{text-align:center;line-height:1.1;text-decoration:none;color:#111;padding:6px 12px}
 #centerLogo b{font-size:16px;font-weight:900}
 #centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
-.topBtn{padding:11px 14px;border-radius:12px;font-size:14px;font-weight:800;background:#0a192f;color:#fff;min-height:44px;text-decoration:none;display:flex;align-items:center}
 #greenLine{height:4mm;background:#00a884}
 .layout{display:flex;min-height:calc(100vh - 72px);background:#f6f3ee}
-.sidebar{width:320px;background:#fff;padding:16px;flex-shrink:0;position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto}
-.sidebar h1{font-size:22px;font-weight:900}.sidebar h1 span{color:#00a884}
+.sidebar{width:320px;background:#fff;padding:16px;flex-shrink:0}
+.sidebarTop{display:flex;align-items:center;gap:10px}
+.backSmall{font-size:15px;font-weight:800;color:#111;text-decoration:none;padding:8px 2px;white-space:nowrap}
+.sidebarTop h1{font-size:22px;font-weight:900}.sidebarTop h1 span{color:#00a884}
 .createBtn{display:block;width:100%;background:#0a192f;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:800;font-size:15px;margin:14px 0;min-height:48px;text-decoration:none}
 .menuItem{display:flex;align-items:center;gap:12px;padding:14px 8px;border-radius:12px;font-size:15px;font-weight:700;min-height:48px;text-decoration:none;color:#111}
 .menuItem:active{background:#d8e2e8}
@@ -26,7 +27,7 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;paddin
 .chip.on{background:#0a192f;color:#fff}
 .main{flex:1;padding:16px;max-width:840px;width:100%}
 .main h2{font-size:20px;font-weight:900}.sub{color:#667781;font-size:14px;margin:6px 0 14px}
-.searchBox{display:flex;gap:8px;margin:0 0 12px;background:#fff;padding:10px;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.searchBox{display:flex!important;gap:8px;margin:0 0 12px;background:#fff;padding:10px;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);width:100%}
 .searchBox input{flex:1;border:1px solid #ddd;border-radius:999px;padding:13px 14px;font-size:16px;outline:none;min-width:0}
 .searchBox button{border:none;background:#0a192f;color:#fff;padding:13px 18px;border-radius:999px;font-weight:800;min-height:44px;font-size:15px;cursor:pointer}
 .pageCard{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -41,7 +42,7 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;paddin
 .insights div{flex:1;background:#f0f2f5;border-radius:10px;padding:8px;text-align:center}
 .insights b{display:block;font-size:16px;color:#0a192f}.insights small{font-size:11px;color:#667781}
 .btnRow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.btnCreate{flex:1;background:#0a192f;color:#fff;border:none;padding:13px;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center}
+.btnCreate{flex:1;background:#0a192f;color:#fff;padding:13px;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center}
 .btnFollow{flex:1;background:#fff;color:#0a192f;border:1.5px solid #0a192f;padding:13px;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;cursor:pointer}
 .btnPromote{flex:1;background:#f0f2f5;color:#111;border:none;padding:13px;border-radius:10px;font-weight:800;font-size:14px;min-height:44px;cursor:pointer}
 .btnMore{width:48px;background:#f0f2f5;border:none;border-radius:10px;font-weight:800;min-height:44px;cursor:pointer}
@@ -80,59 +81,58 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;paddin
 .modalBox p{color:#667781;font-size:14px;margin-top:6px;line-height:1.5}
 .modalBox input,.modalBox textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:10px;font-size:16px;outline:none}
 .modalBox button{width:100%;padding:14px;border:none;border-radius:10px;background:#0a192f;color:#fff;font-weight:800;margin-top:10px;min-height:48px;cursor:pointer}
-.versionTag{text-align:center;padding:14px;color:#667781;font-size:12px}
-@media(max-width:820px){.layout{flex-direction:column}.sidebar{width:100%;height:auto;position:static;padding:12px;overflow:visible}.main{padding:12px}.headTop{flex-wrap:wrap}.followBtn{width:100%}}
+@media(max-width:820px){.layout{flex-direction:column}.sidebar{width:100%;padding:12px}.main{padding:12px}.headTop{flex-wrap:wrap}.followBtn{width:100%}}
 </style></head><body>
 <div id="header">
 <a href="./index.html"><img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'"></a>
 <div><div id="tatiOnline">● Online</div></div>
 <a href="./index.html" id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></a>
-<div style="display:flex;gap:6px;align-items:center"><span id="userName" style="font-size:13px;font-weight:800;max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></span><a class="topBtn" href="./index.html">← Back</a></div>
+<div style="display:flex;gap:6px;align-items:center"><span id="userName" style="font-size:13px;font-weight:800;max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></span></div>
 </div>
 <div id="greenLine"></div>
 <div class="layout">
 <div class="sidebar">
-<h1>Pages <span>v1</span></h1>
-<a class="createBtn" href="./create-page.html?v=1">+ Create Page</a>
-<a class="menuItem" href="./pages.html?v=1&view=mine"><span class="menuIcon">⭐</span> My Pages</a>
-<a class="menuItem" href="./pages.html?v=1&view=discover"><span class="menuIcon">🧭</span> Discover</a>
-<a class="menuItem" href="./pages.html?v=1&view=messages"><span class="menuIcon">💬</span> Messages <span id="msgBadge" style="background:#e53935;color:#fff;font-size:11px;padding:2px 7px;border-radius:999px;display:none">0</span></a>
-<a class="menuItem" href="./pages.html?v=1&view=music"><span class="menuIcon">🎵</span> Music</a>
+<div class="sidebarTop"><a class="backSmall" href="./index.html">← Back</a><h1>Pages <span>.</span></h1></div>
+<a class="createBtn" href="./create-page.html">+ Create Page</a>
+<a class="menuItem" href="./pages.html?view=mine"><span class="menuIcon">⭐</span> My Pages</a>
+<a class="menuItem" href="./pages.html?view=discover"><span class="menuIcon">🧭</span> Discover</a>
+<a class="menuItem" href="./pages.html?view=messages"><span class="menuIcon">💬</span> Messages <span id="msgBadge" style="background:#e53935;color:#fff;font-size:11px;padding:2px 7px;border-radius:999px;display:none">0</span></a>
+<a class="menuItem" href="./pages.html?view=music"><span class="menuIcon">🎵</span> Music</a>
 <div class="chipRow" id="chipRow">
-<a class="chip" href="./pages.html?v=1&view=discover&cat=all">All</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Music">🎵 Music</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Business">💼 Business</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Church">⛪ Church</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=School">🏫 School</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Personal">👤 Personal</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Sport">⚽ Sport</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Shop">🛍️ Shop</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Entertainment">🎬 Entertainment</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Food">🍽️ Food</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Fashion">👗 Fashion</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Beauty">💄 Beauty</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Health">❤️ Health</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Technology">💻 Technology</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=News">📰 News</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Education">📚 Education</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Community">👥 Community</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=NGO">🤝 NGO</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Art">🎨 Art</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Photography">📷 Photography</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Comedy">😂 Comedy</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Podcast">🎙️ Podcast</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Gaming">🎮 Gaming</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Travel">✈️ Travel</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Agriculture">🌾 Agriculture</a>
-<a class="chip" href="./pages.html?v=1&view=discover&cat=Other">✨ Other</a>
+<a class="chip" href="./pages.html?view=discover&cat=all">All</a>
+<a class="chip" href="./pages.html?view=discover&cat=Music">🎵 Music</a>
+<a class="chip" href="./pages.html?view=discover&cat=Business">💼 Business</a>
+<a class="chip" href="./pages.html?view=discover&cat=Church">⛪ Church</a>
+<a class="chip" href="./pages.html?view=discover&cat=School">🏫 School</a>
+<a class="chip" href="./pages.html?view=discover&cat=Personal">👤 Personal</a>
+<a class="chip" href="./pages.html?view=discover&cat=Sport">⚽ Sport</a>
+<a class="chip" href="./pages.html?view=discover&cat=Shop">🛍️ Shop</a>
+<a class="chip" href="./pages.html?view=discover&cat=Entertainment">🎬 Entertainment</a>
+<a class="chip" href="./pages.html?view=discover&cat=Food">🍽️ Food</a>
+<a class="chip" href="./pages.html?view=discover&cat=Fashion">👗 Fashion</a>
+<a class="chip" href="./pages.html?view=discover&cat=Beauty">💄 Beauty</a>
+<a class="chip" href="./pages.html?view=discover&cat=Health">❤️ Health</a>
+<a class="chip" href="./pages.html?view=discover&cat=Technology">💻 Technology</a>
+<a class="chip" href="./pages.html?view=discover&cat=News">📰 News</a>
+<a class="chip" href="./pages.html?view=discover&cat=Education">📚 Education</a>
+<a class="chip" href="./pages.html?view=discover&cat=Community">👥 Community</a>
+<a class="chip" href="./pages.html?view=discover&cat=NGO">🤝 NGO</a>
+<a class="chip" href="./pages.html?view=discover&cat=Art">🎨 Art</a>
+<a class="chip" href="./pages.html?view=discover&cat=Photography">📷 Photography</a>
+<a class="chip" href="./pages.html?view=discover&cat=Comedy">😂 Comedy</a>
+<a class="chip" href="./pages.html?view=discover&cat=Podcast">🎙️ Podcast</a>
+<a class="chip" href="./pages.html?view=discover&cat=Gaming">🎮 Gaming</a>
+<a class="chip" href="./pages.html?view=discover&cat=Travel">✈️ Travel</a>
+<a class="chip" href="./pages.html?view=discover&cat=Agriculture">🌾 Agriculture</a>
+<a class="chip" href="./pages.html?view=discover&cat=Other">✨ Other</a>
 </div>
 </div>
 <div class="main">
 <div id="listView">
-<form class="searchBox" action="./pages.html" method="get"><input type="hidden" name="v" value="1"><input type="hidden" name="view" value="discover"><input id="searchInput" name="q" placeholder="🔍 Search Pages..."><button type="submit">Search</button></form>
+<form class="searchBox" action="./pages.html" method="get"><input type="hidden" name="view" value="discover"><input id="searchInput" name="q" placeholder="🔍 Search Pages..."><button type="submit">Search</button></form>
 <h2 id="listTitle">Pages</h2><p class="sub" id="listSub"></p><div id="pagesList"><p style="color:#667781">Loading Pages from server...</p></div></div>
 <div id="pageView" style="display:none">
-<a class="backBtn" href="./pages.html?v=1&view=mine">← Back to Pages</a>
+<a class="backBtn" href="./pages.html?view=mine">← Back to Pages</a>
 <div class="cover" id="coverBox"></div>
 <div class="pageHead"><div class="headTop"><div class="bigAvatar" id="bigAvatar">P</div><div style="flex:1;padding-bottom:6px"><h2 id="pvName" style="margin:0;font-size:22px"></h2><p id="pvMeta" style="color:#667781;font-size:14px;margin-top:4px"></p><p id="pvStats" style="font-size:14px;margin-top:4px"></p></div><button class="followBtn" id="followBtn" onclick="toggleFollow()">+ Follow</button></div><p id="pvAbout" style="color:#333;margin-top:10px;line-height:1.5"></p>
 <div class="actionBtns">
@@ -151,7 +151,6 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;paddin
 </div>
 </div>
 </div>
-<div class="versionTag">v1 - Pages - ALL Buttons are LINKS<br><a href="./pages.html?v=1&view=discover" style="display:inline-block;margin-top:8px;padding:12px 18px;background:#00a884;color:#fff;border-radius:999px;font-weight:800;text-decoration:none">TEST - Tap me to go Discover</a></div>
 <div class="modal" id="msgModal"><div class="modalBox"><h3>💬 Send Message to <span id="msgPageName"></span></h3><p>Your message is saved for the Page owner.</p><textarea id="msgText" rows="4" placeholder="Hi! I love your Page..."></textarea><button onclick="submitMessage()">Send Message →</button><button style="background:#f0f2f5;color:#111" onclick="closeModal('msgModal')">Cancel</button></div></div>
 <div class="modal" id="promoteModal"><div class="modalBox"><h3>📣 Promote <span id="promoteName"></span></h3><p id="promoteText"></p><button onclick="shareWhatsApp()">Share on WhatsApp ↗️</button><button onclick="copyPageLink()">Copy Page Link 🔗</button><button style="background:#00a884" onclick="markPromoted()">✅ Mark as Promoted - Show in Discover First</button><button style="background:#f0f2f5;color:#111" onclick="closeModal('promoteModal')">Close</button></div></div>
 <script>
@@ -184,21 +183,20 @@ async function renderPages(){
     if(catFilter!=="all")list=list.filter(p=>((p.type||"")+" "+(p.category||"")).indexOf(catFilter)>-1);
     if(searchText)list=list.filter(p=>((p.name||"")+" "+(p.about||"")+" "+(p.type||"")).toLowerCase().indexOf(searchText)>-1);
     try{const prom=JSON.parse(localStorage.getItem("tati_promoted")||"[]");list.sort((a,b)=>(prom.includes(b.id)?1:0)-(prom.includes(a.id)?1:0));}catch(e){}
-    // Highlight active chip
-    document.querySelectorAll(".chip").forEach(function(c){ if(c.textContent.trim().toLowerCase().indexOf(catFilter.toLowerCase())>-1 || (catFilter==="all"&&c.textContent.trim()==="All")) c.classList.add("on"); });
-    if(!list.length){el.innerHTML='<div class="empty"><h3>'+(searchText?'No Pages for "'+esc(searchText)+'"':'No Pages yet')+'</h3><p><a href="./pages.html?v=1&view=discover" style="display:inline-block;margin-top:12px;padding:11px 16px;background:#00a884;color:#fff;border-radius:999px;font-weight:800;text-decoration:none">See All Pages in Discover →</a></p></div>';return;}
+    document.querySelectorAll(".chip").forEach(function(c){if(c.textContent.trim().toLowerCase().indexOf(catFilter.toLowerCase())>-1||(catFilter==="all"&&c.textContent.trim()==="All"))c.classList.add("on");});
+    if(!list.length){el.innerHTML='<div class="empty"><h3>'+(searchText?'No Pages for "'+esc(searchText)+'"':'No Pages yet')+'</h3><p><a href="./pages.html?view=discover" style="display:inline-block;margin-top:12px;padding:11px 16px;background:#00a884;color:#fff;border-radius:999px;font-weight:800;text-decoration:none">See All Pages in Discover →</a></p></div>';return;}
     el.innerHTML="";
     list.forEach(function(pg){
       const letter=(pg.name||"P").charAt(0).toUpperCase();const d=document.createElement("div");d.className="pageCard";
       const isProm=(()=>{try{return JSON.parse(localStorage.getItem("tati_promoted")||"[]").includes(pg.id);}catch(e){return false;}})();
-      const pageLink="./pages.html?v=1&view=page&id="+pg.id;
+      const pageLink="./pages.html?view=page&id="+pg.id;
       d.innerHTML='<a class="pageTop" href="'+pageLink+'"><div class="pAvatar">'+(pg.photo?'<img src="'+pg.photo+'">':letter)+'</div><div style="flex:1"><div class="pName">'+esc(pg.name)+' '+(pg.live?'<span class="live">● LIVE</span>':"")+(isProm?' <span style="background:#00a884;color:#fff;font-size:11px;padding:3px 7px;border-radius:999px">⭐ PROMOTED</span>':"")+'</div><div class="pMeta"><span>🔔 Notifications <span class="greenDot"></span></span><span>💬 Messages</span><span>'+esc(pg.type||"")+'</span></div></div></a><div class="insights"><div><b>'+(pg.followers||0)+'</b><small>Followers</small></div><div><b>'+(pg.post_count||0)+'</b><small>Posts</small></div></div><div class="btnRow"><a class="btnCreate" href="'+pageLink+'">'+(pg.is_owner?'✏️ Create post':'👀 View Page')+'</a><button class="btnFollow" onclick="quickFollow(\''+pg.id+'\')">'+(pg.following?"✓ Following":" + Follow")+'</button><button class="btnPromote" onclick="promoteFromList(\''+pg.id+'\')">📣 Promote</button>'+(pg.is_owner?'<button class="btnMore" onclick="moreMenu(\''+pg.id+'\')">•••</button>':"")+'</div>';
       el.appendChild(d);
     });
   }catch(e){el.innerHTML='<div class="empty"><p>Cannot reach server.<br>'+esc(e.message)+'</p></div>';}
 }
 async function quickFollow(id){if(!isRegistered()){needRegister();return;}try{const u=getMainUser();await api("/pages/follow","POST",{page_id:id,user_id:u.id});renderPages();if(openedId===id)openPage(id);}catch(e){alert(e.message);}}
-async function promoteFromList(id){window.location.href="./pages.html?v=1&view=page&id="+id+"&tab=posts&promote=1";}
+async function promoteFromList(id){window.location.href="./pages.html?view=page&id="+id+"&tab=posts&promote=1";}
 async function moreMenu(id){if(confirm("Delete this Page?")){try{const u=getMainUser();await api("/pages?id="+id,"DELETE",{user_id:u.id});renderPages();}catch(e){alert(e.message);}}}
 async function openPage(id){
   try{const u=getMainUser();openedId=id;const pg=await api("/pages?id="+id+"&user_id="+(u?encodeURIComponent(u.id):""));openedPage=pg;
@@ -207,27 +205,25 @@ async function openPage(id){
   const fb=document.getElementById("followBtn");fb.textContent=pg.following?"✓ Following":" + Follow";fb.className=pg.following?"followBtn on":"followBtn";
   const postBox=document.getElementById("postBoxArea");const guestNote=document.getElementById("guestNote");
   if(pg.is_owner){postBox.style.display="block";guestNote.style.display="none";}else{postBox.style.display="none";guestNote.style.display="block";guestNote.innerHTML='<p style="background:#f0f2f5;border-radius:12px;padding:12px;font-size:14px">👀 You are viewing this Page. Only owner can post.</p>';}
-  // Update tabs links to keep page id
-  document.getElementById("tabPosts").href="./pages.html?v=1&view=page&id="+id+"&tab=posts";
-  document.getElementById("tabMusic").href="./pages.html?v=1&view=page&id="+id+"&tab=music";
-  document.getElementById("tabMessages").href="./pages.html?v=1&view=page&id="+id+"&tab=messages";
+  document.getElementById("tabPosts").href="./pages.html?view=page&id="+id+"&tab=posts";
+  document.getElementById("tabMusic").href="./pages.html?view=page&id="+id+"&tab=music";
+  document.getElementById("tabMessages").href="./pages.html?view=page&id="+id+"&tab=messages";
   switchTab(currentTab);renderPosts(pg);window.scrollTo(0,0);
-  if(_params.get("promote")==="1") setTimeout(promotePage,400);
+  if(_params.get("promote")==="1")setTimeout(promotePage,400);
   }catch(e){alert(e.message);}
 }
 async function toggleFollow(){if(!openedId)return;if(!isRegistered()){needRegister();return;}try{const u=getMainUser();await api("/pages/follow","POST",{page_id:openedId,user_id:u.id});openPage(openedId);renderPages();}catch(e){alert(e.message);}}
 function switchTab(tab){currentTab=tab;document.getElementById("tabPosts").className=tab==="posts"?"on":"";document.getElementById("tabMusic").className=tab==="music"?"on":"";document.getElementById("tabMessages").className=tab==="messages"?"on":"";document.getElementById("postsList").style.display=tab==="posts"?"block":"none";document.getElementById("musicList").style.display=tab==="music"?"block":"none";document.getElementById("messagesList").style.display=tab==="messages"?"block":"none";document.getElementById("postBoxArea").style.display=(tab==="posts"&&openedPage&&openedPage.is_owner)?"block":"none";if(tab==="music")renderMusic();if(tab==="messages")renderPageMessages();}
 function showPageMusic(){switchTab('music');}
-function showAllMusic(){window.location.href="./pages.html?v=1&view=music";}
 function renderMusic(){const el=document.getElementById("musicList");if(!openedPage)return;const posts=openedPage.posts||[];const mp=posts.filter(p=>((p.caption||"").toLowerCase().indexOf("🎵")>-1||(p.caption||"").toLowerCase().indexOf("music")>-1||(p.caption||"").toLowerCase().indexOf("song")>-1||p.video));if(!mp.length){el.innerHTML='<div class="empty"><h3>🎵 No Music yet</h3><p>Post a video / song with 🎵 in caption.</p></div>';return;}el.innerHTML='<h3 style="margin-bottom:10px">🎵 Music from '+esc(openedPage.name)+'</h3>';mp.forEach(function(post){const d=document.createElement("div");d.className="feedPost";d.innerHTML='<b>🎵 '+esc(post.caption||"Music")+'</b><p style="color:#667781;font-size:13px;margin-top:4px">'+esc(post.created_at||"")+'</p>'+(post.video?'<video src="'+post.video+'" controls></video>':"")+(post.photo?'<img src="'+post.photo+'">':"");el.appendChild(d);});}
 function sendMessageToPage(){if(!openedPage)return;if(!isRegistered()){needRegister();return;}if(openedPage.is_owner){alert("Your own Page.");switchTab('messages');return;}document.getElementById("msgPageName").textContent=openedPage.name;document.getElementById("msgText").value="";document.getElementById("msgModal").style.display="flex";}
 function submitMessage(){const txt=document.getElementById("msgText").value.trim();if(!txt){alert("Write a message first");return;}const u=getMainUser();const msgs=getPageMessages();msgs.unshift({page_id:openedId,page_name:openedPage.name,from_name:u.name,from_id:u.id,text:txt,time:new Date().toLocaleString()});savePageMessages(msgs);closeModal('msgModal');alert("Message sent ✅");}
 function openPageMessages(){switchTab('messages');}
-function renderPageMessages(){const el=document.getElementById("messagesList");const msgs=getPageMessages().filter(m=>!openedId||m.page_id===openedId);if(!msgs.length){el.innerHTML='<div class="empty"><h3>💬 No Messages yet</h3><p>No messages yet. Tap Send Message.</p></div>';return;}el.innerHTML='<h3 style="margin-bottom:10px">💬 Messages</h3>';msgs.forEach(function(m){const d=document.createElement("div");d.className="feedPost";d.innerHTML='<b>💬 '+esc(m.from_name)+'</b><div style="font-size:12px;color:#667781">'+esc(m.time||"")+'</div><p style="margin-top:8px;line-height:1.5">'+esc(m.text)+'</p>';el.appendChild(d);});}
+function renderPageMessages(){const el=document.getElementById("messagesList");const msgs=getPageMessages().filter(m=>!openedId||m.page_id===openedId);if(!msgs.length){el.innerHTML='<div class="empty"><h3>💬 No Messages yet</h3><p>No messages yet.</p></div>';return;}el.innerHTML='<h3 style="margin-bottom:10px">💬 Messages</h3>';msgs.forEach(function(m){const d=document.createElement("div");d.className="feedPost";d.innerHTML='<b>💬 '+esc(m.from_name)+'</b><div style="font-size:12px;color:#667781">'+esc(m.time||"")+'</div><p style="margin-top:8px;line-height:1.5">'+esc(m.text)+'</p>';el.appendChild(d);});}
 function openMyMessages(){document.getElementById("listView").style.display="none";document.getElementById("pageView").style.display="block";if(openedPage&&openedId){switchTab('messages');return;}const msgs=getPageMessages();document.getElementById("pvName").textContent="💬 My Messages";document.getElementById("pvMeta").textContent="Messages sent to your Pages";document.getElementById("pvStats").innerHTML="<b>"+msgs.length+" messages</b>";document.getElementById("pvAbout").textContent="All messages from followers.";document.getElementById("bigAvatar").textContent="💬";document.getElementById("coverBox").innerHTML="";document.getElementById("postBoxArea").style.display="none";openedId=null;openedPage={name:"My Messages",posts:[]};switchTab('messages');const el=document.getElementById("messagesList");el.style.display="block";if(!msgs.length){el.innerHTML='<div class="empty"><h3>💬 No Messages yet</h3><p>When someone sends a message to your Page, it will show here.</p></div>';return;}el.innerHTML="";msgs.forEach(function(m){const d=document.createElement("div");d.className="feedPost";d.innerHTML='<b>💬 '+esc(m.from_name)+' → '+esc(m.page_name)+'</b><div style="font-size:12px;color:#667781">'+esc(m.time||"")+'</div><p style="margin-top:8px">'+esc(m.text)+'</p>';el.appendChild(d);});}
 function promotePage(){if(!openedPage)return;document.getElementById("promoteName").textContent=openedPage.name;document.getElementById("promoteText").textContent="Share "+openedPage.name+". Promoted Pages show FIRST in Discover.";document.getElementById("promoteModal").style.display="flex";}
 function shareWhatsApp(){const txt="Check out "+(openedPage?openedPage.name:"this Page")+" on Tati Pages! "+(openedPage&&openedPage.about?openedPage.about:"");window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank");}
-function copyPageLink(){const link=location.origin+location.pathname+"?v=1&view=page&id="+openedId;if(navigator.clipboard)navigator.clipboard.writeText(link).then(()=>alert("Link copied! "+link));else alert("Page link: "+link);}
+function copyPageLink(){const link=location.origin+location.pathname+"?view=page&id="+openedId;if(navigator.clipboard)navigator.clipboard.writeText(link).then(()=>alert("Link copied! "+link));else alert("Page link: "+link);}
 function markPromoted(){try{const prom=JSON.parse(localStorage.getItem("tati_promoted")||"[]");if(!prom.includes(openedId))prom.push(openedId);localStorage.setItem("tati_promoted",JSON.stringify(prom));}catch(e){}closeModal('promoteModal');alert("✅ Promoted!");renderPages();}
 document.getElementById("postPhoto").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(){tempPhoto=r.result;document.getElementById("fileName").textContent="🖼️ Photo ready: "+f.name};r.readAsDataURL(f)});
 document.getElementById("postVideo").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(){tempVideo=r.result;document.getElementById("fileName").textContent="🎥 Video ready: "+f.name};r.readAsDataURL(f)});
