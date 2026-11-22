@@ -82,7 +82,7 @@ button,a,label{touch-action:manipulation;-webkit-tap-highlight-color:transparent
 </div>
 <div id="greenLine"></div>
 <div class="layout">
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
 <h1>Pages <span>.</span></h1>
 <p>Only Pages here. Uses your People (Mabulu) registration.</p>
 <button class="createBtn" type="button" data-action="create">+ Create Page</button>
@@ -92,7 +92,7 @@ button,a,label{touch-action:manipulation;-webkit-tap-highlight-color:transparent
 <div class="tip"><b>How it works</b><p>1. Finish Setup in People (Mabulu)<br>2. Tap + Create Page<br>3. Click your Page → Post inside it.<br>Guest can VIEW, registered can CREATE / FOLLOW.</p></div>
 </div>
 <div class="main">
-<div id="listView"><h2 id="listTitle">Pages</h2><p class="sub" id="listSub">Loading...</p><div id="pagesList"><p style="color:#667781">Loading Pages from server...</p></div></div>
+<div id="listView"><button id="menuBackBtn" class="backBtn" type="button" data-action="menu-back" style="display:none">← Menu</button><h2 id="listTitle">Pages</h2><p class="sub" id="listSub">Loading...</p><div id="pagesList"><p style="color:#667781">Loading Pages from server...</p></div></div>
 <div id="pageView" style="display:none">
 <button class="backBtn" type="button" data-action="back-list">← Back to Pages</button>
 <div class="cover" id="coverBox"></div>
@@ -108,16 +108,20 @@ const PAGES_WORKER_URL="https://tati-pages.dilemahluza.workers.dev";
 function cleanPhone(p){var s=String(p||"").replace(/\D/g,"");if(s.startsWith("258")&&s.length===12)s=s.slice(3);if(s.startsWith("0")&&s.length===10)s=s.slice(1);return s;}
 function getMainUser(){try{const p=JSON.parse(localStorage.getItem('tati_my_profile')||'{}');if(p&&p.name&&p.number){return{id:cleanPhone(p.number),name:p.name,phone:p.number,cleanPhone:cleanPhone(p.number),selfie:p.selfie||"",setupDone:!!(p.setupDone||(p.selfieVerified&&p.name&&p.number)),country:p.country||""}}}catch(e){}const ph=localStorage.getItem('tati_my_phone')||"",nm=localStorage.getItem('tati_my_name')||"";if(ph)return{id:cleanPhone(ph),name:nm||ph,phone:ph,cleanPhone:cleanPhone(ph),selfie:"",setupDone:true,country:""};return null;}
 function isRegistered(){const u=getMainUser();return!!(u&&u.setupDone);}
-function goBack(){if(document.getElementById("pageView").style.display==="block"){backToList();return;}if(window.history.length>1){window.history.back();}else{window.location.href="./index.html";}}
+function isPhone(){return window.innerWidth<=820;}
+function goBack(){if(document.getElementById("pageView").style.display==="block"){backToList();return;}if(document.getElementById("sidebar").style.display==="none"){showMenu();return;}if(window.history.length>1){window.history.back();}else{window.location.href="./index.html";}}
 function needRegister(){const u=getMainUser();if(u&&!u.setupDone){alert("Almost done! Go to People (Mabulu) and finish Setup: take Selfie + tap 'I Am Done'. Then come back to Pages.");location.href="./people.html";return false;}if(!u){alert("Please finish Setup in People (Mabulu) first: Name + Number + Selfie. One registration works for Chats + Pages.");location.href="./people.html";return false;}return true;}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 async function api(path,method,body){const r=await fetch(PAGES_WORKER_URL+path,{method:method||"GET",headers:{"Content-Type":"application/json"},body:body?JSON.stringify(body):undefined});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||("Server error "+r.status));return d;}
 function renderHeaderName(){const u=getMainUser();if(u)document.getElementById("userName").textContent="👋 "+u.name+(u.setupDone?"":" (Finish Setup)");}
 function goCreate(){if(!isRegistered()){needRegister();return;}location.href="./create-page.html";}
+// NEW SCREEN: hide sidebar, show ONLY the list. On computer sidebar stays.
+function enterListScreen(){if(!isPhone())return;document.getElementById("sidebar").style.display="none";document.getElementById("menuBackBtn").style.display="inline-block";document.getElementById("listView").style.display="block";document.getElementById("pageView").style.display="none";window.scrollTo(0,0);}
+function showMenu(){document.getElementById("sidebar").style.display="block";document.getElementById("menuBackBtn").style.display="none";document.getElementById("listView").style.display="block";document.getElementById("pageView").style.display="none";window.scrollTo(0,0);}
 var openedId=null,openedPage=null,tempPhoto="",tempVideo="",catFilter="all",viewMode="mine";
-function setFilter(c,el){catFilter=c;document.querySelectorAll(".chip").forEach(function(ch){ch.classList.remove("on")});if(el)el.classList.add("on");renderPages();}
-function loadMine(){viewMode="mine";renderPages();}
-function loadPublic(){viewMode="public";renderPages();}
+function setFilter(c,el){catFilter=c;document.querySelectorAll(".chip").forEach(function(ch){ch.classList.remove("on")});if(el)el.classList.add("on");enterListScreen();document.getElementById("pagesList").innerHTML='<p style="color:#667781">Loading...</p>';renderPages();}
+function loadMine(){viewMode="mine";enterListScreen();document.getElementById("listTitle").textContent="Pages you manage";document.getElementById("pagesList").innerHTML='<p style="color:#667781">Loading...</p>';renderPages();}
+function loadPublic(){viewMode="public";enterListScreen();document.getElementById("listTitle").textContent="Public Pages in Tati";document.getElementById("pagesList").innerHTML='<p style="color:#667781">Loading...</p>';renderPages();}
 async function renderPages(){
   const el=document.getElementById("pagesList");const u=getMainUser();
   try{
@@ -140,6 +144,7 @@ async function quickFollow(id){if(!isRegistered()){needRegister();return;}try{co
 async function moreMenu(id){if(confirm("Delete this Page? This deletes from server.")){try{const u=getMainUser();await api("/pages?id="+id,"DELETE",{user_id:u.id});renderPages();}catch(err){alert(err.message);}}}
 async function openPage(id){
   try{const u=getMainUser();openedId=id;const pg=await api("/pages?id="+id+"&user_id="+(u?encodeURIComponent(u.id):""));openedPage=pg;
+  if(isPhone())document.getElementById("sidebar").style.display="none";
   document.getElementById("listView").style.display="none";document.getElementById("pageView").style.display="block";
   document.getElementById("pvName").textContent=pg.name;document.getElementById("pvMeta").textContent=(pg.type||"")+" • "+(pg.about||"");document.getElementById("pvStats").innerHTML="<b>"+(pg.followers||0)+" followers</b> • "+(pg.posts?pg.posts.length:0)+" posts";document.getElementById("pvAbout").textContent=pg.about||"";
   document.getElementById("bigAvatar").innerHTML=pg.photo?'<img src="'+pg.photo+'">':esc(pg.name.charAt(0).toUpperCase());
@@ -151,7 +156,7 @@ async function openPage(id){
   renderPosts(pg);window.scrollTo(0,0);
   }catch(e){alert(e.message);}
 }
-function backToList(){openedId=null;document.getElementById("pageView").style.display="none";document.getElementById("listView").style.display="block";renderPages();}
+function backToList(){openedId=null;document.getElementById("pageView").style.display="none";document.getElementById("listView").style.display="block";if(isPhone()){document.getElementById("sidebar").style.display="none";document.getElementById("menuBackBtn").style.display="inline-block";}window.scrollTo(0,0);renderPages();}
 async function toggleFollow(){if(!openedId)return;if(!isRegistered()){needRegister();return;}try{const u=getMainUser();await api("/pages/follow","POST",{page_id:openedId,user_id:u.id});openPage(openedId);renderPages();}catch(e){alert(e.message);}}
 document.getElementById("postPhoto").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(){tempPhoto=r.result;document.getElementById("fileName").textContent="🖼️ Photo ready: "+f.name};r.readAsDataURL(f)});
 document.getElementById("postVideo").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(){tempVideo=r.result;document.getElementById("fileName").textContent="🎥 Video ready: "+f.name};r.readAsDataURL(f)});
@@ -179,7 +184,6 @@ function renderPosts(pg){
     el.appendChild(d);
   });
 }
-// ONE tap handler for whole page - works on phone + computer, survives re-render
 document.addEventListener("click",function(e){
   const t=e.target.closest("[data-action]");
   if(!t)return;
@@ -191,6 +195,7 @@ document.addEventListener("click",function(e){
   else if(a==="discover"){loadPublic();}
   else if(a==="filter"){setFilter(t.dataset.val,t);}
   else if(a==="back-list"){backToList();}
+  else if(a==="menu-back"){showMenu();}
   else if(a==="toggle-follow"){toggleFollow();}
   else if(a==="promote"){alert("Promote - share your Page");}
   else if(a==="publish"){addPost();}
