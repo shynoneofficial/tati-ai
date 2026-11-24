@@ -19,9 +19,9 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #pagesBtn{padding:7px 9px;font-size:12px;background:#fff;color:#0a192f;border:1.5px solid #e53935;border-radius:12px;display:inline-flex;align-items:center;gap:4px}
 #pagesBtn .pageIcon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#fff;color:#e53935;border:1.5px solid #e53935;border-radius:5px;font-size:12px;line-height:1}
 #greenLine{height:4mm;background:#00a884;flex-shrink:0}
-/* GREEN PILLS - SMALL, EQUAL, SAME SIZE AS BEFORE */
-#safeBar{display:flex;gap:8px;padding:12px 10px;flex-shrink:0}
-.pill{flex:1;text-align:center;padding:8px 10px;border-radius:999px;border:none;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none;overflow:hidden;text-overflow:ellipsis}
+/* GREEN PILLS - FIXED WIDTH - ONLY AS WIDE AS WORDS - NOT EDGE TO CENTRE */
+#safeBar{display:flex;gap:8px;padding:12px 10px;flex-shrink:0;justify-content:center}
+.pill{flex:none;width:auto;display:inline-block;text-align:center;padding:8px 14px;border-radius:999px;border:none;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none}
 #modeSwitch{display:flex;background:#f0f2f5;padding:6px;margin:0 8px 10px;border-radius:14px;gap:10px;flex-shrink:0;align-items:center;overflow-x:auto;scrollbar-width:none}
 #modeSwitch::-webkit-scrollbar{display:none}
 .modeBtn{padding:12px 14px;border-radius:10px;border:none;font-weight:800;font-size:14px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center;flex-shrink:0}
@@ -34,7 +34,7 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
 #createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
 #createBtnTop.active{background:#0a192f;color:#fff}
-/* BANNER - OLD COLOURS BACK - GRADIENT - BIGGER - TALLER + WIDER */
+/* BANNER - OLD COLOURS - BIGGER - 260px tall, 96% wide */
 #cinemaBanner{display:block;width:96%;max-width:480px;margin:4px auto 14px;border-radius:20px;overflow:hidden;text-decoration:none;color:#fff;flex-shrink:0;box-shadow:0 6px 20px rgba(0,0,0,.18);position:relative;height:260px}
 #cinemaBanner .bannerBg{position:absolute;inset:0;background:linear-gradient(120deg,#0a192f 0%,#0a192f 45%,#00a884 100%)}
 #cinemaBanner .bannerBg:before{content:"🎬";position:absolute;right:12px;top:10px;font-size:110px;opacity:.18}
@@ -97,6 +97,9 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 <h2 id="welcomeTitle">👋 Alixeni! Himina Tati, xaka la wena!</h2>
 <p id="welcomeSub">Xaka la wena. Mupfuni wa wena. Vuyimbeleri bya wena.<br>Vulavula na mina, kumbe ya eka Mabulu u vulavula na vanhu van'wana.</p>
 </div>
+<!-- ★★★ WHERE TO TYPE MOVIE NAME - LOOK HERE ★★★ -->
+<!-- Change ONLY the words between > and < on the next line: -->
+<!-- Example: <h2 id="cinemaMovieTitle">My New Movie</h2> -->
 <a id="cinemaBanner" href="./tati-cinema.html">
   <div class="bannerBg"></div>
   <div class="bannerContent">
