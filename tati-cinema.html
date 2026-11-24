@@ -25,22 +25,19 @@ body{background:#f6f3ee;color:#111;padding:0;padding-bottom:30px}
 .posterContent .movieLabel{font-size:11px;letter-spacing:2px;opacity:.9;margin-top:12px;font-weight:800}
 .posterContent h1{font-size:30px;margin:4px 0 5px;line-height:1.05}
 .posterContent p{font-size:13px;opacity:.9;line-height:1.4}
-/* MIDDLE - LEFT: shows in ONE LINE, RIGHT: timer bigger */
 .middleRow{display:flex;gap:10px;margin:12px 0;align-items:stretch}
-.leftCol{flex:1.15;text-align:left}
-.rightCol{flex:1;text-align:left}
+.leftCol{flex:1;text-align:left;min-width:0}
+.rightCol{flex:1;text-align:left;min-width:0}
 .leftCol h3{font-size:15px;margin-bottom:8px;text-align:left}
-/* SHOWS - ONE LINE LEFT TO RIGHT, ONLY LEFT HALF */
 .showsRow{display:flex;gap:6px}
-.showCard{flex:1;background:#fff;border-radius:14px;padding:12px 6px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer}
+.showCard{flex:1;background:#fff;border-radius:14px;padding:18px 6px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer}
 .showCard.active{border:2px solid #00a884;background:#eafff8}
-.showCard b{font-size:14px}
-.showCard span{font-size:11px;color:#888;display:block;margin:4px 0 8px;line-height:1.3}
-.showCard button{background:#0a192f;color:#fff;border:none;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:700}
-/* TIMER - RIGHT - A LITTLE BIT BIGGER */
-.timerCard{background:#0a192f;color:#fff;border-radius:16px;padding:20px 12px;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.showCard b{font-size:18px}
+.showCard span{font-size:12px;color:#888;display:block;margin:6px 0 10px;line-height:1.3}
+.showCard button{background:#0a192f;color:#fff;border:none;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700}
+.timerCard{background:#0a192f;color:#fff;border-radius:16px;padding:24px 12px;text-align:center;min-height:215px;height:100%;display:flex;flex-direction:column;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.12)}
 .timerCard small{font-size:12px;opacity:.8;letter-spacing:1px}
-.timerCard b{font-size:26px;margin:10px 0 6px;line-height:1.2}
+.timerCard b{font-size:28px;margin:10px 0 6px;line-height:1.2}
 .timerCard span{font-size:13px;opacity:.85;line-height:1.4}
 .selectedLine{font-size:12px;color:#888;margin:4px 0 0;text-align:left}
 .payCard{background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:left}
@@ -67,8 +64,6 @@ body{background:#f6f3ee;color:#111;padding:0;padding-bottom:30px}
 <h1 id="movieTitle">Movie Name Here</h1>
 <p>1 Hour Movie • Only on Tati Cinema • After 30 days it's gone</p>
 </div></div>
-
-<!-- LEFT: 3 SHOWS IN ONE LINE / RIGHT: TIMER BIGGER -->
 <div class="middleRow">
 <div class="leftCol">
 <h3>📅 Choose your show</h3>
@@ -83,7 +78,6 @@ body{background:#f6f3ee;color:#111;padding:0;padding-bottom:30px}
 </div>
 </div>
 <p class="selectedLine">Selected: <b id="selected">Tuesday 9PM</b> • If you miss it, you miss it.</p>
-
 <div style="margin-top:12px"><div class="payCard">
 <span class="pricePill">🎟️ 1 Ticket = 40 MT</span>
 <h3>💳 How do you want to pay?</h3>
