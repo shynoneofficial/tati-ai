@@ -1,99 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TATI - Home</title>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Tati - SHYNONE MUSIC</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-html,body{overflow-x:hidden;max-width:100vw;width:100%}
-body{background:#f6f3ee;color:#111;padding:0;padding-bottom:30px}
-#header{height:72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 20px;border-bottom:3px solid #0a192f;background:#fff;position:sticky;top:0;z-index:100;max-width:100vw;overflow:hidden}
-#headerLeft{display:flex;align-items:center;justify-content:flex-start;min-width:0}
-#headerLeft img{width:52px;height:52px;border-radius:12px;object-fit:contain}
-#centerLogo{text-align:center;line-height:1.1;white-space:nowrap;min-width:0}
-#centerLogo b{font-size:15px;font-weight:900;letter-spacing:1px}
-#centerLogo i{font-style:normal;font-size:9px;letter-spacing:3px;color:#00a884;font-weight:800}
-#headerRight{display:flex;justify-content:flex-end;min-width:0;gap:8px}
-#headerRight a{background:#f0f2f5;padding:10px 14px;border-radius:14px;text-decoration:none;color:#111;font-weight:800;font-size:13px;white-space:nowrap}
-#headerRight a.green{background:#00a884;color:#fff}
-#greenLine{height:4px;background:#00a884;margin:0}
-.wrap{width:100%;max-width:100%;margin:0;padding:0;overflow-x:hidden}
-/* ★★★ SAME BANNER AS CINEMA PAGE - WHOLE BANNER CLICKABLE ★★★ */
-.poster{position:relative;border-radius:0;overflow:hidden;height:300px;color:#fff;background:#0a192f;margin:0;width:100%;max-width:100%;cursor:pointer;display:block;text-decoration:none}
-.posterBg{position:absolute;inset:0;background:linear-gradient(120deg,#0a192f 0%,#0a192f 42%,#00a884 100%)}
-.posterArt{position:absolute;top:0;right:0;height:100%;width:62%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 70% 30%,#00a884 0%,#0a192f 55%,#000 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%)}
-.posterArt .bigEmoji{font-size:88px;line-height:1;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
-.posterArt b{font-size:20px;letter-spacing:2px;margin-top:10px}
-.posterArt span{font-size:12px;opacity:.85;letter-spacing:1px;margin-top:4px}
-.posterImg{position:absolute;top:0;right:0;height:100%;width:62%;object-fit:cover;display:block;z-index:2;-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%)}
-.posterFade{position:absolute;inset:0;z-index:3;background:linear-gradient(to right,#0a192f 0%,rgba(10,25,47,.85) 32%,rgba(10,25,47,.15) 55%,transparent 70%)}
-.posterContent{position:relative;z-index:4;padding:30px;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:58%}
-.posterContent small{background:#fff;color:#0a192f;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:900;letter-spacing:1px;align-self:flex-start}
-.posterContent .movieLabel{font-size:11px;letter-spacing:2px;opacity:.9;margin-top:14px;font-weight:800}
-.posterContent h1{font-size:40px;margin:6px 0 6px;line-height:1.02}
-.posterContent p{font-size:14px;opacity:.92;line-height:1.45}
-.bannerBtns{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.bannerBtns a{text-decoration:none;padding:12px 22px;border-radius:999px;font-size:14px;font-weight:800}
-.bannerBtns a.white{background:#fff;color:#0a192f}
-.bannerBtns a.greenBtn{background:#00a884;color:#fff}
-.home{padding:16px 10px 0;max-width:100%}
-.home h2{font-size:20px;margin:4px 0 12px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:#fff;border-radius:18px;padding:20px;text-align:left;box-shadow:0 2px 8px rgba(0,0,0,.08);text-decoration:none;color:#111;display:block}
-.card .icon{font-size:34px}
-.card b{font-size:17px;display:block;margin:10px 0 6px}
-.card p{font-size:13px;color:#888;line-height:1.5}
-.card span{display:inline-block;margin-top:12px;background:#0a192f;color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:800}
-.card span.green{background:#00a884}
-.note{font-size:12px;color:#888;text-align:center;margin-top:16px;line-height:1.6;padding:0 14px}
-@media(max-width:640px){
-.wrap{width:100%;max-width:100%;padding:0}
-.poster{height:auto;display:flex;flex-direction:column}
-.posterBg{position:absolute;inset:0}
-.posterArt{position:relative;width:100%;height:200px;order:2;-webkit-mask-image:none;mask-image:none}
-.posterImg{position:relative;width:100%;height:200px;order:2;object-fit:cover;-webkit-mask-image:none;mask-image:none;z-index:2}
-.posterFade{display:none}
-.posterContent{position:relative;max-width:100%;width:100%;height:auto;padding:22px;order:1;z-index:4}
-.posterContent h1{font-size:30px}
-.home{padding:14px 10px 0}
-.cards{grid-template-columns:1fr}
-}
-</style>
-</head>
-<body>
+html,body{width:100%;min-height:100dvh;background:#fff;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overflow-y:auto;overscroll-behavior-y:auto;touch-action:pan-y;padding-top:72px}
+#header{height:72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 8px;border-bottom:3px solid #0a192f;flex-shrink:0;position:fixed;top:0;left:0;right:0;background:#fff;z-index:5000}
+#headerLeft{display:flex;align-items:center;justify-content:flex-start}
+#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain;background:transparent;border:none;flex-shrink:0;padding:0}
+#centerLogo{text-align:center;line-height:1.1;cursor:pointer;padding:6px 8px;white-space:nowrap}
+#centerLogo b{font-size:15px;font-weight:900;letter-spacing:.5px}
+#centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
+#headerRight{display:flex;gap:5px;align-items:center;justify-content:flex-end}
+#globeBtn{padding:7px 10px;border-radius:12px;border:1px solid #ddd;background:#fff;font-size:12px;font-weight:700;cursor:pointer;color:#111;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+#globeBtn .langIcon{font-size:15px;font-weight:900;line-height:1}
+.topBtn{padding:8px 9px;border-radius:12px;border:none;font-size:12px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pagesBtn{padding:7px 9px;font-size:12px;background:#fff;color:#0a192f;border:1.5px solid #e53935;border-radius:12px;display:inline-flex;align-items:center;gap:4px}
+#pagesBtn .pageIcon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#fff;color:#e53935;border:1.5px solid #e53935;border-radius:5px;font-size:12px;line-height:1}
+#greenLine{height:4mm;background:#00a884;flex-shrink:0}
+#safeBar{display:flex;gap:16px;padding:12px 10px;flex-shrink:0;justify-content:center}
+.pill{flex:none;width:178px;display:inline-block;text-align:center;padding:9px 10px;border-radius:999px;border:none;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none}
+#modeSwitch{display:flex;background:#f0f2f5;padding:6px;margin:0 8px 10px;border-radius:14px;gap:10px;flex-shrink:0;align-items:center;overflow-x:auto;scrollbar-width:none}
+#modeSwitch::-webkit-scrollbar{display:none}
+.modeBtn{padding:12px 14px;border-radius:10px;border:none;font-weight:800;font-size:14px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center;flex-shrink:0}
+.modeBtn.active{background:#0a192f;color:#fff}
+.doubleBtn{display:flex;background:#fff;border:1px solid #ddd;border-radius:10px;overflow:hidden;white-space:nowrap;padding:0;margin:0;flex-shrink:0}
+.doubleBtn a{padding:12px 16px;border:none;background:#fff;font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;color:#111;text-align:center;margin:0;line-height:1.2}
+.doubleBtn .divider{width:1px;background:#bbb;flex:none;flex-shrink:0;margin:8px 2px}
+.doubleBtn a.active{background:#0a192f;color:#fff}
+#listenBtn{padding:12px 18px;border:1px solid #ddd;border-radius:10px;background:#fff;font-weight:800;font-size:14px;cursor:pointer;color:#111;white-space:nowrap;flex-shrink:0}
+#listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
+#createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
+#createBtnTop.active{background:#0a192f;color:#fff}
+#cinemaBanner{display:block;width:96%;max-width:480px;margin:4px auto 14px;border-radius:20px;overflow:hidden;text-decoration:none;color:#fff;flex-shrink:0;box-shadow:0 6px 20px rgba(0,0,0,.18);position:relative;height:260px;background-color:#0a192f!important}
+#cinemaBanner .bannerBg{position:absolute;inset:0;background-color:#0a192f!important;background:linear-gradient(120deg,#0a192f 0%,#0a192f 45%,#00a884 100%)!important;-webkit-appearance:none}
+#cinemaBanner .bannerBg:before{content:"🎬";position:absolute;right:12px;top:10px;font-size:110px;opacity:.18}
+#cinemaBanner .bannerContent{position:relative;padding:22px;height:100%;display:flex;flex-direction:column;justify-content:center}
+#cinemaBanner small{background:#fff;color:#0a192f;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:900;letter-spacing:1px;align-self:flex-start}
+#cinemaBanner .movieLabel{font-size:11px;letter-spacing:2px;opacity:.9;margin-top:12px;font-weight:800}
+#cinemaBanner h2{font-size:30px;margin:4px 0 4px;line-height:1.05;color:#fff}
+#cinemaBanner p{font-size:13px;opacity:.95;line-height:1.4;max-width:82%;color:#fff}
+#cinemaBanner .cinemaBtn{display:inline-block;margin-top:14px;background:#00a884;color:#fff;padding:10px 20px;border-radius:999px;font-weight:800;font-size:13px;align-self:flex-start}
+.page{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:12px;padding-bottom:120px;background:#f6f3ee;display:flex;flex-direction:column;gap:10px;min-height:60vh;touch-action:pan-y;overscroll-behavior-y:contain}
+#homeView{overflow-y:auto}
+.homeCard{background:#fff;border-radius:14px;padding:18px;padding-bottom:24px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);width:100%}
+.homeCard h2{font-size:20px;margin-bottom:6px}
+.homeCard p{font-size:14px;color:#667781;line-height:1.4}
+.bubble{max-width:80%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:pre-wrap;word-break:break-word}
+.user{align-self:flex-end;background:#d9fdd3}
+.tati{align-self:flex-start;background:#fff}
+#inputArea{background:#f0f2f5;padding:8px;display:flex;gap:6px;flex-shrink:0;position:sticky;bottom:0}
+#textBox{flex:1;background:#fff;border-radius:22px;padding:9px 12px;display:flex}
+#textInput{flex:1;border:none;outline:none;font-size:16px;resize:none}
+#sendBtn{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
+#kbHint{font-size:11px;color:#667781;text-align:center;padding:4px 12px 10px;line-height:1.4;white-space:normal;flex-shrink:0}
+.hidden{display:none!important}
+#langMenu{position:fixed;top:72px;right:8px;background:#fff;border:2px solid #0a192f;border-radius:14px;z-index:20000;width:260px;box-shadow:0 8px 24px rgba(0,0,0,.2);display:none;overflow-y:auto;max-height:80vh}
+#langMenu div{padding:13px 14px;font-size:15px;font-weight:700;cursor:pointer;border-bottom:1px solid #eee}
+#langMenu div:hover{background:#f0f2f5}
+#langMenu input{width:100%;padding:12px;border:none;border-bottom:2px solid #0a192f;outline:none;font-size:15px}
+#secretDot{position:fixed;width:64px;height:64px;right:8px;bottom:110px;z-index:9999;opacity:0;touch-action:manipulation}
+#secretLock{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:12px 12px 20px}
+#secretLockBox{background:#fff;padding:16px;border-radius:16px;text-align:center;width:300px;position:relative;max-width:92vw;max-height:88dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#secretLockBox input{width:100%;padding:10px;font-size:20px;text-align:center;letter-spacing:8px;margin:10px 0;border:2px solid #0a192f;border-radius:10px}
+#secretLockBox button{padding:11px 16px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:14px;cursor:pointer;width:100%}
+#dragHint{background:#fff3cd;border:1px solid #ffd966;border-radius:10px;padding:8px;font-size:12px;color:#111;line-height:1.4;margin-bottom:8px;text-align:left}
+#spotMarker{position:fixed;width:28px;height:28px;border-radius:50%;background:#00a884;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4);z-index:10001;display:none;touch-action:none;cursor:grab}
+#spotMarker:active{cursor:grabbing}
+#spotLabel{position:fixed;z-index:10001;display:none;background:#111;color:#fff;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;pointer-events:none;white-space:nowrap}
+</style></head><body>
 <div id="header">
-<div id="headerLeft"><img src="./Tati_logo.png" onerror="this.src='./Tate.jpg'"></div>
-<div id="centerLogo"><b>TATI CINEMA</b><br><i>MOVIE TIME</i></div>
-<div id="headerRight"><a href="cinema.html">Cinema</a><a class="green" href="cinema.html">Watch Now</a></div>
+<div id="headerLeft"><img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'"></div>
+<div id="centerLogo"><b>SHYNONE</b><br><i>MUSIC</i></div>
+<div id="headerRight">
+<a class="topBtn" id="pagesBtn" href="./pages.html"><span class="pageIcon">≡</span> Pages</a>
+<button id="globeBtn" onclick="toggleLangMenu(event)"><span class="langIcon">A文</span> <span style="font-size:18px;line-height:1">▾</span></button>
+</div>
+<div id="langMenu"><input id="langSearch" placeholder="🔍 Search language..." oninput="filterLang()"><div id="langList"></div></div>
 </div>
 <div id="greenLine"></div>
-<div class="wrap">
-<!-- ★★★ WHOLE BANNER CLICKABLE - CLICK ANYWHERE GOES TO CINEMA PAGE ★★★ -->
-<a class="poster" href="cinema.html">
-<div class="posterBg"></div>
-<div class="posterArt"><div class="bigEmoji">🎬</div><b>MOVIE POSTER</b><span>TATI CINEMA • ORIGINAL</span></div>
-<img class="posterImg" src="./movie.jpg" onerror="this.style.display='none'" alt="">
-<div class="posterFade"></div>
-<div class="posterContent">
-<small>🎬 TATI CINEMA • MOVIE TIME</small>
-<div class="movieLabel">NOW SHOWING</div>
-<h1 id="movieTitle">Movie Name Here</h1>
-<p>1 Hour Movie • Only on Tati Cinema • After 30 days it's gone</p>
-<div class="bannerBtns">
-<span style="background:#00a884;color:#fff;padding:12px 22px;border-radius:999px;font-size:14px;font-weight:800;display:inline-block">🎟️ Buy Ticket - 40 MT →</span>
-<span style="background:#fff;color:#0a192f;padding:12px 22px;border-radius:999px;font-size:14px;font-weight:800;display:inline-block">Watch Trailer</span>
+<div id="safeBar">
+<a class="pill" id="knowPill" href="./knowledge.html">💡 WASWITIVA XANA?</a>
+<a class="pill" id="groupsPill" href="./groups.html">👥 MINTLAWA</a>
 </div>
+<div id="modeSwitch">
+<a class="modeBtn" id="chatsBtn" href="./people.html">💬 Mabulu</a>
+<div class="doubleBtn"><a id="textLink" href="#" onclick="openTextPage();return false;">💬 Tsalela Tati</a><div class="divider"></div><a id="talkLink" href="./voice.html">🎤 Vulavula na Tati</a></div>
+<button id="listenBtn" onclick="toggleListenMain()">👂 Yingisa</button>
+<a id="createBtnTop" href="./create.html">✨ Hamba</a>
 </div>
+<div class="page" id="homeView">
+<div class="homeCard" style="padding-bottom:16px">
+<h2 id="welcomeTitle">👋 Alixeni! Himina Tati, xaka la wena!</h2>
+<p id="welcomeSub">Xaka la wena. Mupfuni wa wena. Vuyimbeleri bya wena.<br>Vulavula na mina, kumbe ya eka Mabulu u vulavula na vanhu van'wana.</p>
+</div>
+<a id="cinemaBanner" href="./tati-cinema.html">
+  <div class="bannerBg"></div>
+  <div class="bannerContent">
+    <small>🎬 TATI CINEMA • MOVIE TIME</small>
+    <div class="movieLabel">NOW SHOWING</div>
+    <h2 id="cinemaMovieTitle">Movie Name Here</h2>
+    <p id="cinemaSub">1 Hour Movie • Tuesday 9 PM • Only 30 Days</p>
+    <span class="cinemaBtn" id="cinemaBtn">Buy Ticket →</span>
+  </div>
 </a>
-<div class="home">
-<h2>What do you want to watch?</h2>
-<div class="cards">
-<a class="card" href="cinema.html"><div class="icon">🎬</div><b>Tati Cinema</b><p>1 Hour Movie. Clean movies only. Tue / Thu / Sat.</p><span class="green">Enter Cinema →</span></a>
-<a class="card" href="cinema.html"><div class="icon">🎟️</div><b>Buy Ticket - 40 MT</b><p>M-Pesa, e-Mola, Card, PayPal. Get code, watch on this page.</p><span>Buy Now →</span></a>
+<div class="homeCard" style="padding-top:6px">
+<div style="background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
+<p id="secretTitle" style="color:#111;font-weight:800;font-size:15px">🔒 Axihundleni</p>
+<p id="secretDesc" style="margin-top:4px">Vulavula nivanhu axihundleni. <a href="./secret-how.html" style="color:#00a884;font-weight:800">Dyondza swo tala →</a></p>
 </div>
-<p class="note">TATI CINEMA - Clean movies only. Private.<br>Tap banner anywhere to enter cinema.</p>
+<div style="margin-top:10px;background:#f0f2f5;border-radius:12px;padding:12px;text-align:left">
+<p id="safeTitle" style="color:#111;font-weight:800;font-size:15px">📦 Caixa Segura</p>
+<p id="safeDesc" style="margin-top:4px">Hlayisa mapapila, mifoto nitinombori ta wena hi ku hlayiseka ka ndhawu yin'we. <a href="./safe.html" style="color:#00a884;font-weight:800">Pfula Caixa Segura →</a></p>
+</div>
+<div style="margin-top:10px;background:#0a192f;border-radius:12px;padding:12px;text-align:left">
+<p id="bannerTitle" style="color:#fff;font-weight:800;font-size:15px">📚 Xikolo xa XiNghezi</p>
+<p style="margin-top:4px;color:#fff"><span id="bannerDesc">Dyondza XiNghezi na Tati siku rin'wana na rin'wana — Siku 1, Siku 2, Siku 3... 3 wa masiku ya mahala, kutani u hakela hi n'hweti.</span> <a id="bannerLink" href="./classroom.html" style="color:#00e676;font-weight:800">Sungula ku Dyondza →</a></p>
+</div>
+<div style="height:16px"></div>
+<p style="font-size:12px;color:#999">↓ Scroll down to see all ↓</p>
 </div>
 </div>
-</body>
-</html>
+<div class="page hidden" id="chatView"><div id="chat"></div></div>
+<div id="inputArea" class="hidden"><div id="textBox"><textarea id="textInput" placeholder="Message Tati..." rows="1"></textarea></div><button id="sendBtn">✉️</button></div>
+<div id="kbHint">⌨️ Keyboard is built-in inside Tati - CH / EN / PT included. New languages from 🌐 go to keyboard automatically.</div>
+<div id="secretDot"></div>
+<div id="secretLock"><div id="secretLockBox"><div id="dragHint">🟢 <b>Drag the small green dot to your secret spot.</b><br>Hold the small dot and drag it anywhere. The big box stays here. That small dot is where you will tap 5 times next time. It will stay there — it will NOT come back.</div><h3>🔒 Secret Room</h3><p style="font-size:13px;color:#666">Enter your code - Encrypted &amp; Hidden</p><input id="secretCode" type="password" inputmode="numeric" maxlength="6" placeholder="••••"><button onclick="unlockSecret()">Unlock</button><p id="secretErr" style="color:red;font-size:13px;margin-top:8px"></p><button onclick="window.location.href='./secret.html'" style="background:#0a192f;margin-top:8px">Don't have a code yet? Get Code →</button><button onclick="closeSecret()" style="background:#eee;color:#111;margin-top:8px">Close</button></div></div>
+<div id="spotMarker"></div><div id="spotLabel">↕️ Drag me to your secret spot</div>
+<script>
+const WORKER_URL="https://tati-server.dilemahluza.workers.dev";
+let chatHistory=[];
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function addBubble(t,type){var b=document.createElement("div");b.className="bubble "+type;b.innerHTML="<span>"+esc(t)+"</span>";document.getElementById("chat").appendChild(b);var c=document.getElementById("chatView");c.scrollTop=c.scrollHeight}
+function openTextPage(){document.getElementById("homeView").classList.add("hidden");document.getElementById("chatView").classList.remove("hidden");document.getElementById("inputArea").classList.remove("hidden");document.getElementById("textLink").classList.add("active");if(document.getElementById("chat").children.length===0){var t=applyHomeLang(localStorage.getItem("tati_lang")||"Changana");addBubble(t.greet,"tati")}document.getElementById("textInput").focus()}
+async function sendToTati(q){chatHistory.push({role:"user",content:q});addBubble("...","tati");var thinking=document.getElementById("chat").lastChild;try{var res=await fetch(WORKER_URL+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:chatHistory})});var data=await res.json().catch(()=>({}));thinking.remove();if(!res.ok||!data.reply){addBubble("Brain error: "+(data.error||("Worker said "+res.status))+". Check GROQ key in Worker, my friend.","tati");return}var reply=data.reply;chatHistory.push({role:"assistant",content:reply});if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);addBubble(reply,"tati")}catch(e){thinking.remove();addBubble("Sorry, I can't reach my brain right now ("+e.message+"). Check data / Worker URL.","tati")}}
+document.getElementById("sendBtn").onclick=function(){var q=document.getElementById("textInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("textInput").value="";sendToTati(q)};
+document.getElementById("textInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();document.getElementById("sendBtn").click()}});
+document.getElementById("centerLogo").onclick=function(e){e.stopPropagation();window.open('https://shynoneofficial.github.io/shynone-music/','_blank')};
+function updateGlobeBtn(name){var b=document.getElementById("globeBtn");if(b)b.innerHTML='<span class="langIcon">A文</span> <span style="font-size:18px;line-height:1">▾</span>'}
+var HOME_TEXT={
+"Changana":{title:"👋 Alixeni! Himina Tati, xaka la wena!",sub:"Xaka la wena. Mupfuni wa wena. Vuyimbeleri bya wena.<br>Vulavula na mina, kumbe ya eka Mabulu u vulavula na vanhu van'wana.",secretT:"🔒 Axihundleni",secretD:"Vulavula nivanhu axihundleni. <a href='./secret-how.html' style='color:#00a884;font-weight:800'>Dyondza swo tala →</a>",safeT:"📦 Caixa Segura",safeD:"Hlayisa mapapila, mifoto nitinombori ta wena hi ku hlayiseka ka ndhawu yin'we. <a href='./safe.html' style='color:#00a884;font-weight:800'>Pfula Caixa Segura →</a>",ph:"Message Tati...",greet:"Alixeni! Himina Tati, xaka la wena! Xaka la wena. Mupfuni wa wena. Vuyimbeleri bya wena. Vulavula na mina, kumbe ya eka Mabulu u vulavula na vanhu van'wana.",btnChats:"💬 Mabulu",btnText:"💬 Tsalela Tati",btnTalk:"🎤 Vulavula na Tati",btnListen:"👂 Yingisa",btnCreate:"✨ Hamba",btnKnow:"💡 WASWITIVA XANA?",btnGroups:"👥 MINTLAWA",btnClass:"📚 XIKOLO XA XINGHEZI",bannerT:"📚 Xikolo xa XiNghezi",bannerD:"Dyondza XiNghezi na Tati siku rin'wana na rin'wana — Siku 1, Siku 2, Siku 3... 3 wa masiku ya mahala, kutani u hakela hi n'hweti.",bannerL:"Sungula ku Dyondza →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Portuguese":{title:"👋 Olá! Olá, eu sou a Tati.",sub:"A tua amiga. A tua ajudante. A tua música.<br>Fala comigo, ou vai a Chats para falar com outras pessoas.",secretT:"🔒 Sala Secreta",secretD:"Conversa privada com as tuas pessoas. <a href='./secret-how.html' style='color:#00a884;font-weight:800'>Saber mais →</a>",safeT:"📦 Caixa Segura",safeD:"Guarda os teus documentos, fotos e contactos em segurança num só lugar. <a href='./safe.html' style='color:#00a884;font-weight:800'>Abrir Caixa Segura →</a>",ph:"Mensagem para Tati...",greet:"Olá! Olá, eu sou a Tati. Como posso ajudar-te hoje, meu amigo?",btnChats:"💬 Conversas",btnText:"💬 Escrever à Tati",btnTalk:"🎤 Falar com a Tati",btnListen:"👂 Ouvir",btnCreate:"✨ Criar",btnKnow:"💡 SABIAS QUE?",btnGroups:"👥 GRUPOS",btnClass:"📚 AULA DE INGLÊS",bannerT:"📚 Aula de Inglês",bannerD:"Aprende Inglês com a Tati todos os dias — Dia 1, Dia 2, Dia 3... 3 dias grátis, depois pagas mensalmente.",bannerL:"Começar a Aprender →",cinemaSub:"Filme de 1 Hora • Terça 21h • Só 30 Dias",cinemaBtn:"Buy Ticket →"},
+"English":{title:"👋 Hello! Hi, I'm Tati.",sub:"Your friend. Your helper. Your music.<br>Talk to me, or go to Chats to talk to other people.",secretT:"🔒 Secret Room",secretD:"Private chat with your people. <a href='./secret-how.html' style='color:#00a884;font-weight:800'>Learn more →</a>",safeT:"📦 Safe Box",safeD:"Keep your documents, photos & contacts safe in one place. <a href='./safe.html' style='color:#00a884;font-weight:800'>Open Safe Box →</a>",ph:"Message Tati...",greet:"Hello! Hi, I'm Tati. How can I help you today, my friend?",btnChats:"💬 Chats",btnText:"💬 Text Tati",btnTalk:"🎤 Talk to Tati",btnListen:"👂 Listen",btnCreate:"✨ Create",btnKnow:"💡 DID YOU KNOW?",btnGroups:"👥 GROUPS",btnClass:"📚 ENGLISH CLASSROOM",bannerT:"📚 English Classroom",bannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Zulu":{title:"👋 Sawubona, ngingu Tati.",sub:"Umngane wakho. Umsizi wakho. Umculo wakho.<br>Khuluma nami, noma uye ku-Chats ukhulume nabanye abantu.",secretT:"🔒 Ekusithekeni",secretD:"Khuluma nabantu ngasese ngokuphephile. <a href='./secret-how.html' style='color:#00a884;font-weight:800'>Funda kabanzi →</a>",safeT:"📦 Safe Box",safeD:"Gcina imibhalo yakho, izithombe nezinombolo zakho kuphephile endaweni eyodwa. <a href='./safe.html' style='color:#00a884;font-weight:800'>Vula Safe Box →</a>",ph:"Mlayezo ku-Tati...",greet:"Sawubona, ngingu Tati. Ngingakusiza kanjani namuhla, mngane wami?",btnChats:"💬 Chats",btnText:"💬 Text Tati",btnTalk:"🎤 Talk to Tati",btnListen:"👂 Listen",btnCreate:"✨ Create",btnKnow:"💡 DID YOU KNOW?",btnGroups:"👥 GROUPS",btnClass:"📚 ENGLISH CLASSROOM",bannerT:"📚 Isikole sesiNgisi",bannerD:"Funda isiNgisi no-Tati nsuku zonke — Usuku 1, Usuku 2, Usuku 3... Izinsuku ezi-3 zamahhala, bese ukhokha nyanga zonke.",bannerL:"Qala Ukufunda →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Siswati":{title:"👋 Sawubona, ngingu Tati.",sub:"Umngani wakho. Umsiti wakho. Umculo wakho.<br>Khuluma nami, noma uye ku-Chats ukhulume nalabanye bantfu.",secretT:"🔒 Ekhwace",secretD:"Khuluma nebantfu ngasese ngalokuphephile. <a href='./secret-how.html' style='color:#00a884;font-weight:800'>Fundza kabanti →</a>",safeT:"📦 Safe Box",safeD:"Gcina emaphepha akho, tifombe netinombolo takho endzaweni yinye lephephile. <a href='./safe.html' style='color:#00a884;font-weight:800'>Vula Safe Box →</a>",ph:"Umlayezo ku-Tati...",greet:"Sawubona, ngingu Tati. Ngingakusita njani lamuhla, mngani wami?",btnChats:"💬 Chats",btnText:"💬 Text Tati",btnTalk:"🎤 Talk to Tati",btnListen:"👂 Listen",btnCreate:"✨ Create",btnKnow:"💡 DID YOU KNOW?",btnGroups:"👥 GROUPS",btnClass:"📚 ENGLISH CLASSROOM",bannerT:"📚 Sikolo sesiNgisi",bannerD:"Fundza siNgisi na-Tati onkhe emalanga — Lusuku 1, Lusuku 2, Lusuku 3... Emalanga ema-3 mahhala, bese ukhokha nyanga tonkhe.",bannerL:"Calisa Kufundza →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"}
+};
+var ALL_TRANS={
+"Cebuano":{hi:"Kumusta! Kumusta, ako si Tati.",fr:"Imong higala. Imong katabang. Imong musika.",sec:"Tago nga Kwarto",secd:"Pribado nga chat sa imong mga tawo.",safe:"Safe Box",safed:"Ibutang nga luwas ang imong mga dokumento, litrato ug kontak sa usa ka lugar.",ph:"Mensahe kang Tati...",greet:"Kumusta! Kumusta, ako si Tati. Unsaon nako pagtabang nimo karon, higala?",bChats:"💬 Chats",bText:"💬 Text Tati",bTalk:"🎤 Talk to Tati",bListen:"👂 Paminaw",bCreate:"✨ Paghimo",bKnow:"💡 NAHIBALO KA BA?",bGroups:"👥 GRUPO",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Tagalog":{hi:"Kamusta! Kamusta, ako si Tati.",fr:"Kaibigan mo. Katulong mo. Musika mo.",sec:"Lihim na Kwarto",secd:"Pribadong chat sa iyong mga tao.",safe:"Safe Box",safed:"Panatilihing ligtas ang iyong mga dokumento, larawan at kontak sa isang lugar.",ph:"Mensahe kay Tati...",greet:"Kamusta! Kamusta, ako si Tati. Paano kita matutulungan ngayon, kaibigan?",bChats:"💬 Chats",bText:"💬 Text Tati",bTalk:"🎤 Kausapin si Tati",bListen:"👂 Makinig",bCreate:"✨ Gumawa",bKnow:"💡 ALAM MO BA?",bGroups:"👥 GRUPO",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Matuto ng Ingles kasama si Tati araw-araw — Araw 1, Araw 2, Araw 3... 3 araw na libre, pagkatapos magbayad buwan-buwan.",bBannerL:"Simulan ang Pag-aaral →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Afrikaans":{hi:"Hallo! Hallo, ek is Tati.",fr:"Jou vriend. Jou helper. Jou musiek.",sec:"Geheime Kamer",secd:"Privaat gesels met jou mense.",safe:"Safe Box",safed:"Hou jou dokumente, foto's en kontakte veilig op een plek.",ph:"Boodskap aan Tati...",greet:"Hallo! Hallo, ek is Tati. Hoe kan ek jou vandag help, vriend?",bChats:"💬 Gesels",bText:"💬 SMS Tati",bTalk:"🎤 Praat met Tati",bListen:"👂 Luister",bCreate:"✨ Skep",bKnow:"💡 HET JY GEWEET?",bGroups:"👥 GROEPE",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 Engelse Klaskamer",bBannerD:"Leer elke dag Engels met Tati — Dag 1, Dag 2, Dag 3... 3 dae gratis, dan betaal jy maandeliks.",bBannerL:"Begin Leer →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Spanish":{hi:"¡Hola! Hola, soy Tati.",fr:"Tu amiga. Tu ayudante. Tu música.",sec:"Cuarto Secreto",secd:"Chat privado con tu gente.",safe:"Caja Segura",safed:"Guarda tus documentos, fotos y contactos seguros en un solo lugar.",ph:"Mensaje para Tati...",greet:"¡Hola! Hola, soy Tati. ¿Cómo puedo ayudarte hoy, amigo?",bChats:"💬 Chats",bText:"💬 Escribir a Tati",bTalk:"🎤 Hablar con Tati",bListen:"👂 Escuchar",bCreate:"✨ Crear",bKnow:"💡 ¿SABÍAS QUE?",bGroups:"👥 GRUPOS",bClass:"📚 CLASE DE INGLÉS",bBannerT:"📚 Clase de Inglés",bBannerD:"Aprende Inglés con Tati todos los días — Día 1, Día 2, Día 3... 3 días gratis, después pagas mensualmente.",bBannerL:"Empezar a Aprender →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"French":{hi:"Bonjour ! Bonjour, je suis Tati.",fr:"Ton amie. Ton aide. Ta musique.",sec:"Chambre Secrète",secd:"Chat privé avec tes proches.",safe:"Coffre-fort",safed:"Garde tes documents, photos et contacts en sécurité au même endroit.",ph:"Message pour Tati...",greet:"Bonjour ! Bonjour, je suis Tati. Comment puis-je t'aider aujourd'hui, mon ami ?",bChats:"💬 Discussions",bText:"💬 Écrire à Tati",bTalk:"🎤 Parler à Tati",bListen:"👂 Écouter",bCreate:"✨ Créer",bKnow:"💡 LE SAVAIS-TU ?",bGroups:"👥 GROUPES",bClass:"📚 COURS D'ANGLAIS",bBannerT:"📚 Cours d'Anglais",bBannerD:"Apprends l'Anglais avec Tati chaque jour — Jour 1, Jour 2, Jour 3... 3 jours gratuits, puis tu paies chaque mois.",bBannerL:"Commencer à Apprendre →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"German":{hi:"Hallo! Hallo, ich bin Tati.",fr:"Deine Freundin. Deine Helferin. Deine Musik.",sec:"Geheimes Zimmer",secd:"Privater Chat mit deinen Leuten.",safe:"Safe Box",safed:"Bewahre deine Dokumente, Fotos und Kontakte sicher an einem Ort auf.",ph:"Nachricht an Tati...",greet:"Hallo! Hallo, ich bin Tati. Wie kann ich dir heute helfen, Freund?",bChats:"💬 Chats",bText:"💬 Tati schreiben",bTalk:"🎤 Mit Tati sprechen",bListen:"👂 Zuhören",bCreate:"✨ Erstellen",bKnow:"💡 WUSSTEST DU?",bGroups:"👥 GRUPPEN",bClass:"📚 ENGLISCHKLASSE",bBannerT:"📚 Englischklasse",bBannerD:"Lerne jeden Tag Englisch mit Tati — Tag 1, Tag 2, Tag 3... 3 Tage gratis, danach zahlst du monatlich.",bBannerL:"Lernen starten →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Italian":{hi:"Ciao! Ciao, sono Tati.",fr:"La tua amica. La tua aiutante. La tua musica.",sec:"Stanza Segreta",secd:"Chat privata con le tue persone.",safe:"Cassetta di Sicurezza",safed:"Tieni al sicuro i tuoi documenti, foto e contatti in un unico posto.",ph:"Messaggio per Tati...",greet:"Ciao! Ciao, sono Tati. Come posso aiutarti oggi, amico?",bChats:"💬 Chat",bText:"💬 Scrivi a Tati",bTalk:"🎤 Parla con Tati",bListen:"👂 Ascolta",bCreate:"✨ Crea",bKnow:"💡 LO SAPEVI?",bGroups:"👥 GRUPPI",bClass:"📚 LEZIONE DI INGLESE",bBannerT:"📚 Lezione di Inglese",bBannerD:"Impara l'Inglese con Tati ogni giorno — Giorno 1, Giorno 2, Giorno 3... 3 giorni gratis, poi paghi ogni mese.",bBannerL:"Inizia a Imparare →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Swahili":{hi:"Habari! Habari, mimi ni Tati.",fr:"Rafiki yako. Msaidizi wako. Muziki wako.",sec:"Chumba cha Siri",secd:"Mazungumzo ya faragha na watu wako.",safe:"Safe Box",safed:"Weka nyaraka, picha na mawasiliano yako salama mahali pamoja.",ph:"Ujumbe kwa Tati...",greet:"Habari! Habari, mimi ni Tati. Ninawezaje kukusaidia leo, rafiki yangu?",bChats:"💬 Chats",bText:"💬 Andika Tati",bTalk:"🎤 Ongea na Tati",bListen:"👂 Sikiliza",bCreate:"✨ Unda",bKnow:"💡 ULIJUA?",bGroups:"👥 MAKUNDI",bClass:"📚 DARASA LA KIINGEREZA",bBannerT:"📚 Darasa la Kiingereza",bBannerD:"Jifunze Kiingereza na Tati kila siku — Siku 1, Siku 2, Siku 3... Siku 3 bure, kisha unalipa kila mwezi.",bBannerL:"Anza Kujifunza →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Shona":{hi:"Mhoro! Mhoro, ndini Tati.",fr:"Shamwari yako. Mubatsiri wako. Mimhanzi yako.",sec:"Kamuri Yakavanzika",secd:"Kutaura pachivande nevanhu vako.",safe:"Safe Box",safed:"Chengeta magwaro ako, mapikicha nemazita ako zvakachengeteka panzvimbo imwe.",ph:"Meseji kuna Tati...",greet:"Mhoro! Mhoro, ndini Tati. Ndingakubatsira sei nhasi, shamwari yangu?",bChats:"💬 Chats",bText:"💬 Nyora Tati",bTalk:"🎤 Taura na Tati",bListen:"👂 Teerera",bCreate:"✨ Gadzira",bKnow:"💡 WAIZIVA?",bGroups:"👥 MAPOKA",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Dzidza Chirungu na Tati mazuva ese — Zuva 1, Zuva 2, Zuva 3... Mazuva 3 emahara, wozobhadhara pamwedzi.",bBannerL:"Tanga Kudzidza →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Xhosa":{hi:"Molo! Molo, ndingu Tati.",fr:"Umhlobo wakho. Umncedi wakho. Umculo wakho.",sec:"Igumbi Elifihlakeleyo",secd:"Incoko yabucala nabantu bakho.",safe:"Safe Box",safed:"Gcina amaxwebhu akho, iifoto kunye nabafowunelwa bakho bekhuselekile kwindawo enye.",ph:"Umyalezo ku-Tati...",greet:"Molo! Molo, ndingu Tati. Ndingakunceda njani namhlanje, mhlobo wam?",bChats:"💬 Iincoko",bText:"💬 Bhala ku-Tati",bTalk:"🎤 Thetha no-Tati",bListen:"👂 Mamela",bCreate:"✨ Yenza",bKnow:"💡 UBUSEAZI?",bGroups:"👥 AMAQELA",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Funda isiNgesi no-Tati yonke imihla — Usuku 1, Usuku 2, Usuku 3... Iintsuku ezi-3 zasimahla, emva koko uhlawula nyanga zonke.",bBannerL:"Qala Ukufunda →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Sesotho":{hi:"Dumela! Dumela, ke nna Tati.",fr:"Motsoalle wa hao. Mothusi wa hao. Mmino wa hao.",sec:"Kamore ya Sephiri",secd:"Puisano ya poraefete le batho ba hao.",safe:"Safe Box",safed:"Boloka litokomane, linepe le mabitso a hao ka polokeho sebakeng se le seng.",ph:"Molaetsa ho Tati...",greet:"Dumela! Dumela, ke nna Tati. Nka o thusa jwang kajeno, motsoalle wa ka?",bChats:"💬 Dipuisano",bText:"💬 Ngolla Tati",bTalk:"🎤 Bua le Tati",bListen:"👂 Mamela",bCreate:"✨ Etsa",bKnow:"💡 O NE O TSEBA?",bGroups:"👥 LIHLOPHA",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Ithute Senyesemane le Tati letsatsi le leng le le leng — Letsatsi 1, Letsatsi 2, Letsatsi 3... Matsatsi a 3 a mahala, ebe o lefa kgwedi le kgwedi.",bBannerL:"Qala ho Ithuta →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Sepedi":{hi:"Thobela! Thobela, ke nna Tati.",fr:"Mogwera wa gago. Mothuši wa gago. Mmino wa gago.",sec:"Kamore ya Sephiri",secd:"Poledišo ya sephiri le batho ba gago.",safe:"Safe Box",safed:"Boloka ditokomane, diswantšho le maina a gago ka polokego felo e tee.",ph:"Molaetša go Tati...",greet:"Thobela! Thobela, ke nna Tati. Nka go thuša bjang lehono, mogwera wa ka?",bChats:"💬 Dipoleledišo",bText:"💬 Ngwala Tati",bTalk:"🎤 Bolela le Tati",bListen:"👂 Theeletša",bCreate:"✨ Hlama",bKnow:"💡 O BE O TSEBA?",bGroups:"👥 DIHLOPHA",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Ithuta Seisimane le Tati letšatši le lengwe le le lengwe — Letšatši 1, Letšatši 2, Letšatši 3... Matšatši a 3 a mahala, ka morago o lefa kgwedi ye nngwe le ye nngwe.",bBannerL:"Thoma go Ithuta →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Northern Sotho":{hi:"Thobela! Thobela, ke nna Tati.",fr:"Mogwera wa gago. Mothuši wa gago. Mmino wa gago.",sec:"Kamore ya Sephiri",secd:"Poledišo ya sephiri le batho ba gago.",safe:"Safe Box",safed:"Boloka ditokomane, diswantšho le maina a gago ka polokego felo e tee.",ph:"Molaetša go Tati...",greet:"Thobela! Thobela, ke nna Tati. Nka go thuša bjang lehono, mogwera wa ka?",bChats:"💬 Dipoleledišo",bText:"💬 Ngwala Tati",bTalk:"🎤 Bolela le Tati",bListen:"👂 Theeletša",bCreate:"✨ Hlama",bKnow:"💡 O BE O TSEBA?",bGroups:"👥 DIHLOPHA",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Ithuta Seisimane le Tati letšatši le lengwe le le lengwe — Letšatši 1, Letšatši 2, Letšatši 3... Matšatši a 3 a mahala, ka morago o lefa kgwedi ye nngwe le ye nngwe.",bBannerL:"Thoma go Ithuta →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Southern Sotho":{hi:"Dumela! Dumela, ke nna Tati.",fr:"Motsoalle wa hao. Mothusi wa hao. Mmino wa hao.",sec:"Kamore ya Sephiri",secd:"Puisano ya poraefete le batho ba hao.",safe:"Safe Box",safed:"Boloka litokomane, linepe le mabitso a hao ka polokeho sebakeng se le seng.",ph:"Molaetsa ho Tati...",greet:"Dumela! Dumela, ke nna Tati. Nka o thusa jwang kajeno, motsoalle wa ka?",bChats:"💬 Dipuisano",bText:"💬 Ngolla Tati",bTalk:"🎤 Bua le Tati",bListen:"👂 Mamela",bCreate:"✨ Etsa",bKnow:"💡 O NE O TSEBA?",bGroups:"👥 LIHLOPHA",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Ithute Senyesemane le Tati letsatsi le leng le le leng — Letsatsi 1, Letsatsi 2, Letsatsi 3... Matsatsi a 3 a mahala, ebe o lefa kgwedi le kgwedi.",bBannerL:"Qala ho Ithuta →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Tsonga":{hi:"Avuxeni! Avuxeni, hi mina Tati.",fr:"Munghana wa wena. Mupfuni wa wena. Vuyimbeleri bya wena.",sec:"Yindlu ya Xihundla",secd:"Vulavula hi xihundla na vanhu va wena.",safe:"Caixa Segura",safed:"Hlayisa mapapila, mifoto nitinombori ta wena hi ku hlayiseka ka ndhawu yin'we.",ph:"Message eka Tati...",greet:"Avuxeni! Avuxeni, hi mina Tati. Ndzi nga ku pfuna njhani namuntlha, munghana wa mina?",bChats:"💬 Mabulu",bText:"💬 Tsalela Tati",bTalk:"🎤 Vulavula na Tati",bListen:"👂 Yingisa",bCreate:"✨ Hamba",bKnow:"💡 WASWITIVA XANA?",bGroups:"👥 MINTLAWA",bClass:"📚 XIKOLO XA XINGHEZI",bBannerT:"📚 Xikolo xa XiNghezi",bBannerD:"Dyondza XiNghezi na Tati siku rin'wana na rin'wana — Siku 1, Siku 2, Siku 3... 3 wa masiku ya mahala, kutani u hakela hi n'hweti.",bBannerL:"Sungula ku Dyondza →",cinemaSub:"Filimi ya 1 Hora • Ravumbirhi 9 PM • Masiku 30 ntsena",cinemaBtn:"Buy Ticket →"},
+"Ronga":{hi:"Avuxeni! Avuxeni, hi mina Tati.",fr:"Munghana wa wena. Mupfuni wa wena. Vuyimbeleri bya wena.",sec:"Yindlu ya Xihundla",secd:"Vulavula hi xihundla na vanhu va wena.",safe:"Caixa Segura",safed:"Hlayisa mapapila, mifoto nitinombori ta wena hi ku hlayiseka ka ndhawu yin'we.",ph:"Message eka Tati...",greet:"Avuxeni! Avuxeni, hi mina Tati. Ndzi nga ku pfuna njhani namuntlha?",bChats:"💬 Mabulu",bText:"💬 Tsalela Tati",bTalk:"🎤 Vulavula na Tati",bListen:"👂 Yingisa",bCreate:"✨ Hamba",bKnow:"💡 WASWITIVA XANA?",bGroups:"👥 MINTLAWA",bClass:"📚 XIKOLO XA XINGHEZI",bBannerT:"📚 Xikolo xa XiNghezi",bBannerD:"Dyondza XiNghezi na Tati siku rin'wana na rin'wana — Siku 1, Siku 2, Siku 3... 3 wa masiku ya mahala, kutani u hakela hi n'hweti.",bBannerL:"Sungula ku Dyondza →",cinemaSub:"Filimi ya 1 Hora • Ravumbirhi 9 PM • Masiku 30 ntsena",cinemaBtn:"Buy Ticket →"},
+"Hindi":{hi:"नमस्ते! नमस्ते, मैं टाटी हूँ।",fr:"तुम्हारी दोस्त। तुम्हारी मददगार। तुम्हारा संगीत।",sec:"गुप्त कमरा",secd:"अपने लोगों के साथ निजी चैट।",safe:"Safe Box",safed:"अपने दस्तावेज़, फ़ोटो और संपर्क एक ही जगह सुरक्षित रखें।",ph:"टाटी को संदेश...",greet:"नमस्ते! नमस्ते, मैं टाटी हूँ। आज मैं आपकी कैसे मदद कर सकती हूँ, दोस्त?",bChats:"💬 चैट",bText:"💬 टाटी को लिखें",bTalk:"🎤 टाटी से बात करें",bListen:"👂 सुनें",bCreate:"✨ बनाएं",bKnow:"💡 क्या आप जानते हैं?",bGroups:"👥 समूह",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Arabic":{hi:"مرحباً! مرحباً، أنا تاتي.",fr:"صديقتك. مساعدتك. موسيقاك.",sec:"الغرفة السرية",secd:"محادثة خاصة مع أهلك.",safe:"الصندوق الآمن",safed:"احتفظ بمستنداتك وصورك وجهات اتصالك بأمان في مكان واحد.",ph:"رسالة إلى تاتي...",greet:"مرحباً! مرحباً، أنا تاتي. كيف يمكنني مساعدتك اليوم، صديقي؟",bChats:"💬 محادثات",bText:"💬 راسل تاتي",bTalk:"🎤 تحدث مع تاتي",bListen:"👂 استمع",bCreate:"✨ أنشئ",bKnow:"💡 هل تعلم؟",bGroups:"👥 مجموعات",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Chinese (Simplified)":{hi:"你好！你好，我是 Tati。",fr:"你的朋友。你的帮手。你的音乐。",sec:"秘密房间",secd:"和你的人私聊。",safe:"保险箱",safed:"把你的文件、照片和联系人安全地保存在一个地方。",ph:"给 Tati 的消息...",greet:"你好！你好，我是 Tati。今天我怎么帮你，我的朋友？",bChats:"💬 聊天",bText:"💬 给 Tati 发消息",bTalk:"🎤 和 Tati 说话",bListen:"👂 听",bCreate:"✨ 创建",bKnow:"💡 你知道吗？",bGroups:"👥 群组",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Chinese (Traditional)":{hi:"你好！你好，我是 Tati。",fr:"你的朋友。你的幫手。你的音樂。",sec:"秘密房間",secd:"和你的人私聊。",safe:"保險箱",safed:"把你的文件、照片和聯絡人安全地保存在一個地方。",ph:"給 Tati 的訊息...",greet:"你好！你好，我是 Tati。今天我怎麼幫你，我的朋友？",bChats:"💬 聊天",bText:"💬 傳訊給 Tati",bTalk:"🎤 和 Tati 說話",bListen:"👂 聽",bCreate:"✨ 建立",bKnow:"💡 你知道嗎？",bGroups:"👥 群組",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Japanese":{hi:"こんにちは！こんにちは、私は Tati です。",fr:"あなたの友達。あなたの助け。あなたの音楽。",sec:"秘密の部屋",secd:"あなたの人たちとのプライベートチャット。",safe:"セーフボックス",safed:"書類、写真、連絡先を1か所で安全に保管。",ph:"Tati へのメッセージ...",greet:"こんにちは！こんにちは、私は Tati です。今日はどうお手伝いできますか、友達？",bChats:"💬 チャット",bText:"💬 Tati に書く",bTalk:"🎤 Tati と話す",bListen:"👂 聞く",bCreate:"✨ 作る",bKnow:"💡 知ってた？",bGroups:"👥 グループ",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Korean":{hi:"안녕하세요! 안녕하세요, 저는 Tati예요.",fr:"너의 친구. 너의 도우미. 너의 음악.",sec:"비밀 방",secd:"너의 사람들과 비공개 채팅.",safe:"Safe Box",safed:"문서, 사진, 연락처를 한 곳에 안전하게 보관하세요.",ph:"Tati에게 메시지...",greet:"안녕하세요! 안녕하세요, 저는 Tati예요. 오늘 어떻게 도와드릴까요, 친구?",bChats:"💬 채팅",bText:"💬 Tati에게 쓰기",bTalk:"🎤 Tati와 말하기",bListen:"👂 듣기",bCreate:"✨ 만들기",bKnow:"💡 알고 계셨나요?",bGroups:"👥 그룹",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Russian":{hi:"Привет! Привет, я Тати.",fr:"Твой друг. Твой помощник. Твоя музыка.",sec:"Секретная комната",secd:"Приватный чат с твоими людьми.",safe:"Сейф",safed:"Храни свои документы, фото и контакты безопасно в одном месте.",ph:"Сообщение Тати...",greet:"Привет! Привет, я Тати. Чем я могу помочь тебе сегодня, друг?",bChats:"💬 Чаты",bText:"💬 Написать Тати",bTalk:"🎤 Поговорить с Тати",bListen:"👂 Слушать",bCreate:"✨ Создать",bKnow:"💡 А ТЫ ЗНАЛ?",bGroups:"👥 ГРУППЫ",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Dutch":{hi:"Hallo! Hallo, ik ben Tati.",fr:"Je vriend. Je helper. Je muziek.",sec:"Geheime Kamer",secd:"Privéchat met jouw mensen.",safe:"Safe Box",safed:"Bewaar je documenten, foto's en contacten veilig op één plek.",ph:"Bericht aan Tati...",greet:"Hallo! Hallo, ik ben Tati. Hoe kan ik je vandaag helpen, vriend?",bChats:"💬 Chats",bText:"💬 Stuur Tati",bTalk:"🎤 Praat met Tati",bListen:"👂 Luister",bCreate:"✨ Maak",bKnow:"💡 WIST JE DAT?",bGroups:"👥 GROEPEN",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"},
+"Polish":{hi:"Cześć! Cześć, jestem Tati.",fr:"Twoja przyjaciółka. Twoja pomoc. Twoja muzyka.",sec:"Sekretny Pokój",secd:"Prywatny czat z Twoimi ludźmi.",safe:"Sejf",safed:"Przechowuj dokumenty, zdjęcia i kontakty bezpiecznie w jednym miejscu.",ph:"Wiadomość do Tati...",greet:"Cześć! Cześć, jestem Tati. Jak mogę Ci dziś pomóc, przyjacielu?",bChats:"💬 Czaty",bText:"💬 Napisz do Tati",bTalk:"🎤 Porozmawiaj z Tati",bListen:"👂 Słuchaj",bCreate:"✨ Utwórz",bKnow:"💡 CZY WIEDZIAŁEŚ?",bGroups:"👥 GRUPY",bClass:"📚 ENGLISH CLASSROOM",bBannerT:"📚 English Classroom",bBannerD:"Learn English with Tati every day — Day 1, Day 2, Day 3... 3 days free, then pay monthly.",bBannerL:"Start Learning →",cinemaSub:"1 Hour Movie • Tuesday 9 PM • Only 30 Days",cinemaBtn:"Buy Ticket →"}
+};
+function buildFromAll(name){var a=ALL_TRANS[name];if(!a)return null;return{title:"👋 "+a.hi,sub:a.fr+"<br>Talk to me, or go to Chats to talk to other people.",secretT:"🔒 "+a.sec,secretD:a.secd+" <a href='./secret-how.html' style='color:#00a884;font-weight:800'>Learn more →</a>",safeT:"📦 "+a.safe,safeD:a.safed+" <a href='./safe.html' style='color:#00a884;font-weight:800'>Open →</a>",ph:a.ph,greet:a.greet,btnChats:a.bChats,btnText:a.bText,btnTalk:a.bTalk,btnListen:a.bListen,btnCreate:a.bCreate,btnKnow:a.bKnow,btnGroups:a.bGroups,btnClass:a.bClass,bannerT:a.bBannerT,bannerD:a.bBannerD,bannerL:a.bBannerL,cinemaSub:a.cinemaSub,cinemaBtn:a.cinemaBtn}}
+function applyHomeLang(name){var t=HOME_TEXT[name]||buildFromAll(name)||HOME_TEXT["English"];document.getElementById("welcomeTitle").innerHTML=t.title;document.getElementById("welcomeSub").innerHTML=t.sub;document.getElementById("secretTitle").textContent=t.secretT;document.getElementById("secretDesc").innerHTML=t.secretD;document.getElementById("safeTitle").textContent=t.safeT;document.getElementById("safeDesc").innerHTML=t.safeD;document.getElementById("textInput").placeholder=t.ph;if(t.btnChats)document.getElementById("chatsBtn").textContent=t.btnChats;if(t.btnText)document.getElementById("textLink").textContent=t.btnText;if(t.btnTalk)document.getElementById("talkLink").textContent=t.btnTalk;if(t.btnListen){var lb=document.getElementById("listenBtn");if(!lb.classList.contains("on"))lb.textContent=t.btnListen;}if(t.btnCreate)document.getElementById("createBtnTop").textContent=t.btnCreate;if(t.btnKnow)document.getElementById("knowPill").textContent=t.btnKnow;if(t.btnGroups)document.getElementById("groupsPill").textContent=t.btnGroups;if(t.bannerT)document.getElementById("bannerTitle").textContent=t.bannerT;if(t.bannerD)document.getElementById("bannerDesc").textContent=t.bannerD;if(t.bannerL)document.getElementById("bannerLink").textContent=t.bannerL;if(t.cinemaSub)document.getElementById("cinemaSub").textContent=t.cinemaSub;if(t.cinemaBtn)document.getElementById("cinemaBtn").textContent=t.cinemaBtn;updateGlobeBtn(name);return t;}
+function getAllLanguages(){return["Changana","Portuguese","English","Zulu","Siswati","Cebuano","Tagalog","Afrikaans","Akan","Albanian","Amharic","Arabic","Armenian","Assamese","Aymara","Azerbaijani","Bambara","Basque","Belarusian","Bengali","Bhojpuri","Bosnian","Bulgarian","Burmese","Catalan","Chewa","Chichewa","Chinese (Simplified)","Chinese (Traditional)","Corsican","Croatian","Czech","Danish","Dinka","Dutch","Dzongkha","Ewe","Finnish","French","Frisian","Galician","Georgian","German","Greek","Guarani","Gujarati","Haitian Creole","Hausa","Hawaiian","Hebrew","Hindi","Hmong","Hungarian","Icelandic","Igbo","Ilocano","Indonesian","Irish","Italian","Japanese","Javanese","Kannada","Kazakh","Khmer","Kinyarwanda","Konkani","Korean","Krio","Kurdish","Kyrgyz","Lao","Latin","Latvian","Lingala","Lithuanian","Luganda","Luxembourgish","Macedonian","Maithili","Malagasy","Malay","Malayalam","Maltese","Maori","Marathi","Mongolian","Nepali","Northern Sotho","Norwegian","Odia","Oromo","Pashto","Persian","Polish","Punjabi","Quechua","Romanian","Ronga","Russian","Samoan","Sanskrit","Scots Gaelic","Sepedi","Serbian","Sesotho","Shona","Sindhi","Sinhala","Slovak","Slovenian","Somali","Southern Sotho","Spanish","Sundanese","Swahili","Swedish","Tajik","Tamil","Tatar","Telugu","Thai","Tigrinya","Tsonga","Turkish","Turkmen","Twi","Ukrainian","Urdu","Uyghur","Uzbek","Vietnamese","Welsh","Xhosa","Yiddish","Yoruba"]}
+var ALL_LANGS=getAllLanguages();
+function renderLang(list){var el=document.getElementById("langList");el.innerHTML="";list.forEach(function(n){var d=document.createElement("div");d.textContent="🗣️ "+n;if(n===(localStorage.getItem("tati_lang")||"Changana"))d.textContent="✅ "+n+" — Selected";d.onclick=function(){pickLang(n)};el.appendChild(d)})}
+function filterLang(){var q=document.getElementById("langSearch").value.toLowerCase();renderLang(ALL_LANGS.filter(function(n){return n.toLowerCase().indexOf(q)>-1}))}
+function toggleLangMenu(e){if(e)e.stopPropagation();var m=document.getElementById("langMenu");var open=m.style.display==="block";m.style.display=open?"none":"block";if(!open){renderLang(ALL_LANGS);setTimeout(function(){document.getElementById("langSearch").focus()},50)}}
+function pickLang(name){localStorage.setItem("tati_lang",name);localStorage.setItem("tati_lang_name",name);document.getElementById("langMenu").style.display="none";applyHomeLang(name);alert("Language set to: "+name+" - Tati will now speak "+name)}
+var savedLang=localStorage.getItem("tati_lang")||"Changana";if(!localStorage.getItem("tati_lang")){localStorage.setItem("tati_lang","Changana");localStorage.setItem("tati_lang_name","Changana");}applyHomeLang(savedLang);
+document.addEventListener("click",function(e){var m=document.getElementById("langMenu");if(m&&m.style.display==="block"&&!e.target.closest("#langMenu")&&e.target.id!=="globeBtn"){m.style.display="none"}});
+function getSecretCfg(){try{return JSON.parse(localStorage.getItem("tati_secret_cfg")||'{"taps":5,"code":"2580"}')}catch(e){return{taps:5,code:"2580"}}}
+function applySecretSpot(){var dot=document.getElementById("secretDot");try{var p=JSON.parse(localStorage.getItem("tati_secret_spot")||"null");if(p){dot.style.right="auto";dot.style.bottom="auto";dot.style.left=p.x+"px";dot.style.top=p.y+"px";}}catch(e){}}
+applySecretSpot();
+let tapCount=0,tapTimer=null;
+function doSecretTap(){var cfg=getSecretCfg();tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(function(){tapCount=0},2000);if(tapCount>=cfg.taps){tapCount=0;openSecretLock()}}
+document.getElementById("secretDot").addEventListener("click",doSecretTap);
+document.getElementById("secretDot").addEventListener("touchstart",function(e){e.preventDefault();doSecretTap()},{passive:false});
+function openSecretLock(){document.getElementById("secretLock").style.display="flex";var box=document.getElementById("secretLockBox");var r=box.getBoundingClientRect();var m=document.getElementById("spotMarker");var l=document.getElementById("spotLabel");m.style.display="block";l.style.display="block";try{var p=JSON.parse(localStorage.getItem("tati_secret_spot")||"null");if(p){m.style.left=p.x+"px";m.style.top=p.y+"px";}else{m.style.left=(r.left+r.width/2-14)+"px";m.style.top=(r.top-14)+"px";}}catch(e){m.style.left=(r.left+r.width/2-14)+"px";m.style.top=(r.top-14)+"px";}var mr=m.getBoundingClientRect();l.style.left=Math.max(4,Math.min(window.innerWidth-170,mr.left-60))+"px";l.style.top=(mr.top-30)+"px";}
+function unlockSecret(){var cfg=getSecretCfg();var v=document.getElementById("secretCode").value.trim();if(v===cfg.code){document.getElementById("secretLock").style.display="none";document.getElementById("spotMarker").style.display="none";document.getElementById("spotLabel").style.display="none";document.getElementById("secretCode").value="";window.location.href="./secret.html"}else{document.getElementById("secretErr").textContent="Wrong code. Try again."}}
+function closeSecret(){document.getElementById("secretLock").style.display="none";document.getElementById("spotMarker").style.display="none";document.getElementById("spotLabel").style.display="none"}
+(function(){
+var m=document.getElementById("spotMarker");var l=document.getElementById("spotLabel");var dot=document.getElementById("secretDot");
+var sX=0,sY=0,oX=0,oY=0,down=false;
+function s(e){down=true;var t=e.touches?e.touches[0]:e;sX=t.clientX;sY=t.clientY;var r=m.getBoundingClientRect();oX=r.left;oY=r.top;e.preventDefault();}
+function mv(e){if(!down)return;var t=e.touches?e.touches[0]:e;var nx=Math.max(0,Math.min(window.innerWidth-28,oX+(t.clientX-sX)));var ny=Math.max(0,Math.min(window.innerHeight-28,oY+(t.clientY-sY)));m.style.left=nx+"px";m.style.top=ny+"px";l.style.left=Math.max(4,Math.min(window.innerWidth-170,nx-60))+"px";l.style.top=Math.max(4,ny-30)+"px";if(e.cancelable) e.preventDefault();}
+function en(){if(!down)return;down=false;var r=m.getBoundingClientRect();var cx=Math.max(0,r.left+r.width/2-32);var cy=Math.max(0,r.top+r.height/2-32);localStorage.setItem("tati_secret_spot",JSON.stringify({x:cx,y:cy}));dot.style.right="auto";dot.style.bottom="auto";dot.style.left=cx+"px";dot.style.top=cy+"px";l.textContent="✅ Saved! Tap 5 times here next time";}
+m.addEventListener("touchstart",s,{passive:false});
+m.addEventListener("touchmove",mv,{passive:false});
+m.addEventListener("touchend",en);
+m.addEventListener("mousedown",s);
+window.addEventListener("mousemove",mv);
+window.addEventListener("mouseup",en);
+})();
+var listenRec=null,listenOn=false;
+function getListenSettings(){try{return JSON.parse(localStorage.getItem("tati_listen_settings")||"{}")}catch(e){return{}}}
+function toggleListenMain(){if(listenOn){if(listenRec)listenRec.stop();return}var names=localStorage.getItem("tati_listen_names")||"";if(!names){var n=prompt("👂 Who is here? What are your names? (ex: Jemi, Mama, Thabo)");if(n){localStorage.setItem("tati_listen_names",n)}}var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("Listen not supported here. Try Chrome on Android.");return}listenRec=new SR();listenRec.lang="pt-PT";listenRec.continuous=true;listenRec.interimResults=true;listenRec.onstart=function(){listenOn=true;localStorage.setItem("tati_listen_on","1");var btn=document.getElementById("listenBtn");btn.textContent="👂 Listening";btn.classList.add("on")};listenRec.onend=function(){listenOn=false;localStorage.setItem("tati_listen_on","0");var btn=document.getElementById("listenBtn");btn.textContent="👂 Listen";btn.classList.remove("on")};listenRec.onresult=function(e){var txt="";for(var i=0;i<e.results.length;i++){txt+=e.results[i][0].transcript+" "}txt=txt.trim();if(!txt)return;var all=[];try{all=JSON.parse(localStorage.getItem("tati_listen")||"[]")}catch(err){}all.push({date:new Date().toLocaleString(),text:txt});localStorage.setItem("tati_listen",JSON.stringify(all));var s=getListenSettings();if(s.quiet)return;var low=txt.toLowerCase();if(low.indexOf("tati")>-1){addBubble("👂 I heard my name! How can I help?","tati")}else if(low.indexOf("haha")>-1||low.indexOf("funny")>-1){if(s.funny!==false)addBubble("😂 Hahaha! That was funny!","tati")}};listenRec.start()}
+</script>
+</body></html>
