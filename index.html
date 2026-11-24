@@ -19,8 +19,9 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #pagesBtn{padding:7px 9px;font-size:12px;background:#fff;color:#0a192f;border:1.5px solid #e53935;border-radius:12px;display:inline-flex;align-items:center;gap:4px}
 #pagesBtn .pageIcon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#fff;color:#e53935;border:1.5px solid #e53935;border-radius:5px;font-size:12px;line-height:1}
 #greenLine{height:4mm;background:#00a884;flex-shrink:0}
-#safeBar{display:flex;gap:16px;padding:12px 10px;flex-shrink:0;justify-content:center}
-.pill{flex:none;width:178px;display:inline-block;text-align:center;padding:9px 10px;border-radius:999px;border:none;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;background:#00a884;color:#fff;text-decoration:none}
+/* ★★★ ONLY THIS - GREEN BUTTONS SEPARATED - LEFT 24 = CENTRE 24 = RIGHT 24 ★★★ */
+#safeBar{display:flex;gap:24px;padding:12px 24px;flex-shrink:0;justify-content:center}
+.pill{flex:1 1 0;min-width:0;width:auto;max-width:280px;display:flex;align-items:center;justify-content:center;text-align:center;padding:9px 6px;border-radius:999px;border:none;font-weight:800;font-size:12px;line-height:1.2;cursor:pointer;white-space:normal;word-break:break-word;background:#00a884;color:#fff;text-decoration:none}
 #modeSwitch{display:flex;background:#f0f2f5;padding:6px;margin:0 8px 10px;border-radius:14px;gap:10px;flex-shrink:0;align-items:center;overflow-x:auto;scrollbar-width:none}
 #modeSwitch::-webkit-scrollbar{display:none}
 .modeBtn{padding:12px 14px;border-radius:10px;border:none;font-weight:800;font-size:14px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center;flex-shrink:0}
@@ -33,21 +34,21 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
 #createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
 #createBtnTop.active{background:#0a192f;color:#fff}
-/* ★★★ BANNER - EXACT SAME AS CINEMA PAGE - COMPUTER ★★★ */
-#cinemaBanner{display:block;width:calc(100% + 24px);max-width:none;margin:4px -12px 14px;border-radius:0;overflow:hidden;text-decoration:none;color:#fff;flex-shrink:0;box-shadow:0 6px 20px rgba(0,0,0,.18);position:relative;height:300px;background:#0a192f}
+/* BANNER - SHORTER - SAME AS BEFORE - NOT CHANGED */
+#cinemaBanner{display:block;width:calc(100% + 24px);max-width:none;margin:4px -12px 14px;border-radius:0;overflow:hidden;text-decoration:none;color:#fff;flex-shrink:0;box-shadow:0 6px 20px rgba(0,0,0,.18);position:relative;height:250px;background:#0a192f}
 #cinemaBanner .posterBg{position:absolute;inset:0;background:linear-gradient(120deg,#0a192f 0%,#0a192f 42%,#00a884 100%)}
 #cinemaBanner .posterArt{position:absolute;top:0;right:0;height:100%;width:62%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 70% 30%,#00a884 0%,#0a192f 55%,#000 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%)}
-#cinemaBanner .posterArt .bigEmoji{font-size:88px;line-height:1;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
-#cinemaBanner .posterArt b{font-size:20px;letter-spacing:2px;margin-top:10px;color:#fff}
-#cinemaBanner .posterArt span{font-size:12px;opacity:.85;letter-spacing:1px;margin-top:4px;color:#fff}
+#cinemaBanner .posterArt .bigEmoji{font-size:72px;line-height:1;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
+#cinemaBanner .posterArt b{font-size:18px;letter-spacing:2px;margin-top:8px;color:#fff}
+#cinemaBanner .posterArt span{font-size:11px;opacity:.85;letter-spacing:1px;margin-top:4px;color:#fff}
 #cinemaBanner .posterImg{position:absolute;top:0;right:0;height:100%;width:62%;object-fit:cover;display:block;z-index:2;-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%)}
 #cinemaBanner .posterFade{position:absolute;inset:0;z-index:3;background:linear-gradient(to right,#0a192f 0%,rgba(10,25,47,.85) 32%,rgba(10,25,47,.15) 55%,transparent 70%)}
-#cinemaBanner .posterContent{position:relative;z-index:4;padding:30px;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:58%}
+#cinemaBanner .posterContent{position:relative;z-index:4;padding:22px 30px;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:58%}
 #cinemaBanner small{background:#fff;color:#0a192f;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:900;letter-spacing:1px;align-self:flex-start}
-#cinemaBanner .movieLabel{font-size:11px;letter-spacing:2px;opacity:.9;margin-top:14px;font-weight:800;color:#fff}
-#cinemaBanner h2{font-size:30px;margin:6px 0 6px;line-height:1.05;color:#fff}
+#cinemaBanner .movieLabel{font-size:11px;letter-spacing:2px;opacity:.9;margin-top:12px;font-weight:800;color:#fff}
+#cinemaBanner h2{font-size:28px;margin:6px 0 4px;line-height:1.05;color:#fff}
 #cinemaBanner p{font-size:13px;opacity:.92;line-height:1.4;color:#fff;max-width:100%}
-#cinemaBanner .cinemaBtn{display:inline-block;margin-top:14px;background:#00a884;color:#fff;padding:10px 20px;border-radius:999px;font-weight:800;font-size:13px;align-self:flex-start}
+#cinemaBanner .cinemaBtn{display:inline-block;margin-top:12px;background:#00a884;color:#fff;padding:10px 20px;border-radius:999px;font-weight:800;font-size:13px;align-self:flex-start}
 .page{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:12px;padding-bottom:120px;background:#f6f3ee;display:flex;flex-direction:column;gap:10px;min-height:60vh;touch-action:pan-y;overscroll-behavior-y:contain}
 #homeView{overflow-y:auto}
 .homeCard{background:#fff;border-radius:14px;padding:18px;padding-bottom:24px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);width:100%}
@@ -75,15 +76,14 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #spotMarker{position:fixed;width:28px;height:28px;border-radius:50%;background:#00a884;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4);z-index:10001;display:none;touch-action:none;cursor:grab}
 #spotMarker:active{cursor:grabbing}
 #spotLabel{position:fixed;z-index:10001;display:none;background:#111;color:#fff;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;pointer-events:none;white-space:nowrap}
-/* ★★★ BANNER - PHONE ONLY - EXACT SAME AS CINEMA PAGE PHONE ★★★ */
 @media(max-width:640px){
 #cinemaBanner{width:100vw!important;max-width:100vw!important;margin:4px -12px 14px!important;border-radius:0!important;height:auto!important;display:flex;flex-direction:column}
 #cinemaBanner .posterBg{position:absolute;inset:0}
-#cinemaBanner .posterArt{position:relative;width:100%;height:200px;order:2;-webkit-mask-image:none;mask-image:none}
-#cinemaBanner .posterImg{position:relative;width:100%;height:200px;order:2;object-fit:cover;-webkit-mask-image:none;mask-image:none;z-index:2}
+#cinemaBanner .posterArt{position:relative;width:100%;height:160px;order:2;-webkit-mask-image:none;mask-image:none}
+#cinemaBanner .posterImg{position:relative;width:100%;height:160px;order:2;object-fit:cover;-webkit-mask-image:none;mask-image:none;z-index:2}
 #cinemaBanner .posterFade{display:none}
-#cinemaBanner .posterContent{position:relative;max-width:100%;width:100%;height:auto;padding:22px;order:1;z-index:4}
-#cinemaBanner h2{font-size:30px}
+#cinemaBanner .posterContent{position:relative;max-width:100%;width:100%;height:auto;padding:20px 22px;order:1;z-index:4}
+#cinemaBanner h2{font-size:28px}
 }
 </style></head><body>
 <div id="header">
@@ -111,7 +111,6 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 <h2 id="welcomeTitle">👋 Alixeni! Himina Tati, xaka la wena!</h2>
 <p id="welcomeSub">Xaka la wena. Mupfuni wa wena. Vuyimbeleri bya wena.<br>Vulavula na mina, kumbe ya eka Mabulu u vulavula na vanhu van'wana.</p>
 </div>
-<!-- ★★★ BANNER - SAME AS CINEMA PAGE - CLICK ANYWHERE GOES TO CINEMA ★★★ -->
 <a id="cinemaBanner" href="./tati-cinema.html">
   <div class="posterBg"></div>
   <div class="posterArt"><div class="bigEmoji">🎬</div><b>MOVIE POSTER</b><span>TATI CINEMA • ORIGINAL</span></div>
