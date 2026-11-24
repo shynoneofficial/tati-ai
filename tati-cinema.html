@@ -5,107 +5,86 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TATI CINEMA</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-  body{background:#f6f3ee;color:#111;padding:15px}
-  .top{display:flex;justify-content:space-between;align-items:center}
-  .top a{color:#0a192f;text-decoration:none;font-size:14px;font-weight:700}
-  .logoImg{width:52px;height:52px;border-radius:12px;object-fit:contain}
-  .hero{background:#0a192f;border-radius:16px;padding:20px;margin:15px 0;text-align:center;color:#fff}
-  .hero small{background:#00a884;padding:6px 12px;border-radius:20px;font-size:11px;letter-spacing:1px;font-weight:800}
-  .hero h1{font-size:24px;margin:14px 0 6px}
-  .hero p{opacity:.85;font-size:14px;line-height:1.4}
-  .count{background:#fff;border-radius:14px;padding:15px;text-align:center;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-  .count b{font-size:22px;color:#0a192f}
-  .card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-  .card h3{margin-bottom:8px;font-size:16px}
-  .card p{font-size:13px;color:#667781;line-height:1.4}
-  .show{display:flex;justify-content:space-between;align-items:center;background:#f6f3ee;padding:12px;border-radius:12px;margin-top:8px}
-  .show.active{border:2px solid #00a884;background:#eafff8}
-  .show button{background:#0a192f;color:#fff;border:none;padding:9px 18px;border-radius:999px;font-weight:700;font-size:13px}
-  .priceBox{text-align:center;margin:14px 0}
-  .priceBox span{display:inline-block;background:#00a884;color:#fff;padding:10px 20px;border-radius:999px;font-weight:800;font-size:15px}
-  .pay label{display:block;background:#f6f3ee;padding:12px;border-radius:12px;margin-top:8px;font-size:14px}
-  .pay input{margin-right:8px}
-  .buyWrap{text-align:center;margin-top:16px}
-  .buy{background:#00a884;color:#fff;border:none;padding:13px 28px;border-radius:999px;font-size:16px;font-weight:800}
-  .note{font-size:12px;color:#888;text-align:center;margin-top:14px;line-height:1.5}
-  .back{display:block;text-align:center;color:#888;margin-top:14px;text-decoration:none;font-size:13px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#f6f3ee;color:#111;padding:12px;padding-bottom:30px}
+.top{display:flex;justify-content:space-between;align-items:center;max-width:440px;margin:0 auto}
+.top a{color:#0a192f;text-decoration:none;font-size:14px;font-weight:700}
+.top b{font-size:13px;letter-spacing:1px}
+/* PART 1 - POSTER / BANNER - 5-6cm, centred, professional */
+.poster{max-width:440px;margin:14px auto 12px;background:#0a192f;border-radius:18px;overflow:hidden;position:relative;height:200px;color:#fff}
+.posterBg{position:absolute;inset:0;background:linear-gradient(120deg,#0a192f 0%,#0a192f 45%,#00a884 100%)}
+.posterBg:before{content:"🎬";position:absolute;right:10px;bottom:0;font-size:110px;opacity:.18}
+.posterContent{position:relative;padding:20px;height:100%;display:flex;flex-direction:column;justify-content:center}
+.posterContent small{background:#fff;color:#0a192f;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:900;align-self:flex-start}
+.posterContent h1{font-size:26px;margin:10px 0 5px;line-height:1.1}
+.posterContent p{font-size:13px;opacity:.9;line-height:1.4;max-width:80%}
+/* PART 2 - SHOWS - 3 small cards side by side, NO long rows */
+.section{max-width:440px;margin:0 auto 12px}
+.section h3{font-size:15px;margin-bottom:8px}
+.countCard{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.countCard b{font-size:20px;color:#0a192f}
+.showsGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.showCard{background:#fff;border-radius:14px;padding:12px 8px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer}
+.showCard.active{border:2px solid #00a884;background:#eafff8}
+.showCard b{font-size:14px}
+.showCard span{font-size:11px;color:#888;display:block;margin:4px 0 8px;line-height:1.3}
+.showCard button{background:#0a192f;color:#fff;border:none;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700}
+/* PART 3 - PAYMENT */
+.payCard{background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.payCard h3{margin-bottom:8px}
+.pricePill{display:inline-block;background:#00a884;color:#fff;padding:8px 16px;border-radius:999px;font-weight:800;font-size:14px;margin-bottom:10px}
+.payCard label{display:block;background:#f6f3ee;padding:11px;border-radius:12px;margin-top:8px;font-size:14px}
+.payCard input[type=radio]{margin-right:8px}
+.payCard input[type=text]{width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:12px}
+.buyWrap{text-align:center;margin-top:14px}
+.buy{background:#00a884;color:#fff;border:none;padding:12px 28px;border-radius:999px;font-size:15px;font-weight:800}
+.note{font-size:12px;color:#888;text-align:center;margin-top:12px;line-height:1.5;max-width:440px;margin-left:auto;margin-right:auto}
+.back{display:block;text-align:center;color:#888;margin-top:12px;text-decoration:none;font-size:13px}
 </style>
 </head>
 <body>
+<div class="top"><a href="index.html">← Back</a><b>TATI CINEMA</b><a href="index.html">Home</a></div>
 
-<div class="top">
-  <a href="index.html">← Back</a>
-  <img class="logoImg" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'" alt="Tati Logo">
-  <a href="index.html">Home</a>
+<!-- PART 1 -->
+<div class="poster"><div class="posterBg"></div><div class="posterContent">
+<small>🎬 TATI CINEMA • MOVIE TIME</small>
+<h1>Premiere Movie</h1>
+<p>1 Hour Movie • Only on Tati Cinema • After 30 days it's gone</p>
+</div></div>
+
+<!-- PART 2 -->
+<div class="section"><div class="countCard"><div style="font-size:11px;color:#888">NEXT SHOW IN</div><b id="countdown">Loading...</b><div style="font-size:12px;color:#888;margin-top:3px">Tuesday 9:00 PM - Beira Time</div></div></div>
+
+<div class="section"><h3>📅 Choose your show - 30 Days Only</h3>
+<div class="showsGrid">
+<div class="showCard active" onclick="selectShow(this,'Tuesday 9PM')"><b>Tuesday</b><span>9 PM - 10 PM<br>Beira</span><button>Buy</button></div>
+<div class="showCard" onclick="selectShow(this,'Thursday 7PM')"><b>Thursday</b><span>7 PM - 8 PM<br>Beira</span><button>Buy</button></div>
+<div class="showCard" onclick="selectShow(this,'Saturday 9PM')"><b>Saturday</b><span>9 PM - 10 PM<br>Beira</span><button>Buy</button></div>
+</div>
+<p style="font-size:12px;color:#888;margin-top:8px;text-align:center">Selected: <b id="selected">Tuesday 9PM</b> • If you miss it, you miss it.</p>
 </div>
 
-<div class="hero">
-  <small>🎬 TATI CINEMA</small>
-  <h1>Movie Time - Premiere Movie</h1>
-  <p>1 Hour Movie • Only on Tati Cinema • After 30 days it's gone</p>
-</div>
-
-<div class="count">
-  <div style="font-size:12px;color:#888">NEXT SHOW IN</div>
-  <b id="countdown">Loading...</b>
-  <div style="font-size:13px;margin-top:4px;color:#667781">Tuesday 9:00 PM - Beira Time</div>
-</div>
-
-<div class="card">
-  <h3>📅 TATI CINEMA - 30 Days Only</h3>
-  <p>You cannot watch anytime. You can only watch at these times. If you miss it, you miss it.</p>
-  <div class="show active">
-    <div><b>Tuesday</b><br><span style="font-size:12px;color:#888">9:00 PM - 10:00 PM • Beira</span></div>
-    <button onclick="selectShow('Tuesday 9PM')">Buy</button>
-  </div>
-  <div class="show">
-    <div><b>Thursday</b><br><span style="font-size:12px;color:#888">7:00 PM - 8:00 PM • Beira</span></div>
-    <button onclick="selectShow('Thursday 7PM')">Buy</button>
-  </div>
-  <div class="show">
-    <div><b>Saturday</b><br><span style="font-size:12px;color:#888">9:00 PM - 10:00 PM • Beira</span></div>
-    <button onclick="selectShow('Saturday 9PM')">Buy</button>
-  </div>
-</div>
-
-<div class="priceBox"><span>🎟️ 1 Ticket = 40 MT</span></div>
-
-<div class="card pay">
-  <h3>💳 How do you want to pay?</h3>
-  <label><input type="radio" name="pay" value="mpesa" checked> M-Pesa Mozambique</label>
-  <label><input type="radio" name="pay" value="emola"> e-Mola Mozambique</label>
-  <label><input type="radio" name="pay" value="flutterwave"> Card - South Africa / Zambia</label>
-  <label><input type="radio" name="pay" value="paypal"> PayPal - Philippines / International</label>
-  <input id="phone" placeholder="Enter your M-Pesa / phone number" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:12px;background:#fff">
-</div>
-
+<!-- PART 3 -->
+<div class="section"><div class="payCard">
+<span class="pricePill">🎟️ 1 Ticket = 40 MT</span>
+<h3>💳 How do you want to pay?</h3>
+<label><input type="radio" name="pay" value="mpesa" checked> M-Pesa</label>
+<label><input type="radio" name="pay" value="emola"> e-Mola</label>
+<label><input type="radio" name="pay" value="flutterwave"> Card - SA / Zambia</label>
+<label><input type="radio" name="pay" value="paypal"> PayPal - International</label>
+<input type="text" id="phone" placeholder="Enter your M-Pesa / phone number">
 <div class="buyWrap"><button class="buy" onclick="buyTicket()">Buy Ticket →</button></div>
+</div></div>
 
-<p class="note">
-  Selected show: <b id="selected">Tuesday 9PM</b><br>
-  After you pay, you will get a code. Come back 10 minutes before show time.<br>
-  TATI CINEMA - Clean movies only. Private.
-</p>
-
+<p class="note">After you pay, you will get a code. Come back 10 minutes before show time.<br>TATI CINEMA - Clean movies only. Private.</p>
 <a class="back" href="index.html">← Back to Home</a>
 
 <script>
-  let selectedShow = 'Tuesday 9PM';
-  function selectShow(s){ selectedShow = s; document.getElementById('selected').innerText = s; }
-  function buyTicket(){
-    let pay = document.querySelector('input[name="pay"]:checked').value;
-    let phone = document.getElementById('phone').value;
-    alert('TATI CINEMA\nYou selected ' + selectedShow + ' | Pay with: ' + pay);
-  }
-  function updateCountdown(){
-    let now = new Date(); let target = new Date(now); target.setHours(21,0,0,0);
-    if(target < now) target.setDate(target.getDate()+1);
-    let diff = target - now;
-    let h = Math.floor(diff/3600000); let m = Math.floor((diff%3600000)/60000); let s = Math.floor((diff%60000)/1000);
-    document.getElementById('countdown').innerText = h + 'h : ' + m + 'm : ' + s + 's';
-  }
-  setInterval(updateCountdown, 1000); updateCountdown();
+let selectedShow='Tuesday 9PM';
+function selectShow(el,s){selectedShow=s;document.getElementById('selected').innerText=s;document.querySelectorAll('.showCard').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+function buyTicket(){let pay=document.querySelector('input[name="pay"]:checked').value;alert('TATI CINEMA\nYou selected '+selectedShow+' | Pay with: '+pay);}
+function updateCountdown(){let now=new Date();let target=new Date(now);target.setHours(21,0,0,0);if(target<now)target.setDate(target.getDate()+1);let diff=target-now;let h=Math.floor(diff/3600000);let m=Math.floor((diff%3600000)/60000);let s=Math.floor((diff%60000)/1000);document.getElementById('countdown').innerText=h+'h : '+m+'m : '+s+'s';}
+setInterval(updateCountdown,1000);updateCountdown();
 </script>
 </body>
 </html>
