@@ -5,96 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TATI CINEMA</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-  body{background:#0a0a0a;color:#fff;padding:15px}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+  body{background:#f6f3ee;color:#111;padding:15px}
   .top{display:flex;justify-content:space-between;align-items:center}
-  .top a{color:#fff;text-decoration:none;font-size:14px}
-  .logo{font-weight:900;font-size:22px;letter-spacing:2px}
-  .logo span{color:#ff2d2d}
-  .hero{background:linear-gradient(180deg,#ff2d2d,#7a0000);border-radius:16px;padding:20px;margin:15px 0;text-align:center}
-  .hero small{background:#000;padding:5px 10px;border-radius:20px;font-size:11px;letter-spacing:1px}
-  .hero h1{font-size:32px;margin:12px 0 5px}
-  .hero p{opacity:.9;font-size:14px}
-  .count{background:#111;border:1px solid #333;border-radius:12px;padding:15px;text-align:center;margin-bottom:15px}
-  .count b{font-size:28px;color:#ffcc00}
-  .card{background:#1a1a1a;border-radius:14px;padding:15px;margin-bottom:12px}
-  .card h3{margin-bottom:8px}
-  .show{display:flex;justify-content:space-between;align-items:center;background:#222;padding:12px;border-radius:10px;margin-top:8px}
-  .show.active{border:2px solid #ff2d2d;background:#2a1212}
-  .show button{background:#ff2d2d;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:700}
-  .price{text-align:center;background:#ffcc00;color:#000;padding:14px;border-radius:12px;font-weight:900;font-size:18px;margin:15px 0}
-  .pay label{display:block;background:#222;padding:12px;border-radius:10px;margin-top:8px}
+  .top a{color:#0a192f;text-decoration:none;font-size:14px;font-weight:700}
+  .logoImg{width:52px;height:52px;border-radius:12px;object-fit:contain}
+  .hero{background:#0a192f;border-radius:16px;padding:20px;margin:15px 0;text-align:center;color:#fff}
+  .hero small{background:#00a884;padding:6px 12px;border-radius:20px;font-size:11px;letter-spacing:1px;font-weight:800}
+  .hero h1{font-size:24px;margin:14px 0 6px}
+  .hero p{opacity:.85;font-size:14px;line-height:1.4}
+  .count{background:#fff;border-radius:14px;padding:15px;text-align:center;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .count b{font-size:22px;color:#0a192f}
+  .card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .card h3{margin-bottom:8px;font-size:16px}
+  .card p{font-size:13px;color:#667781;line-height:1.4}
+  .show{display:flex;justify-content:space-between;align-items:center;background:#f6f3ee;padding:12px;border-radius:12px;margin-top:8px}
+  .show.active{border:2px solid #00a884;background:#eafff8}
+  .show button{background:#0a192f;color:#fff;border:none;padding:9px 18px;border-radius:999px;font-weight:700;font-size:13px}
+  .priceBox{text-align:center;margin:14px 0}
+  .priceBox span{display:inline-block;background:#00a884;color:#fff;padding:10px 20px;border-radius:999px;font-weight:800;font-size:15px}
+  .pay label{display:block;background:#f6f3ee;padding:12px;border-radius:12px;margin-top:8px;font-size:14px}
   .pay input{margin-right:8px}
-  .buy{width:100%;background:#ff2d2d;color:#fff;border:none;padding:16px;border-radius:30px;font-size:18px;font-weight:900;margin-top:15px}
-  .note{font-size:12px;color:#aaa;text-align:center;margin-top:12px;line-height:1.5}
-  .back{display:block;text-align:center;color:#aaa;margin-top:15px;text-decoration:none}
+  .buyWrap{text-align:center;margin-top:16px}
+  .buy{background:#00a884;color:#fff;border:none;padding:13px 28px;border-radius:999px;font-size:16px;font-weight:800}
+  .note{font-size:12px;color:#888;text-align:center;margin-top:14px;line-height:1.5}
+  .back{display:block;text-align:center;color:#888;margin-top:14px;text-decoration:none;font-size:13px}
 </style>
 </head>
 <body>
 
 <div class="top">
   <a href="index.html">← Back</a>
-  <div class="logo">TATI<span>.</span></div>
+  <img class="logoImg" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'" alt="Tati Logo">
   <a href="index.html">Home</a>
 </div>
 
 <div class="hero">
   <small>🎬 TATI CINEMA</small>
-  <h1>JAMES IN MOZAMBIQUE</h1>
-  <p>Movie Time • 1 Hour Movie • After 30 days it's GONE</p>
+  <h1>Movie Time - Premiere Movie</h1>
+  <p>1 Hour Movie • Only on Tati Cinema • After 30 days it's gone</p>
 </div>
 
 <div class="count">
-  <div>NEXT SHOW IN</div>
+  <div style="font-size:12px;color:#888">NEXT SHOW IN</div>
   <b id="countdown">Loading...</b>
-  <div style="font-size:13px;margin-top:5px;color:#aaa">Tuesday 9:00 PM - Beira Time</div>
+  <div style="font-size:13px;margin-top:4px;color:#667781">Tuesday 9:00 PM - Beira Time</div>
 </div>
 
 <div class="card">
   <h3>📅 TATI CINEMA - 30 Days Only</h3>
-  <p style="font-size:13px;color:#ccc">You cannot watch anytime. You can only watch at these times. If you miss it, you miss it.</p>
+  <p>You cannot watch anytime. You can only watch at these times. If you miss it, you miss it.</p>
   <div class="show active">
-    <div><b>Tuesday</b><br><span style="font-size:12px;color:#aaa">9:00 PM - 10:00 PM • Beira</span></div>
+    <div><b>Tuesday</b><br><span style="font-size:12px;color:#888">9:00 PM - 10:00 PM • Beira</span></div>
     <button onclick="selectShow('Tuesday 9PM')">Buy</button>
   </div>
   <div class="show">
-    <div><b>Thursday</b><br><span style="font-size:12px;color:#aaa">7:00 PM - 8:00 PM • Beira</span></div>
+    <div><b>Thursday</b><br><span style="font-size:12px;color:#888">7:00 PM - 8:00 PM • Beira</span></div>
     <button onclick="selectShow('Thursday 7PM')">Buy</button>
   </div>
   <div class="show">
-    <div><b>Saturday</b><br><span style="font-size:12px;color:#aaa">9:00 PM - 10:00 PM • Beira</span></div>
+    <div><b>Saturday</b><br><span style="font-size:12px;color:#888">9:00 PM - 10:00 PM • Beira</span></div>
     <button onclick="selectShow('Saturday 9PM')">Buy</button>
   </div>
 </div>
 
-<div class="price">🎟️ 1 Ticket = 40 MT / R25 / $0.60</div>
+<div class="priceBox"><span>🎟️ 1 Ticket = 40 MT</span></div>
 
 <div class="card pay">
   <h3>💳 How do you want to pay?</h3>
   <label><input type="radio" name="pay" value="mpesa" checked> M-Pesa Mozambique</label>
   <label><input type="radio" name="pay" value="emola"> e-Mola Mozambique</label>
-  <label><input type="radio" name="pay" value="flutterwave"> Card - South Africa / Zambia (Flutterwave)</label>
+  <label><input type="radio" name="pay" value="flutterwave"> Card - South Africa / Zambia</label>
   <label><input type="radio" name="pay" value="paypal"> PayPal - Philippines / International</label>
-  <input id="phone" placeholder="Enter your M-Pesa / phone number" style="width:100%;padding:13px;border-radius:10px;border:none;margin-top:12px;background:#000;color:#fff">
+  <input id="phone" placeholder="Enter your M-Pesa / phone number" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:12px;background:#fff">
 </div>
 
-<button class="buy" onclick="buyTicket()">BUY TICKET NOW →</button>
+<div class="buyWrap"><button class="buy" onclick="buyTicket()">Buy Ticket →</button></div>
 
 <p class="note">
   Selected show: <b id="selected">Tuesday 9PM</b><br>
   After you pay, you will get a code. Come back 10 minutes before show time.<br>
-  TATI CINEMA - No porn. Clean movies only. Private.
+  TATI CINEMA - Clean movies only. Private.
 </p>
 
 <a class="back" href="index.html">← Back to Home</a>
 
 <script>
   let selectedShow = 'Tuesday 9PM';
-  function selectShow(s){ selectedShow = s; document.getElementById('selected').innerText = s; alert('You selected: ' + s); }
+  function selectShow(s){ selectedShow = s; document.getElementById('selected').innerText = s; }
   function buyTicket(){
     let pay = document.querySelector('input[name="pay"]:checked').value;
     let phone = document.getElementById('phone').value;
-    alert('TATI CINEMA\nYou selected ' + selectedShow + ' | Pay with: ' + pay + ' | Phone: ' + phone);
+    alert('TATI CINEMA\nYou selected ' + selectedShow + ' | Pay with: ' + pay);
   }
   function updateCountdown(){
     let now = new Date(); let target = new Date(now); target.setHours(21,0,0,0);
