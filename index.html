@@ -19,9 +19,9 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #pagesBtn{padding:7px 9px;font-size:12px;background:#fff;color:#0a192f;border:1.5px solid #e53935;border-radius:12px;display:inline-flex;align-items:center;gap:4px}
 #pagesBtn .pageIcon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#fff;color:#e53935;border:1.5px solid #e53935;border-radius:5px;font-size:12px;line-height:1}
 #greenLine{height:4mm;background:#00a884;flex-shrink:0}
-/* ★★★ ONLY THIS - GREEN BUTTONS SEPARATED - LEFT 24 = CENTRE 24 = RIGHT 24 ★★★ */
-#safeBar{display:flex;gap:24px;padding:12px 24px;flex-shrink:0;justify-content:center}
-.pill{flex:1 1 0;min-width:0;width:auto;max-width:280px;display:flex;align-items:center;justify-content:center;text-align:center;padding:9px 6px;border-radius:999px;border:none;font-weight:800;font-size:12px;line-height:1.2;cursor:pointer;white-space:normal;word-break:break-word;background:#00a884;color:#fff;text-decoration:none}
+/* ★★★ ONLY THIS - PILLS SMALLER - WHITE SPACE IN MIDDLE - STILL EQUAL ★★★ */
+#safeBar{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 16px;flex-shrink:0}
+.pill{width:85%;max-width:160px;justify-self:center;display:flex;align-items:center;justify-content:center;text-align:center;padding:9px 6px;border-radius:999px;border:none;font-weight:800;font-size:12px;line-height:1.2;cursor:pointer;white-space:normal;word-break:break-word;background:#00a884;color:#fff;text-decoration:none;box-sizing:border-box}
 #modeSwitch{display:flex;background:#f0f2f5;padding:6px;margin:0 8px 10px;border-radius:14px;gap:10px;flex-shrink:0;align-items:center;overflow-x:auto;scrollbar-width:none}
 #modeSwitch::-webkit-scrollbar{display:none}
 .modeBtn{padding:12px 14px;border-radius:10px;border:none;font-weight:800;font-size:14px;cursor:pointer;background:transparent;white-space:nowrap;text-decoration:none;color:#111;text-align:center;flex-shrink:0}
@@ -34,7 +34,6 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
 #createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
 #createBtnTop.active{background:#0a192f;color:#fff}
-/* BANNER - SHORTER - SAME AS BEFORE - NOT CHANGED */
 #cinemaBanner{display:block;width:calc(100% + 24px);max-width:none;margin:4px -12px 14px;border-radius:0;overflow:hidden;text-decoration:none;color:#fff;flex-shrink:0;box-shadow:0 6px 20px rgba(0,0,0,.18);position:relative;height:250px;background:#0a192f}
 #cinemaBanner .posterBg{position:absolute;inset:0;background:linear-gradient(120deg,#0a192f 0%,#0a192f 42%,#00a884 100%)}
 #cinemaBanner .posterArt{position:absolute;top:0;right:0;height:100%;width:62%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 70% 30%,#00a884 0%,#0a192f 55%,#000 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.1) 12%,rgba(0,0,0,1) 38%)}
