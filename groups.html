@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Groups - Tati</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+html,body{width:100%;min-height:100dvh;background:#f6f3ee;overflow-x:hidden}
+body{display:flex;flex-direction:column;min-height:100dvh;padding-top:72px}
+body.lock-scroll{overflow:hidden !important}
+#header{height:72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 8px;border-bottom:3px solid #0a192f;position:fixed;top:0;left:0;right:0;background:#fff;z-index:5000}
+#headerLeft{display:flex;align-items:center}
+#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain}
+#centerLogo{text-align:center;line-height:1.1;cursor:pointer;padding:6px 8px;white-space:nowrap}
+#centerLogo b{font-size:15px;font-weight:900;letter-spacing:.5px}
+#centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
+#headerRight{display:flex;gap:5px;justify-content:flex-end}
+.topBtn{padding:8px 9px;border-radius:12px;border:none;font-size:12px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111;white-space:nowrap}
+#greenLine{height:4mm;background:#00a884;flex-shrink:0}
+#wrap{flex:1;padding:12px;padding-bottom:100px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card h2{font-size:20px}
+.card p{font-size:14px;color:#667781;line-height:1.4;margin-top:4px}
+#createBtn{width:100%;padding:14px;border:none;border-radius:14px;background:#00a884;color:#fff;font-weight:900;font-size:16px;cursor:pointer}
+#search{width:100%;padding:12px;border:2px solid #0a192f;border-radius:12px;font-size:15px;outline:none;margin-top:10px}
+.groupItem{display:flex;gap:12px;align-items:center;background:#fff;border-radius:14px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer}
+.groupImg{width:56px;height:56px;border-radius:50%;object-fit:cover;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;flex-shrink:0;overflow:hidden}
+.groupImg img{width:100%;height:100%;object-fit:cover}
+.groupInfo{flex:1;min-width:0}
+.groupInfo b{font-size:16px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.groupInfo span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.groupCount{background:#00a884;color:#fff;font-size:12px;font-weight:800;padding:4px 8px;border-radius:999px;white-space:nowrap}
+.empty{text-align:center;color:#999;font-size:14px;padding:20px}
+.hidden{display:none!important}
+/* POPUPS - scrollable inside */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center;overflow:hidden;padding:12px}
+.box{background:#fff;padding:16px 16px 30px;border-radius:16px;width:340px;max-width:92vw;height:80dvh;max-height:80dvh;overflow-y:auto !important;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior:contain;position:relative}
+.box input,.box textarea{width:100%;padding:12px;border:2px solid #0a192f;border-radius:10px;margin:8px 0;font-size:15px;outline:none}
+.box textarea{resize:none;min-height:60px}
+.box button{padding:12px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:14px;cursor:pointer;width:100%;margin-top:6px}
+.box button.dark{background:#0a192f}
+.box button.grey{background:#eee;color:#111}
+.box button.red{background:#e53935}
+.scrollHint{position:sticky;top:0;background:#0a192f;color:#fff;font-size:11px;font-weight:800;text-align:center;padding:6px;border-radius:8px;margin-bottom:8px;z-index:2}
+.memberRow{display:flex;gap:8px;align-items:center;background:#f0f2f5;border-radius:10px;padding:8px;margin:6px 0}
+.memberRow b{flex:1;font-size:14px}
+.memberRow button{width:36px !important;padding:6px !important;background:#e53935 !important;margin:0 !important}
+.photoPrev{width:80px;height:80px;border-radius:50%;background:#f0f2f5;display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;margin:8px auto}
+.photoPrev img{width:100%;height:100%;object-fit:cover}
+/* CHAT */
+#chatView{flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+#chatHeader{display:flex;gap:10px;align-items:center;background:#fff;border-radius:14px;padding:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#chatMsgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:8px;padding:4px}
+.bubble{max-width:82%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:pre-wrap;word-break:break-word;background:#fff;align-self:flex-start}
+.bubble.me{align-self:flex-end;background:#d9fdd3}
+.bubble small{display:block;font-size:11px;color:#667781;margin-bottom:2px;font-weight:800}
+#chatInputRow{display:flex;gap:6px;background:#f0f2f5;padding:8px;border-radius:14px}
+#chatInput{flex:1;border:none;outline:none;font-size:16px;border-radius:22px;padding:10px 12px;resize:none}
+#sendBtn{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
+</style></head><body>
+<div id="header">
+<div id="headerLeft"><img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'"></div>
+<div id="centerLogo" onclick="window.location.href='./index.html'"><b>SHYNONE</b><br><i>MUSIC</i></div>
+<div id="headerRight"><a class="topBtn" href="./index.html">🏠 Home</a><a class="topBtn" href="./people.html">💬 Chats</a></div>
+</div>
+<div id="greenLine"></div>
+
+<div id="wrap">
+<div class="card">
+<h2>👥 Groups - Mintlawa</h2>
+<p>Create a group, add your people, chat together in one place. Groups are saved on this phone.</p>
+<button id="createBtn" onclick="openCreate()">+ Create Group</button>
+<input id="search" placeholder="🔍 Search groups..." oninput="renderGroups()">
+</div>
+<div id="groupList" style="display:flex;flex-direction:column;gap:10px"></div>
+<div id="emptyMsg" class="empty hidden">No groups yet.<br>Tap <b>+ Create Group</b> to start your first group.</div>
+</div>
+
+<!-- CREATE / EDIT -->
+<div id="createBox" class="overlay"><div class="box">
+<div class="scrollHint">↓ SCROLL INSIDE HERE ↓ Swipe up in this white box</div>
+<h3 style="text-align:center" id="createTitle">+ Create Group</h3>
+<div class="photoPrev" id="photoPrev">👥</div>
+<label style="font-size:12px;font-weight:800">Group Photo (optional)</label>
+<input type="file" id="groupPhoto" accept="image/*" onchange="previewPhoto(event)">
+<label style="font-size:12px;font-weight:800">Group Name *</label>
+<input id="groupName" placeholder="Ex: Family, School Friends, Church...">
+<label style="font-size:12px;font-weight:800">Description</label>
+<textarea id="groupDesc" placeholder="What is this group about?"></textarea>
+<label style="font-size:12px;font-weight:800">Add Members - Name / Number</label>
+<div style="display:flex;gap:6px"><input id="memberInput" placeholder="Ex: Jemi - 84 123 4567" style="flex:1"><button onclick="addMember()" style="width:80px !important;margin:8px 0 !important">+ Add</button></div>
+<div id="memberList"></div>
+<p style="font-size:12px;color:#666">Tip: Add as many members as you want. You can add more later.</p>
+<button onclick="saveGroup()">✅ Create Group</button>
+<button class="grey" onclick="closeCreate()">Close</button>
+<div style="height:40px"></div>
+</div></div>
+
+<!-- GROUP CHAT -->
+<div id="chatViewWrap" class="hidden" style="flex:1;display:flex;flex-direction:column;padding:12px;gap:10px;overflow:hidden">
+<div id="chatHeader">
+<div class="groupImg" id="chatImg">👥</div>
+<div style="flex:1;min-width:0"><b id="chatName" style="font-size:16px">Group</b><span id="chatMembers" style="font-size:12px;color:#667781;display:block"></span></div>
+<button onclick="openMembers()" style="padding:8px 10px;border-radius:10px;border:1px solid #ddd;background:#fff;font-weight:800;cursor:pointer">👥 Members</button>
+<button onclick="closeChat()" style="padding:8px 10px;border-radius:10px;border:none;background:#eee;font-weight:800;cursor:pointer">✕</button>
+</div>
+<div id="chatMsgs"></div>
+<div id="chatInputRow"><textarea id="chatInput" rows="1" placeholder="Message group..."></textarea><button id="sendBtn">✉️</button></div>
+</div>
+
+<!-- MEMBERS -->
+<div id="membersBox" class="overlay"><div class="box">
+<div class="scrollHint">↓ SCROLL INSIDE HERE ↓</div>
+<h3 style="text-align:center">👥 Members</h3>
+<p id="membersGroupName" style="text-align:center;color:#666;font-size:13px"></p>
+<div id="membersList"></div>
+<div style="display:flex;gap:6px;margin-top:10px"><input id="newMemberInput" placeholder="Add new member..." style="flex:1"><button onclick="addMemberToOpen()" style="width:80px !important;margin:8px 0 !important">+ Add</button></div>
+<button class="dark" onclick="closeMembers()">Done</button>
+<button class="red" onclick="deleteGroup()">🗑 Delete This Group</button>
+<div style="height:40px"></div>
+</div></div>
+
+<script>
+let groups=[];
+let editId=null;
+let openId=null;
+let tempPhoto="";
+let tempMembers=[];
+
+function load(){try{groups=JSON.parse(localStorage.getItem("tati_groups")||"[]")}catch(e){groups=[]}}
+function save(){localStorage.setItem("tati_groups",JSON.stringify(groups))}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+
+function renderGroups(){
+  var q=(document.getElementById("search").value||"").toLowerCase();
+  var el=document.getElementById("groupList"); el.innerHTML="";
+  var list=groups.filter(function(g){return !q || g.name.toLowerCase().indexOf(q)>-1 || (g.desc||"").toLowerCase().indexOf(q)>-1});
+  document.getElementById("emptyMsg").classList.toggle("hidden", list.length>0);
+  list.forEach(function(g){
+    var last=g.msgs && g.msgs.length ? g.msgs[g.msgs.length-1].text : (g.desc||"No messages yet");
+    var div=document.createElement("div"); div.className="groupItem";
+    div.onclick=function(){openChat(g.id)};
+    div.innerHTML='<div class="groupImg">'+(g.photo?'<img src="'+g.photo+'">':'👥')+'</div><div class="groupInfo"><b>'+esc(g.name)+'</b><span>'+esc(last)+'</span></div><div class="groupCount">'+(g.members||[]).length+' 👥</div>';
+    el.appendChild(div);
+  });
+}
+
+function previewPhoto(e){
+  var f=e.target.files[0]; if(!f) return;
+  var r=new FileReader(); r.onload=function(){tempPhoto=r.result; document.getElementById("photoPrev").innerHTML='<img src="'+tempPhoto+'">';}; r.readAsDataURL(f);
+}
+function renderTempMembers(){
+  var el=document.getElementById("memberList"); el.innerHTML="";
+  tempMembers.forEach(function(m,i){
+    var d=document.createElement("div"); d.className="memberRow";
+    d.innerHTML='<b>'+esc(m)+'</b><button onclick="removeTempMember('+i+')">✕</button>';
+    el.appendChild(d);
+  });
+}
+function addMember(){
+  var v=document.getElementById("memberInput").value.trim(); if(!v) return;
+  tempMembers.push(v); document.getElementById("memberInput").value=""; renderTempMembers();
+}
+function removeTempMember(i){tempMembers.splice(i,1); renderTempMembers();}
+
+function openCreate(){
+  editId=null; tempPhoto=""; tempMembers=[];
+  document.getElementById("createTitle").textContent="+ Create Group";
+  document.getElementById("groupName").value=""; document.getElementById("groupDesc").value="";
+  document.getElementById("photoPrev").innerHTML="👥"; document.getElementById("memberInput").value="";
+  renderTempMembers();
+  document.body.classList.add("lock-scroll");
+  document.getElementById("createBox").style.display="flex";
+  document.querySelector("#createBox .box").scrollTop=0;
+}
+function closeCreate(){document.body.classList.remove("lock-scroll"); document.getElementById("createBox").style.display="none";}
+
+function saveGroup(){
+  var name=document.getElementById("groupName").value.trim();
+  if(!name){alert("Give your group a name first."); return;}
+  var desc=document.getElementById("groupDesc").value.trim();
+  groups.unshift({id:Date.now().toString(), name:name, desc:desc, photo:tempPhoto, members:tempMembers.slice(), msgs:[], created:Date.now()});
+  save(); closeCreate(); renderGroups();
+  alert("Group '"+name+"' created! Tap it to chat.");
+}
+
+function openChat(id){
+  openId=id;
+  var g=groups.find(function(x){return x.id===id}); if(!g) return;
+  document.getElementById("wrap").classList.add("hidden");
+  var w=document.getElementById("chatViewWrap"); w.classList.remove("hidden"); w.style.display="flex";
+  document.getElementById("chatImg").innerHTML=g.photo?'<img src="'+g.photo+'">':'👥';
+  document.getElementById("chatName").textContent=g.name;
+  document.getElementById("chatMembers").textContent=(g.members||[]).join(" • ") || "No members yet - tap Members to add";
+  renderMsgs();
+}
+function closeChat(){
+  openId=null;
+  document.getElementById("chatViewWrap").classList.add("hidden"); document.getElementById("chatViewWrap").style.display="none";
+  document.getElementById("wrap").classList.remove("hidden");
+  renderGroups();
+}
+function renderMsgs(){
+  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
+  var el=document.getElementById("chatMsgs"); el.innerHTML="";
+  if(!g.msgs || !g.msgs.length){el.innerHTML='<p style="text-align:center;color:#999;font-size:13px;padding:20px">No messages yet.<br>Say hi to your group! 👋</p>'; return;}
+  g.msgs.forEach(function(m){
+    var d=document.createElement("div"); d.className="bubble"+(m.me?" me":"");
+    d.innerHTML='<small>'+esc(m.from||"You")+'</small>'+esc(m.text);
+    el.appendChild(d);
+  });
+  el.scrollTop=el.scrollHeight;
+}
+document.getElementById("sendBtn").onclick=function(){
+  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
+  var v=document.getElementById("chatInput").value.trim(); if(!v) return;
+  if(!g.msgs) g.msgs=[];
+  g.msgs.push({from:"You", text:v, me:true, at:Date.now()});
+  save(); document.getElementById("chatInput").value=""; renderMsgs(); renderGroups();
+};
+document.getElementById("chatInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault(); document.getElementById("sendBtn").click();}});
+
+function openMembers(){
+  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
+  document.getElementById("membersGroupName").textContent=g.name;
+  renderMembersList();
+  document.body.classList.add("lock-scroll");
+  document.getElementById("membersBox").style.display="flex";
+  document.querySelector("#membersBox .box").scrollTop=0;
+}
+function closeMembers(){document.body.classList.remove("lock-scroll"); document.getElementById("membersBox").style.display="none"; renderMsgs(); document.getElementById("chatMembers").textContent=(groups.find(function(x){return x.id===openId})||{}).members?.join(" • ")||"";}
+function renderMembersList(){
+  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
+  var el=document.getElementById("membersList"); el.innerHTML="";
+  if(!g.members.length) el.innerHTML='<p style="text-align:center;color:#999;font-size:13px">No members yet.</p>';
+  (g.members||[]).forEach(function(m,i){
+    var d=document.createElement("div"); d.className="memberRow";
+    d.innerHTML='<b>'+esc(m)+'</b><button onclick="removeMember('+i+')">✕</button>';
+    el.appendChild(d);
+  });
+}
+function removeMember(i){
+  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
+  g.members.splice(i,1); save(); renderMembersList();
+}
+function addMemberToOpen(){
+  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
+  var v=document.getElementById("newMemberInput").value.trim(); if(!v) return;
+  g.members.push(v); save(); document.getElementById("newMemberInput").value=""; renderMembersList();
+}
+function deleteGroup(){
+  if(!confirm("Delete this group? All its messages will be gone.")) return;
+  groups=groups.filter(function(x){return x.id!==openId}); save();
+  closeMembers(); closeChat();
+}
+
+load(); renderGroups();
+</script>
+</body></html>
