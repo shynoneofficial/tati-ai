@@ -4,255 +4,245 @@
 <title>Groups - Tati</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-html,body{width:100%;min-height:100dvh;background:#f6f3ee;overflow-x:hidden}
-body{display:flex;flex-direction:column;min-height:100dvh;padding-top:72px}
-body.lock-scroll{overflow:hidden !important}
-#header{height:72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 8px;border-bottom:3px solid #0a192f;position:fixed;top:0;left:0;right:0;background:#fff;z-index:5000}
-#headerLeft{display:flex;align-items:center}
-#avatar{width:52px;height:52px;border-radius:12px;object-fit:contain}
-#centerLogo{text-align:center;line-height:1.1;cursor:pointer;padding:6px 8px;white-space:nowrap}
-#centerLogo b{font-size:15px;font-weight:900;letter-spacing:.5px}
-#centerLogo i{font-style:normal;font-size:9px;letter-spacing:4px;color:#00a884;font-weight:800}
-#headerRight{display:flex;gap:5px;justify-content:flex-end}
-.topBtn{padding:8px 9px;border-radius:12px;border:none;font-size:12px;font-weight:800;cursor:pointer;background:#f0f2f5;text-decoration:none;color:#111;white-space:nowrap}
-#greenLine{height:4mm;background:#00a884;flex-shrink:0}
-#wrap{flex:1;padding:12px;padding-bottom:100px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.card h2{font-size:20px}
-.card p{font-size:14px;color:#667781;line-height:1.4;margin-top:4px}
-#createBtn{width:100%;padding:14px;border:none;border-radius:14px;background:#00a884;color:#fff;font-weight:900;font-size:16px;cursor:pointer}
-#search{width:100%;padding:12px;border:2px solid #0a192f;border-radius:12px;font-size:15px;outline:none;margin-top:10px}
-.groupItem{display:flex;gap:12px;align-items:center;background:#fff;border-radius:14px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer}
-.groupImg{width:56px;height:56px;border-radius:50%;object-fit:cover;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;flex-shrink:0;overflow:hidden}
-.groupImg img{width:100%;height:100%;object-fit:cover}
-.groupInfo{flex:1;min-width:0}
-.groupInfo b{font-size:16px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.groupInfo span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.groupCount{background:#00a884;color:#fff;font-size:12px;font-weight:800;padding:4px 8px;border-radius:999px;white-space:nowrap}
-.empty{text-align:center;color:#999;font-size:14px;padding:20px}
+body{background:#f6f3ee;padding-bottom:20px}
+.topbar{background:#0a192f;color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
+.topbar a{color:#fff;text-decoration:none;font-weight:800;font-size:14px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-.5px}
+.logo span{color:#00a884}
+.topbar .tag{font-size:11px;background:#00a884;padding:4px 8px;border-radius:999px;font-weight:800}
+.wrap{max-width:1100px;margin:0 auto;padding:12px}
+.meBar{background:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:12px}
+.meBar img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #00a884;background:#eee}
+.meBar .info{flex:1;min-width:0}
+.meBar .info b{font-size:17px;display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;background:#00a884;border-radius:50%;display:inline-block}
+.meBar .info span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.editBtn{padding:9px 14px;border-radius:999px;border:1px solid #ddd;background:#fff;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
+.layout{display:flex;gap:12px;align-items:flex-start}
+.left{width:340px;flex-shrink:0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.right{flex:1;background:#fff;border-radius:16px;height:calc(100vh - 140px);min-height:560px;max-height:720px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);position:sticky;top:70px}
+.leftHead{padding:12px}
+.search{width:100%;padding:11px 12px;border:1px solid #ddd;border-radius:999px;font-size:14px;outline:none;background:#f0f2f5}
+.topActions{display:flex;gap:8px;margin-top:10px}
+.topActions button{flex:1;padding:10px;border:none;border-radius:999px;font-weight:800;font-size:12px;cursor:pointer}
+.btnAdd{background:#0a192f;color:#fff}
+.btnReq{background:#fff3cd;color:#111}
+.person{padding:11px 12px;display:flex;gap:10px;align-items:center;cursor:pointer;border-bottom:1px solid #f0f2f5;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.person.active{background:#eef7f2;border-left:4px solid #00a884}
+.person img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee}
+.person .info{flex:1;min-width:0}
+.person .info b{font-size:14px;display:flex;gap:6px;align-items:center}
+.person .info span{font-size:12px;color:#667781;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.person .time{font-size:11px;color:#667781}
+.unreadBadge{min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#00a884;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chatHead{padding:12px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #f0f2f5;position:sticky;top:0;z-index:20;background:#fff;flex-shrink:0}
+.chatHead img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#eee}
+.chatHead .info{flex:1}
+.chatHead .info b{font-size:16px}
+.chatHead .info span{font-size:12px;color:#667781;display:block}
+.callBtn{width:32px;height:32px;border:none;background:#e8e8e8;color:#111;border-radius:8px;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.backBtn{display:none;background:#0a192f;color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0}
+.chatBody{flex:1;min-height:0;padding:14px;padding-bottom:20px;overflow-y:auto;overscroll-behavior:contain;background:#efeae2;display:flex;flex-direction:column;align-items:flex-start}
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;color:#667781}
+.empty h2{color:#111;margin-bottom:8px}
+.msg{width:fit-content;max-width:78%;padding:9px 12px 6px 12px;border-radius:14px;font-size:14px;line-height:1.4;margin-bottom:8px;word-break:break-word;cursor:pointer;user-select:none}
+.msg.me{background:#dde9f5;margin-left:auto;align-self:flex-end;border-bottom-right-radius:4px}
+.msg.them{background:#fff;margin-right:auto;align-self:flex-start;border-bottom-left-radius:4px}
+.msgText{display:block}
+.msgMeta{display:flex;justify-content:flex-end;align-items:center;gap:5px;margin-top:4px;font-size:10px;color:#667781;line-height:1}
+.msgFrom{font-size:11px;font-weight:800;color:#0a192f;display:block;margin-bottom:2px}
+.dateDivider{align-self:center;background:#fff;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:800;color:#333;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.chatInput{display:flex;gap:8px;padding:10px;border-top:1px solid #f0f2f5;background:#fff;flex-direction:column;position:sticky;bottom:0;z-index:20;flex-shrink:0}
+.chatInputRow{display:flex;gap:8px;align-items:center}
+.chatInput input{flex:1;padding:12px;border:1px solid #ddd;border-radius:999px;outline:none;font-size:14px}
+.send{width:40px;height:32px;border:none;background:transparent;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.send svg{width:26px;height:18px}
+.micBtn{width:46px;height:46px;border:none;border-radius:50%;background:#dde9f5;color:#0a192f;font-size:18px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);max-width:560px}
+.card h2{font-size:16px;margin-bottom:8px}
+label{font-size:12px;font-weight:800;color:#667781;display:block;margin:10px 0 4px}
+input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none;background:#fff}
+.btn{display:block;width:100%;max-width:360px;padding:13px 20px;border:none;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;text-align:center;margin:12px auto 0 auto}
+.btn-green{background:#00a884;color:#fff}
+.btn-dark{background:#0a192f;color:#fff}
+.btn-grey{background:#f0f2f5;color:#111}
+.btn-red{background:#ffe0e0;color:#b00020}
+.notice{font-size:12px;line-height:1.4;color:#667781;margin-top:6px}
 .hidden{display:none!important}
-/* POPUPS - scrollable inside */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;display:none;align-items:center;justify-content:center;overflow:hidden;padding:12px}
-.box{background:#fff;padding:16px 16px 30px;border-radius:16px;width:340px;max-width:92vw;height:80dvh;max-height:80dvh;overflow-y:auto !important;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior:contain;position:relative}
-.box input,.box textarea{width:100%;padding:12px;border:2px solid #0a192f;border-radius:10px;margin:8px 0;font-size:15px;outline:none}
-.box textarea{resize:none;min-height:60px}
-.box button{padding:12px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:14px;cursor:pointer;width:100%;margin-top:6px}
-.box button.dark{background:#0a192f}
-.box button.grey{background:#eee;color:#111}
-.box button.red{background:#e53935}
-.scrollHint{position:sticky;top:0;background:#0a192f;color:#fff;font-size:11px;font-weight:800;text-align:center;padding:6px;border-radius:8px;margin-bottom:8px;z-index:2}
+.holdOverlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99;display:none;align-items:flex-end;justify-content:center}
+.holdBox{background:#fff;width:100%;max-width:420px;border-radius:18px 18px 0 0;padding:16px 16px 22px}
+.holdBox button{width:100%;padding:13px;border:none;background:#f0f2f5;border-radius:12px;font-weight:800;font-size:14px;margin-top:8px;cursor:pointer;text-align:left}
+.holdBox button.danger{background:#ffe0e0;color:#b00020}
+/* CREATE GROUP - FULL SCREEN, SINGLE SCROLL ONLY */
+#createOverlay{position:fixed;inset:0;background:#fff;z-index:200;display:none;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+#createInner{padding:16px 16px 120px;width:100%;max-width:560px;margin:0 auto;overflow:visible}
+#createInner .photoBox{width:100%;height:150px;border-radius:12px;overflow:hidden;background:#eee;display:flex;align-items:center;justify-content:center;cursor:pointer}
+#createInner .photoBox img{width:100%;height:100%;object-fit:cover;display:none}
 .memberRow{display:flex;gap:8px;align-items:center;background:#f0f2f5;border-radius:10px;padding:8px;margin:6px 0}
 .memberRow b{flex:1;font-size:14px}
-.memberRow button{width:36px !important;padding:6px !important;background:#e53935 !important;margin:0 !important}
-.photoPrev{width:80px;height:80px;border-radius:50%;background:#f0f2f5;display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;margin:8px auto}
-.photoPrev img{width:100%;height:100%;object-fit:cover}
-/* CHAT */
-#chatView{flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden}
-#chatHeader{display:flex;gap:10px;align-items:center;background:#fff;border-radius:14px;padding:10px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-#chatMsgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:8px;padding:4px}
-.bubble{max-width:82%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:pre-wrap;word-break:break-word;background:#fff;align-self:flex-start}
-.bubble.me{align-self:flex-end;background:#d9fdd3}
-.bubble small{display:block;font-size:11px;color:#667781;margin-bottom:2px;font-weight:800}
-#chatInputRow{display:flex;gap:6px;background:#f0f2f5;padding:8px;border-radius:14px}
-#chatInput{flex:1;border:none;outline:none;font-size:16px;border-radius:22px;padding:10px 12px;resize:none}
-#sendBtn{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer;flex-shrink:0}
+.memberRow button{width:36px !important;padding:6px !important;background:#ffe0e0 !important;color:#b00020;border:none;border-radius:8px;font-weight:800;cursor:pointer}
+.scrollHint{position:sticky;top:0;background:#0a192f;color:#fff;font-size:12px;font-weight:800;text-align:center;padding:10px;border-radius:8px;margin-bottom:10px;z-index:2}
+@media(max-width:820px){ .layout{flex-direction:column} .left,.right{width:100%} .right{min-height:480px} .backBtn{display:block} body.chatOpen .left{display:none} body.chatOpen .right{margin-top:0;height:calc(100dvh - 60px);min-height:0;max-height:none;position:fixed;top:54px;left:0;right:0;bottom:0;z-index:30;border-radius:0} body.chatOpen{overflow:hidden;height:100dvh} body.chatOpen .wrap{padding:0;height:100dvh} body.chatOpen .chatInput{position:fixed;left:0;right:0;bottom:0;padding:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:40} body.chatOpen .chatBody{padding-bottom:90px} body:not(.chatOpen) #chatPane{display:none} body.chatOpen #chatPane{display:flex} }
 </style></head><body>
-<div id="header">
-<div id="headerLeft"><img id="avatar" src="./Tati_logo.png" onerror="this.src='./Tate.jpg'"></div>
-<div id="centerLogo" onclick="window.location.href='./index.html'"><b>SHYNONE</b><br><i>MUSIC</i></div>
-<div id="headerRight"><a class="topBtn" href="./index.html">🏠 Home</a><a class="topBtn" href="./people.html">💬 Chats</a></div>
+<div class="topbar"><a href="./index.html">←</a><div class="logo">Tati<span>.</span></div><div class="tag">Groups</div><div style="flex:1"></div><a href="./index.html">Home</a></div>
+<div class="wrap">
+<div id="meBar" class="meBar"><img id="meBarImg" src=""><div class="info"><b><span class="dot"></span><span id="meBarName">You</span></b><span id="meBarSub">Groups • Chat together</span></div><button class="editBtn" onclick="window.location.href='./people.html'">✏️ My Profile</button></div>
+<div id="mainLayout" class="layout">
+<div class="left">
+<div class="leftHead">
+<input class="search" id="searchGroups" placeholder="🔍 Search my groups..." oninput="renderAll()">
+<div class="topActions"><button class="btnAdd" onclick="openCreate()">➕ Create Group</button><button class="btnReq" onclick="toggleMembers()">👥 Members</button></div>
+<div style="margin-top:8px"><button class="btn btn-grey" style="width:100%;margin:0;padding:10px;font-size:12px" onclick="toggleArchived()">📦 Archived Groups</button><div id="archivedBox" class="hidden" style="margin-top:8px"></div></div>
+<div id="membersInfo" class="hidden" style="margin-top:12px;border-top:1px solid #eee;padding-top:12px"><b style="font-size:13px">👥 Members of open group</b><div id="membersListTop" style="margin-top:8px"></div></div>
 </div>
-<div id="greenLine"></div>
+<div id="groupList"></div>
+</div>
+<div class="right" id="chatPane">
+<div id="chatEmpty" class="empty"><div style="font-size:48px">👥</div><h2>Pick a group on the left to start chatting</h2><p>Your groups are on the left. Tap one and chat here together.</p></div>
+<div id="chatActive" class="hidden" style="display:flex;flex-direction:column;flex:1;min-height:0;height:100%">
+<div class="chatHead"><button class="backBtn" onclick="goBackToList()">←</button><img id="chatImg"><div class="info"><b id="chatName"></b><span id="chatSub"></span></div><button class="callBtn" onclick="openMembersBox()" title="Members">👥</button><span class="dot"></span></div>
+<div class="chatBody" id="chatBody"></div>
+<div class="chatInput"><div class="chatInputRow"><button class="micBtn" onclick="alert('Voice in groups coming next - text works now')">🎤</button><input id="chatText" placeholder="Type a message to group..." onkeydown="if(event.key==='Enter') sendChat()"><button class="send" onclick="sendChat()" title="Send"><svg viewBox="0 0 32 22" fill="none" stroke="#0a2a8a" stroke-width="1.6"><rect x="2" y="2" width="28" height="18" rx="2" fill="#fff"/><path d="M2 4 L16 12 L30 4"/></svg></button></div></div>
+</div>
+</div>
+</div>
+</div>
 
-<div id="wrap">
-<div class="card">
-<h2>👥 Groups - Mintlawa</h2>
-<p>Create a group, add your people, chat together in one place. Groups are saved on this phone.</p>
-<button id="createBtn" onclick="openCreate()">+ Create Group</button>
-<input id="search" placeholder="🔍 Search groups..." oninput="renderGroups()">
-</div>
-<div id="groupList" style="display:flex;flex-direction:column;gap:10px"></div>
-<div id="emptyMsg" class="empty hidden">No groups yet.<br>Tap <b>+ Create Group</b> to start your first group.</div>
-</div>
-
-<!-- CREATE / EDIT -->
-<div id="createBox" class="overlay"><div class="box">
-<div class="scrollHint">↓ SCROLL INSIDE HERE ↓ Swipe up in this white box</div>
-<h3 style="text-align:center" id="createTitle">+ Create Group</h3>
-<div class="photoPrev" id="photoPrev">👥</div>
-<label style="font-size:12px;font-weight:800">Group Photo (optional)</label>
-<input type="file" id="groupPhoto" accept="image/*" onchange="previewPhoto(event)">
-<label style="font-size:12px;font-weight:800">Group Name *</label>
+<!-- CREATE / EDIT GROUP - FULL SCREEN -->
+<div id="createOverlay"><div id="createInner">
+<div class="scrollHint">↓ SWIPE UP - This whole page scrolls ↓</div>
+<div style="display:flex;justify-content:space-between;align-items:center"><h2 id="createTitle">➕ Create Group</h2><button onclick="closeCreate()" style="padding:8px 14px;border:none;background:#eee;border-radius:999px;font-weight:800;cursor:pointer">✕ Close</button></div>
+<label>GROUP PHOTO (optional)</label>
+<div class="photoBox" onclick="document.getElementById('groupPhotoInput').click()"><img id="groupPhotoPrev"><span id="groupPhotoIcon">🖼️ Tap to add group photo</span></div>
+<input type="file" id="groupPhotoInput" accept="image/*" class="hidden">
+<label>GROUP NAME *</label>
 <input id="groupName" placeholder="Ex: Family, School Friends, Church...">
-<label style="font-size:12px;font-weight:800">Description</label>
-<textarea id="groupDesc" placeholder="What is this group about?"></textarea>
-<label style="font-size:12px;font-weight:800">Add Members - Name / Number</label>
-<div style="display:flex;gap:6px"><input id="memberInput" placeholder="Ex: Jemi - 84 123 4567" style="flex:1"><button onclick="addMember()" style="width:80px !important;margin:8px 0 !important">+ Add</button></div>
-<div id="memberList"></div>
-<p style="font-size:12px;color:#666">Tip: Add as many members as you want. You can add more later.</p>
-<button onclick="saveGroup()">✅ Create Group</button>
-<button class="grey" onclick="closeCreate()">Close</button>
+<label>DESCRIPTION</label>
+<input id="groupDesc" placeholder="What is this group about?">
+<label>ADD MEMBERS - Name / Number</label>
+<div style="display:flex;gap:8px"><input id="memberInput" placeholder="Ex: Jemi - 84 123 4567" style="flex:1"><button onclick="addMember()" style="padding:12px 16px;border:none;background:#0a192f;color:#fff;border-radius:10px;font-weight:800;cursor:pointer">+ Add</button></div>
+<div id="tempMemberList"></div>
+<p class="notice">Add as many members as you want. You can add more later from Members.</p>
+<button class="btn btn-green" onclick="saveGroup()">✅ Create Group</button>
+<button class="btn btn-grey" onclick="closeCreate()">Close</button>
 <div style="height:40px"></div>
 </div></div>
 
-<!-- GROUP CHAT -->
-<div id="chatViewWrap" class="hidden" style="flex:1;display:flex;flex-direction:column;padding:12px;gap:10px;overflow:hidden">
-<div id="chatHeader">
-<div class="groupImg" id="chatImg">👥</div>
-<div style="flex:1;min-width:0"><b id="chatName" style="font-size:16px">Group</b><span id="chatMembers" style="font-size:12px;color:#667781;display:block"></span></div>
-<button onclick="openMembers()" style="padding:8px 10px;border-radius:10px;border:1px solid #ddd;background:#fff;font-weight:800;cursor:pointer">👥 Members</button>
-<button onclick="closeChat()" style="padding:8px 10px;border-radius:10px;border:none;background:#eee;font-weight:800;cursor:pointer">✕</button>
-</div>
-<div id="chatMsgs"></div>
-<div id="chatInputRow"><textarea id="chatInput" rows="1" placeholder="Message group..."></textarea><button id="sendBtn">✉️</button></div>
-</div>
-
-<!-- MEMBERS -->
-<div id="membersBox" class="overlay"><div class="box">
-<div class="scrollHint">↓ SCROLL INSIDE HERE ↓</div>
-<h3 style="text-align:center">👥 Members</h3>
-<p id="membersGroupName" style="text-align:center;color:#666;font-size:13px"></p>
-<div id="membersList"></div>
-<div style="display:flex;gap:6px;margin-top:10px"><input id="newMemberInput" placeholder="Add new member..." style="flex:1"><button onclick="addMemberToOpen()" style="width:80px !important;margin:8px 0 !important">+ Add</button></div>
-<button class="dark" onclick="closeMembers()">Done</button>
-<button class="red" onclick="deleteGroup()">🗑 Delete This Group</button>
-<div style="height:40px"></div>
-</div></div>
+<!-- MEMBERS BOX -->
+<div id="membersOverlay" class="holdOverlay" onclick="closeMembersBox()"><div class="holdBox" onclick="event.stopPropagation()"><b id="membersTitle">👥 Members</b><div id="membersBoxList" style="margin-top:10px"></div><div style="display:flex;gap:8px;margin-top:10px"><input id="newMemberInput" placeholder="Add new member..." style="flex:1;padding:12px;border:1px solid #ddd;border-radius:10px"><button onclick="addMemberToOpen()" style="padding:12px;border:none;background:#00a884;color:#fff;border-radius:10px;font-weight:800;cursor:pointer">+ Add</button></div><button onclick="closeMembersBox()">Done</button><button class="danger" onclick="deleteGroup()">🗑️ Delete This Group</button></div></div>
+<div id="msgHoldOverlay" class="holdOverlay" onclick="closeMsgMenu()"><div class="holdBox" onclick="event.stopPropagation()"><b>Message</b><div id="msgHoldButtons"></div><button onclick="closeMsgMenu()">❌ Close</button></div></div>
 
 <script>
-let groups=[];
-let editId=null;
-let openId=null;
-let tempPhoto="";
-let tempMembers=[];
-
-function load(){try{groups=JSON.parse(localStorage.getItem("tati_groups")||"[]")}catch(e){groups=[]}}
-function save(){localStorage.setItem("tati_groups",JSON.stringify(groups))}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function fmtTime(ts){var d=new Date(ts);var h=d.getHours(),m=d.getMinutes();return (h<10?'0'+h:h)+':'+(m<10?'0'+m:m)}
+function dayLabel(ts){var d=new Date(ts);var today=new Date();var y=new Date();y.setDate(today.getDate()-1);function same(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate()}if(same(d,today))return 'Today';if(same(d,y))return 'Yesterday';return d.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getFullYear()}
+function getProfile(){try{return JSON.parse(localStorage.getItem('tati_my_profile')||'{}')}catch(e){return{}}}
+function getGroups(){try{return JSON.parse(localStorage.getItem('tati_groups')||'[]')}catch(e){return[]}}
+function saveGroups(g){localStorage.setItem('tati_groups',JSON.stringify(g))}
+var selectedId=null, tempPhoto="", tempMembers=[], msgHoldIndex=-1;
+function myName(){var p=getProfile();return p.name||"You"}
+(function(){var p=getProfile();if(p.name)document.getElementById('meBarName').textContent=p.name;if(p.selfie)document.getElementById('meBarImg').src=p.selfie;if(p.name&&p.number)document.getElementById('meBarSub').textContent=p.number+' • '+ (p.country||'') +' • ✅ Verified';})();
 
-function renderGroups(){
-  var q=(document.getElementById("search").value||"").toLowerCase();
-  var el=document.getElementById("groupList"); el.innerHTML="";
-  var list=groups.filter(function(g){return !q || g.name.toLowerCase().indexOf(q)>-1 || (g.desc||"").toLowerCase().indexOf(q)>-1});
-  document.getElementById("emptyMsg").classList.toggle("hidden", list.length>0);
-  list.forEach(function(g){
-    var last=g.msgs && g.msgs.length ? g.msgs[g.msgs.length-1].text : (g.desc||"No messages yet");
-    var div=document.createElement("div"); div.className="groupItem";
-    div.onclick=function(){openChat(g.id)};
-    div.innerHTML='<div class="groupImg">'+(g.photo?'<img src="'+g.photo+'">':'👥')+'</div><div class="groupInfo"><b>'+esc(g.name)+'</b><span>'+esc(last)+'</span></div><div class="groupCount">'+(g.members||[]).length+' 👥</div>';
-    el.appendChild(div);
-  });
+function renderAll(){
+  var q=(document.getElementById('searchGroups').value||'').toLowerCase();
+  var groups=getGroups();
+  var filtered=groups.filter(function(g){return !q || g.name.toLowerCase().indexOf(q)>-1 || (g.desc||"").toLowerCase().indexOf(q)>-1});
+  var pl=document.getElementById('groupList');
+  if(!filtered.length){pl.innerHTML='<p class="notice" style="padding:12px">No groups yet.<br>Tap ➕ Create Group to start your first group.</p>';}
+  else{pl.innerHTML=filtered.map(function(g){
+    var last=g.msgs&&g.msgs.length?g.msgs[g.msgs.length-1].text:"No messages yet - "+(g.desc||"");
+    var pic=g.photo||"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200";
+    return '<div class="person '+(selectedId===g.id?'active':'')+'" onclick="openChat(\''+g.id+'\')"><img src="'+pic+'"><div class="info"><b><span class="dot"></span>'+esc(g.name)+' • '+(g.members||[]).length+' 👥</b><span>'+esc(last)+'</span></div><span class="time">›</span></div>';
+  }).join('');}
+  if(selectedId) renderChat(false);
 }
-
-function previewPhoto(e){
-  var f=e.target.files[0]; if(!f) return;
-  var r=new FileReader(); r.onload=function(){tempPhoto=r.result; document.getElementById("photoPrev").innerHTML='<img src="'+tempPhoto+'">';}; r.readAsDataURL(f);
+function toggleMembers(){
+  var box=document.getElementById('membersInfo'); box.classList.toggle('hidden');
+  if(box.classList.contains('hidden')) return;
+  var g=getGroups().find(function(x){return x.id===selectedId});
+  if(!g){document.getElementById('membersListTop').innerHTML='<p class="notice">Pick a group first, then tap Members.</p>';return;}
+  document.getElementById('membersListTop').innerHTML=(g.members||[]).map(function(m){return '<div style="font-size:13px;padding:6px;background:#f9f9f9;border-radius:8px;margin-bottom:4px">👤 '+esc(m)+'</div>'}).join('')||'<p class="notice">No members yet.</p>';
 }
-function renderTempMembers(){
-  var el=document.getElementById("memberList"); el.innerHTML="";
-  tempMembers.forEach(function(m,i){
-    var d=document.createElement("div"); d.className="memberRow";
-    d.innerHTML='<b>'+esc(m)+'</b><button onclick="removeTempMember('+i+')">✕</button>';
-    el.appendChild(d);
-  });
+function toggleArchived(){
+  var box=document.getElementById('archivedBox'); box.classList.toggle('hidden');
+  if(box.classList.contains('hidden')) return;
+  box.innerHTML='<p class="notice">Archived groups will show here. Long-press a group to archive (coming next).</p>';
 }
-function addMember(){
-  var v=document.getElementById("memberInput").value.trim(); if(!v) return;
-  tempMembers.push(v); document.getElementById("memberInput").value=""; renderTempMembers();
-}
-function removeTempMember(i){tempMembers.splice(i,1); renderTempMembers();}
-
 function openCreate(){
-  editId=null; tempPhoto=""; tempMembers=[];
-  document.getElementById("createTitle").textContent="+ Create Group";
-  document.getElementById("groupName").value=""; document.getElementById("groupDesc").value="";
-  document.getElementById("photoPrev").innerHTML="👥"; document.getElementById("memberInput").value="";
+  tempPhoto=""; tempMembers=[];
+  document.getElementById('createTitle').textContent='➕ Create Group';
+  document.getElementById('groupName').value=""; document.getElementById('groupDesc').value=""; document.getElementById('memberInput').value="";
+  document.getElementById('groupPhotoPrev').style.display='none'; document.getElementById('groupPhotoIcon').style.display='block';
   renderTempMembers();
-  document.body.classList.add("lock-scroll");
-  document.getElementById("createBox").style.display="flex";
-  document.querySelector("#createBox .box").scrollTop=0;
+  document.body.classList.add('lock-scroll');
+  document.getElementById('createOverlay').style.display='block'; document.getElementById('createOverlay').scrollTop=0;
 }
-function closeCreate(){document.body.classList.remove("lock-scroll"); document.getElementById("createBox").style.display="none";}
-
+function closeCreate(){document.body.classList.remove('lock-scroll');document.getElementById('createOverlay').style.display='none';}
+document.getElementById('groupPhotoInput').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){tempPhoto=r.result;var im=document.getElementById('groupPhotoPrev');im.src=tempPhoto;im.style.display='block';document.getElementById('groupPhotoIcon').style.display='none';};r.readAsDataURL(f);};
+function renderTempMembers(){
+  var el=document.getElementById('tempMemberList');el.innerHTML="";
+  tempMembers.forEach(function(m,i){var d=document.createElement('div');d.className='memberRow';d.innerHTML='<b>'+esc(m)+'</b><button onclick="removeTempMember('+i+')">✕</button>';el.appendChild(d);});
+}
+function addMember(){var v=document.getElementById('memberInput').value.trim();if(!v)return;tempMembers.push(v);document.getElementById('memberInput').value="";renderTempMembers();}
+function removeTempMember(i){tempMembers.splice(i,1);renderTempMembers();}
 function saveGroup(){
-  var name=document.getElementById("groupName").value.trim();
-  if(!name){alert("Give your group a name first."); return;}
-  var desc=document.getElementById("groupDesc").value.trim();
-  groups.unshift({id:Date.now().toString(), name:name, desc:desc, photo:tempPhoto, members:tempMembers.slice(), msgs:[], created:Date.now()});
-  save(); closeCreate(); renderGroups();
-  alert("Group '"+name+"' created! Tap it to chat.");
+  var name=document.getElementById('groupName').value.trim();if(!name){alert('Give your group a name first.');return;}
+  var groups=getGroups();
+  groups.unshift({id:Date.now().toString(),name:name,desc:document.getElementById('groupDesc').value.trim(),photo:tempPhoto,members:tempMembers.slice(),msgs:[],created:Date.now()});
+  saveGroups(groups);closeCreate();renderAll();alert("Group '"+name+"' created! Tap it to chat.");
+  openChat(groups[0].id);
 }
-
 function openChat(id){
-  openId=id;
-  var g=groups.find(function(x){return x.id===id}); if(!g) return;
-  document.getElementById("wrap").classList.add("hidden");
-  var w=document.getElementById("chatViewWrap"); w.classList.remove("hidden"); w.style.display="flex";
-  document.getElementById("chatImg").innerHTML=g.photo?'<img src="'+g.photo+'">':'👥';
-  document.getElementById("chatName").textContent=g.name;
-  document.getElementById("chatMembers").textContent=(g.members||[]).join(" • ") || "No members yet - tap Members to add";
-  renderMsgs();
+  selectedId=id;localStorage.setItem('tati_selected_group',id);
+  var g=getGroups().find(function(x){return x.id===id});if(!g)return;
+  document.body.classList.add('chatOpen');renderAll();
+  document.getElementById('chatEmpty').classList.add('hidden');
+  var a=document.getElementById('chatActive');a.classList.remove('hidden');a.style.display='flex';
+  document.getElementById('chatImg').src=g.photo||"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200";
+  document.getElementById('chatName').textContent=g.name;
+  document.getElementById('chatSub').textContent=(g.members||[]).join(' • ')||'No members yet - tap 👥 to add';
+  renderChat(true);
 }
-function closeChat(){
-  openId=null;
-  document.getElementById("chatViewWrap").classList.add("hidden"); document.getElementById("chatViewWrap").style.display="none";
-  document.getElementById("wrap").classList.remove("hidden");
-  renderGroups();
-}
-function renderMsgs(){
-  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
-  var el=document.getElementById("chatMsgs"); el.innerHTML="";
-  if(!g.msgs || !g.msgs.length){el.innerHTML='<p style="text-align:center;color:#999;font-size:13px;padding:20px">No messages yet.<br>Say hi to your group! 👋</p>'; return;}
-  g.msgs.forEach(function(m){
-    var d=document.createElement("div"); d.className="bubble"+(m.me?" me":"");
-    d.innerHTML='<small>'+esc(m.from||"You")+'</small>'+esc(m.text);
-    el.appendChild(d);
+function goBackToList(){document.body.classList.remove('chatOpen');selectedId=null;localStorage.removeItem('tati_selected_group');document.getElementById('chatActive').classList.add('hidden');document.getElementById('chatEmpty').classList.remove('hidden');renderAll();}
+function renderChat(force){
+  if(!selectedId)return;
+  var g=getGroups().find(function(x){return x.id===selectedId});if(!g)return;
+  var body=document.getElementById('chatBody');
+  if(!g.msgs||!g.msgs.length){body.innerHTML='<p class="notice" style="text-align:center">No messages yet.<br>Say hi to your group! 👋</p>';return;}
+  var html='',lastDay='';
+  g.msgs.forEach(function(m,i){
+    var dLabel=dayLabel(m.time||Date.now());if(dLabel!==lastDay){html+='<div class="dateDivider">'+dLabel+'</div>';lastDay=dLabel;}
+    html+='<div class="msg '+(m.me?'me':'them')+'" oncontextmenu="openMsgMenu(event,'+i+');return false;" ontouchstart="startMsgHold(event,'+i+')" ontouchend="endMsgHold()"><span class="msgFrom">'+esc(m.from||'You')+'</span><span class="msgText">'+esc(m.text)+'</span><div class="msgMeta"><span>'+fmtTime(m.time||Date.now())+'</span></div></div>';
   });
-  el.scrollTop=el.scrollHeight;
+  body.innerHTML=html;body.scrollTop=body.scrollHeight;
 }
-document.getElementById("sendBtn").onclick=function(){
-  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
-  var v=document.getElementById("chatInput").value.trim(); if(!v) return;
-  if(!g.msgs) g.msgs=[];
-  g.msgs.push({from:"You", text:v, me:true, at:Date.now()});
-  save(); document.getElementById("chatInput").value=""; renderMsgs(); renderGroups();
-};
-document.getElementById("chatInput").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault(); document.getElementById("sendBtn").click();}});
-
-function openMembers(){
-  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
-  document.getElementById("membersGroupName").textContent=g.name;
-  renderMembersList();
-  document.body.classList.add("lock-scroll");
-  document.getElementById("membersBox").style.display="flex";
-  document.querySelector("#membersBox .box").scrollTop=0;
+var msgHoldTimer=null;
+function startMsgHold(e,i){msgHoldIndex=i;clearTimeout(msgHoldTimer);msgHoldTimer=setTimeout(function(){openMsgMenu(e,i)},500);}
+function endMsgHold(){clearTimeout(msgHoldTimer);}
+function openMsgMenu(e,i){endMsgHold();if(e)e.preventDefault();msgHoldIndex=i;var g=getGroups().find(function(x){return x.id===selectedId});var m=g.msgs[i];if(!m)return;var html='<button onclick="msgCopy()">📋 Copy</button>';if(m.me)html+='<button class="danger" onclick="msgDelete()">🗑️ Delete my message</button>';document.getElementById('msgHoldButtons').innerHTML=html;document.getElementById('msgHoldOverlay').style.display='flex';}
+function closeMsgMenu(){document.getElementById('msgHoldOverlay').style.display='none';msgHoldIndex=-1;}
+function msgCopy(){var g=getGroups().find(function(x){return x.id===selectedId});var m=g.msgs[msgHoldIndex];if(m)navigator.clipboard.writeText(m.text);alert('📋 Copied!');closeMsgMenu();}
+function msgDelete(){var groups=getGroups();var g=groups.find(function(x){return x.id===selectedId});if(!g)return;if(!confirm('Delete this message?')){closeMsgMenu();return;}g.msgs.splice(msgHoldIndex,1);saveGroups(groups);closeMsgMenu();renderChat(true);renderAll();}
+function sendChat(){
+  if(!selectedId)return;var inp=document.getElementById('chatText');var t=inp.value.trim();if(!t)return;
+  var groups=getGroups();var g=groups.find(function(x){return x.id===selectedId});if(!g)return;
+  if(!g.msgs)g.msgs=[];g.msgs.push({from:myName(),me:true,text:t,time:Date.now()});saveGroups(groups);inp.value='';renderChat(true);renderAll();
 }
-function closeMembers(){document.body.classList.remove("lock-scroll"); document.getElementById("membersBox").style.display="none"; renderMsgs(); document.getElementById("chatMembers").textContent=(groups.find(function(x){return x.id===openId})||{}).members?.join(" • ")||"";}
-function renderMembersList(){
-  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
-  var el=document.getElementById("membersList"); el.innerHTML="";
-  if(!g.members.length) el.innerHTML='<p style="text-align:center;color:#999;font-size:13px">No members yet.</p>';
-  (g.members||[]).forEach(function(m,i){
-    var d=document.createElement("div"); d.className="memberRow";
-    d.innerHTML='<b>'+esc(m)+'</b><button onclick="removeMember('+i+')">✕</button>';
-    el.appendChild(d);
-  });
+function openMembersBox(){
+  var g=getGroups().find(function(x){return x.id===selectedId});if(!g)return;
+  document.getElementById('membersTitle').textContent='👥 Members - '+g.name;
+  renderMembersBox();document.getElementById('membersOverlay').style.display='flex';
 }
-function removeMember(i){
-  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
-  g.members.splice(i,1); save(); renderMembersList();
+function closeMembersBox(){document.getElementById('membersOverlay').style.display='none';renderAll();var g=getGroups().find(function(x){return x.id===selectedId});if(g)document.getElementById('chatSub').textContent=(g.members||[]).join(' • ')||'No members yet';}
+function renderMembersBox(){
+  var g=getGroups().find(function(x){return x.id===selectedId});if(!g)return;
+  var el=document.getElementById('membersBoxList');el.innerHTML="";
+  if(!g.members.length)el.innerHTML='<p class="notice">No members yet.</p>';
+  (g.members||[]).forEach(function(m,i){var d=document.createElement('div');d.className='memberRow';d.innerHTML='<b>'+esc(m)+'</b><button onclick="removeMember('+i+')">✕</button>';el.appendChild(d);});
 }
-function addMemberToOpen(){
-  var g=groups.find(function(x){return x.id===openId}); if(!g) return;
-  var v=document.getElementById("newMemberInput").value.trim(); if(!v) return;
-  g.members.push(v); save(); document.getElementById("newMemberInput").value=""; renderMembersList();
-}
-function deleteGroup(){
-  if(!confirm("Delete this group? All its messages will be gone.")) return;
-  groups=groups.filter(function(x){return x.id!==openId}); save();
-  closeMembers(); closeChat();
-}
-
-load(); renderGroups();
+function removeMember(i){var groups=getGroups();var g=groups.find(function(x){return x.id===selectedId});g.members.splice(i,1);saveGroups(groups);renderMembersBox();}
+function addMemberToOpen(){var groups=getGroups();var g=groups.find(function(x){return x.id===selectedId});var v=document.getElementById('newMemberInput').value.trim();if(!v)return;g.members.push(v);saveGroups(groups);document.getElementById('newMemberInput').value="";renderMembersBox();}
+function deleteGroup(){if(!confirm('Delete this group? All its messages will be gone.'))return;var groups=getGroups().filter(function(x){return x.id!==selectedId});saveGroups(groups);closeMembersBox();goBackToList();}
+renderAll();
 </script>
 </body></html>
