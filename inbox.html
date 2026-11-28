@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Tati Inbox - Admin Only</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#f6f3ee;min-height:100dvh;display:flex;flex-direction:column}
+#header{height:64px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:3px solid #0a192f;position:sticky;top:0;z-index:100}
+#header b{font-size:16px}
+#header a{text-decoration:none;color:#111;font-weight:800;font-size:13px;background:#f0f2f5;padding:8px 12px;border-radius:10px}
+#topStats{display:flex;gap:8px;padding:12px}
+.stat{flex:1;background:#fff;border-radius:12px;padding:12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.stat b{font-size:20px;display:block}
+.stat span{font-size:11px;color:#667781}
+#tabs{display:flex;gap:8px;padding:0 12px}
+.tab{flex:1;padding:10px;border:none;border-radius:999px;font-weight:800;font-size:13px;cursor:pointer;background:#fff}
+.tab.active{background:#0a192f;color:#fff}
+#list{padding:12px;display:flex;flex-direction:column;gap:10px;padding-bottom:80px}
+.card{background:#fff;border-radius:16px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-left:5px solid #00a884}
+.card.new{border-left-color:#e53935}
+.cardTop{display:flex;gap:10px;align-items:center}
+.avatar{width:48px;height:48px;border-radius:50%;background:#0a192f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0}
+.cardTop b{font-size:15px}
+.cardTop small{color:#667781;font-size:12px;display:block}
+.badge{margin-left:auto;background:#e53935;color:#fff;font-size:10px;padding:4px 8px;border-radius:999px;font-weight:800}
+.card p{font-size:14px;color:#333;line-height:1.45;margin:8px 0;white-space:pre-wrap;word-break:break-word}
+.info{background:#f6f3ee;border-radius:10px;padding:10px;font-size:13px;line-height:1.5}
+.btnRow{display:flex;gap:8px;margin-top:10px}
+.btnRow button{flex:1;padding:10px;border:none;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer}
+.accept{background:#00a884;color:#fff}
+.reject{background:#ffe8e8;color:#c62828}
+.chatBtn{background:#0a192f;color:#fff}
+.accepted{color:#00a884;font-weight:800;font-size:13px}
+.rejected{color:#c62828;font-weight:800;font-size:13px}
+#lock{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;display:flex;align-items:center;justify-content:center;padding:12px}
+#lockBox{background:#fff;padding:18px;border-radius:16px;width:300px;max-width:92vw;text-align:center}
+#lockBox h3{font-size:18px}
+#lockBox p{font-size:13px;color:#555;margin:6px 0;line-height:1.4}
+#lockBox input{width:100%;padding:11px;font-size:18px;text-align:center;letter-spacing:6px;border:2px solid #0a192f;border-radius:10px;margin:8px 0}
+#lockBox button{width:100%;padding:11px;border:none;border-radius:10px;background:#00a884;color:#fff;font-weight:800;font-size:14px;cursor:pointer}
+#chatBox{position:fixed;inset:0;background:#f6f3ee;z-index:998;display:none;flex-direction:column}
+#chatHead{height:60px;background:#fff;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:2px solid #0a192f}
+#chatHead button{border:none;background:#f0f2f5;padding:8px 12px;border-radius:10px;font-weight:800;cursor:pointer}
+#chatMsgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.bubble{max-width:80%;padding:9px 12px;font-size:15px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.12);white-space:pre-wrap;word-break:break-word}
+.me{align-self:flex-end;background:#d9fdd3}
+.them{align-self:flex-start;background:#fff}
+#chatInput{display:flex;gap:6px;padding:8px;background:#f0f2f5}
+#chatInput input{flex:1;padding:11px;border:none;border-radius:22px;outline:none;font-size:15px}
+#chatInput button{width:44px;height:44px;border-radius:50%;border:none;background:#0a192f;color:#fff;font-size:17px;cursor:pointer}
+#toast{position:fixed;top:70px;left:12px;right:12px;background:#0a192f;color:#fff;padding:12px;border-radius:12px;z-index:1000;display:none;font-size:14px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.hidden{display:none!important}
+</style></head><body>
+<div id="header"><b>📥 MY INBOX</b><span id="bell">🔔 0</span><a href="./index.html">← Home</a></div>
+<div id="topStats">
+<div class="stat"><b id="countNew">0</b><span>NEW</span></div>
+<div class="stat"><b id="countAccepted">0</b><span>ACCEPTED</span></div>
+<div class="stat"><b id="countAll">0</b><span>TOTAL</span></div>
+</div>
+<div id="tabs">
+<button class="tab active" onclick="setFilter('all',this)">All</button>
+<button class="tab" onclick="setFilter('new',this)">🆕 New</button>
+<button class="tab" onclick="setFilter('accepted',this)">✅ Accepted</button>
+<button class="tab" onclick="setFilter('rejected',this)">❌ Rejected</button>
+</div>
+<div id="list"></div>
+<div id="toast"></div>
+<div id="chatBox">
+<div id="chatHead"><button onclick="closeChat()">← Back</button><b id="chatName">Chat</b></div>
+<div id="chatMsgs"></div>
+<div id="chatInput"><input id="chatText" placeholder="Type message..."><button onclick="sendChatMsg()">✉️</button></div>
+</div>
+<div id="lock"><div id="lockBox">
+<h3>🔒 Admin Only</h3>
+<p>This Inbox is only for Tati owner.<br>Enter Admin Code to open.</p>
+<input id="adminCode" type="password" inputmode="numeric" maxlength="6" placeholder="••••">
+<p id="lockErr" style="color:red;font-size:12px"></p>
+<button onclick="unlockInbox()">Unlock Inbox →</button>
+<button onclick="window.location.href='./index.html'" style="background:#eee;color:#111;margin-top:6px">Go Home</button>
+</div></div>
+<script>
+var ADMIN_CODE="8219";
+var filter="all";
+var currentChatId=null;
+function getApps(){try{return JSON.parse(localStorage.getItem("tati_job_apps")||"[]")}catch(e){return[]}}
+function saveApps(a){localStorage.setItem("tati_job_apps",JSON.stringify(a))}
+function playDing(){try{var ctx=new (window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator();var g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=880;o.type="sine";g.gain.value=0.15;o.start();setTimeout(function(){o.frequency.value=1320},120);setTimeout(function(){o.stop();ctx.close()},300);}catch(e){}try{if(navigator.vibrate)navigator.vibrate(200)}catch(e){}}
+function showToast(t){var el=document.getElementById("toast");el.textContent=t;el.style.display="block";playDing();setTimeout(function(){el.style.display="none"},4000)}
+function unlockInbox(){var v=document.getElementById("adminCode").value.trim();if(v===ADMIN_CODE){localStorage.setItem("tati_is_admin","1");document.getElementById("lock").style.display="none";render();}else{document.getElementById("lockErr").textContent="Wrong code. Try again.";}}
+document.getElementById("adminCode").addEventListener("keydown",function(e){if(e.key==="Enter")unlockInbox()});
+function setFilter(f,btn){filter=f;document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("active")});if(btn)btn.classList.add("active");render();}
+function render(){var apps=getApps();var filtered=apps.filter(function(a){if(filter==="new")return a.status==="new";if(filter==="accepted")return a.status==="accepted";if(filter==="rejected")return a.status==="rejected";return true;});filtered.sort(function(a,b){return (b.time||0)-(a.time||0)});document.getElementById("countNew").textContent=apps.filter(function(a){return a.status==="new"}).length;document.getElementById("countAccepted").textContent=apps.filter(function(a){return a.status==="accepted"}).length;document.getElementById("countAll").textContent=apps.length;document.getElementById("bell").textContent="🔔 "+apps.filter(function(a){return a.status==="new"}).length;var list=document.getElementById("list");if(!filtered.length){list.innerHTML="<div style='background:#fff;padding:20px;border-radius:14px;text-align:center;color:#667781'>No applications yet.<br><br>When someone applies in jobs.html, it will appear here instantly.<br><br><small>Test: Go to jobs.html and apply as test.</small></div>";return;}list.innerHTML=filtered.map(function(a){var letter=(a.name||"?").charAt(0).toUpperCase();var date=new Date(a.time||Date.now()).toLocaleString();var statusBtns="";if(a.status==="new"){statusBtns="<div class='btnRow'><button class='accept' onclick=\"setStatus('"+a.id+"','accepted')\">✅ Accept</button><button class='reject' onclick=\"setStatus('"+a.id+"','rejected')\">❌ Reject</button><button class='chatBtn' onclick=\"openChat('"+a.id+"')\">💬 Chat</button></div>";}else if(a.status==="accepted"){statusBtns="<div class='btnRow'><span class='accepted'>✅ Accepted - Agent</span><button class='chatBtn' onclick=\"openChat('"+a.id+"')\">💬 Chat</button></div>";}else{statusBtns="<div class='btnRow'><span class='rejected'>❌ Rejected</span><button class='chatBtn' onclick=\"openChat('"+a.id+"')\">💬 Chat</button></div>";}return "<div class='card "+(a.status==="new"?"new":"")+"'>"+"<div class='cardTop'><div class='avatar'>"+letter+"</div><div><b>"+(a.name||"No name")+"</b><small>"+(a.country||"")+" • "+(a.city||"")+" • "+date+"</small></div>"+(a.status==="new"?"<span class='badge'>NEW</span>":"")+"</div>"+"<div class='info'>📞 <b>"+(a.phone||"-")+"</b><br>🌍 Country: "+(a.country||"-")+"<br>🏙️ City: "+(a.city||"-")+"<br>💬 Why: "+(a.message||a.why||"Wants to be Tati Agent")+"</div>"+statusBtns+"</div>";}).join("");}
+function setStatus(id,status){var apps=getApps();var a=apps.find(function(x){return x.id===id});if(!a)return;a.status=status;saveApps(apps);var replies={};try{replies=JSON.parse(localStorage.getItem("tati_job_replies")||"{}")}catch(e){}replies[id]=status;localStorage.setItem("tati_job_replies",JSON.stringify(replies));if(status==="accepted"){showToast("✅ "+a.name+" accepted as Agent!");}else{showToast("❌ "+a.name+" rejected.");}render();}
+function openChat(id){currentChatId=id;var apps=getApps();var a=apps.find(function(x){return x.id===id});if(!a)return;document.getElementById("chatName").textContent="💬 "+a.name+" • "+(a.country||"");document.getElementById("chatBox").style.display="flex";renderChat();}
+function closeChat(){document.getElementById("chatBox").style.display="none";currentChatId=null}
+function getChatMsgs(id){try{var all=JSON.parse(localStorage.getItem("tati_inbox_chats")||"{}");return all[id]||[]}catch(e){return[]}}
+function renderChat(){if(!currentChatId)return;var msgs=getChatMsgs(currentChatId);var box=document.getElementById("chatMsgs");if(!msgs.length){box.innerHTML="<div style='text-align:center;color:#999;font-size:13px;padding:20px'>Start chatting with applicant here.<br>They will see your message in jobs page.</div>";return;}box.innerHTML=msgs.map(function(m){return "<div class='bubble "+(m.from==="admin"?"me":"them")+"'>"+m.text+"</div>";}).join("");box.scrollTop=box.scrollHeight;}
+function sendChatMsg(){var inp=document.getElementById("chatText");var txt=inp.value.trim();if(!txt||!currentChatId)return;var all={};try{all=JSON.parse(localStorage.getItem("tati_inbox_chats")||"{}")}catch(e){}if(!all[currentChatId])all[currentChatId]=[];all[currentChatId].push({from:"admin",text:txt,time:Date.now()});localStorage.setItem("tati_inbox_chats",JSON.stringify(all));inp.value="";renderChat();}
+document.getElementById("chatText").addEventListener("keydown",function(e){if(e.key==="Enter")sendChatMsg()});
+if(localStorage.getItem("tati_is_admin")==="1"){document.getElementById("lock").style.display="none";}
+var lastCount=getApps().filter(function(a){return a.status==="new"}).length;
+setInterval(function(){var apps=getApps();var nowCount=apps.filter(function(a){return a.status==="new"}).length;if(nowCount>lastCount){var newest=apps.filter(function(a){return a.status==="new"}).sort(function(a,b){return b.time-a.time})[0];if(newest)showToast("📥 New Application: "+newest.name+" from "+(newest.country||""));render();}lastCount=nowCount;},3000);
+render();
+</script>
+</body></html>
