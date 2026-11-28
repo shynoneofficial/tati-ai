@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Jobs - Become a Tati Agent</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
+body{background:#f6f3ee;padding-bottom:30px}
+.topbar{background:#0a192f;color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
+.topbar a{color:#fff;text-decoration:none;font-weight:800;font-size:14px}
+.logo{font-size:22px;font-weight:900}.logo span{color:#00a884}
+.tag{font-size:11px;background:#00a884;padding:4px 8px;border-radius:999px;font-weight:800}
+.wrap{max-width:560px;margin:0 auto;padding:12px;display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.card h2{font-size:18px}
+.card p{font-size:14px;color:#333;line-height:1.5;margin-top:6px}
+.earn{background:#0a192f;color:#fff;border-radius:16px;padding:16px}
+.earn h2{color:#fff}
+.earn p{color:#fff}
+.earn b{color:#00e676}
+label{font-size:12px;font-weight:800;color:#667781;display:block;margin:10px 0 4px}
+input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px;outline:none}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;text-align:center;margin-top:12px}
+.btn-green{background:#00a884;color:#fff}
+.btn-dark{background:#0a192f;color:#fff}
+.btn-grey{background:#f0f2f5;color:#111}
+.step{display:flex;gap:10px;margin-top:10px;align-items:flex-start}
+.step span{width:28px;height:28px;background:#00a884;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:14px}
+.step b{font-size:14px}
+.step small{display:block;color:#667781;font-size:12px}
+.mycode{background:#fff3cd;border:2px solid #ffcc00;border-radius:12px;padding:12px;text-align:center;margin-top:10px}
+.mycode b{font-size:24px;letter-spacing:2px}
+.hidden{display:none!important}
+</style></head><body>
+<div class="topbar"><a href="./index.html">←</a><div class="logo">Tati<span>.</span></div><div class="tag">Jobs</div><div style="flex:1"></div><a href="./index.html">Home</a></div>
+<div class="wrap">
+<div class="earn">
+<h2>💰 Earn Cash as a Tati Agent</h2>
+<p>NOT a salary job. <b>Commission job.</b><br>You help people, you earn.</p>
+<p style="margin-top:10px;background:#fff;color:#111;border-radius:10px;padding:10px">Example:<br>Customer pays <b style="color:#111">50 MT</b> for Secret Room<br>You earn <b style="color:#00a884">10 MT</b> (20%)<br>Help 10 people = <b style="color:#00a884">100 MT</b></p>
+</div>
+<div class="card">
+<h2>How it works - 3 steps</h2>
+<div class="step"><span>1</span><div><b>Install Tati for them</b><small>Go to their phone, open Tati, help them set up.</small></div></div>
+<div class="step"><span>2</span><div><b>Help them pay</b><small>Help them pay 50 MT for Secret Room or Safe Box with M-Pesa.</small></div></div>
+<div class="step"><span>3</span><div><b>You get commission</b><small>They type YOUR Agent Code when they pay. We track it. You get paid.</small></div></div>
+</div>
+<div class="card">
+<h2>📝 Apply to be an Agent</h2>
+<p>Fill this. We will give you your Agent Code.</p>
+<label>YOUR NAME *</label><input id="aName" placeholder="Ex: Jemi">
+<label>YOUR NUMBER *</label><input id="aPhone" placeholder="84 123 4567" inputmode="tel">
+<label>WHERE DO YOU LIVE? *</label><select id="aArea"><option>Beira</option><option>Maputo</option><option>Nampula</option><option>Chimoio</option><option>Tete</option><option>Quelimane</option><option>Pemba</option><option>Other</option></select>
+<label>HOW MANY PEOPLE CAN YOU HELP PER WEEK?</label><select id="aHowMany"><option>1 - 5 people</option><option>6 - 10 people</option><option>11 - 20 people</option><option>20+ people</option></select>
+<button class="btn btn-green" onclick="applyAgent()">✅ Apply - Get My Agent Code →</button>
+<div id="myCodeBox" class="mycode hidden"><p>✅ You are an Agent!</p><p>Your Agent Code is:</p><b id="myCode"></b><p style="font-size:12px">Tell customers to type this code when they pay.<br>Take a screenshot of this code.</p><button class="btn btn-dark" onclick="copyCode()">📋 Copy My Code</button></div>
+<p style="font-size:12px;color:#667781;margin-top:8px">By applying, you agree: You are NOT an employee of SHYNONE. You earn only commission when you help someone pay. No salary.</p>
+</div>
+<div class="card">
+<h2>❓ Questions</h2>
+<p><b>Do I need money to start?</b><br>No. Just your phone.</p>
+<p><b>When do I get paid?</b><br>When your customer pays and uses your code. We pay weekly via M-Pesa.</p>
+<p><b>Can I be fired?</b><br>No boss. If you don't help anyone, you just earn 0. If you cheat, we block your code.</p>
+</div>
+</div>
+<script>
+function applyAgent(){
+  var n=document.getElementById('aName').value.trim();
+  var p=document.getElementById('aPhone').value.trim();
+  if(!n||p.length<9){alert('Fill your name + number first.');return;}
+  var code=(n.replace(/[^A-Za-z]/g,'').substring(0,4).toUpperCase()||'AGENT')+'-'+Math.floor(100+Math.random()*900);
+  localStorage.setItem('tati_agent_code',code);
+  localStorage.setItem('tati_agent_name',n);
+  localStorage.setItem('tati_agent_phone',p);
+  localStorage.setItem('tati_agent_area',document.getElementById('aArea').value);
+  document.getElementById('myCode').textContent=code;
+  document.getElementById('myCodeBox').classList.remove('hidden');
+  alert('Welcome Agent '+n+'! Your code is '+code);
+}
+function copyCode(){var c=document.getElementById('myCode').textContent;if(!c)return;navigator.clipboard.writeText(c);alert('Copied: '+c);}
+(function(){var c=localStorage.getItem('tati_agent_code');if(c){document.getElementById('myCode').textContent=c;document.getElementById('myCodeBox').classList.remove('hidden');var n=localStorage.getItem('tati_agent_name');if(n)document.getElementById('aName').value=n;var p=localStorage.getItem('tati_agent_phone');if(p)document.getElementById('aPhone').value=p;}})();
+</script>
+</body></html>
