@@ -33,7 +33,6 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
 #createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
 #createBtnTop.active{background:#0a192f;color:#fff}
-/* SEARCH - LEFT - UNDER MABULU, ENDS AT VULAVULA NA TATI */
 #tatiSearchWrap{padding:0 12px 10px;position:relative;display:flex;gap:6px;max-width:360px;margin:0 0 0 8px;width:auto;justify-content:flex-start}
 #tatiSearch{flex:1;min-width:0;padding:10px 12px;border-radius:999px;border:1.5px solid #ddd;background:#fff;font-size:14px;outline:none}
 #tatiSearch:focus{border-color:#00a884}
@@ -136,9 +135,9 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 <a id="createBtnTop" href="./create.html">✨ Hamba</a>
 </div>
 
-<!-- SEARCH - LEFT - MUST PRESS SEARCH, TYPING ALONE DOES NOTHING -->
+<!-- SEARCH - LEFT - autocomplete OFF so browser never remembers secret -->
 <div id="tatiSearchWrap">
-<input id="tatiSearch" placeholder="🔍 Search Tati...">
+<input id="tatiSearch" placeholder="🔍 Search Tati..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
 <button id="tatiSearchBtn">Search →</button>
 <div id="tatiSearchResults"></div>
 </div>
@@ -212,22 +211,44 @@ var TATI_SEARCH_ITEMS=[
 {title:"✨ Create",desc:"Create music",keys:"create hamba music song",url:"./create.html"},
 {title:"🎤 Talk to Tati",desc:"Voice chat with Tati",keys:"talk voice vulavula",url:"./voice.html"}
 ];
-// *** SEARCH - NO AUTO-OPEN - MUST PRESS SEARCH BUTTON / ENTER ***
+// *** SEARCH MEMORY - NORMAL REMEMBER, SECRET FORGET ***
+function isSecretSearch(q){
+  var clean=(q||"").toLowerCase().replace(/[^a-z]/g,"");
+  return clean==="ejm"||clean==="jemijemi"||clean.indexOf("ejm")>-1;
+}
+function clearSecretFromMemory(){
+  try{
+    localStorage.removeItem("tati_last_search");
+    localStorage.removeItem("tati_search_history");
+  }catch(e){}
+  var inp=document.getElementById("tatiSearch");
+  if(inp) inp.value="";
+}
+function saveNormalSearch(q){
+  if(!q) return;
+  if(isSecretSearch(q)) return; // NEVER save secret
+  try{ localStorage.setItem("tati_last_search", q); }catch(e){}
+}
 function tatiSearchNow(q){
   var box=document.getElementById("tatiSearchResults");
   q=(q||"").toLowerCase().trim();
   if(!q){box.style.display="none";box.innerHTML="";return}
-  // Do NOT open inbox on typing. Typing only shows normal results.
   var found=TATI_SEARCH_ITEMS.filter(function(it){return it.keys.indexOf(q)>-1||it.title.toLowerCase().indexOf(q)>-1});
   if(!found.length){box.style.display="block";box.innerHTML="<a>No result for '"+q+"' <small>Try: cinema, earn cash, secret, safe box</small></a>";return}
   box.innerHTML=found.map(function(it){return "<a href='"+it.url+"' onclick=\"if(this.getAttribute('href')==='#secret'){openLearnMore();return false}\">"+it.title+"<small>"+it.desc+"</small></a>"}).join("");
   box.style.display="block"
 }
 function tatiSearchGo(){
-  var q=document.getElementById("tatiSearch").value;
-  var clean=(q||"").toLowerCase().replace(/[^a-z]/g,"");
-  // ONLY HERE - when you PRESS Search / Enter - it opens Inbox
-  if(clean==="ejm"||clean==="jemijemi"){window.location.href="./inbox.html";return}
+  var input=document.getElementById("tatiSearch");
+  var q=input.value;
+  // SECRET = FORGET + GO TO INBOX LOCK, NEVER SAVE
+  if(isSecretSearch(q)){
+    clearSecretFromMemory();
+    window.location.href="./inbox.html";
+    return;
+  }
+  // NORMAL = REMEMBER
+  saveNormalSearch(q);
   var box=document.getElementById("tatiSearchResults");
   var first=box.querySelector("a");
   if(first&&first.getAttribute("href")&&first.getAttribute("href")!=="#"){window.location.href=first.getAttribute("href")}
@@ -235,13 +256,29 @@ function tatiSearchGo(){
 (function(){
   var input=document.getElementById("tatiSearch");
   var btn=document.getElementById("tatiSearchBtn");
+  // On open: restore LAST NORMAL search only - secret is never stored, so it can never come back
+  try{
+    var last=localStorage.getItem("tati_last_search")||"";
+    if(last && !isSecretSearch(last)){ input.value=last; }
+    else { input.value=""; }
+  }catch(e){ input.value=""; }
   function go(){ tatiSearchGo(); }
   if(btn) btn.onclick=go;
   if(input){
     input.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); go(); }});
-    // Typing only shows list, NEVER opens inbox
-    input.addEventListener("input",function(){ tatiSearchNow(input.value); });
+    input.addEventListener("input",function(){
+      // If user starts typing secret, do NOT save it, and clear stored normal search so secret can't leak
+      if(isSecretSearch(input.value)){ try{ localStorage.removeItem("tati_last_search"); }catch(e){} }
+      tatiSearchNow(input.value);
+    });
   }
+  // If page is restored from back button, make sure secret is gone
+  window.addEventListener("pageshow", function(){
+    try{
+      var last2=localStorage.getItem("tati_last_search")||"";
+      if(isSecretSearch(last2)){ localStorage.removeItem("tati_last_search"); input.value=""; }
+    }catch(e){}
+  });
 })();
 document.addEventListener("click",function(e){var w=document.getElementById("tatiSearchWrap");if(w&&!w.contains(e.target)){var b=document.getElementById("tatiSearchResults");if(b)b.style.display="none"}});
 function updateGlobeBtn(name){var b=document.getElementById("globeBtn");if(b)b.innerHTML='<span class="langIcon">A文</span> <span style="font-size:18px;line-height:1">▾</span>'}
