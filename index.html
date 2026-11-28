@@ -33,7 +33,7 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 #listenBtn.on{background:#00a884;color:#fff;border-color:#00a884}
 #createBtnTop{padding:12px 16px;border-radius:10px;background:#fff;color:#111;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;text-decoration:none;flex-shrink:0;border:1px solid #ddd}
 #createBtnTop.active{background:#0a192f;color:#fff}
-/* SEARCH - LEFT ALIGNED - STARTS UNDER MABULU, ENDS AT VULAVULA NA TATI / YINGISA */
+/* SEARCH - LEFT - UNDER MABULU, ENDS AT VULAVULA NA TATI */
 #tatiSearchWrap{padding:0 12px 10px;position:relative;display:flex;gap:6px;max-width:360px;margin:0 0 0 8px;width:auto;justify-content:flex-start}
 #tatiSearch{flex:1;min-width:0;padding:10px 12px;border-radius:999px;border:1.5px solid #ddd;background:#fff;font-size:14px;outline:none}
 #tatiSearch:focus{border-color:#00a884}
@@ -136,7 +136,7 @@ body{display:flex;flex-direction:column;min-height:100dvh;background:#fff;overfl
 <a id="createBtnTop" href="./create.html">✨ Hamba</a>
 </div>
 
-<!-- SEARCH - LEFT - UNDER MABULU -->
+<!-- SEARCH - LEFT - MUST PRESS SEARCH, TYPING ALONE DOES NOTHING -->
 <div id="tatiSearchWrap">
 <input id="tatiSearch" placeholder="🔍 Search Tati...">
 <button id="tatiSearchBtn">Search →</button>
@@ -212,13 +212,21 @@ var TATI_SEARCH_ITEMS=[
 {title:"✨ Create",desc:"Create music",keys:"create hamba music song",url:"./create.html"},
 {title:"🎤 Talk to Tati",desc:"Voice chat with Tati",keys:"talk voice vulavula",url:"./voice.html"}
 ];
+// *** SEARCH - NO AUTO-OPEN - MUST PRESS SEARCH BUTTON / ENTER ***
 function tatiSearchNow(q){
-  var clean=(q||"").toLowerCase().replace(/[^a-z]/g,"");
-  if(clean==="ejm"||clean==="jemijemi"){ window.location.href="./inbox.html"; return; }
-  var box=document.getElementById("tatiSearchResults");q=(q||"").toLowerCase().trim();if(!q){box.style.display="none";box.innerHTML="";return}var found=TATI_SEARCH_ITEMS.filter(function(it){return it.keys.indexOf(q)>-1||it.title.toLowerCase().indexOf(q)>-1});if(!found.length){box.style.display="block";box.innerHTML="<a>No result for '"+q+"' <small>Try: cinema, earn cash, secret, safe box</small></a>";return}box.innerHTML=found.map(function(it){return "<a href='"+it.url+"' onclick=\"if(this.getAttribute('href')==='#secret'){openLearnMore();return false}\">"+it.title+"<small>"+it.desc+"</small></a>"}).join("");box.style.display="block"}
+  var box=document.getElementById("tatiSearchResults");
+  q=(q||"").toLowerCase().trim();
+  if(!q){box.style.display="none";box.innerHTML="";return}
+  // Do NOT open inbox on typing. Typing only shows normal results.
+  var found=TATI_SEARCH_ITEMS.filter(function(it){return it.keys.indexOf(q)>-1||it.title.toLowerCase().indexOf(q)>-1});
+  if(!found.length){box.style.display="block";box.innerHTML="<a>No result for '"+q+"' <small>Try: cinema, earn cash, secret, safe box</small></a>";return}
+  box.innerHTML=found.map(function(it){return "<a href='"+it.url+"' onclick=\"if(this.getAttribute('href')==='#secret'){openLearnMore();return false}\">"+it.title+"<small>"+it.desc+"</small></a>"}).join("");
+  box.style.display="block"
+}
 function tatiSearchGo(){
   var q=document.getElementById("tatiSearch").value;
   var clean=(q||"").toLowerCase().replace(/[^a-z]/g,"");
+  // ONLY HERE - when you PRESS Search / Enter - it opens Inbox
   if(clean==="ejm"||clean==="jemijemi"){window.location.href="./inbox.html";return}
   var box=document.getElementById("tatiSearchResults");
   var first=box.querySelector("a");
@@ -227,15 +235,11 @@ function tatiSearchGo(){
 (function(){
   var input=document.getElementById("tatiSearch");
   var btn=document.getElementById("tatiSearchBtn");
-  function go(){
-    var q=input.value||"";
-    var clean=q.toLowerCase().replace(/[^a-z]/g,"");
-    if(clean==="ejm"||clean==="jemijemi"){ window.location.href="./inbox.html"; return; }
-    tatiSearchNow(q);
-  }
+  function go(){ tatiSearchGo(); }
   if(btn) btn.onclick=go;
   if(input){
     input.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); go(); }});
+    // Typing only shows list, NEVER opens inbox
     input.addEventListener("input",function(){ tatiSearchNow(input.value); });
   }
 })();
