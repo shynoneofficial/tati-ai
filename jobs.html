@@ -78,5 +78,21 @@ function applyAgent(){
 }
 function copyCode(){var c=document.getElementById('myCode').textContent;if(!c)return;navigator.clipboard.writeText(c);alert('Copied: '+c);}
 (function(){var c=localStorage.getItem('tati_agent_code');if(c){document.getElementById('myCode').textContent=c;document.getElementById('myCodeBox').classList.remove('hidden');var n=localStorage.getItem('tati_agent_name');if(n)document.getElementById('aName').value=n;var p=localStorage.getItem('tati_agent_phone');if(p)document.getElementById('aPhone').value=p;}})();
+</script><script>
+function sendToInbox(){
+  var name=document.querySelector('input[name="name"], #name, #applicantName')?.value || prompt("Your name?");
+  var phone=document.querySelector('input[name="phone"], #phone, #applicantPhone')?.value || "";
+  var country=document.querySelector('select[name="country"], #country')?.value || "Mozambique";
+  var city=document.querySelector('input[name="city"], #city')?.value || "";
+  var msg=document.querySelector('textarea')?.value || "Wants to be Tati Agent";
+  var apps=[]; try{apps=JSON.parse(localStorage.getItem("tati_job_apps")||"[]")}catch(e){}
+  var id="app_"+Date.now();
+  apps.push({id:id,name:name,phone:phone,country:country,city:city,message:msg,status:"new",time:Date.now()});
+  localStorage.setItem("tati_job_apps",JSON.stringify(apps));
+  alert("✅ Application sent to Tati Inbox! Wait for approval.");
+  return id;
+}
+var jf=document.getElementById("jobForm");
+if(jf){ jf.addEventListener("submit",function(e){ e.preventDefault(); sendToInbox(); }); }
 </script>
 </body></html>
